@@ -1,7 +1,9 @@
+import Router from "./route/route";
+
 function App() {
   return (
     <div>
-      hello world
+      <Router />
     </div>
   );
 }
