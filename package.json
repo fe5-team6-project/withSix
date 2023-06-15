@@ -14,11 +14,7 @@
     "react-redux": "^8.0.7",
     "react-router-dom": "^6.12.1",
     "react-scripts": "5.0.1",
-    "sass": "^1.63.3",
-<<<<<<< Updated upstream
-=======
     "styled-components": "^6.0.0-rc.3",
->>>>>>> Stashed changes
     "web-vitals": "^2.1.4"
   },
   "scripts": {
