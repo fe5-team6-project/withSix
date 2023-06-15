@@ -2,6 +2,40 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;500;700&display=swap');
 
+/*
+    ** CSS 속성 순서
+
+    * top -> bottom -> left -> rigth
+
+    position
+    display
+    flex-wrap
+    flex-direction
+    justify-content
+    align-itmes
+    gap
+
+    width
+    height
+    margin
+    padding
+    box-sizing
+
+    background
+    border
+    border-radius
+    
+    font-family
+    font-size
+    font-style
+    font-weight
+    color
+    text-align
+    line-height
+    
+    etc...
+ */
+
 :root {
     font-family: 'Noto Sans KR', sans-serif;
     --font-eng: 'Barlow', sans-serif;
@@ -40,9 +74,9 @@ button {
     height: 50px;
     background-color: var(--color-main);
     border-radius: 10px;
-    color: white;
     font-size: var(--fsize-button);
     font-weight: bold;
+    color: white;
     text-align: center;
 }
 
@@ -57,4 +91,27 @@ button:not(:disabled):hover {
 button,
 a {
     cursor: pointer;
+}
+
+input {
+    all: unset;
+    width: 240px;
+    height: 1px;
+    margin-top: 49px;
+    border-bottom: solid 1px var(--color-main);
+    color: white;
+    text-align: center;
+    transition: margin, height .3s, .3s;
+}
+
+input:focus,
+input:not(:placeholder-shown) {
+    height: 50px;
+    margin-top: 0;
+    background-color: var(--color-main);
+    border-radius: 10px;
+}
+
+.font-eng {
+    font-family: var(--font-eng);
 }
