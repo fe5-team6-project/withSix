@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,500;0,700;1,100;1,500;1,700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;500;700&display=swap');
+
+:root {
+    font-family: 'Noto Sans KR', sans-serif;
+    --font-eng: 'Barlow', sans-serif;
+
+    /* ===== color */
+    color: var(--color-black);
+
+    --color-main: #77cbd6;
+    --color-back: #fbfbfb;
+    --color-black: #333333;
+    --color-gray: #757575;
+    --color-disabled: #cccccc;
+    --color-cover: rgba(51, 51, 51, .5);
+
+    /* ===== font-size */
+    /* common */
+    --fsize-title: 12px;
+    --fsize-desc: 12px;
+    --fsize-button: 16px;
+    --fsize-button-sub: 12px;
+    --fsize-modal: 16px;
+
+    /* user */
+    --fsize-placeholder: 16px;
+    --fsize-input-title: 10px;
+
+    /* post */
+    --fsize-cont-input: 16px;
+    --fsize-cont-thumb: 10px;
+    --fsize-cont-detail: 16px;
+}
+
+button {
+    all: unset;
+    width: 240px;
+    height: 50px;
+    background-color: var(--color-main);
+    border-radius: 10px;
+    color: white;
+    font-size: var(--fsize-button);
+    font-weight: bold;
+    text-align: center;
+}
+
+button:disabled {
+    color: var(--color-disabled);
+}
+
+button:not(:disabled):hover {
+    filter: brightness(90%);
+}
+
+button,
+a {
+    cursor: pointer;
+}
