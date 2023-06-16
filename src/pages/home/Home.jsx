@@ -4,6 +4,7 @@ import Footer from '../../components/footer/Footer';
 import Common from '../../components/design/main/Common';
 import { styled } from 'styled-components';
 import divLine from '../../assets/icons/post/div-line.svg';
+import Post from '../../components/post/Post';
 
 export default function Home() {
     const [postList, setPostList] = useState([]);
@@ -26,7 +27,13 @@ export default function Home() {
                 <CategoryButton>친구 글</CategoryButton>
             </CategoryNav>
 
-            <ul></ul>
+            <ul>
+                {!postList
+                    ? []
+                    : postList.map((item) => {
+                          return <Post key={item._id} item={item} />;
+                      })}
+            </ul>
         </>
     );
 
