@@ -16,7 +16,11 @@ export default function Login() {
     };
 
     return (
-        <Form>
+        <Form
+            onSubmit={async (e) => {
+                e.preventDefault();
+            }}
+        >
             <Div>
                 <Input
                     className="font-eng"
