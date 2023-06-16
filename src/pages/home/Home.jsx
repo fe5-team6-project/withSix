@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../../components/header/Header';
 import Footer from '../../components/footer/Footer';
 import Common from '../../components/design/main/Common';
@@ -27,6 +27,32 @@ export default function Home() {
             <Footer />
         </>
     );
+}
+
+const URL = 'https://api.mandarin.weniv.co.kr';
+
+async function getPost() {
+    let requestPath = '/post';
+
+    const requestUrl = `${URL}${requestPath}`;
+
+    const token = localStorage.token;
+    const bearerToken = `Bearer ${token}`;
+
+    const response = await fetch(requestUrl, {
+        method: 'GET',
+        headers: {
+            Authorization: bearerToken,
+            'Content-type': 'application/json',
+        },
+        body: JSON.stringify(),
+    });
+
+    const json = await response.json();
+    const postList = json.posts;
+    console.log(postList);
+
+    return postList;
 }
 
 const CategoryNav = styled.article`
