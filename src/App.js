@@ -1,10 +1,10 @@
-import Login from "./pages/login/Login";
+import Router from "./route/route";
 
 function App() {
-    return (
-        <>
-            <Login />
-        </>
-    );
+  return (
+    <div>
+      <Router />
+    </div>
+  );
 }
 export default App;
