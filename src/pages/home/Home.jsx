@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/header/Header';
 import Footer from '../../components/footer/Footer';
 import Common from '../../components/design/main/Common';
@@ -6,6 +6,16 @@ import { styled } from 'styled-components';
 import divLine from '../../assets/icons/post/div-line.svg';
 
 export default function Home() {
+    const [postList, setPostList] = useState([]);
+
+    useEffect(() => {
+        async function fetchData() {
+            setPostList(await getPost());
+        }
+
+        fetchData();
+    }, []);
+
     const page = (
         <>
             <CategoryNav>
