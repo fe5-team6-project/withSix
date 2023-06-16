@@ -7,6 +7,14 @@ export default function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const movePage = (url) => {
+        if (!checkToken) {
+            return false;
+        }
+
+        navigate(url);
+    };
+
     return (
         <Form>
             <Div>
@@ -35,6 +43,16 @@ export default function Login() {
             <Button>로그인</Button>
         </Form>
     );
+}
+
+function checkToken() {
+    const token = localStorage.token;
+
+    if (!token) {
+        return false;
+    }
+
+    return true;
 }
 
 const Form = styled.form`
