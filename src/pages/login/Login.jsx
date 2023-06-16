@@ -19,6 +19,8 @@ export default function Login() {
         <Form
             onSubmit={async (e) => {
                 e.preventDefault();
+                const status = await handleLogin();
+                const user = await getMyInfo();
             }}
         >
             <Div>
