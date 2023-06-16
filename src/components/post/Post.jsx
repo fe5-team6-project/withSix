@@ -4,17 +4,21 @@ import iconHeart from '../../assets/icons/post/icon-heart.svg';
 import iconHeartFill from '../../assets/icons/post/icon-heart-fill.svg';
 import iconComment from '../../assets/icons/post/icon-comment.svg';
 
+const DEFALUT_IMAGE = 'http://146.56.183.55:5050/Ellipse.png';
+
 export default function Post(props) {
     const user = props.item.author;
     const { item } = props;
-    console.log(item.hearted);
 
     return (
         <Li>
             <a href="#">
                 <ProfileWrap>
                     <ProfileLeft>
-                        <ImgProfile src={user.image} alt="유저 프로필" />
+                        <ImgProfile
+                            src={checkProfileImage(user.image)}
+                            alt="유저 프로필"
+                        />
                     </ProfileLeft>
                     <ProfileRight>
                         <UserName>{user.username}</UserName>
@@ -42,6 +46,16 @@ export default function Post(props) {
             </a>
         </Li>
     );
+}
+
+function checkProfileImage(props) {
+    let src = props.image;
+
+    if (!src) {
+        src = DEFALUT_IMAGE;
+    }
+
+    return src;
 }
 
 const Li = styled.li`
