@@ -4,37 +4,40 @@ import iconHeart from '../../assets/icons/post/icon-heart.svg';
 import iconHeartFill from '../../assets/icons/post/icon-heart-fill.svg';
 import iconComment from '../../assets/icons/post/icon-comment.svg';
 
-export default function Post() {
+export default function Post(props) {
+    const user = props.item.author;
+    const { item } = props;
+    console.log(item.hearted);
+
     return (
         <Li>
             <a href="#">
                 <ProfileWrap>
                     <ProfileLeft>
-                        <ImgProfile
-                            src={}
-                            alt="유저 프로필"
-                        />
+                        <ImgProfile src={user.image} alt="유저 프로필" />
                     </ProfileLeft>
                     <ProfileRight>
-                        <UserName>{}</UserName>
-                        <UserId>@ {}</UserId>
+                        <UserName>{user.username}</UserName>
+                        <UserId>@ {user.accountname}</UserId>
                     </ProfileRight>
                 </ProfileWrap>
                 <ImageWrap>
-                    {}
+                    {item.image ? (
+                        <ImgContent src={item.image} alt="등록된이미지" />
+                    ) : null}
                 </ImageWrap>
                 <ContentWrap>
-                    <p>{}</p>
+                    <p>{item.content}</p>
                     <span>{}</span>
                 </ContentWrap>
                 <EtcWrap>
                     <img
-                        src={iconHeart}
+                        src={item.hearted ? iconHeartFill : iconHeart}
                         alt="좋아요"
                     />
-                    <span>{}</span>
+                    <span>{item.heartCount}</span>
                     <img src={iconComment} alt="댓글" />
-                    <span>{}</span>
+                    <span>{item.comments.length}</span>
                 </EtcWrap>
             </a>
         </Li>
