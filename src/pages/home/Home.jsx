@@ -5,10 +5,12 @@ import Common from '../../components/design/main/Common';
 import { styled } from 'styled-components';
 import divLine from '../../assets/icons/post/div-line.svg';
 import Post from '../../components/post/Post';
+import { useSelector } from 'react-redux';
 
 export default function Home() {
     const [postList, setPostList] = useState([]);
     const [category, setCategory] = useState('');
+    const user = useSelector((state) => state.user);
 
     useEffect(() => {
         async function fetchData() {
@@ -31,7 +33,7 @@ export default function Home() {
                 <DivLine src={divLine} alt="" />
                 <CategoryButton
                     onClick={() => {
-                        setCategory('my');
+                        setCategory('my', user.userid);
                     }}
                 >
                     내 글
