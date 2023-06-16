@@ -8,23 +8,42 @@ import Post from '../../components/post/Post';
 
 export default function Home() {
     const [postList, setPostList] = useState([]);
+    const [category, setCategory] = useState('');
 
     useEffect(() => {
         async function fetchData() {
-            setPostList(await getPost());
+            setPostList(await getPost(category));
         }
 
         fetchData();
-    }, []);
+    }, [category]);
 
     const page = (
         <>
             <CategoryNav>
-                <CategoryButton>전체 글</CategoryButton>
+                <CategoryButton
+                    onClick={() => {
+                        setCategory('');
+                    }}
+                >
+                    전체 글
+                </CategoryButton>
                 <DivLine src={divLine} alt="" />
-                <CategoryButton>내 글</CategoryButton>
+                <CategoryButton
+                    onClick={() => {
+                        setCategory('my');
+                    }}
+                >
+                    내 글
+                </CategoryButton>
                 <DivLine src={divLine} alt="" />
-                <CategoryButton>친구 글</CategoryButton>
+                <CategoryButton
+                    onClick={() => {
+                        setCategory('feed');
+                    }}
+                >
+                    친구 글
+                </CategoryButton>
             </CategoryNav>
 
             <ul>
