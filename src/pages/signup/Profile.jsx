@@ -4,8 +4,18 @@ import { styled } from 'styled-components';
 const DEFAULT_IMAGE = 'http://146.56.183.55:5050/Ellipse.png';
 
 export default function Profile(props) {
+    const user = props.userData;
+
     return (
-        <Form>
+        <Form
+            onSubmit={(e) => {
+                e.preventDefault();
+                if (validation()) {
+                    handleSignup(user);
+                    // movePage();
+                }
+            }}
+        >
             <ImageWrap>
                 <Img
                     src={DEFAULT_IMAGE}
