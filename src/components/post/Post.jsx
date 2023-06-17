@@ -69,8 +69,9 @@ function emptyImage(e) {
 
 const Li = styled.li`
     width: 350px;
-    margin: 0 auto;
-    border-radius: var(--radius-input);
+    margin: 20px auto;
+    background-color: white;
+    border-radius: var(--radius-m);
     color: var(--color-gray);
 `;
 
@@ -117,7 +118,7 @@ const ImageWrap = styled(SectionDefault)`
 const ImgContent = styled.img`
     width: 350px;
     height: 192px;
-    object-fit: contain;
+    object-fit: cover;
 `;
 
 const ContentWrap = styled(SectionDefault)`
