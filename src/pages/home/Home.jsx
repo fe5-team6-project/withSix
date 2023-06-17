@@ -61,7 +61,7 @@ export default function Home() {
     return (
         <>
             <Header />
-            <Common page={''} />
+            <Common page={page} />
             <Footer />
         </>
     );
