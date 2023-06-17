@@ -1,9 +1,9 @@
 import React from "react";
 import { styled } from "styled-components";
-import home from "../../assets/nav/home.png";
-import together from "../../assets/nav/together.png";
-import review from "../../assets/nav/review.png";
-import chat from "../../assets/nav/chat.png";
+import home from "../../assets/icons/nav/home.png";
+import together from "../../assets/icons/nav/together.png";
+import review from "../../assets/icons/nav/review.png";
+import chat from "../../assets/icons/nav/chat.png";
 
 export default function Footer() {
     return (
