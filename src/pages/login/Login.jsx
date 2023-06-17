@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { setUser } from '../../store/slices/userSlice';
+import { setMyInfo } from '../../store/slices/userSlice';
 
 export default function Login() {
     const dispatch = useDispatch();
@@ -22,7 +22,7 @@ export default function Login() {
                 e.preventDefault();
                 const status = await handleLogin();
                 const user = await getMyInfo();
-                dispatch(setUser(user));
+                dispatch(setMyInfo(user));
 
                 movePage('/home');
             }}
