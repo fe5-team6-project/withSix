@@ -1,15 +1,16 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { setMyInfo } from '../../store/slices/userSlice';
+import signupIcon from '../../assets/icons/common/icon-signup.svg';
 
 export default function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const movePage = (url) => {
-        if (!checkToken) {
+        if (!checkToken()) {
             return false;
         }
 
@@ -48,9 +49,13 @@ export default function Login() {
                 <Label className="font-eng" htmlFor="password">
                     Password
                 </Label>
-                <ForgotLInk href={'/'}>forgot :(</ForgotLInk>
+                <ForgotLink href={'/'}>forgot :(</ForgotLink>
             </Div>
             <Button>로그인</Button>
+            <SignupLink to={'/signup'}>
+                <img src={signupIcon} alt="회원가입 아이콘" />
+                signup
+            </SignupLink>
         </Form>
     );
 }
@@ -181,12 +186,25 @@ const Input = styled.input`
     }
 `;
 
-const ForgotLInk = styled.a`
+const ForgotLink = styled(Link)`
     position: absolute;
     bottom: -20px;
-    right: 0;
-    font-size: var(--fsize-button);
+    right: 5px;
+    font-size: var(--fsize-s);
+    font-style: italic;
     color: var(--color-gray);
+`;
+
+const SignupLink = styled(Link)`
+    position: absolute;
+    bottom: 50px;
+    right: 80px;
+    font-size: var(--fsize-s);
+    color: var(--color-gray);
+
+    & > img {
+        margin-right: 5px;
+    }
 `;
 
 const Button = styled.button`
