@@ -106,20 +106,11 @@ a {
 input {
     all: unset;
     width: 240px;
-    height: 1px;
     margin-top: 49px;
     border-bottom: solid 1px var(--color-main);
     color: white;
     text-align: center;
     transition: margin, height .3s, .3s;
-}
-
-input:focus,
-input:not(:placeholder-shown) {
-    height: 50px;
-    margin-top: 0;
-    background-color: var(--color-main);
-    border-radius: var(--radius-input);
 }
 
 input:focus,
