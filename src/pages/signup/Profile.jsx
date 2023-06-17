@@ -32,6 +32,49 @@ export default function Profile(props) {
     );
 }
 
+const URL = 'https://api.mandarin.weniv.co.kr';
+
+async function validation() {
+    const input = document.querySelector('#id');
+    const id = input.value;
+    console.log(id);
+
+    const requestPath = '/user/accountnamevalid';
+    const requestUrl = `${URL}${requestPath}`;
+
+    const userData = {
+        user: {
+            accountname: id,
+        },
+    };
+
+    const response = await fetch(requestUrl, {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+    });
+
+    const json = await response.json();
+    const message = json.message;
+
+    if (!response.ok) {
+        alert(message);
+        input.focus();
+        return false;
+    } else {
+        if (message.match('이미 가입된')) {
+            alert(message);
+            input.focus();
+            return false;
+        }
+    }
+
+    alert(message);
+    return true;
+}
+
 const Form = styled.form`
     position: relative;
     display: flex;
