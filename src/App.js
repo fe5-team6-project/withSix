@@ -1,4 +1,6 @@
 import Router from "./route/route";
+import './reset.css'
+import './common.css'
 
 function App() {
   return (
