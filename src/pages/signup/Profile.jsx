@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { styled } from 'styled-components';
 
 const DEFAULT_IMAGE = 'http://146.56.183.55:5050/Ellipse.png';
@@ -23,7 +23,13 @@ export default function Profile(props) {
                     id="profile_image"
                 />
                 <ImageInputLabel htmlFor="image">사진 등록</ImageInputLabel>
-                <ImageInput type="file" id="image" />
+                <ImageInput
+                    type="file"
+                    id="image"
+                    onChange={async (event) => {
+                        await handleFileUpload(event);
+                    }}
+                />
             </ImageWrap>
             <Div className="id_wrap">
                 <Input type="text" id="id" placeholder=" " />
@@ -44,11 +50,39 @@ export default function Profile(props) {
 
 const URL = 'https://api.mandarin.weniv.co.kr';
 
+async function handleFileUpload(event) {
+    const img = document.querySelector('#profile_image');
+    const formData = new FormData();
+    const profileImage = event.target.files[0];
+
+    const uploadPath = `${URL}/image/uploadfile`;
+
+    if (!profileImage) {
+        img.src = DEFAULT_IMAGE;
+        return false;
+    }
+
+    formData.append('image', profileImage);
+
+    const response = await fetch(uploadPath, {
+        method: 'POST',
+        body: formData,
+    });
+
+    const json = await response.json();
+    const profileImageSrc = `${URL}/${json.filename}`;
+
+    img.src = profileImageSrc;
+    console.log(img.src);
+    return true;
+}
+
 async function handleSignup(user) {
-    const img = document.querySelector('#image').file;
     const id = document.querySelector('#id').value;
     const nickname = document.querySelector('#name').value;
     const intro = document.querySelector('#intro').value;
+    const image = document.querySelector('#profile_image').src;
+    console.log(image);
 
     const email = user.email;
     const password = user.password;
@@ -63,7 +97,7 @@ async function handleSignup(user) {
             password: password,
             accountname: id,
             intro: intro,
-            image: img,
+            image: image,
         },
     };
 
@@ -85,7 +119,6 @@ async function handleSignup(user) {
 async function validation() {
     const input = document.querySelector('#id');
     const id = input.value;
-    console.log(id);
 
     const requestPath = '/user/accountnamevalid';
     const requestUrl = `${URL}${requestPath}`;
@@ -139,6 +172,7 @@ const Form = styled.form`
 
 const ImageWrap = styled.section`
     position: relative;
+    width: 100px;
     height: 100px;
     border-radius: 50%;
     overflow: hidden;
@@ -146,6 +180,7 @@ const ImageWrap = styled.section`
 
 const Img = styled.img`
     width: 100px;
+    object-fit: contain;
 `;
 
 const ImageInput = styled.input`
