@@ -30,8 +30,8 @@ const StyledHeader = styled.header`
     max-width: var(--cont-width-max);
     height: 70px;
     background-color: var(--color-main);
-    border-bottom-left-radius: var(--radius-header);
-    border-bottom-right-radius: var(--radius-header);
+    border-bottom-left-radius: var(--radius-l);
+    border-bottom-right-radius: var(--radius-l);
     font-size: 0;
     line-height: 70px;
     transform: translateX(-50%);
@@ -56,12 +56,12 @@ const Article = styled.article`
 
 const Strong = styled.strong`
     margin-right: 10px;
-    font-size: var(--fsize-head);
+    font-size: var(--fsize-l);
     color: white;
 
     &::after {
         content: '님';
         font-weight: 500;
-        font-size: var(--fsize-head-sub);
+        font-size: var(--fsize-m);
     }
 `;
