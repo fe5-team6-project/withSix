@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const user = createSlice({
     name: 'user',
     initialState: {
-        user: {
+        myInfo: {
             _id: String,
             username: String,
             isfollow: false,
@@ -15,14 +15,31 @@ const user = createSlice({
             follower: Array,
             accountname: String,
         },
+        
+        userInfo: {
+            _id: String,
+            username: String,
+            accountname: String,
+            intro: String,
+            image: String,
+            isfollow: Boolean,
+            following: [],
+            follower: [],
+            followerCount: Number,
+            followingCount: Number
+        }
+        
     },
     reducers: {
-        setUser(state, action) {
-            console.log(action.payload);
-            state.user = action.payload;
+        setMyInfo(state, action) {
+            state.myInfo = action.payload;
         },
+
+        setSearchInfo(state, action) {
+            state.searchInfo = action.payload;
+        }
     },
 });
 
-export const { setUser } = user.actions;
+export const { setSearchInfo, setMyInfo } = user.actions;
 export { user };
