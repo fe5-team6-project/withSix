@@ -22,6 +22,7 @@ export default function Common(props) {
 }
 
 const StyledMain = styled.main`
+    position: relative;
     width: 100%;
     max-width: 900px;
     max-height: calc(100vh - 120px);
