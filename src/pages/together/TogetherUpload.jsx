@@ -12,10 +12,10 @@ export default function GroupUpload() {
                     <P>글과 사진을 남기고 공유할 수 있습니다.</P>
                 </GroupHeader>
                 <GroupInputWrapper>
-                    <GroupInput id="Group" className="input" placeholder="상품명"></GroupInput>
-                    <GroupInput className="input"></GroupInput>
-                    <GroupInput id="info"></GroupInput>
-                    <GroupInput id="GroupImage" class="input"></GroupInput>
+                    <GroupInput id="GroupName" placeholder="모임명"></GroupInput>
+                    <GroupInput id="GroupPrice" placeholder="모임비"></GroupInput>
+                    <GroupInput id="GroupInfo" placeholder="모임 소개"></GroupInput>
+                    <GroupInput id="GroupImage"></GroupInput>
                 </GroupInputWrapper>
                 <GroupLabel htmlFor="GroupImage">
                     <GroupImage className="PreImage"></GroupImage>
@@ -59,22 +59,20 @@ const GroupInput = styled.input`
     display:block;
     width:350px; */
     width:100%;
+    height: 40px;
     background-color: white;
     color:black;
     text-align: start;
     padding-left:10px;
     font-size: var(--fsize-desc);
     box-sizing: border-box;
-    &.input{
-        margin-top:20px;
-        background-color: inherit;
-        border-radius: 0px;
-    }
-    &#info{
+    margin-top:20px;
+    &#GroupInfo{
         margin-top:20px;
         background-color: inherit;
         border:1px solid var(--color-main);
-    }
+        border-radius: 5px;
+    } */
     &#GroupImage{
         display:none;
     }
@@ -87,7 +85,7 @@ const GroupImage = styled.img`
     margin-top:20px;
     width:100%;
     height:200px;
-    background-color: pink;
+    background-color: #DDD;
     object-fit:cover;
 
 `
