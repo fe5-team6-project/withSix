@@ -38,6 +38,7 @@
 
 :root {
     font-family: 'Noto Sans KR', sans-serif;
+    --font-kr: 'Noto Sans KR', sans-serif;
     --font-eng: 'Barlow', sans-serif;
 
     /* ===== color */
@@ -45,7 +46,7 @@
 
     --color-main: #77cbd6;
     --color-focus: #c4ecf1;
-    --color-back: #fbfbfb;
+    --color-back: #f0f0f0;
     --color-black: #333333;
     --color-gray: #757575;
     --color-disabled: #cccccc;
@@ -64,6 +65,10 @@
     --radius-l: 20px;
     --radius-m: 10px;
     --radius-s: 5px;
+}
+
+body {
+    background-color: var(--color-back);
 }
 
 button {
