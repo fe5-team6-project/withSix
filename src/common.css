@@ -49,7 +49,7 @@
     --color-black: #333333;
     --color-gray: #757575;
     --color-disabled: #cccccc;
-    --color-cover: rgba(51, 51, 51, .5);
+    --color-cover: rgba(51, 51, 51, 0.5);
 
     /* ==== width */
     --cont-width-max: 900px;
@@ -98,11 +98,13 @@ input {
     border-bottom: solid 1px var(--color-main);
     color: white;
     text-align: center;
-    transition: margin, height .3s, .3s;
+    transition: margin, height 0.3s, 0.3s;
 }
 
 input:focus,
 input:hover,
+textarea:focus,
+textarea:hover,
 button:focus,
 button:hover {
     outline: 3px solid var(--color-focus);
