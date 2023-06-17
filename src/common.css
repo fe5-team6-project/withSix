@@ -56,10 +56,14 @@
 
     /* ===== font-size */
     --fsize-title: 18px;
-    --fsize-button: 16px;
-    --fsize-message: 16px;
-    --fsize-main: 14px;
-    --fsize-sub: 12px;
+    --fsize-l: 16px;
+    --fsize-m: 14px;
+    --fsize-s: 12px;
+
+    /* ===== radius */
+    --radius-l: 20px;
+    --radius-m: 10px;
+    --radius-s: 5px;
 }
 
 button {
@@ -68,7 +72,7 @@ button {
     height: 50px;
     background-color: var(--color-main);
     border-radius: 10px;
-    font-size: var(--fsize-input);
+    font-size: var(--fsize-l);
     font-weight: bold;
     color: white;
     text-align: center;
