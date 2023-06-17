@@ -1,16 +1,12 @@
-import React from "react";
-import Header from "../../header/Header";
-import Footer from "../../footer/Footer";
-import { styled } from "styled-components";
+import React from 'react';
+import Header from '../../header/Header';
+import Footer from '../../footer/Footer';
+import { styled } from 'styled-components';
 
-export default function Common({page}) {
+export default function Common({ page }) {
     return (
         <>
-            <Header />
-            <StyledMain>
-                {page}
-            </StyledMain>
-            <Footer />
+            <StyledMain>{page}</StyledMain>
         </>
     );
 }
