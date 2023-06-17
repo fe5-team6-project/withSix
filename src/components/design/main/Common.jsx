@@ -6,7 +6,9 @@ import { styled } from 'styled-components';
 export default function Common({ page }) {
     return (
         <>
+            <Header />
             <StyledMain>{page}</StyledMain>
+            <Footer />
         </>
     );
 }

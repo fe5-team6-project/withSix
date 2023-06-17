@@ -60,9 +60,7 @@ export default function Home() {
 
     return (
         <>
-            <Header />
             <Common page={page} />
-            <Footer />
         </>
     );
 }

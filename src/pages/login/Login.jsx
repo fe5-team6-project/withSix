@@ -147,7 +147,7 @@ const Label = styled.label`
     display: block;
     width: 240px;
     height: 50px;
-    font-size: var(--fsize-placeholder);
+    font-size: var(--fsize-l);
     font-style: italic;
     line-height: 50px;
     color: var(--color-gray);
@@ -156,15 +156,26 @@ const Label = styled.label`
 `;
 
 const Input = styled.input`
-    font-style: italic;
+    height: 1px;
     border: 1px solid var(--color-main);
     box-sizing: border-box;
+    font-style: italic;
+    vertical-align: bottom;
+    transition: height, border-radius 0.3s, 0.3s;
+
+    &:focus,
+    &:not(:placeholder-shown) {
+        height: 50px;
+        margin-top: 0;
+        background-color: var(--color-main);
+        border-radius: var(--radius-m);
+    }
 
     &:focus + ${Label}, &:not(:placeholder-shown) + ${Label} {
         top: -20px;
         left: 0px;
         height: 70px;
-        font-size: var(--fsize-input-title);
+        font-size: var(--fsize-s);
         line-height: 20px;
         z-index: -1;
     }
@@ -174,7 +185,7 @@ const ForgotLInk = styled.a`
     position: absolute;
     bottom: -20px;
     right: 0;
-    font-size: var(--fsize-button-sub);
+    font-size: var(--fsize-button);
     color: var(--color-gray);
 `;
 
