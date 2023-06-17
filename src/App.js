@@ -3,10 +3,10 @@ import './reset.css'
 import './common.css'
 
 function App() {
-  return (
-    <div>
-      <Router />
-    </div>
-  );
+    return (
+        <div>
+            <Router />
+        </div>
+    );
 }
 export default App;

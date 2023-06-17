@@ -4,14 +4,14 @@ import Main from "../pages/main/Main";
 import Home from "../pages/home/Home";
 
 export default function MyRouter() {
-  return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/home" element={<Home /> } />
-        </Routes>
-      </BrowserRouter>
-    </>
-  )
+    return (
+        <>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Main />} />
+                    <Route path="/home" element={<Home />} />
+                </Routes>
+            </BrowserRouter>
+        </>
+    )
 }
