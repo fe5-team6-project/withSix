@@ -1,15 +1,16 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { setMyInfo } from '../../store/slices/userSlice';
+import signupIcon from '../../assets/icons/common/icon-signup.svg';
 
 export default function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const movePage = (url) => {
-        if (!checkToken) {
+        if (!checkToken()) {
             return false;
         }
 
@@ -48,9 +49,13 @@ export default function Login() {
                 <Label className="font-eng" htmlFor="password">
                     Password
                 </Label>
-                <ForgotLInk href={'/'}>forgot :(</ForgotLInk>
+                <ForgotLink href={'/'}>forgot :(</ForgotLink>
             </Div>
             <Button>로그인</Button>
+            <SignupLink to={'/signup'}>
+                <img src={signupIcon} alt="회원가입 아이콘" />
+                signup
+            </SignupLink>
         </Form>
     );
 }
@@ -147,7 +152,7 @@ const Label = styled.label`
     display: block;
     width: 240px;
     height: 50px;
-    font-size: var(--fsize-placeholder);
+    font-size: var(--fsize-l);
     font-style: italic;
     line-height: 50px;
     color: var(--color-gray);
@@ -156,26 +161,50 @@ const Label = styled.label`
 `;
 
 const Input = styled.input`
-    font-style: italic;
+    height: 1px;
     border: 1px solid var(--color-main);
     box-sizing: border-box;
+    font-style: italic;
+    vertical-align: bottom;
+    transition: height, border-radius 0.3s, 0.3s;
+
+    &:focus,
+    &:not(:placeholder-shown) {
+        height: 50px;
+        margin-top: 0;
+        background-color: var(--color-main);
+        border-radius: var(--radius-m);
+    }
 
     &:focus + ${Label}, &:not(:placeholder-shown) + ${Label} {
         top: -20px;
         left: 0px;
         height: 70px;
-        font-size: var(--fsize-input-title);
+        font-size: var(--fsize-s);
         line-height: 20px;
         z-index: -1;
     }
 `;
 
-const ForgotLInk = styled.a`
+const ForgotLink = styled(Link)`
     position: absolute;
     bottom: -20px;
-    right: 0;
-    font-size: var(--fsize-button-sub);
+    right: 5px;
+    font-size: var(--fsize-s);
+    font-style: italic;
     color: var(--color-gray);
+`;
+
+const SignupLink = styled(Link)`
+    position: absolute;
+    bottom: 50px;
+    right: 80px;
+    font-size: var(--fsize-s);
+    color: var(--color-gray);
+
+    & > img {
+        margin-right: 5px;
+    }
 `;
 
 const Button = styled.button`

@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../../components/header/Header';
-import Footer from '../../components/footer/Footer';
 import Common from '../../components/design/main/Common';
 import { styled } from 'styled-components';
 import divLine from '../../assets/icons/post/div-line.svg';
@@ -10,7 +8,7 @@ import { useSelector } from 'react-redux';
 export default function Home() {
     const [postList, setPostList] = useState([]);
     const [category, setCategory] = useState('');
-    const user = useSelector((state) => state.user);
+    const user = useSelector((state) => state.user.myInfo);
 
     useEffect(() => {
         async function fetchData() {
@@ -33,6 +31,7 @@ export default function Home() {
                 <DivLine src={divLine} alt="" />
                 <CategoryButton
                     onClick={() => {
+                        console.log(1);
                         setCategory('my', user.userid);
                     }}
                 >
@@ -60,17 +59,24 @@ export default function Home() {
 
     return (
         <>
-            <Header />
             <Common page={page} />
-            <Footer />
         </>
     );
 }
 
 const URL = 'https://api.mandarin.weniv.co.kr';
 
-async function getPost() {
+async function getPost(category, userId) {
     let requestPath = '/post';
+    const type = category;
+
+    if (type === '') {
+        requestPath = '/post';
+    } else if (type === 'my') {
+        requestPath = `/post/${userId}/userpost`;
+    } else if (type === 'feed') {
+        requestPath = '/post/feed';
+    }
 
     const requestUrl = `${URL}${requestPath}`;
 
@@ -94,7 +100,11 @@ async function getPost() {
 }
 
 const CategoryNav = styled.article`
+    position: sticky;
+    top: 10px;
     width: 100%;
+    margin: 10px 0;
+    height: 20px;
     text-align: right;
 `;
 

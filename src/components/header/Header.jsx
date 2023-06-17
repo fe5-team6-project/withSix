@@ -1,8 +1,11 @@
-import React from "react";
-import { styled } from "styled-components";
-import logo from "../../assets/logo/LOGO-negative.svg";
+import React from 'react';
+import { styled } from 'styled-components';
+import logo from '../../assets/logo/LOGO-negative.svg';
+import { useSelector } from 'react-redux';
 
 export default function Header() {
+    const user = useSelector((state) => state.user.myInfo);
+
     return (
         <StyledHeader>
             <H1>
@@ -10,7 +13,7 @@ export default function Header() {
             </H1>
 
             <Article>
-                <Strong>아이디</Strong>
+                <Strong>{user.username}</Strong>
             </Article>
         </StyledHeader>
     );
@@ -27,8 +30,8 @@ const StyledHeader = styled.header`
     max-width: var(--cont-width-max);
     height: 70px;
     background-color: var(--color-main);
-    border-bottom-left-radius: var(--radius-header);
-    border-bottom-right-radius: var(--radius-header);
+    border-bottom-left-radius: var(--radius-l);
+    border-bottom-right-radius: var(--radius-l);
     font-size: 0;
     line-height: 70px;
     transform: translateX(-50%);
@@ -53,12 +56,12 @@ const Article = styled.article`
 
 const Strong = styled.strong`
     margin-right: 10px;
-    font-size: var(--fsize-head);
+    font-size: var(--fsize-l);
     color: white;
 
     &::after {
-        content: "님";
+        content: '님';
         font-weight: 500;
-        font-size: var(--fsize-head-sub);
+        font-size: var(--fsize-m);
     }
 `;

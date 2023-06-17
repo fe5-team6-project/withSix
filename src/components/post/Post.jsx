@@ -9,6 +9,7 @@ const DEFALUT_IMAGE = 'http://146.56.183.55:5050/Ellipse.png';
 export default function Post(props) {
     const user = props.item.author;
     const { item } = props;
+    console.log(item);
 
     return (
         <Li>
@@ -27,7 +28,11 @@ export default function Post(props) {
                 </ProfileWrap>
                 <ImageWrap>
                     {item.image ? (
-                        <ImgContent src={item.image} alt="등록된이미지" />
+                        <ImgContent
+                            src={item.image}
+                            onError={(e) => emptyImage(e)}
+                            alt="등록된이미지"
+                        />
                     ) : null}
                 </ImageWrap>
                 <ContentWrap>
@@ -58,21 +63,26 @@ function checkProfileImage(props) {
     return src;
 }
 
+function emptyImage(e) {
+    e.currentTarget.style.display = 'none';
+}
+
 const Li = styled.li`
     width: 350px;
-    margin: 0 auto;
-    border-radius: var(--radius-input);
+    margin: 20px auto;
+    background-color: white;
+    border-radius: var(--radius-m);
     color: var(--color-gray);
 `;
 
 const UserName = styled.strong`
     display: block;
-    font-size: var(--fsize-title);
+    font-size: var(--fsize-m);
 `;
 
 const UserId = styled.span`
     font-family: var(--font-eng);
-    font-size: var(--fsize-title);
+    font-size: var(--fsize-s);
     font-style: italic;
     color: var(--color-gray);
 `;
@@ -93,6 +103,7 @@ const ProfileLeft = styled.section``;
 
 const ImgProfile = styled.img`
     width: 30px;
+    margin-right: 5px;
     vertical-align: middle;
 `;
 
@@ -107,14 +118,14 @@ const ImageWrap = styled(SectionDefault)`
 const ImgContent = styled.img`
     width: 350px;
     height: 192px;
-    object-fit: contain;
+    object-fit: cover;
 `;
 
 const ContentWrap = styled(SectionDefault)`
     display: -webkit-box;
-    max-height: 65px;
+    max-height: 60px;
     padding: 20px;
-    font-size: var(--fsize-cont-thumb);
+    font-size: var(--fsize-m);
     overflow: hidden;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
