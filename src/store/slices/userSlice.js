@@ -35,11 +35,11 @@ const user = createSlice({
             state.myInfo = action.payload;
         },
 
-        setSearchInfo(state, action) {
+        setUserInfo(state, action) {
             state.searchInfo = action.payload;
         }
     },
 });
 
-export const { setSearchInfo, setMyInfo } = user.actions;
+export const { setUserInfo, setMyInfo } = user.actions;
 export { user };
