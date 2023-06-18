@@ -6,19 +6,19 @@ import { setMyInfo } from '../../store/slices/userSlice';
 import signupIcon from '../../assets/icons/common/icon-signup.svg';
 import handleLogin from './handleLogin';
 import getMyInfo from './getMyInfo';
-import checkToken from './checkToken';
 import { validationLogin } from '../../lib/apis/validation/validation';
+import checkToken from './checkToken';
 
 export default function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const movePage = (url) => {
-        if (!checkToken()) {
-            return false;
+        if (checkToken()) {
+            navigate(url);
+        } else {
+            navigate('/');
         }
-
-        navigate(url);
     };
 
     async function handleSubmit(e) {
@@ -35,6 +35,7 @@ export default function Login() {
         dispatch(setMyInfo(user));
 
         movePage('/home');
+        return status;
     }
 
     return (
