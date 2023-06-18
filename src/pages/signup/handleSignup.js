@@ -1,3 +1,4 @@
+import { FAIL_ACCESS, SIGNUP_OK } from '../../lib/apis/constant/message';
 import { URL } from '../../lib/apis/constant/path';
 
 export default async function handleSignup(user) {
@@ -32,8 +33,7 @@ export default async function handleSignup(user) {
     });
 
     const json = response.json();
-    const message = response.message;
 
-    alert(message);
-    return json;
+    alert(SIGNUP_OK);
+    return true;
 }

@@ -20,6 +20,7 @@ export default function Signup() {
                 <EmailPassword passStep={setPassStep} userData={setUser} />
             );
         } else {
+            console.log(user);
             setPage(<Profile userData={user} />);
         }
     }, [passStep]);
