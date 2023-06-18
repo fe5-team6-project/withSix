@@ -2,16 +2,41 @@ import { styled } from 'styled-components';
 import handleFileUpload from './handleFileUload';
 import handleSignup from './handleSignup';
 import { DEFAULT_IMAGE } from '../../lib/apis/constant/path';
-import { checkDuplicationId } from '../../lib/apis/validation/checkDuplication';
+import {
+    validationId,
+    validationName,
+} from '../../lib/apis/validation/validation';
+import { useNavigate } from 'react-router-dom';
+import checkToken from '../login/checkToken';
 
-export default function Profile(props) {
-    const user = props.userData;
+export default function Profile({ userData }) {
+    const navigate = useNavigate();
+
+    const movePage = () => {
+        if (checkToken()) {
+            navigate('/home');
+        } else {
+            navigate('/');
+        }
+    };
 
     async function handleSubmit(e) {
         e.preventDefault();
-        if (await checkDuplicationId()) {
-            handleSignup(user);
+        const id = document.querySelector('#id').value;
+        const name = document.querySelector('#name').value;
+
+        if (!(await validationId(id))) {
+            return false;
         }
+
+        if (!validationName(name)) {
+            return false;
+        }
+
+        const status = await handleSignup(userData);
+
+        movePage('/', navigate);
+        return status;
     }
 
     return (
