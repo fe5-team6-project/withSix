@@ -1,6 +1,7 @@
 import {
     FAIL_ALEADY_EMAIL,
     FAIL_ALEADY_ID,
+    FAIL_CHECK_PASSWORD,
     FAIL_FORM_EMAIL,
     FAIL_FORM_ID,
     FAIL_FORM_PASSWORD,
@@ -89,6 +90,23 @@ export const validationId = async (id) => {
 
     if (!(await checkDuplicationId())) {
         alert(FAIL_ALEADY_ID);
+        return false;
+    }
+
+    return true;
+};
+
+export const validationCheckPassword = (password, password2) => {
+    const length = password.length;
+    const length2 = password2.length;
+
+    if (!length || !length2) {
+        alert(FAIL_NULL_PASSWORD);
+        return false;
+    }
+
+    if (password !== password2) {
+        alert(FAIL_CHECK_PASSWORD);
         return false;
     }
 
