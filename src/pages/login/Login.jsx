@@ -21,7 +21,7 @@ export default function Login() {
         navigate(url);
     };
 
-    async function submitHandler(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
         const email = document.querySelector('#email').value;
         const password = document.querySelector('#password').value;
@@ -40,7 +40,7 @@ export default function Login() {
     return (
         <Form
             onSubmit={(e) => {
-                submitHandler(e);
+                handleSubmit(e);
             }}
         >
             <Div>
