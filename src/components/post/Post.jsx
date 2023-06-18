@@ -4,6 +4,7 @@ import iconHeart from '../../assets/icons/post/icon-heart.svg';
 import iconHeartFill from '../../assets/icons/post/icon-heart-fill.svg';
 import iconComment from '../../assets/icons/post/icon-comment.svg';
 
+const URL = 'https://api.mandarin.weniv.co.kr';
 const DEFALUT_IMAGE = 'http://146.56.183.55:5050/Ellipse.png';
 
 export default function Post(props) {
@@ -53,13 +54,15 @@ export default function Post(props) {
     );
 }
 
-function checkProfileImage(props) {
-    let src = props.image;
+function checkProfileImage(image) {
+    let src = image;
 
     if (!src) {
         src = DEFALUT_IMAGE;
+        return src;
     }
 
+    src = `${URL}/${image}`;
     return src;
 }
 
@@ -99,7 +102,11 @@ const ProfileWrap = styled(SectionDefault)`
     padding: 20px;
 `;
 
-const ProfileLeft = styled.section``;
+const ProfileLeft = styled.section`
+    width: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+`;
 
 const ImgProfile = styled.img`
     width: 30px;
