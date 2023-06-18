@@ -7,6 +7,7 @@ import signupIcon from '../../assets/icons/common/icon-signup.svg';
 import handleLogin from './handleLogin';
 import getMyInfo from './getMyInfo';
 import checkToken from './checkToken';
+import { validationLogin } from '../../lib/apis/validation/validation';
 
 export default function Login() {
     const dispatch = useDispatch();
@@ -22,6 +23,13 @@ export default function Login() {
 
     async function submitHandler(e) {
         e.preventDefault();
+        const email = document.querySelector('#email').value;
+        const password = document.querySelector('#password').value;
+
+        if (!validationLogin(email, password)) {
+            return false;
+        }
+
         const status = await handleLogin();
         const user = await getMyInfo();
         dispatch(setMyInfo(user));
