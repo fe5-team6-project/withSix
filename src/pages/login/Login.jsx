@@ -4,6 +4,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { setMyInfo } from '../../store/slices/userSlice';
 import signupIcon from '../../assets/icons/common/icon-signup.svg';
+import handleLogin from './handleLogin';
+import getMyInfo from './getMyInfo';
+import checkToken from './checkToken';
 
 export default function Login() {
     const dispatch = useDispatch();
@@ -17,15 +20,19 @@ export default function Login() {
         navigate(url);
     };
 
+    async function submitHandler(e) {
+        e.preventDefault();
+        const status = await handleLogin();
+        const user = await getMyInfo();
+        dispatch(setMyInfo(user));
+
+        movePage('/home');
+    }
+
     return (
         <Form
-            onSubmit={async (e) => {
-                e.preventDefault();
-                const status = await handleLogin();
-                const user = await getMyInfo();
-                dispatch(setMyInfo(user));
-
-                movePage('/home');
+            onSubmit={(e) => {
+                submitHandler(e);
             }}
         >
             <Div>
@@ -60,72 +67,6 @@ export default function Login() {
             </Div>
         </Form>
     );
-}
-
-const URL = 'https://api.mandarin.weniv.co.kr';
-
-async function handleLogin() {
-    const email = document.querySelector('#email').value;
-    const password = document.querySelector('#password').value;
-
-    const requestPath = '/user/login';
-    const requestUrl = `${URL}${requestPath}`;
-
-    const userData = {
-        user: {
-            email: email,
-            password: password,
-        },
-    };
-
-    const response = await fetch(requestUrl, {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-    });
-
-    const json = await response.json();
-    const token = json.user.token;
-    localStorage.setItem('token', token);
-
-    if (!localStorage.token.length) {
-        return false;
-    }
-
-    return true;
-}
-
-async function getMyInfo() {
-    const requestPath = '/user/myinfo';
-    const requestUrl = `${URL}${requestPath}`;
-
-    const token = await localStorage.token;
-    const bearerToken = `Bearer ${token}`;
-
-    const response = await fetch(requestUrl, {
-        method: 'GET',
-        headers: {
-            Authorization: bearerToken,
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify(),
-    });
-
-    const json = await response.json();
-
-    return json.user;
-}
-
-function checkToken() {
-    const token = localStorage.token;
-
-    if (!token) {
-        return false;
-    }
-
-    return true;
 }
 
 const Form = styled.form`
