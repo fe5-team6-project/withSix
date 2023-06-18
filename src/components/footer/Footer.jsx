@@ -50,7 +50,7 @@ export default function Footer() {
                 </li>
 
                 <li>
-                    <Link to={'/home'}>
+                    <Link to={'/myprofile'}>
                         <img src={profileImage} alt="" />
                     </Link>
                 </li>

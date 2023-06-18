@@ -118,3 +118,11 @@ button:hover {
 .font-eng {
     font-family: var(--font-eng);
 }
+
+.a11y-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+}
