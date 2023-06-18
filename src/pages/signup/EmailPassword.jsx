@@ -3,10 +3,10 @@ import { styled } from 'styled-components';
 import validationEmail from '../../lib/apis/validation/validationEmail';
 
 export default function EmailPassword(props) {
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
 
-        const pass = validationEmail();
+        const pass = await validationEmail();
 
         if (pass) {
             const email = document.querySelector('#email').value;
@@ -28,7 +28,7 @@ export default function EmailPassword(props) {
     return (
         <>
             <Form
-                onSubmit={async (e) => {
+                onSubmit={(e) => {
                     return handleSubmit(e);
                 }}
             >

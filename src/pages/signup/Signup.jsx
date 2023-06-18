@@ -9,6 +9,11 @@ export default function Signup() {
         username: String,
         email: String,
     });
+    const [page, setPage] = useState(
+        <EmailPassword passValid={setPassStep} userData={setUser} />
+    );
+
+    console.log(passStep);
 
     useEffect(() => {
         if (!passStep) {
@@ -19,10 +24,6 @@ export default function Signup() {
             setPage(<Profile userData={user} />);
         }
     }, [passStep]);
-
-    const [page, setPage] = useState(
-        <EmailPassword passValid={setPassStep} userData={setUser} />
-    );
 
     const pagaTitle = '회원가입';
     const pageDesc = !passStep

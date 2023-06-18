@@ -1,9 +1,9 @@
-import { DEFAULT_IMAGE } from '../../lib/apis/constant/path';
+import { DEFAULT_IMAGE, URL } from '../../lib/apis/constant/path';
 
-export default async function handleFileUpload(event) {
+export default async function handleFileUpload(e) {
     const img = document.querySelector('#profile_image');
     const formData = new FormData();
-    const profileImage = event.target.files[0];
+    const profileImage = e.target.files[0];
 
     const uploadPath = `${URL}/image/uploadfile`;
 

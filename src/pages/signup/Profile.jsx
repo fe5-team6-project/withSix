@@ -7,9 +7,9 @@ import { DEFAULT_IMAGE } from '../../lib/apis/constant/path';
 export default function Profile(props) {
     const user = props.userData;
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
-        if (validationId()) {
+        if (await validationId()) {
             handleSignup(user);
         }
     }
@@ -30,8 +30,8 @@ export default function Profile(props) {
                 <ImageInput
                     type="file"
                     id="image"
-                    onChange={async (event) => {
-                        await handleFileUpload(event);
+                    onChange={(event) => {
+                        handleFileUpload(event);
                     }}
                 />
             </ImageWrap>

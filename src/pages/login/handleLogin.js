@@ -1,3 +1,5 @@
+import { URL } from '../../lib/apis/constant/path';
+
 export default async function handleLogin() {
     const email = document.querySelector('#email').value;
     const password = document.querySelector('#password').value;

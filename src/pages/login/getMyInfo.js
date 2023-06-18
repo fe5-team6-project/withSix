@@ -1,3 +1,5 @@
+import { URL } from '../../lib/apis/constant/path';
+
 export default async function getMyInfo() {
     const requestPath = '/user/myinfo';
     const requestUrl = `${URL}${requestPath}`;
