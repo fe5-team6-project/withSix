@@ -1,9 +1,29 @@
-import React from 'react';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 import { styled } from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setMyInfo } from '../../store/slices/userSlice';
 
 export default function Common(props) {
+    const navigator = useNavigate();
+    const dispatch = useDispatch();
+    const [token, setToken] = useState(localStorage.token);
+
+    useEffect(() => {
+        checkLogin();
+    }, [token]);
+
+    async function checkLogin() {
+        if (checkToken()) {
+            const user = await getMyInfo();
+            dispatch(setMyInfo(user));
+        } else {
+            navigator('/');
+        }
+    }
+
     return (
         <>
             <Header />
@@ -19,6 +39,40 @@ export default function Common(props) {
             <Footer />
         </>
     );
+}
+
+const URL = 'https://api.mandarin.weniv.co.kr';
+
+function checkToken() {
+    const token = localStorage.token;
+
+    if (!token) {
+        return false;
+    }
+
+    return true;
+}
+
+async function getMyInfo() {
+    const requestPath = '/user/myinfo';
+    const requestUrl = `${URL}${requestPath}`;
+
+    const token = localStorage.token;
+    const bearerToken = `Bearer ${token}`;
+
+    const response = await fetch(requestUrl, {
+        method: 'GET',
+        headers: {
+            Authorization: bearerToken,
+            'Content-type': 'application/json',
+        },
+        body: JSON.stringify(),
+    });
+
+    const json = await response.json();
+    const user = json.user;
+
+    return user;
 }
 
 const StyledMain = styled.main`
