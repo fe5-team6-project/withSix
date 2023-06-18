@@ -22,7 +22,7 @@ export default function Common(props) {
             const user = await getMyInfo();
             dispatch(setMyInfo(user));
         } else {
-            navigator('/');
+            // navigator('/');
         }
     }
 
