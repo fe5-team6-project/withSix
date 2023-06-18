@@ -1,12 +1,19 @@
 import {
     FAIL_ALEADY_EMAIL,
+    FAIL_ALEADY_ID,
     FAIL_FORM_EMAIL,
+    FAIL_FORM_ID,
     FAIL_FORM_PASSWORD,
     FAIL_LENGTH_PASSWORD,
     FAIL_NULL_EMAIL,
+    FAIL_NULL_ID,
     FAIL_NULL_PASSWORD,
 } from '../constant/message';
-import { REG_EXP_EMAIL, REG_EXP_PASSWORD } from '../constant/regexp';
+import {
+    REG_EXP_EMAIL,
+    REG_EXP_ID,
+    REG_EXP_PASSWORD,
+} from '../constant/regexp';
 
 export const validationLogin = (email, password) => {
     const lenEmail = email.length;
@@ -61,6 +68,27 @@ export const validationPassword = (password) => {
 
     if (!REG_EXP_PASSWORD.test(password)) {
         alert(FAIL_FORM_PASSWORD);
+        return false;
+    }
+
+    return true;
+};
+
+export const validationId = async (id) => {
+    const length = id.length;
+
+    if (!length) {
+        alert(FAIL_NULL_ID);
+        return false;
+    }
+
+    if (!REG_EXP_ID.test(id)) {
+        alert(FAIL_FORM_ID);
+        return false;
+    }
+
+    if (!(await checkDuplicationId())) {
+        alert(FAIL_ALEADY_ID);
         return false;
     }
 
