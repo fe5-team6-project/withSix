@@ -7,7 +7,6 @@ import Signup from '../pages/signup/Signup';
 import MyProfile from '../pages/myprofile/MyProfile';
 import FollowingList from '../pages/follow/FollowingList'
 import FollowerList from '../pages/follow/FollowerList'
-import MyProfile from '../pages/myprofile/MyProfile';
 
 export default function MyRouter() {
     return (
