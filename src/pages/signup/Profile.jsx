@@ -1,15 +1,15 @@
 import { styled } from 'styled-components';
 import handleFileUpload from './handleFileUload';
 import handleSignup from './handleSignup';
-import validationId from '../../lib/apis/validation/validationId';
 import { DEFAULT_IMAGE } from '../../lib/apis/constant/path';
+import { checkDuplicationId } from '../../lib/apis/validation/checkDuplication';
 
 export default function Profile(props) {
     const user = props.userData;
 
     async function handleSubmit(e) {
         e.preventDefault();
-        if (await validationId()) {
+        if (await checkDuplicationId()) {
             handleSignup(user);
         }
     }

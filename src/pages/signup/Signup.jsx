@@ -9,11 +9,10 @@ export default function Signup() {
         username: String,
         email: String,
     });
+
     const [page, setPage] = useState(
         <EmailPassword passValid={setPassStep} userData={setUser} />
     );
-
-    console.log(passStep);
 
     useEffect(() => {
         if (!passStep) {
