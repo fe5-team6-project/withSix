@@ -1,3 +1,7 @@
+import {
+    FAIL_VALID_EMAIL_PASSWORD,
+    LOGIN_OK,
+} from '../../lib/apis/constant/message';
 import { URL } from '../../lib/apis/constant/path';
 
 export default async function handleLogin() {
@@ -23,12 +27,13 @@ export default async function handleLogin() {
     });
 
     const json = await response.json();
+    if (!json.user) {
+        alert(FAIL_VALID_EMAIL_PASSWORD);
+        return false;
+    }
     const token = json.user.token;
     localStorage.setItem('token', token);
 
-    if (!localStorage.token.length) {
-        return false;
-    }
-
+    alert(LOGIN_OK);
     return true;
 }
