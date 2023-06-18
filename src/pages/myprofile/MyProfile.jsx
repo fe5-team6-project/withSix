@@ -3,24 +3,26 @@ import Common from '../../components/main/Common';
 import { Link } from 'react-router-dom';
 import logout from '../../assets/icons/common/icon-logout.svg';
 import { styled } from 'styled-components';
+import { useSelector } from 'react-redux';
 
 export default function MyProfile() {
+    const user = useSelector((state) => state.user.myInfo);
     const page = (
         <LayoutDiv>
-            <Section>
+            <ImageWrap>
                 <h2 className="a11y-hidden">프로필 이미지</h2>
-                <img src="" alt="" />
-            </Section>
+                <Img src={user.image} alt="" />
+            </ImageWrap>
 
             <Section>
                 <h2 className="a11y-hidden">팔로우</h2>
                 <FollowDiv className="followers">
                     <Label>Followers</Label>
-                    <FollowLink to={''}>{9999}</FollowLink>
+                    <FollowLink to={''}>{user.followerCount}</FollowLink>
                 </FollowDiv>
                 <FollowDiv className="followings">
                     <Label>Followings</Label>
-                    <FollowLink to={''}>{9999}</FollowLink>
+                    <FollowLink to={''}>{user.followingCount}</FollowLink>
                 </FollowDiv>
             </Section>
 
@@ -28,15 +30,15 @@ export default function MyProfile() {
                 <h2 className="a11y-hidden">프로필</h2>
                 <Div className="id">
                     <Label>ID</Label>
-                    <Strong>{'ungheung'}</Strong>
+                    <Strong>{user.accountname}</Strong>
                 </Div>
                 <Div>
                     <Label>Nickname</Label>
-                    <Strong>{'ungheung'}</Strong>
+                    <Strong>{user.username}</Strong>
                 </Div>
                 <Div>
                     <Label>Introduce</Label>
-                    <Strong>{'자기소개입니다.'}</Strong>
+                    <Strong>{user.intro}</Strong>
                 </Div>
             </Section>
 
@@ -44,7 +46,7 @@ export default function MyProfile() {
                 <span></span>
             </Section>
             <Div>
-                <button>프로필 수정</button>
+                <Button>프로필 수정</Button>
                 <LogoutLink
                     onClick={() => {
                         localStorage.clear();
@@ -59,7 +61,7 @@ export default function MyProfile() {
     );
 
     const pageTitle = '프로필';
-    const pageDesc = `${'아이디'}님의 프로필을 확인합니다.`;
+    const pageDesc = `${user.username}님의 프로필을 확인합니다.`;
 
     return (
         <>
@@ -84,6 +86,20 @@ const LayoutDiv = styled.div`
 
 const Section = styled.section`
     width: 240px;
+`;
+
+const ImageWrap = styled.section`
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin-top: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+`;
+
+const Img = styled.img`
+    width: 100%;
+    object-fit: contain;
 `;
 
 const Div = styled.div`
@@ -142,5 +158,11 @@ const LogoutLink = styled(Link)`
 
     & > img {
         margin-right: 5px;
+    }
+`;
+
+const Button = styled.button`
+    &:disabled {
+        color: var(--color-disabled);
     }
 `;
