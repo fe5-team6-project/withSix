@@ -5,7 +5,7 @@ import { api } from '../../lib/apis/axiosConfig';
 import {
     returnErrorMessage,
     returnServerErrorMessage,
-} from '../../pages/detail/utils/errorMessage';
+} from '../postDetail/utils/errorMessage';
 
 const token =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzZkN2I3YjJjYjIwNTY2MzJkMDA5MyIsImV4cCI6MTY5MDgxNzQyOCwiaWF0IjoxNjg1NjMzNDI4fQ.fuRi1qVjgU4C7my-RPJrPOoBFjAvSHauogh8alP9mbI';
