@@ -1,26 +1,38 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import validationEmail from '../../lib/apis/validation/validationEmail';
+import {
+    validationCheckPassword,
+    validationEmail,
+    validationPassword,
+} from '../../lib/apis/validation/validation';
 
 export default function EmailPassword(props) {
     async function handleSubmit(e) {
         e.preventDefault();
+        const email = document.querySelector('#email').value;
+        const password = document.querySelector('#password').value;
+        const password2 = document.querySelector('#check_password').value;
 
-        const pass = await validationEmail();
+        console.log(email, password, password2);
 
-        if (pass) {
-            const email = document.querySelector('#email').value;
-            const password = document.querySelector('#password').value;
-
-            props.userData({
-                email: email,
-                password: password,
-            });
-
-            props.passStep(pass);
-        } else {
+        if (!(await validationEmail(email))) {
             return false;
         }
+
+        if (!validationPassword(password)) {
+            return false;
+        }
+
+        if (!validationCheckPassword(password, password2)) {
+            return false;
+        }
+
+        props.userData({
+            email: email,
+            password: password,
+        });
+
+        props.passStep(true);
 
         return true;
     }
