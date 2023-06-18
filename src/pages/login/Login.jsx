@@ -51,11 +51,13 @@ export default function Login() {
                 </Label>
                 <ForgotLink href={'/'}>forgot :(</ForgotLink>
             </Div>
-            <Button>로그인</Button>
-            <SignupLink to={'/signup'}>
-                <img src={signupIcon} alt="회원가입 아이콘" />
-                signup
-            </SignupLink>
+            <Div>
+                <Button>로그인</Button>
+                <SignupLink to={'/signup'}>
+                    <img src={signupIcon} alt="회원가입 아이콘" />
+                    Signup
+                </SignupLink>
+            </Div>
         </Form>
     );
 }
@@ -197,8 +199,8 @@ const ForgotLink = styled(Link)`
 
 const SignupLink = styled(Link)`
     position: absolute;
-    bottom: 50px;
-    right: 80px;
+    right: 5px;
+    bottom: -20px;
     font-size: var(--fsize-s);
     color: var(--color-gray);
 

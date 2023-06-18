@@ -1,5 +1,5 @@
 import React from 'react'
-import Common from '../../components/design/main/Common'
+import Common from '../../components/main/Common';
 import { styled } from "styled-components";
 
 export default function FollowerList() {

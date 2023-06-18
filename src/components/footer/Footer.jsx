@@ -11,7 +11,6 @@ const DEFAULT_IMAGE = 'http://146.56.183.55:5050/Ellipse.png';
 
 export default function Footer() {
     const user = useSelector((state) => state.user.myInfo);
-    console.log(user);
     let profileImage = DEFAULT_IMAGE;
 
     if (user._id !== String) {
@@ -50,7 +49,7 @@ export default function Footer() {
                 </li>
 
                 <li>
-                    <Link to={'/home'}>
+                    <Link to={'/myprofile'}>
                         <img src={profileImage} alt="" />
                     </Link>
                 </li>

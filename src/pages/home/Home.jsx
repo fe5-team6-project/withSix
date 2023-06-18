@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Common from '../../components/design/main/Common';
+import Common from '../../components/main/Common';
 import { styled } from 'styled-components';
 import divLine from '../../assets/icons/post/div-line.svg';
 import Post from '../../components/post/Post';

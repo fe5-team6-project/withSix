@@ -1,6 +1,7 @@
 import React from 'react'
-import Common from '../../components/design/main/Common'
+import Common from '../../components/main/Common';
 import { styled } from "styled-components";
+import FollowButton1 from '../../components/follow/FollowButton';
 
 export default function Following() {
     const page = (
@@ -16,6 +17,7 @@ export default function Following() {
                         <FollowButton id="FollowBtn">팔로우</FollowButton>
                     </FollowList>
                 </FollowWrap>
+                <FollowButton1 />
             </Main>
         </>
     )
