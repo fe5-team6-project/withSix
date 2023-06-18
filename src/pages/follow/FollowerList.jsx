@@ -1,6 +1,7 @@
 import React from 'react'
 import Common from '../../components/main/Common';
 import { styled } from "styled-components";
+import FollowButton from '../../components/follow/FollowButton';
 
 export default function FollowerList() {
     const page = (
@@ -71,13 +72,4 @@ const ProfileTitle = styled.strong`
 const ProfileContent = styled.p`
     font-size : var(--fsize-s);
     color: var(--color-gray);
-`
-
-const FollowButton = styled.button`
-    &#FollowBtn{
-        width:58px;
-        height: 28px;
-        font-size: var(--fsize-s);
-        font-weight: lighter;
-    }
 `

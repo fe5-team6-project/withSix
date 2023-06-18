@@ -1,7 +1,7 @@
 import React from 'react'
 import Common from '../../components/main/Common';
 import { styled } from "styled-components";
-import FollowButton1 from '../../components/follow/FollowButton';
+import FollowButton from '../../components/follow/FollowButton';
 
 export default function Following() {
     const page = (
@@ -17,7 +17,6 @@ export default function Following() {
                         <FollowButton id="FollowBtn">팔로우</FollowButton>
                     </FollowList>
                 </FollowWrap>
-                <FollowButton1 />
             </Main>
         </>
     )
@@ -73,13 +72,4 @@ const ProfileTitle = styled.strong`
 const ProfileContent = styled.p`
     font-size : var(--fsize-s);
     color: var(--color-gray);
-`
-
-const FollowButton = styled.button`
-    &#FollowBtn{
-        width:58px;
-        height: 28px;
-        font-size: var(--fsize-s);
-        font-weight: lighter;
-    }
 `
