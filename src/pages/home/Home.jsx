@@ -9,10 +9,11 @@ export default function Home() {
     const [postList, setPostList] = useState([]);
     const [category, setCategory] = useState('');
     const user = useSelector((state) => state.user.myInfo);
+    console.log(user.accountname);
 
     useEffect(() => {
         async function fetchData() {
-            setPostList(await getPost(category));
+            setPostList(await getPost(category, user.username));
         }
 
         fetchData();
@@ -32,7 +33,7 @@ export default function Home() {
                 <CategoryButton
                     onClick={() => {
                         console.log(1);
-                        setCategory('my', user.userid);
+                        setCategory('my');
                     }}
                 >
                     내 글
@@ -66,14 +67,15 @@ export default function Home() {
 
 const URL = 'https://api.mandarin.weniv.co.kr';
 
-async function getPost(category, userId) {
+async function getPost(category, accountname) {
+    console.log(accountname);
     let requestPath = '/post';
     const type = category;
 
     if (type === '') {
         requestPath = '/post';
     } else if (type === 'my') {
-        requestPath = `/post/${userId}/userpost`;
+        requestPath = `/post/${accountname}/userpost`;
     } else if (type === 'feed') {
         requestPath = '/post/feed';
     }
@@ -83,6 +85,7 @@ async function getPost(category, userId) {
     const token = localStorage.token;
     const bearerToken = `Bearer ${token}`;
 
+    console.log(requestUrl);
     const response = await fetch(requestUrl, {
         method: 'GET',
         headers: {
@@ -94,7 +97,6 @@ async function getPost(category, userId) {
 
     const json = await response.json();
     const postList = json.posts;
-    console.log(postList);
 
     return postList;
 }
