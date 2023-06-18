@@ -15,7 +15,7 @@ const user = createSlice({
             follower: Array,
             accountname: String,
         },
-        
+
         userInfo: {
             _id: String,
             username: String,
@@ -28,7 +28,7 @@ const user = createSlice({
             followerCount: Number,
             followingCount: Number
         }
-        
+
     },
     reducers: {
         setMyInfo(state, action) {
@@ -36,7 +36,7 @@ const user = createSlice({
         },
 
         setUserInfo(state, action) {
-            state.searchInfo = action.payload;
+            state.userInfo = action.payload;
         }
     },
 });
