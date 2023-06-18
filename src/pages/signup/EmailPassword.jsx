@@ -13,8 +13,6 @@ export default function EmailPassword(props) {
         const password = document.querySelector('#password').value;
         const password2 = document.querySelector('#check_password').value;
 
-        console.log(email, password, password2);
-
         if (!(await validationEmail(email))) {
             return false;
         }
