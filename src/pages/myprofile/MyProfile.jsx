@@ -63,7 +63,7 @@ export default function MyProfile() {
 
     return (
         <>
-            <Common page={page} title={pageTitle} desc={pageDesc} />;
+            <Common page={page} title={pageTitle} desc={pageDesc} />
         </>
     );
 }

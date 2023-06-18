@@ -5,6 +5,8 @@ import TogetherUpload from '../pages/together/TogetherUpload';
 import TogetherEdit from '../pages/together/TogetherEdit';
 import Signup from '../pages/signup/Signup';
 import MyProfile from '../pages/myprofile/MyProfile';
+import FollowingList from '../pages/follow/FollowingList'
+import FollowerList from '../pages/follow/FollowerList'
 
 export default function MyRouter() {
     return (
@@ -19,6 +21,8 @@ export default function MyRouter() {
                     />
                     <Route path="/togetherEdit" element={<TogetherEdit />} />
                     <Route path="/signup" element={<Signup />} />
+                    <Route path="/following" element={<FollowingList />} />
+                    <Route path="/follower" element={<FollowerList />} />
                     <Route path="/myprofile" element={<MyProfile />} />
                 </Routes>
             </BrowserRouter>

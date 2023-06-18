@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import EmailPassword from './EmailPassword';
 import Profile from './Profile';
-import Common from '../../components/design/main/Common';
+import Common from '../../components/main/Common';
 
 export default function Signup() {
     const [passStep, setPassStep] = useState(false);
