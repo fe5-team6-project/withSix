@@ -1,5 +1,5 @@
 import React from 'react';
-import Common from '../../components/design/main/Common';
+import Common from '../../components/main/Common';
 import { Link } from 'react-router-dom';
 import logout from '../../assets/icons/common/icon-logout.svg';
 import { styled } from 'styled-components';
@@ -45,7 +45,12 @@ export default function MyProfile() {
             </Section>
             <Div>
                 <button>프로필 수정</button>
-                <LogoutLink to={'/'}>
+                <LogoutLink
+                    onClick={() => {
+                        localStorage.clear();
+                    }}
+                    to={'/'}
+                >
                     <img src={logout} alt="로그아웃 아이콘" />
                     Logout
                 </LogoutLink>

@@ -200,7 +200,7 @@ const ForgotLink = styled(Link)`
 const SignupLink = styled(Link)`
     position: absolute;
     right: 5px;
-    bottom: 0;
+    bottom: -20px;
     font-size: var(--fsize-s);
     color: var(--color-gray);
 
