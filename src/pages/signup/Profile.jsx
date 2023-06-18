@@ -1,18 +1,23 @@
 import { styled } from 'styled-components';
-
-const DEFAULT_IMAGE = 'http://146.56.183.55:5050/Ellipse.png';
+import handleFileUpload from './handleFileUload';
+import handleSignup from './handleSignup';
+import validationId from '../../lib/apis/validation/validationId';
+import { DEFAULT_IMAGE } from '../../lib/apis/constant/path';
 
 export default function Profile(props) {
     const user = props.userData;
 
+    function handleSubmit(e) {
+        e.preventDefault();
+        if (validationId()) {
+            handleSignup(user);
+        }
+    }
+
     return (
         <Form
             onSubmit={(e) => {
-                e.preventDefault();
-                if (validation()) {
-                    handleSignup(user);
-                    // movePage();
-                }
+                handleSubmit(e);
             }}
         >
             <ImageWrap>
@@ -45,114 +50,6 @@ export default function Profile(props) {
             <Button>시작하기</Button>
         </Form>
     );
-}
-
-const URL = 'https://api.mandarin.weniv.co.kr';
-
-async function handleFileUpload(event) {
-    const img = document.querySelector('#profile_image');
-    const formData = new FormData();
-    const profileImage = event.target.files[0];
-
-    const uploadPath = `${URL}/image/uploadfile`;
-
-    if (!profileImage) {
-        img.src = DEFAULT_IMAGE;
-        return false;
-    }
-
-    formData.append('image', profileImage);
-
-    const response = await fetch(uploadPath, {
-        method: 'POST',
-        body: formData,
-    });
-
-    const json = await response.json();
-    const profileImageSrc = `${URL}/${json.filename}`;
-
-    img.src = profileImageSrc;
-    console.log(img.src);
-    return true;
-}
-
-async function handleSignup(user) {
-    const id = document.querySelector('#id').value;
-    const nickname = document.querySelector('#name').value;
-    const intro = document.querySelector('#intro').value;
-    const image = document.querySelector('#profile_image').src;
-    console.log(image);
-
-    const email = user.email;
-    const password = user.password;
-
-    const requestPath = '/user';
-    const requestUrl = `${URL}${requestPath}`;
-
-    const userData = {
-        user: {
-            username: nickname,
-            email: email,
-            password: password,
-            accountname: id,
-            intro: intro,
-            image: image,
-        },
-    };
-
-    const response = await fetch(requestUrl, {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-    });
-
-    const json = response.json();
-    const message = response.message;
-
-    alert(message);
-    return json;
-}
-
-async function validation() {
-    const input = document.querySelector('#id');
-    const id = input.value;
-
-    const requestPath = '/user/accountnamevalid';
-    const requestUrl = `${URL}${requestPath}`;
-
-    const userData = {
-        user: {
-            accountname: id,
-        },
-    };
-
-    const response = await fetch(requestUrl, {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-    });
-
-    const json = await response.json();
-    const message = json.message;
-
-    if (!response.ok) {
-        alert(message);
-        input.focus();
-        return false;
-    } else {
-        if (message.match('이미 가입된')) {
-            alert(message);
-            input.focus();
-            return false;
-        }
-    }
-
-    alert(message);
-    return true;
 }
 
 const Form = styled.form`

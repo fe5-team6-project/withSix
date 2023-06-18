@@ -1,25 +1,35 @@
 import React from 'react';
 import { styled } from 'styled-components';
+import validationEmail from '../../lib/apis/validation/validationEmail';
 
 export default function EmailPassword(props) {
+    function handleSubmit(e) {
+        e.preventDefault();
+
+        const pass = validationEmail();
+
+        if (pass) {
+            const email = document.querySelector('#email').value;
+            const password = document.querySelector('#password').value;
+
+            props.userData({
+                email: email,
+                password: password,
+            });
+
+            props.passStep(pass);
+        } else {
+            return false;
+        }
+
+        return true;
+    }
+
     return (
         <>
             <Form
                 onSubmit={async (e) => {
-                    e.preventDefault();
-                    const pass = validation();
-                    if (pass) {
-                        const email = document.querySelector('#email').value;
-                        const password =
-                            document.querySelector('#password').value;
-                        props.userData({
-                            email: email,
-                            password: password,
-                        });
-                        props.passStep(pass);
-                    } else {
-                        return false;
-                    }
+                    return handleSubmit(e);
                 }}
             >
                 <Div>
@@ -42,48 +52,6 @@ export default function EmailPassword(props) {
             </Form>
         </>
     );
-}
-
-const URL = 'https://api.mandarin.weniv.co.kr';
-
-async function validation() {
-    const input = document.querySelector('#email');
-    const email = input.value;
-
-    const requestPath = '/user/emailvalid';
-    const requestUrl = `${URL}${requestPath}`;
-
-    const userData = {
-        user: {
-            email: email,
-        },
-    };
-
-    const response = await fetch(requestUrl, {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-    });
-
-    const json = await response.json();
-    const message = json.message;
-
-    if (!response.of) {
-        alert(message);
-        input.focus();
-        return false;
-    } else {
-        if (message.match('')) {
-            alert(message);
-            input.focus();
-            return false;
-        }
-    }
-
-    alert(message);
-    return true;
 }
 
 const Form = styled.form`
