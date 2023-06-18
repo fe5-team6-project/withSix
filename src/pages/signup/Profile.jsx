@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { styled } from 'styled-components';
 
 const DEFAULT_IMAGE = 'http://146.56.183.55:5050/Ellipse.png';
