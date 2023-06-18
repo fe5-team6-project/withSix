@@ -8,6 +8,7 @@ import {
     FAIL_LENGTH_PASSWORD,
     FAIL_NULL_EMAIL,
     FAIL_NULL_ID,
+    FAIL_NULL_NAME,
     FAIL_NULL_PASSWORD,
 } from '../constant/message';
 import {
@@ -15,6 +16,7 @@ import {
     REG_EXP_ID,
     REG_EXP_PASSWORD,
 } from '../constant/regexp';
+import { checkDuplicationEmail, checkDuplicationId } from './checkDuplication';
 
 export const validationLogin = (email, password) => {
     const lenEmail = email.length;
@@ -107,6 +109,17 @@ export const validationCheckPassword = (password, password2) => {
 
     if (password !== password2) {
         alert(FAIL_CHECK_PASSWORD);
+        return false;
+    }
+
+    return true;
+};
+
+export const validationName = (name) => {
+    const length = name.length;
+
+    if (!length) {
+        alert(FAIL_NULL_NAME);
         return false;
     }
 
