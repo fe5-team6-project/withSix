@@ -4,8 +4,10 @@ import { styled } from 'styled-components';
 import initialImage from '../../assets/images/initialImage.png'
 import { useSelector, useDispatch } from 'react-redux';
 import { inputTogether } from '../../store/slices/togetherSlice';
-import { imgApi } from '../../lib/apis/axiosConfig';
+// import { urlApi } from '../../lib/apis/axiosConfig';
+import axios from 'axios';
 // import { URL } from '../../lib/apis/constants';
+
 
 export default function GroupUpload() {
     const togetherReq = useSelector((state) => { return state.together.req });
@@ -20,7 +22,8 @@ export default function GroupUpload() {
         const imgUrl = URL.createObjectURL(file);
         setImg(imgUrl);
         console.log(file);
-        dispatch(inputTogether({ together: file }));
+        dispatch(inputTogether({ itemImage: file }));
+        console.log(togetherReq);
     };
 
 
@@ -32,18 +35,19 @@ export default function GroupUpload() {
     };
 
     const saveImg = async (e) => {
+        console.log(togetherReq);
         const imageFile = togetherReq.itemImage;
         console.log(imageFile);
         const formData = new FormData();
         formData.append("image", imageFile);
         console.log(togetherReq.itemImage);
 
-        const res = await imgApi.post(`/image/uploadfile`, formData);
+        const res = await axios.post("https://api.mandarin.weniv.co.kr/image/uploadfile", formData);
         console.log(res);
-        const imageUrl = "https://api.mandarin.weniv.co.kr/" + res.filename;
+        const imageUrl = "https://api.mandarin.weniv.co.kr/" + res.data.filename;
         console.log(imageUrl);
-        dispatch(inputTogether({ itemImage: imageUrl }))
-        console.log(togetherReq)
+        dispatch(inputTogether({ itemImage: imageUrl }));
+        console.log(togetherReq);
     }
     function handleSave() {
         saveImg()
