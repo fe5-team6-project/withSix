@@ -2,21 +2,29 @@ import React from 'react';
 import { styled } from 'styled-components';
 import logo from '../../assets/logo/LOGO-negative.svg';
 import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import prevPage from '../../assets/icons/common/icon-back.svg';
 
-export default function Header() {
+export default function Header(props) {
     const user = useSelector((state) => state.user.myInfo);
+    const navigate = useNavigate();
 
     return (
         <StyledHeader>
             <Div>
                 <H1>
-                    <Img src={logo} alt="로고" />
+                    <Link to={'/home'}>
+                        <Img src={logo} alt="로고" />
+                    </Link>
                 </H1>
 
                 <Article>
                     <Strong>{user.username}</Strong>
                 </Article>
             </Div>
+            <BackLink onClick={() => navigate(-1)}>
+                <img src={prevPage} alt="뒤로가기 아이콘" />
+            </BackLink>
         </StyledHeader>
     );
 }
@@ -31,6 +39,7 @@ const StyledHeader = styled.header`
     border-bottom-right-radius: var(--radius-l);
     line-height: 70px;
     transform: translateX(-50%);
+    z-index: 1;
 `;
 
 const Div = styled.div`
@@ -73,4 +82,16 @@ const Strong = styled.strong`
         font-weight: 500;
         font-size: var(--fsize-m);
     }
+`;
+
+const BackLink = styled(Link)`
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    display: block;
+    width: 390px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    transform: translate(-50%);
+    /* z-index: ; */
 `;

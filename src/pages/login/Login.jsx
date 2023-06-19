@@ -7,19 +7,10 @@ import signupIcon from '../../assets/icons/common/icon-signup.svg';
 import handleLogin from './handleLogin';
 import getMyInfo from './getMyInfo';
 import { validationLogin } from '../../lib/apis/validation/validation';
-import checkToken from './checkToken';
 
 export default function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
-    const movePage = (url) => {
-        if (checkToken()) {
-            navigate(url);
-        } else {
-            navigate('/');
-        }
-    };
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -34,7 +25,8 @@ export default function Login() {
         const user = await getMyInfo();
         dispatch(setMyInfo(user));
 
-        movePage('/home');
+        status && navigate('/home');
+
         return status;
     }
 

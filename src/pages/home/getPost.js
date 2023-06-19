@@ -17,7 +17,6 @@ export default async function getPost(category, accountname) {
     const token = localStorage.token;
     const bearerToken = `Bearer ${token}`;
 
-    console.log(requestUrl);
     const response = await fetch(requestUrl, {
         method: 'GET',
         headers: {
