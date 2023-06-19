@@ -9,6 +9,8 @@ import FollowingList from '../pages/follow/FollowingList';
 import FollowerList from '../pages/follow/FollowerList';
 import PostDetail from '../components/postDetail';
 import Search from '../components/search';
+import UserProfile from '../pages/userprofile/UserProfile';
+import UpdateProfile from '../pages/myprofile/UpdateProfile';
 
 export default function MyRouter() {
     return (
@@ -17,14 +19,22 @@ export default function MyRouter() {
                 <Routes>
                     <Route path="/" element={<Main />} />
                     <Route path="/home" element={<Home />} />
-                    <Route path="/togetherUpload" element={<TogetherUpload />} />
+                    <Route
+                        path="/togetherUpload"
+                        element={<TogetherUpload />}
+                    />
                     <Route path="/togetherEdit" element={<TogetherEdit />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/following" element={<FollowingList />} />
                     <Route path="/follower" element={<FollowerList />} />
                     <Route path="/myprofile" element={<MyProfile />} />
+                    <Route
+                        path="/myprofile/update"
+                        element={<UpdateProfile />}
+                    />
                     <Route path="/post/detail/:id" element={<PostDetail />} />
                     <Route path="/search" element={<Search />} />
+                    <Route path="/profile/:id" element={<UserProfile />} />
                 </Routes>
             </BrowserRouter>
         </>
