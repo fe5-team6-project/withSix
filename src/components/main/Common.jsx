@@ -16,8 +16,6 @@ export default function Common(props) {
     const userInfo = useSelector((state) => state.user.myInfo);
     const [user, setUser] = useState(userInfo);
 
-    console.log(user);
-
     useEffect(() => {
         checkLogin();
     }, [user]);
