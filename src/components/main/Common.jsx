@@ -9,9 +9,12 @@ import { setMyInfo } from '../../store/slices/userSlice';
 export default function Common(props) {
     const navigator = useNavigate();
     const dispatch = useDispatch();
+    const autoMove = props.autoMoveIgnore ? true : false;
 
     const userInfo = useSelector((state) => state.user.myInfo);
     const [user, setUser] = useState(userInfo);
+
+    console.log(user);
 
     useEffect(() => {
         checkLogin();
@@ -22,7 +25,10 @@ export default function Common(props) {
             const user = await getMyInfo();
             dispatch(setMyInfo(user));
         } else {
-            // navigator('/');
+            setUser('');
+            if (!autoMove) {
+                navigator('/');
+            }
         }
     }
 

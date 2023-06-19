@@ -8,13 +8,15 @@ export default function Header() {
 
     return (
         <StyledHeader>
-            <H1>
-                <Img src={logo} alt="로고" />
-            </H1>
+            <Div>
+                <H1>
+                    <Img src={logo} alt="로고" />
+                </H1>
 
-            <Article>
-                <Strong>{user.username}</Strong>
-            </Article>
+                <Article>
+                    <Strong>{user.username}</Strong>
+                </Article>
+            </Div>
         </StyledHeader>
     );
 }
@@ -23,18 +25,25 @@ const StyledHeader = styled.header`
     position: fixed;
     top: 0;
     left: 50%;
+    width: 100vw;
+    background-color: var(--color-main);
+    border-bottom-left-radius: var(--radius-l);
+    border-bottom-right-radius: var(--radius-l);
+    line-height: 70px;
+    transform: translateX(-50%);
+`;
+
+const Div = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    max-width: var(--cont-width-max);
+    /* max-width: var(--cont-width-max); */
     height: 70px;
-    background-color: var(--color-main);
-    border-bottom-left-radius: var(--radius-l);
-    border-bottom-right-radius: var(--radius-l);
+    margin: 0 auto;
+    padding: 0 10px;
+    box-sizing: border-box;
     font-size: 0;
-    line-height: 70px;
-    transform: translateX(-50%);
 `;
 
 const H1 = styled.h1`
