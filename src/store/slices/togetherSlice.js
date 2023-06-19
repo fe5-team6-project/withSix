@@ -34,7 +34,7 @@ const together = createSlice({
         inputTogether(state, actions) {
             const { itemName, price, link, itemImage } = actions.payload;
             if (itemName) state.itemName = itemName;
-            if (price) state.price = price;
+            if (price) state.price = parseInt(price);
             if (link) state.link = link;
             if (itemImage) state.itemImage = itemImage;
         }
