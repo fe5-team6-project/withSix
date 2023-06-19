@@ -1,12 +1,14 @@
 import React from 'react';
 import Common from '../../components/main/Common';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logout from '../../assets/icons/common/icon-logout.svg';
 import { styled } from 'styled-components';
 import { useSelector } from 'react-redux';
 
 export default function MyProfile() {
     const user = useSelector((state) => state.user.myInfo);
+    const navigate = useNavigate();
+
     const page = (
         <LayoutDiv>
             <ImageWrap>
@@ -46,7 +48,13 @@ export default function MyProfile() {
                 <span></span>
             </Section>
             <Div>
-                <Button>프로필 수정</Button>
+                <Button
+                    onClick={() => {
+                        navigate('./update');
+                    }}
+                >
+                    프로필 수정
+                </Button>
                 <LogoutLink
                     onClick={() => {
                         localStorage.clear();

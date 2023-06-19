@@ -1,70 +1,114 @@
+import React, { useState } from 'react';
+import Common from '../../components/main/Common';
 import { styled } from 'styled-components';
-import handleFileUpload from './handleFileUload';
-import handleSignup from './handleSignup';
-import { DEFAULT_IMAGE } from '../../lib/apis/constant/path';
+import handleFileUpload from '../signup/handleFileUload';
+import { useNavigate } from 'react-router-dom';
 import {
     validationId,
     validationName,
 } from '../../lib/apis/validation/validation';
-import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import handleProfileUpdate from './handleProfileUpdate';
+import checkAleadyUseId from './checkAleadyUseId';
 
-export default function Profile({ userData }) {
+export default function UpdateProfile() {
+    const user = useSelector((state) => state.user.myInfo);
     const navigate = useNavigate();
+    const [accountname, setAccountname] = useState(user.accountname);
+    const [username, setUsername] = useState(user.username);
+    const [intro, setIntro] = useState(user.intro);
+    const [image, setImage] = useState(user.image);
 
     async function handleSubmit(e) {
         e.preventDefault();
         const id = document.querySelector('#id').value;
         const name = document.querySelector('#name').value;
 
-        if (!(await validationId(id))) {
-            return false;
+        if (checkAleadyUseId()) {
+            if (!(await validationId(id))) {
+                return false;
+            }
         }
 
         if (!validationName(name)) {
             return false;
         }
 
-        const status = await handleSignup(userData);
+        const status = await handleProfileUpdate();
 
-        navigate('/');
+        navigate('/myprofile');
         return status;
     }
 
-    return (
+    const page = (
         <Form
             onSubmit={(e) => {
                 handleSubmit(e);
             }}
         >
             <ImageWrap>
-                <Img
-                    src={DEFAULT_IMAGE}
-                    alt={'기본 회원 이미지'}
-                    id="profile_image"
-                />
-                <ImageInputLabel htmlFor="image">사진 등록</ImageInputLabel>
+                <Img src={image} alt={'회원 이미지'} id="profile_image" />
+                <ImageInputLabel htmlFor="image">사진 변경</ImageInputLabel>
                 <ImageInput
                     type="file"
                     id="image"
-                    onChange={(event) => {
-                        handleFileUpload(event);
+                    onChange={(e) => {
+                        setImage(handleFileUpload(e));
                     }}
                 />
             </ImageWrap>
             <Div className="id_wrap">
-                <Input type="text" id="id" placeholder=" " />
+                <Input
+                    type="text"
+                    id="id"
+                    placeholder=" "
+                    value={accountname}
+                    onChange={(e) => {
+                        setAccountname(e.currentTarget.value);
+                    }}
+                />
                 <Label htmlFor="id">ID</Label>
             </Div>
             <Div>
-                <Input type="text" id="name" placeholder=" " />
+                <Input
+                    type="text"
+                    id="name"
+                    placeholder=" "
+                    value={username}
+                    onChange={(e) => {
+                        setUsername(e.currentTarget.value);
+                    }}
+                />
                 <Label htmlFor="name">Nickname</Label>
             </Div>
             <Div>
-                <Input type="text" id="intro" placeholder=" " />
+                <Input
+                    type="text"
+                    id="intro"
+                    placeholder=" "
+                    value={intro}
+                    onChange={(e) => {
+                        setIntro(e.currentTarget.value);
+                    }}
+                />
                 <Label htmlFor="intro">Introduce</Label>
             </Div>
-            <Button>시작하기</Button>
+            <Button>프로필 저장</Button>
         </Form>
+    );
+
+    const pagaTitle = '프로필 수정';
+    const pageDesc = '프로필을 수정합니다.';
+
+    return (
+        <>
+            <Common
+                page={page}
+                title={pagaTitle}
+                desc={pageDesc}
+                autoMoveIgnore={true}
+            />
+        </>
     );
 }
 
