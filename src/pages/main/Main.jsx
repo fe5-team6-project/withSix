@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from '../../assets/logo/LOGO-full-negative.svg';
 import { styled } from 'styled-components';
 import Login from '../login/Login';
-import { useNavigate } from 'react-router-dom';
 import checkToken from '../login/checkToken';
+import { useNavigate } from 'react-router-dom';
 
 export default function Main() {
     const navigate = useNavigate();
+    const hasToken = checkToken();
 
-    if (checkToken()) {
-        navigate('/home');
-    }
+    useEffect(() => {
+        if (hasToken) {
+            navigate('/home');
+        } else {
+            navigate('/');
+        }
+    }, [hasToken]);
 
     return (
         <>
