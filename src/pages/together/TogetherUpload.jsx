@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 import initialImage from '../../assets/images/initialImage.png'
 import { useSelector, useDispatch } from 'react-redux';
 import { inputTogether } from '../../store/slices/togetherSlice';
-import { api } from '../../lib/apis/axiosConfig';
+import { imgApi } from '../../lib/apis/axiosConfig';
 // import { URL } from '../../lib/apis/constants';
 
 export default function GroupUpload() {
@@ -19,7 +19,8 @@ export default function GroupUpload() {
         const file = e.target.files[0];
         const imgUrl = URL.createObjectURL(file);
         setImg(imgUrl);
-        dispatch(inputTogether({ itemImage: file.name }));
+        console.log(file);
+        dispatch(inputTogether({ req: file }));
     };
 
 
@@ -30,23 +31,22 @@ export default function GroupUpload() {
         }
     };
 
-    function handleSave() {
-        const saveImg = async (e) => {
-            const imageFile = togetherReq.itemImage;
-            console.log(imageFile);
-            const formData = new FormData();
-            formData.append("image", imageFile);
-            console.log(togetherReq);
+    const saveImg = async (e) => {
+        const imageFile = togetherReq.itemImage;
+        console.log(imageFile);
+        const formData = new FormData();
+        formData.append("image", imageFile);
+        console.log(togetherReq.itemImage);
 
-            const res = await api.post(`/image/uploadfile`, formData);
-            console.log(res);
-            const imageUrl = "https://api.mandarin.weniv.co.kr/" + res.filename;
-            console.log(imageUrl);
-            dispatch(inputTogether({ itemImage: imageUrl }))
-            console.log(togetherReq)
-        }
+        const res = await imgApi.post(`/image/uploadfile`, formData);
+        console.log(res);
+        const imageUrl = "https://api.mandarin.weniv.co.kr/" + res.filename;
+        console.log(imageUrl);
+        dispatch(inputTogether({ itemImage: imageUrl }))
+        console.log(togetherReq)
+    }
+    function handleSave() {
         saveImg()
-        console.log('h')
     }
 
     const page = (
