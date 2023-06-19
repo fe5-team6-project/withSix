@@ -19,7 +19,7 @@ export default function GroupUpload() {
         const file = e.target.files[0];
         const imgUrl = URL.createObjectURL(file);
         setImg(imgUrl);
-        dispatch(inputTogether({ itemImage: file }));
+        dispatch(inputTogether({ itemImage: file.name }));
     };
 
 
@@ -40,12 +40,13 @@ export default function GroupUpload() {
 
             const res = await api.post(`/image/uploadfile`, formData);
             console.log(res);
-            const imageUrl = "https://api.mandarin.weniv.co.kr/" + res.data.filename;
+            const imageUrl = "https://api.mandarin.weniv.co.kr/" + res.filename;
             console.log(imageUrl);
             dispatch(inputTogether({ itemImage: imageUrl }))
             console.log(togetherReq)
         }
         saveImg()
+        console.log('h')
     }
 
     const page = (
