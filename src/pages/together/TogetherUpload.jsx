@@ -1,8 +1,18 @@
-import React from 'react';
+import { React, useState } from 'react';
 import Common from '../../components/main/Common';
 import { styled } from 'styled-components';
+import initialImage from '../../assets/images/initialImage.png'
 
 export default function GroupUpload() {
+    //미리보기 사진 변경
+    const [img, setImg] = useState('');
+    //이미지 업로드
+    const handleImgChange = (e) => {
+        const file = e.target.files[0];
+        const imgUrl = window.URL.createObjectURL(file);
+        setImg(imgUrl);
+    };
+
     const page = (
         <>
             <Form>
@@ -15,12 +25,12 @@ export default function GroupUpload() {
                     <GroupInput id="GroupPrice" placeholder="모임비"></GroupInput>
                     {/* <GroupInput id="GroupInfo" placeholder="모임 소개"></GroupInput> */}
                     <GroupInfo id="GroupInfo" placeholder="모임 소개"></GroupInfo>
-                    <GroupInput id="GroupImage" placeholder="모임 소개"></GroupInput>
+                    <GroupInput id="GroupImage" placeholder="모임 소개" type="file" accept="image/*" onClick={handleImgChange}></GroupInput>
                 </GroupInputWrapper>
                 <GroupLabel htmlFor="GroupImage">
-                    <GroupImage id="PreImage"></GroupImage>
+                    <GroupImage id="PreImage" src={img || initialImage}></GroupImage>
                 </GroupLabel>
-                <RegiButton>등록</RegiButton>
+                <RegiButton onClick={() => { console.log('h') }}>등록</RegiButton>
             </Form>
         </>
     );
@@ -89,7 +99,7 @@ const GroupInfo = styled.textarea`
     font-family: inherit;
 `;
 
-const GroupLabel = styled.div``;
+const GroupLabel = styled.label``;
 const GroupImage = styled.img`
     margin-top: 20px;
     width: 100%;
