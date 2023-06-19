@@ -5,6 +5,8 @@ import {
     returnErrorMessage,
     returnServerErrorMessage,
 } from '../utils/errorMessage';
+import iconMoreVertical from '../../../assets/icons/post/icon-more-vertical.svg';
+import { styled } from 'styled-components';
 
 export default function Report() {
     const [visible, setVisible] = useState(false);
@@ -27,8 +29,12 @@ export default function Report() {
 
     return (
         <>
-            <button onClick={() => setVisible(!visible)}>신고 버튼</button>
+            <Icon onClick={() => setVisible(!visible)} src={iconMoreVertical} />
             {visible && <button onClick={handleReport}>신고하기</button>}
         </>
     );
 }
+
+const Icon = styled.img`
+    cursor: pointer;
+`;

@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { returnServerErrorMessage } from '../utils/errorMessage';
 import { api } from '../../../lib/apis/axiosConfig';
 import CommentSideToggle from './sideToggle';
+import { styled } from 'styled-components';
 
 export default function Comments({ setCommentCount }) {
     const { id } = useParams();
@@ -28,21 +29,23 @@ export default function Comments({ setCommentCount }) {
     if (!comment) return <div>Loading...</div>;
     return (
         <>
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <CommentWrapper>
                 {comment.map((item) => (
-                    <div key={item.id}>
-                        <img src={item.author.image}></img>
-                        <p>{item.author.username}</p>
-                        <p>{item.content}</p>
-                        <CommentSideToggle
-                            authorId={item.author._id}
-                            commentId={item.id}
-                            setReload={setReload}
-                            setCommentCount={setCommentCount}
-                        />
-                    </div>
+                    <Li key={item.id}>
+                        <Img src={item.author.image} />
+                        <CommentRight>
+                            <span>{item.author.username}</span>
+                            <CommentSideToggle
+                                authorId={item.author._id}
+                                commentId={item.id}
+                                setReload={setReload}
+                                setCommentCount={setCommentCount}
+                            />
+                            <p>{item.content}</p>
+                        </CommentRight>
+                    </Li>
                 ))}
-            </div>
+            </CommentWrapper>
             <CommentReq
                 setReload={setReload}
                 setCommentCount={setCommentCount}
@@ -50,3 +53,21 @@ export default function Comments({ setCommentCount }) {
         </>
     );
 }
+
+const CommentWrapper = styled.ul`
+    // background-color: var(--color-gray);
+`;
+
+const Li = styled.li`
+    display: flex;
+    margin: 10px 0px;
+`;
+
+const Img = styled.img`
+    display: inline-block;
+`;
+
+const CommentRight = styled.div`
+    width: 200px;
+    background-color: red;
+`;

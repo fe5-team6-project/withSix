@@ -6,6 +6,8 @@ import {
     returnErrorMessage,
     returnServerErrorMessage,
 } from '../../utils/errorMessage';
+import iconMoreVertical from '../../../../assets/icons/post/icon-more-vertical.svg';
+import { styled } from 'styled-components';
 
 export default function ReportMent({ commentId }) {
     const { id } = useParams();
@@ -31,10 +33,14 @@ export default function ReportMent({ commentId }) {
     };
     return (
         <>
-            <button onClick={() => setVisible(!visible)}>신고 버튼</button>
+            <Img onClick={() => setVisible(!visible)} src={iconMoreVertical} />
             {visible && (
                 <button onClick={() => handleReported()}>신고하기</button>
             )}
         </>
     );
 }
+
+const Img = styled.img`
+    cursor: pointer;
+`;
