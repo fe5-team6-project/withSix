@@ -39,7 +39,7 @@ export default function PostDetail() {
             {data.image.split(', ').map((img) => (
                 <img
                     key={img}
-                    src={URL + '/' + img}
+                    src={img}
                     width={100}
                     height={100}
                     alt="이미지"
