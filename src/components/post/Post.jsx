@@ -3,12 +3,12 @@ import { styled } from 'styled-components';
 import iconHeart from '../../assets/icons/post/icon-heart.svg';
 import iconHeartFill from '../../assets/icons/post/icon-heart-fill.svg';
 import iconComment from '../../assets/icons/post/icon-comment.svg';
-import { checkProfileImage, emptyImage } from './validationImage';
+import { checkProfileImage, emptyProfileImage } from './validationProfileImage';
+import { emptyContentImage } from './validationContentImage';
 
 export default function Post(props) {
     const user = props.item.author;
     const { item } = props;
-    console.log(item);
 
     return (
         <Li>
@@ -17,6 +17,7 @@ export default function Post(props) {
                     <ProfileLeft>
                         <ImgProfile
                             src={checkProfileImage(user.image)}
+                            onError={(e) => emptyProfileImage(e)}
                             alt="유저 프로필"
                         />
                     </ProfileLeft>
@@ -29,7 +30,7 @@ export default function Post(props) {
                     {item.image ? (
                         <ImgContent
                             src={item.image}
-                            onError={(e) => emptyImage(e)}
+                            onError={(e) => emptyContentImage(e)}
                             alt="등록된이미지"
                         />
                     ) : null}
