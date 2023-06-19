@@ -2,8 +2,16 @@ import React from 'react';
 import logo from '../../assets/logo/LOGO-full-negative.svg';
 import { styled } from 'styled-components';
 import Login from '../login/Login';
+import { useNavigate } from 'react-router-dom';
+import checkToken from '../login/checkToken';
 
 export default function Main() {
+    const navigate = useNavigate();
+
+    if (checkToken()) {
+        navigate('/home');
+    }
+
     return (
         <>
             <Header>

@@ -2,6 +2,7 @@ import React from 'react';
 import { styled } from 'styled-components';
 import logo from '../../assets/logo/LOGO-negative.svg';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
     const user = useSelector((state) => state.user.myInfo);
@@ -10,7 +11,9 @@ export default function Header() {
         <StyledHeader>
             <Div>
                 <H1>
-                    <Img src={logo} alt="로고" />
+                    <Link to={'/home'}>
+                        <Img src={logo} alt="로고" />
+                    </Link>
                 </H1>
 
                 <Article>
