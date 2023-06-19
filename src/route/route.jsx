@@ -15,10 +15,7 @@ export default function MyRouter() {
                 <Routes>
                     <Route path="/" element={<Main />} />
                     <Route path="/home" element={<Home />} />
-                    <Route
-                        path="/togetherUpload"
-                        element={<TogetherUpload />}
-                    />
+                    <Route path="/togetherUpload" element={<TogetherUpload />} />
                     <Route path="/togetherEdit" element={<TogetherEdit />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/following" element={<FollowingList />} />
