@@ -8,7 +8,7 @@ import {
     emptyProfileImage,
 } from './validationProfileImage';
 import { emptyContentImage } from './validationContentImage';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Post(props) {
     const user = props.item.author;
@@ -16,14 +16,16 @@ export default function Post(props) {
 
     return (
         <Li>
-            <Link to={`../profile/${user.accountname}`}>
+            <Link to={'#'}>
                 <ProfileWrap>
                     <ProfileLeft>
-                        <ImgProfile
-                            src={validationProfileImage(user.image)}
-                            onError={(e) => emptyProfileImage(e)}
-                            alt="유저 프로필"
-                        />
+                        <Link to={`../profile/${user.accountname}`}>
+                            <ImgProfile
+                                src={validationProfileImage(user.image)}
+                                onError={(e) => emptyProfileImage(e)}
+                                alt="유저 프로필"
+                            />
+                        </Link>
                     </ProfileLeft>
                     <ProfileRight>
                         <UserName>{user.username}</UserName>
