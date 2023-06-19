@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 import iconHeart from '../../assets/icons/post/icon-heart.svg';
 import iconHeartFill from '../../assets/icons/post/icon-heart-fill.svg';
 import iconComment from '../../assets/icons/post/icon-comment.svg';
-import { DEFAULT_IMAGE, URL } from '../../lib/apis/constant/path';
+import { checkProfileImage, emptyImage } from './validationImage';
 
 export default function Post(props) {
     const user = props.item.author;
@@ -50,39 +50,6 @@ export default function Post(props) {
             </a>
         </Li>
     );
-}
-
-function checkProfileImage(image) {
-    let src = image;
-    console.log(image);
-
-    if (!src) {
-        src = DEFAULT_IMAGE;
-        return src;
-    }
-
-    if (src.includes('api') && src.includes('Ellipse')) {
-        src = DEFAULT_IMAGE;
-        return src;
-    }
-
-    if (src.split('://').length > 2) {
-        console.log(src.split('://'));
-        src = DEFAULT_IMAGE;
-        return src;
-    }
-
-    if (!src.includes('api') && !src.includes('Ellipse')) {
-        src = `${URL}/${src}`;
-        return src;
-    }
-
-    return src;
-}
-
-function emptyImage(e) {
-    console.log('에러에러');
-    e.currentTarget.style.src = DEFAULT_IMAGE;
 }
 
 const Li = styled.li`
