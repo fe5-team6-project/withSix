@@ -8,6 +8,7 @@ import MyProfile from '../pages/myprofile/MyProfile';
 import FollowingList from '../pages/follow/FollowingList';
 import FollowerList from '../pages/follow/FollowerList';
 import PostDetail from '../components/postDetail';
+import Search from '../components/search';
 
 export default function MyRouter() {
     return (
@@ -26,6 +27,7 @@ export default function MyRouter() {
                     <Route path="/follower" element={<FollowerList />} />
                     <Route path="/myprofile" element={<MyProfile />} />
                     <Route path="/post/detail/:id" element={<PostDetail />} />
+                    <Route path="/search" element={<Search />} />
                 </Routes>
             </BrowserRouter>
         </>
