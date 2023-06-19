@@ -4,15 +4,17 @@ import { styled } from 'styled-components';
 import divLine from '../../assets/icons/post/div-line.svg';
 import Post from '../../components/post/Post';
 import { useSelector } from 'react-redux';
+import getPost from './getPost';
 
 export default function Home() {
     const [postList, setPostList] = useState([]);
     const [category, setCategory] = useState('');
     const user = useSelector((state) => state.user.myInfo);
+    console.log(user.accountname);
 
     useEffect(() => {
         async function fetchData() {
-            setPostList(await getPost(category));
+            setPostList(await getPost(category, user.username));
         }
 
         fetchData();
@@ -32,7 +34,7 @@ export default function Home() {
                 <CategoryButton
                     onClick={() => {
                         console.log(1);
-                        setCategory('my', user.userid);
+                        setCategory('my');
                     }}
                 >
                     내 글
@@ -62,41 +64,6 @@ export default function Home() {
             <Common page={page} />
         </>
     );
-}
-
-const URL = 'https://api.mandarin.weniv.co.kr';
-
-async function getPost(category, userId) {
-    let requestPath = '/post';
-    const type = category;
-
-    if (type === '') {
-        requestPath = '/post';
-    } else if (type === 'my') {
-        requestPath = `/post/${userId}/userpost`;
-    } else if (type === 'feed') {
-        requestPath = '/post/feed';
-    }
-
-    const requestUrl = `${URL}${requestPath}`;
-
-    const token = localStorage.token;
-    const bearerToken = `Bearer ${token}`;
-
-    const response = await fetch(requestUrl, {
-        method: 'GET',
-        headers: {
-            Authorization: bearerToken,
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify(),
-    });
-
-    const json = await response.json();
-    const postList = json.posts;
-    console.log(postList);
-
-    return postList;
 }
 
 const CategoryNav = styled.article`

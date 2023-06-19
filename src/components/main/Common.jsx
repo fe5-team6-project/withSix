@@ -3,24 +3,32 @@ import Footer from '../footer/Footer';
 import { styled } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setMyInfo } from '../../store/slices/userSlice';
 
 export default function Common(props) {
     const navigator = useNavigate();
     const dispatch = useDispatch();
-    const [token, setToken] = useState(localStorage.token);
+    const autoMove = props.autoMoveIgnore ? true : false;
+
+    const userInfo = useSelector((state) => state.user.myInfo);
+    const [user, setUser] = useState(userInfo);
+
+    console.log(user);
 
     useEffect(() => {
         checkLogin();
-    }, [token]);
+    }, [user]);
 
     async function checkLogin() {
         if (checkToken()) {
             const user = await getMyInfo();
             dispatch(setMyInfo(user));
         } else {
-            navigator('/');
+            setUser('');
+            if (!autoMove) {
+                navigator('/');
+            }
         }
     }
 
