@@ -2,17 +2,47 @@ import React, { useState } from 'react';
 import Common from '../../components/main/Common';
 import { styled } from 'styled-components';
 import handleFileUpload from '../signup/handleFileUload';
+import { useNavigate } from 'react-router-dom';
+import {
+    validationId,
+    validationName,
+} from '../../lib/apis/validation/validation';
 import { useSelector } from 'react-redux';
+import handleProfileUpdate from './handleProfileUpdate';
 
 export default function UpdateProfile() {
     const user = useSelector((state) => state.user.myInfo);
+    const navigate = useNavigate();
     const [accountname, setAccountname] = useState(user.accountname);
     const [username, setUsername] = useState(user.username);
     const [intro, setIntro] = useState(user.intro);
     const [image, setImage] = useState(user.image);
 
+    async function handleSubmit(e) {
+        e.preventDefault();
+        const id = document.querySelector('#id').value;
+        const name = document.querySelector('#name').value;
+
+        if (!(await validationId(id))) {
+            return false;
+        }
+
+        if (!validationName(name)) {
+            return false;
+        }
+
+        const status = await handleProfileUpdate();
+
+        navigate('/myprofile');
+        return status;
+    }
+
     const page = (
-        <Form>
+        <Form
+            onSubmit={(e) => {
+                handleSubmit(e);
+            }}
+        >
             <ImageWrap>
                 <Img src={image} alt={'회원 이미지'} id="profile_image" />
                 <ImageInputLabel htmlFor="image">사진 변경</ImageInputLabel>
