@@ -9,6 +9,7 @@ import {
 } from '../../lib/apis/validation/validation';
 import { useSelector } from 'react-redux';
 import handleProfileUpdate from './handleProfileUpdate';
+import checkAleadyUseId from './checkAleadyUseId';
 
 export default function UpdateProfile() {
     const user = useSelector((state) => state.user.myInfo);
@@ -23,8 +24,10 @@ export default function UpdateProfile() {
         const id = document.querySelector('#id').value;
         const name = document.querySelector('#name').value;
 
-        if (!(await validationId(id))) {
-            return false;
+        if (checkAleadyUseId()) {
+            if (!(await validationId(id))) {
+                return false;
+            }
         }
 
         if (!validationName(name)) {
