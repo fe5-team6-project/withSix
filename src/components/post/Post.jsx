@@ -8,6 +8,7 @@ import {
     emptyProfileImage,
 } from './validationProfileImage';
 import { emptyContentImage } from './validationContentImage';
+import { Link } from 'react-router-dom';
 
 export default function Post(props) {
     const user = props.item.author;
@@ -15,7 +16,7 @@ export default function Post(props) {
 
     return (
         <Li>
-            <a href="#">
+            <Link to={`../profile/${user.accountname}`}>
                 <ProfileWrap>
                     <ProfileLeft>
                         <ImgProfile
@@ -51,7 +52,7 @@ export default function Post(props) {
                     <img src={iconComment} alt="댓글" />
                     <span>{item.comments.length}</span>
                 </EtcWrap>
-            </a>
+            </Link>
         </Li>
     );
 }
