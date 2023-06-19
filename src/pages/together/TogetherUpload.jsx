@@ -4,6 +4,7 @@ import { styled } from 'styled-components';
 import initialImage from '../../assets/images/initialImage.png'
 import { useSelector, useDispatch } from 'react-redux';
 import { inputTogether } from '../../store/slices/togetherSlice';
+import { api } from '../../lib/apis/axiosConfig';
 
 export default function GroupUpload() {
     //미리보기 사진 변경
@@ -11,7 +12,7 @@ export default function GroupUpload() {
     //이미지 업로드
     const handleImgChange = (e) => {
         const file = e.target.files[0];
-        const imgUrl = window.URL.createObjectURL(file);
+        const imgUrl = URL.createObjectURL(file);
         setImg(imgUrl);
     };
 
@@ -26,6 +27,20 @@ export default function GroupUpload() {
         }
     };
 
+    function handleSave() {
+        console.log('h')
+        const saveImg = async () => {
+            const imageFile = togetherReq.itemImage;
+            console.log(imageFile);
+            const formData = new FormData();
+            formData.append("image", imageFile);
+            console.log(togetherReq);
+
+            const res = await api.post(`/image/uploadfile`, formData);
+            console.log(res);
+        }
+        saveImg()
+    }
 
     const page = (
         <>
@@ -44,10 +59,11 @@ export default function GroupUpload() {
                 <GroupLabel htmlFor="GroupImage">
                     <GroupImage id="PreImage" src={img || initialImage}></GroupImage>
                 </GroupLabel>
-                <RegiButton onClick={() => { console.log('h') }}>등록</RegiButton>
+                <RegiButton onClick={handleSave}>등록</RegiButton>
             </Form>
         </>
     );
+
     return (
         <>
             <Common page={page}></Common>
