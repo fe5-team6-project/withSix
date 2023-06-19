@@ -4,6 +4,7 @@ import { api } from '../../lib/apis/axiosConfig';
 import { returnErrorMessage } from './utils/errorMessage';
 import { URL } from '../../lib/apis/constants';
 import LikeBtn from '../../components/likeButton';
+import PostSideToggle from './postSideToggle';
 
 const postId = '6478c001b2cb2056632d23f2';
 
@@ -46,10 +47,11 @@ export default function PostDetail() {
             <p>{data.author.username} </p>
             <p>@{data.author.accountname}</p>
             <h3>댓글 개수 : {commentCount}</h3>
-            <LikeBtn data={data} postId={postId} />
+            <LikeBtn data={data} />
             {/* todo
                 생성날짜변환 ex)2020년_10월_21일 */}
             <p>{data.createdAt}</p>
+            <PostSideToggle postAuthorId={data.author._id} />
         </>
     );
 }
