@@ -3,6 +3,7 @@ import Common from '../../components/main/Common';
 import { Link, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 import getUserProfile from './getUserProfile';
+import { validationProfileImage } from '../../components/post/validationProfileImage';
 
 export default function UserProfile() {
     const accountname = useParams().id;
@@ -24,7 +25,10 @@ export default function UserProfile() {
         <LayoutDiv>
             <ImageWrap>
                 <h2 className="a11y-hidden">프로필 이미지</h2>
-                <Img src={profile?.image} alt="유저 프로필 이미지" />
+                <Img
+                    src={validationProfileImage(profile?.image)}
+                    alt="유저 프로필 이미지"
+                />
             </ImageWrap>
 
             <Section>
@@ -103,7 +107,9 @@ const ImageWrap = styled.section`
 
 const Img = styled.img`
     width: 100%;
-    object-fit: contain;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
 `;
 
 const Div = styled.div`
@@ -150,18 +156,6 @@ const Strong = styled.strong`
     }
     ${Div}.id > &::before {
         content: '@';
-    }
-`;
-
-const LogoutLink = styled(Link)`
-    position: absolute;
-    right: 5px;
-    bottom: 0;
-    font-size: var(--fsize-s);
-    color: var(--color-gray);
-
-    & > img {
-        margin-right: 5px;
     }
 `;
 

@@ -101,7 +101,9 @@ const ProfileLeft = styled.section`
 
 const ImgProfile = styled.img`
     width: 100%;
-    vertical-align: middle;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
 `;
 
 const ProfileRight = styled.section`

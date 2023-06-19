@@ -107,7 +107,9 @@ const ImageWrap = styled.section`
 
 const Img = styled.img`
     width: 100%;
-    object-fit: contain;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
 `;
 
 const Div = styled.div`
