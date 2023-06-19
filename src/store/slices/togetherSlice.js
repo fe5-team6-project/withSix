@@ -33,10 +33,10 @@ const together = createSlice({
     reducers: {
         inputTogether(state, actions) {
             const { itemName, price, link, itemImage } = actions.payload;
-            if (itemName) state.itemName = itemName;
-            if (price) state.price = parseInt(price);
-            if (link) state.link = link;
-            if (itemImage) state.itemImage = itemImage;
+            if (itemName) state.req.itemName = itemName;
+            if (price) state.req.price = parseInt(price);
+            if (link) state.req.link = link;
+            if (itemImage) state.req.itemImage = itemImage;
         }
     }
 })
