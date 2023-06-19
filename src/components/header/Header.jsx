@@ -2,11 +2,12 @@ import React from 'react';
 import { styled } from 'styled-components';
 import logo from '../../assets/logo/LOGO-negative.svg';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import prevPage from '../../assets/icons/common/icon-back.svg';
 
-export default function Header() {
+export default function Header(props) {
     const user = useSelector((state) => state.user.myInfo);
+    const navigate = useNavigate();
 
     return (
         <StyledHeader>
@@ -21,7 +22,7 @@ export default function Header() {
                     <Strong>{user.username}</Strong>
                 </Article>
             </Div>
-            <BackLink>
+            <BackLink onClick={() => navigate(-1)}>
                 <img src={prevPage} alt="뒤로가기 아이콘" />
             </BackLink>
         </StyledHeader>
