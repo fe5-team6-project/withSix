@@ -4,8 +4,8 @@ import { styled } from 'styled-components';
 import initialImage from '../../assets/images/initialImage.png'
 import { useSelector, useDispatch } from 'react-redux';
 import { inputTogether } from '../../store/slices/togetherSlice';
-// import { urlApi } from '../../lib/apis/axiosConfig';
-import axios from 'axios';
+import { urlApi } from '../../lib/apis/axiosConfig';
+// import axios from 'axios';
 // import { URL } from '../../lib/apis/constants';
 
 
@@ -35,22 +35,26 @@ export default function GroupUpload() {
     };
 
     const saveImg = async (e) => {
+
         console.log(togetherReq);
         const imageFile = togetherReq.itemImage;
         console.log(imageFile);
         const formData = new FormData();
-        formData.append("image", imageFile);
+        formData.append('image', imageFile);
         console.log(togetherReq.itemImage);
 
-        const res = await axios.post("https://api.mandarin.weniv.co.kr/image/uploadfile", formData);
+        const res = await urlApi.post(`/image/uploadfile`, formData);
         console.log(res);
-        const imageUrl = "https://api.mandarin.weniv.co.kr/" + res.data.filename;
+        const fileName = res.data.filename;
+        console.log(fileName);
+        const imageUrl = "https://api.mandarin.weniv.co.kr/" + fileName;  // 수정: res.filename 대신 fileName을 사용
         console.log(imageUrl);
         dispatch(inputTogether({ itemImage: imageUrl }));
         console.log(togetherReq);
-    }
+    };
+
     function handleSave() {
-        saveImg()
+        saveImg();
     }
 
     const page = (
