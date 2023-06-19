@@ -1,8 +1,54 @@
-import React from 'react';
+import { React, useState } from 'react';
 import Common from '../../components/main/Common';
 import { styled } from 'styled-components';
+import initialImage from '../../assets/images/initialImage.png'
+import { useSelector, useDispatch } from 'react-redux';
+import { inputTogether } from '../../store/slices/togetherSlice';
+import { imgApi } from '../../lib/apis/axiosConfig';
+// import { URL } from '../../lib/apis/constants';
 
 export default function GroupUpload() {
+    const togetherReq = useSelector((state) => { return state.together.req });
+    console.log(togetherReq);
+    const dispatch = useDispatch();
+
+    //미리보기 사진 변경
+    const [img, setImg] = useState('');
+    //이미지 업로드
+    const handleImgChange = (e) => {
+        const file = e.target.files[0];
+        const imgUrl = URL.createObjectURL(file);
+        setImg(imgUrl);
+        console.log(file);
+        dispatch(inputTogether({ together: file }));
+    };
+
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        if (name === 'itemName' || name === 'price' || name === 'link') {
+            dispatch(inputTogether({ [name]: value }));
+        }
+    };
+
+    const saveImg = async (e) => {
+        const imageFile = togetherReq.itemImage;
+        console.log(imageFile);
+        const formData = new FormData();
+        formData.append("image", imageFile);
+        console.log(togetherReq.itemImage);
+
+        const res = await imgApi.post(`/image/uploadfile`, formData);
+        console.log(res);
+        const imageUrl = "https://api.mandarin.weniv.co.kr/" + res.filename;
+        console.log(imageUrl);
+        dispatch(inputTogether({ itemImage: imageUrl }))
+        console.log(togetherReq)
+    }
+    function handleSave() {
+        saveImg()
+    }
+
     const page = (
         <>
             <Form>
@@ -11,31 +57,20 @@ export default function GroupUpload() {
                     <P>글과 사진을 남기고 공유할 수 있습니다.</P>
                 </GroupHeader>
                 <GroupInputWrapper>
-                    <GroupInput
-                        id="GroupName"
-                        placeholder="모임명"
-                    ></GroupInput>
-                    <GroupInput
-                        id="GroupPrice"
-                        placeholder="모임비"
-                    ></GroupInput>
+                    <GroupInput id="GroupName" placeholder="모임명" name="itemName" onChange={handleChange}></GroupInput>
+                    <GroupInput id="GroupPrice" placeholder="모임비" name="price" onChange={handleChange}></GroupInput>
                     {/* <GroupInput id="GroupInfo" placeholder="모임 소개"></GroupInput> */}
-                    <GroupInfo
-                        id="GroupInfo"
-                        placeholder="모임 소개"
-                    ></GroupInfo>
-                    <GroupInput
-                        id="GroupImage"
-                        placeholder="모임 소개"
-                    ></GroupInput>
+                    <GroupInfo id="GroupInfo" placeholder="모임 소개" name="link" onChange={handleChange}></GroupInfo>
+                    <GroupInput id="GroupImage" placeholder="모임 이미지" type="file" name="itemImage" accept="image/*" onChange={handleImgChange}></GroupInput>
                 </GroupInputWrapper>
                 <GroupLabel htmlFor="GroupImage">
-                    <GroupImage id="PreImage"></GroupImage>
+                    <GroupImage id="PreImage" src={img || togetherReq.itemImage || initialImage}></GroupImage>
                 </GroupLabel>
-                <RegiButton>등록</RegiButton>
+                <RegiButton onClick={handleSave}>등록</RegiButton>
             </Form>
         </>
     );
+
     return (
         <>
             <Common page={page}></Common>
@@ -101,7 +136,7 @@ const GroupInfo = styled.textarea`
     font-family: inherit;
 `;
 
-const GroupLabel = styled.div``;
+const GroupLabel = styled.label``;
 const GroupImage = styled.img`
     margin-top: 20px;
     width: 100%;
