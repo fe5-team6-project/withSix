@@ -2,6 +2,8 @@ import { React, useState } from 'react';
 import Common from '../../components/main/Common';
 import { styled } from 'styled-components';
 import initialImage from '../../assets/images/initialImage.png'
+import { useSelector, useDispatch } from 'react-redux';
+import { inputTogether } from '../../store/slices/togetherSlice';
 
 export default function GroupUpload() {
     //미리보기 사진 변경
@@ -13,6 +15,18 @@ export default function GroupUpload() {
         setImg(imgUrl);
     };
 
+    const togetherReq = useSelector((state) => { return state.together.req });
+    console.log(togetherReq);
+    const dispatch = useDispatch();
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        if (name === 'itemName' || name === 'price' || name === 'link') {
+            dispatch(inputTogether({ [name]: value }));
+        }
+    };
+
+
     const page = (
         <>
             <Form>
@@ -21,10 +35,10 @@ export default function GroupUpload() {
                     <P>글과 사진을 남기고 공유할 수 있습니다.</P>
                 </GroupHeader>
                 <GroupInputWrapper>
-                    <GroupInput id="GroupName" placeholder="모임명"></GroupInput>
-                    <GroupInput id="GroupPrice" placeholder="모임비"></GroupInput>
+                    <GroupInput id="GroupName" placeholder="모임명" name="itemName" onChange={handleChange}></GroupInput>
+                    <GroupInput id="GroupPrice" placeholder="모임비" name="price" onChange={handleChange}></GroupInput>
                     {/* <GroupInput id="GroupInfo" placeholder="모임 소개"></GroupInput> */}
-                    <GroupInfo id="GroupInfo" placeholder="모임 소개"></GroupInfo>
+                    <GroupInfo id="GroupInfo" placeholder="모임 소개" name="link" onChange={handleChange}></GroupInfo>
                     <GroupInput id="GroupImage" placeholder="모임 소개" type="file" accept="image/*" onClick={handleImgChange}></GroupInput>
                 </GroupInputWrapper>
                 <GroupLabel htmlFor="GroupImage">
