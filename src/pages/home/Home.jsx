@@ -4,6 +4,7 @@ import { styled } from 'styled-components';
 import divLine from '../../assets/icons/post/div-line.svg';
 import Post from '../../components/post/Post';
 import { useSelector } from 'react-redux';
+import getPost from './getPost';
 
 export default function Home() {
     const [postList, setPostList] = useState([]);
@@ -63,42 +64,6 @@ export default function Home() {
             <Common page={page} />
         </>
     );
-}
-
-const URL = 'https://api.mandarin.weniv.co.kr';
-
-async function getPost(category, accountname) {
-    console.log(accountname);
-    let requestPath = '/post';
-    const type = category;
-
-    if (type === '') {
-        requestPath = '/post';
-    } else if (type === 'my') {
-        requestPath = `/post/${accountname}/userpost`;
-    } else if (type === 'feed') {
-        requestPath = '/post/feed';
-    }
-
-    const requestUrl = `${URL}${requestPath}`;
-
-    const token = localStorage.token;
-    const bearerToken = `Bearer ${token}`;
-
-    console.log(requestUrl);
-    const response = await fetch(requestUrl, {
-        method: 'GET',
-        headers: {
-            Authorization: bearerToken,
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify(),
-    });
-
-    const json = await response.json();
-    const postList = json.posts;
-
-    return postList;
 }
 
 const CategoryNav = styled.article`
