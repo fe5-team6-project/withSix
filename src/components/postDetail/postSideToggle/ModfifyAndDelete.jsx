@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 export default function ModifyAndDelete() {
-    console.log('ModifyAndDelete 렌더링');
     const [visible, setVisible] = useState(false);
     // Todo
     // 수정,삭제 기능 구현

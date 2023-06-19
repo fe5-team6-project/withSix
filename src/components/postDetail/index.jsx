@@ -5,6 +5,7 @@ import { returnErrorMessage } from './utils/errorMessage';
 import { URL } from '../../lib/apis/constants';
 import LikeBtn from '../../components/likeButton';
 import PostSideToggle from './postSideToggle';
+import Comments from './comments';
 
 const postId = '6478c001b2cb2056632d23f2';
 
@@ -52,6 +53,7 @@ export default function PostDetail() {
                 생성날짜변환 ex)2020년_10월_21일 */}
             <p>{data.createdAt}</p>
             <PostSideToggle postAuthorId={data.author._id} />
+            <Comments setCommentCount={setCommentCount} />
         </>
     );
 }
