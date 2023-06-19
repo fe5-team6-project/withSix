@@ -17,6 +17,7 @@ export default function FollowButton() {
     const handleFollow = async () => {
 
         //isFollow정보 받아와서 처리해야하는데 지금 userInfo 관리 안되고있어서 임시로 true넣어놓기 = isfollow값 받아왔을때 true
+        //user정보 아직 받아오지 않아서 accountname 임시로 넣어놓기
         if (isFollow) {
             await api.delete(`/profile/test999/unfollow`, [])
                 .then((res) => {
