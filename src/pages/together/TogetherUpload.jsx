@@ -20,7 +20,7 @@ export default function GroupUpload() {
         const imgUrl = URL.createObjectURL(file);
         setImg(imgUrl);
         console.log(file);
-        dispatch(inputTogether({ req: file }));
+        dispatch(inputTogether({ together: file }));
     };
 
 
