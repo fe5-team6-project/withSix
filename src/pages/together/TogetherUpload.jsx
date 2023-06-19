@@ -5,8 +5,13 @@ import initialImage from '../../assets/images/initialImage.png'
 import { useSelector, useDispatch } from 'react-redux';
 import { inputTogether } from '../../store/slices/togetherSlice';
 import { api } from '../../lib/apis/axiosConfig';
+// import { URL } from '../../lib/apis/constants';
 
 export default function GroupUpload() {
+    const togetherReq = useSelector((state) => { return state.together.req });
+    console.log(togetherReq);
+    const dispatch = useDispatch();
+
     //미리보기 사진 변경
     const [img, setImg] = useState('');
     //이미지 업로드
@@ -14,11 +19,9 @@ export default function GroupUpload() {
         const file = e.target.files[0];
         const imgUrl = URL.createObjectURL(file);
         setImg(imgUrl);
+        dispatch(inputTogether({ itemImage: file }));
     };
 
-    const togetherReq = useSelector((state) => { return state.together.req });
-    console.log(togetherReq);
-    const dispatch = useDispatch();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -28,8 +31,7 @@ export default function GroupUpload() {
     };
 
     function handleSave() {
-        console.log('h')
-        const saveImg = async () => {
+        const saveImg = async (e) => {
             const imageFile = togetherReq.itemImage;
             console.log(imageFile);
             const formData = new FormData();
@@ -38,6 +40,10 @@ export default function GroupUpload() {
 
             const res = await api.post(`/image/uploadfile`, formData);
             console.log(res);
+            const imageUrl = "https://api.mandarin.weniv.co.kr/" + res.data.filename;
+            console.log(imageUrl);
+            dispatch(inputTogether({ itemImage: imageUrl }))
+            console.log(togetherReq)
         }
         saveImg()
     }
@@ -54,10 +60,10 @@ export default function GroupUpload() {
                     <GroupInput id="GroupPrice" placeholder="모임비" name="price" onChange={handleChange}></GroupInput>
                     {/* <GroupInput id="GroupInfo" placeholder="모임 소개"></GroupInput> */}
                     <GroupInfo id="GroupInfo" placeholder="모임 소개" name="link" onChange={handleChange}></GroupInfo>
-                    <GroupInput id="GroupImage" placeholder="모임 소개" type="file" accept="image/*" onClick={handleImgChange}></GroupInput>
+                    <GroupInput id="GroupImage" placeholder="모임 이미지" type="file" name="itemImage" accept="image/*" onChange={handleImgChange}></GroupInput>
                 </GroupInputWrapper>
                 <GroupLabel htmlFor="GroupImage">
-                    <GroupImage id="PreImage" src={img || initialImage}></GroupImage>
+                    <GroupImage id="PreImage" src={img || togetherReq.itemImage || initialImage}></GroupImage>
                 </GroupLabel>
                 <RegiButton onClick={handleSave}>등록</RegiButton>
             </Form>
