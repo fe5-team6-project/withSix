@@ -3,9 +3,7 @@ import { styled } from 'styled-components';
 import iconHeart from '../../assets/icons/post/icon-heart.svg';
 import iconHeartFill from '../../assets/icons/post/icon-heart-fill.svg';
 import iconComment from '../../assets/icons/post/icon-comment.svg';
-
-const URL = 'https://api.mandarin.weniv.co.kr';
-const DEFALUT_IMAGE = 'http://146.56.183.55:5050/Ellipse.png';
+import { DEFAULT_IMAGE, URL } from '../../lib/apis/constant/path';
 
 export default function Post(props) {
     const user = props.item.author;
@@ -56,18 +54,35 @@ export default function Post(props) {
 
 function checkProfileImage(image) {
     let src = image;
+    console.log(image);
 
     if (!src) {
-        src = DEFALUT_IMAGE;
+        src = DEFAULT_IMAGE;
         return src;
     }
 
-    src = `${URL}/${image}`;
+    if (src.includes('api') && src.includes('Ellipse')) {
+        src = DEFAULT_IMAGE;
+        return src;
+    }
+
+    if (src.split('://').length > 2) {
+        console.log(src.split('://'));
+        src = DEFAULT_IMAGE;
+        return src;
+    }
+
+    if (!src.includes('api') && !src.includes('Ellipse')) {
+        src = `${URL}/${src}`;
+        return src;
+    }
+
     return src;
 }
 
 function emptyImage(e) {
-    e.currentTarget.style.display = 'none';
+    console.log('에러에러');
+    e.currentTarget.style.src = DEFAULT_IMAGE;
 }
 
 const Li = styled.li`
@@ -104,13 +119,14 @@ const ProfileWrap = styled(SectionDefault)`
 
 const ProfileLeft = styled.section`
     width: 30px;
+    height: 30px;
+    margin-right: 5px;
     border-radius: 50%;
     overflow: hidden;
 `;
 
 const ImgProfile = styled.img`
-    width: 30px;
-    margin-right: 5px;
+    width: 100%;
     vertical-align: middle;
 `;
 
