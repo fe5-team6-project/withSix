@@ -3,14 +3,15 @@ import { styled } from 'styled-components';
 import iconHeart from '../../assets/icons/post/icon-heart.svg';
 import iconHeartFill from '../../assets/icons/post/icon-heart-fill.svg';
 import iconComment from '../../assets/icons/post/icon-comment.svg';
-
-const URL = 'https://api.mandarin.weniv.co.kr';
-const DEFALUT_IMAGE = 'http://146.56.183.55:5050/Ellipse.png';
+import {
+    validationProfileImage,
+    emptyProfileImage,
+} from './validationProfileImage';
+import { emptyContentImage } from './validationContentImage';
 
 export default function Post(props) {
     const user = props.item.author;
     const { item } = props;
-    console.log(item);
 
     return (
         <Li>
@@ -18,7 +19,8 @@ export default function Post(props) {
                 <ProfileWrap>
                     <ProfileLeft>
                         <ImgProfile
-                            src={checkProfileImage(user.image)}
+                            src={validationProfileImage(user.image)}
+                            onError={(e) => emptyProfileImage(e)}
                             alt="유저 프로필"
                         />
                     </ProfileLeft>
@@ -31,7 +33,7 @@ export default function Post(props) {
                     {item.image ? (
                         <ImgContent
                             src={item.image}
-                            onError={(e) => emptyImage(e)}
+                            onError={(e) => emptyContentImage(e)}
                             alt="등록된이미지"
                         />
                     ) : null}
@@ -52,22 +54,6 @@ export default function Post(props) {
             </a>
         </Li>
     );
-}
-
-function checkProfileImage(image) {
-    let src = image;
-
-    if (!src) {
-        src = DEFALUT_IMAGE;
-        return src;
-    }
-
-    src = `${URL}/${image}`;
-    return src;
-}
-
-function emptyImage(e) {
-    e.currentTarget.style.display = 'none';
 }
 
 const Li = styled.li`
@@ -104,13 +90,14 @@ const ProfileWrap = styled(SectionDefault)`
 
 const ProfileLeft = styled.section`
     width: 30px;
+    height: 30px;
+    margin-right: 5px;
     border-radius: 50%;
     overflow: hidden;
 `;
 
 const ImgProfile = styled.img`
-    width: 30px;
-    margin-right: 5px;
+    width: 100%;
     vertical-align: middle;
 `;
 

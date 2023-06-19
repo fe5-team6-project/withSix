@@ -35,7 +35,12 @@ export default function Signup() {
 
     return (
         <>
-            <Common page={page} title={pagaTitle} desc={pageDesc} />
+            <Common
+                page={page}
+                title={pagaTitle}
+                desc={pageDesc}
+                autoMoveIgnore={true}
+            />
         </>
     );
 }

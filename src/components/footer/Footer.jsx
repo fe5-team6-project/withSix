@@ -62,8 +62,7 @@ const StyledFooter = styled.footer`
     position: fixed;
     bottom: 0;
     left: 50%;
-    width: 100%;
-    max-width: var(--cont-width-max);
+    width: 100vw;
     height: 50px;
     padding: 5px;
     background-color: white;
@@ -76,6 +75,9 @@ const Ul = styled.ul`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: var(--cont-width-max);
+    margin: 0 auto;
+    padding: 0 10px;
 
     & > li {
         width: 50px;
