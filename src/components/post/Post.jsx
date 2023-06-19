@@ -3,7 +3,10 @@ import { styled } from 'styled-components';
 import iconHeart from '../../assets/icons/post/icon-heart.svg';
 import iconHeartFill from '../../assets/icons/post/icon-heart-fill.svg';
 import iconComment from '../../assets/icons/post/icon-comment.svg';
-import { checkProfileImage, emptyProfileImage } from './validationProfileImage';
+import {
+    validationProfileImage,
+    emptyProfileImage,
+} from './validationProfileImage';
 import { emptyContentImage } from './validationContentImage';
 
 export default function Post(props) {
@@ -16,7 +19,7 @@ export default function Post(props) {
                 <ProfileWrap>
                     <ProfileLeft>
                         <ImgProfile
-                            src={checkProfileImage(user.image)}
+                            src={validationProfileImage(user.image)}
                             onError={(e) => emptyProfileImage(e)}
                             alt="유저 프로필"
                         />
