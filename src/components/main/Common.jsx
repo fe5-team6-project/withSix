@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMyInfo } from '../../store/slices/userSlice';
+import checkToken from '../../pages/login/checkToken';
+import getMyInfo from '../../pages/login/getMyInfo';
 
 export default function Common(props) {
     const navigator = useNavigate();
@@ -13,8 +15,6 @@ export default function Common(props) {
 
     const userInfo = useSelector((state) => state.user.myInfo);
     const [user, setUser] = useState(userInfo);
-
-    console.log(user);
 
     useEffect(() => {
         checkLogin();
@@ -47,40 +47,6 @@ export default function Common(props) {
             <Footer />
         </>
     );
-}
-
-const URL = 'https://api.mandarin.weniv.co.kr';
-
-function checkToken() {
-    const token = localStorage.token;
-
-    if (!token) {
-        return false;
-    }
-
-    return true;
-}
-
-async function getMyInfo() {
-    const requestPath = '/user/myinfo';
-    const requestUrl = `${URL}${requestPath}`;
-
-    const token = localStorage.token;
-    const bearerToken = `Bearer ${token}`;
-
-    const response = await fetch(requestUrl, {
-        method: 'GET',
-        headers: {
-            Authorization: bearerToken,
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify(),
-    });
-
-    const json = await response.json();
-    const user = json.user;
-
-    return user;
 }
 
 const StyledMain = styled.main`

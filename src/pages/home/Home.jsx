@@ -10,7 +10,6 @@ export default function Home() {
     const [postList, setPostList] = useState([]);
     const [category, setCategory] = useState('');
     const user = useSelector((state) => state.user.myInfo);
-    console.log(user.accountname);
 
     useEffect(() => {
         async function fetchData() {
@@ -33,7 +32,6 @@ export default function Home() {
                 <DivLine src={divLine} alt="" />
                 <CategoryButton
                     onClick={() => {
-                        console.log(1);
                         setCategory('my');
                     }}
                 >
