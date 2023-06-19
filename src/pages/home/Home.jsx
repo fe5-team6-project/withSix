@@ -66,10 +66,13 @@ export default function Home() {
 
 const CategoryNav = styled.article`
     position: sticky;
-    top: 10px;
-    width: 100%;
-    margin: 10px 0;
-    height: 20px;
+    top: 0px;
+    width: 390px;
+    height: 40px;
+    margin: 0 auto;
+    padding: 10px 20px 0 0;
+    box-sizing: border-box;
+    background-color: var(--color-back);
     text-align: right;
 `;
 
