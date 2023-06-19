@@ -78,8 +78,9 @@ const CategoryNav = styled.article`
 
 const CategoryButton = styled.button`
     all: unset;
-    font-size: var(--fsize-button-sub);
+    font-size: var(--fsize-m);
     color: var(--color-gray);
+    cursor: pointer;
 
     &:focus,
     &:hover {
