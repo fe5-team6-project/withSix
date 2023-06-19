@@ -1,5 +1,6 @@
+import { URL } from '../../lib/apis/constant/path';
+
 export default async function getPost(category, accountname) {
-    console.log(accountname);
     let requestPath = '/post';
     const type = category;
 
