@@ -141,87 +141,91 @@ export default function PostUpload (){
         }
     }, [content, postImg]);
 
-    return (
+    const page = (        
+    <>
+        {/* <Helmet> */}
+            <title> 게시물 업로드 </title>
+            <meta name="description" content="게시물 업로드 페이지" />
+        {/* </Helmet> */}
+    
+        {/* 게시물 업로드 헤더 section */}
+        <UploadSec>
+            <PostHeaderSec>
+                <TitleSec>
+                <BackBtn onClick={() => { navigate(-1); }} />
+                <Tit>포스팅</Tit>
+                <SubTit>글과 사진을 남기고 공유할 수 있습니다.</SubTit>
+                {/* <UploadBtn size='middle-sm' isActive={isActive} UploadPost={UploadPost} disabled={disabled} text='저장' /> */}
+                </TitleSec>
+            </PostHeaderSec>   
 
-        <>
-            {/* <Helmet> */}
-                <title> 게시물 업로드 </title>
-                <meta name="description" content="게시물 업로드 페이지" />
-            {/* </Helmet> */}
-        
-            {/* 게시물 업로드 헤더 section */}
-            <UploadSec>
-                <PostHeaderSec>
-                    <TitleSec>
-                    <BackBtn onClick={() => { navigate(-1); }} />
-                    <Tit>포스팅</Tit>
-                    <SubTit>글과 사진을 남기고 공유할 수 있습니다.</SubTit>
-                    {/* <UploadBtn size='middle-sm' isActive={isActive} UploadPost={UploadPost} disabled={disabled} text='저장' /> */}
-                    </TitleSec>
-                </PostHeaderSec>   
+        {/* 프로필 불러오기 */}
+        {/* 프로필 이미지가 있을시에 setImageSrc 불러옴 */}
+            {/* {imageSrc && <img src={imageSrc} alt="" />} */}
 
-            {/* 프로필 불러오기 */}
-            {/* 프로필 이미지가 있을시에 setImageSrc 불러옴 */}
-                {/* {imageSrc && <img src={imageSrc} alt="" />} */}
+        {/* 게시글 부분 */}
+            <Lable htmlFor="post"/> 
+            <Input
+                name="post"
+                id="post"
+                placeholder="글을 작성해주세요."
+                value={content}
+                // input값 바뀌면 이벤트 실행
+                onChange={(e) => {
+                    setContent(e.target.value);
+                }}
+            />
 
-            {/* 게시글 부분 */}
-                <Lable htmlFor="post"/> 
-                <Input
-                    name="post"
-                    id="post"
-                    placeholder="글을 작성해주세요."
-                    value={content}
-                    // input값 바뀌면 이벤트 실행
-                    onChange={(e) => {
-                        setContent(e.target.value);
-                    }}
+        {/* 이미지 부분 */}
+            <PostUploadImg>
+                {showImg.length === 1
+                    ? showImg.map((image, id) => {
+                            return (
+                                <div key={id}>
+                                    <SingleImg key={id} src={image} />
+                                    <DeleteBtn
+                                        onClick={() => {
+                                            return DeleteImg(id);
+                                        }}
+                                    />
+                                </div>
+                            );
+                        })
+                    : showImg.map((image, id) => {
+                            return (
+                                <div key={id}>
+                                    <Img key={id} src={image} />
+                                    <DeleteBtn
+                                        onClick={() => {
+                                            return DeleteImg(id);
+                                        }}
+                                    />
+                                </div>
+                            );
+                        })}
+            </PostUploadImg>
+
+            <FileUpload htmlFor="input-file">
+                <FileTxt>이미지 등록 <br/></FileTxt>
+                <FileSubTxt>( n*n, 1M 이하, jpeg, png )</FileSubTxt>
+                <FileInput
+                    id="input-file"
+                    name="PostImg"
+                    type="file"
+                    accept=".png, .jpg, .jpeg"
+                    onChange={ImgView}
+                    ref={fileInput}
                 />
+            </FileUpload>
 
-            {/* 이미지 부분 */}
-                <PostUploadImg>
-                    {showImg.length === 1
-                        ? showImg.map((image, id) => {
-                                return (
-                                    <div key={id}>
-                                        <SingleImg key={id} src={image} />
-                                        <DeleteBtn
-                                            onClick={() => {
-                                                return DeleteImg(id);
-                                            }}
-                                        />
-                                    </div>
-                                );
-                            })
-                        : showImg.map((image, id) => {
-                                return (
-                                    <div key={id}>
-                                        <Img key={id} src={image} />
-                                        <DeleteBtn
-                                            onClick={() => {
-                                                return DeleteImg(id);
-                                            }}
-                                        />
-                                    </div>
-                                );
-                            })}
-                </PostUploadImg>
+        {/* 업로드 버튼 부분 */}
+            <PostUploadFooter UploadPost={UploadPost} disabled={uploadBtn ? null : 'disabled'} />
+        </UploadSec>
+    </>)
 
-                <FileUpload htmlFor="input-file">
-                    <FileTxt>이미지 등록 <br/></FileTxt>
-                    <FileSubTxt>( n*n, 1M 이하, jpeg, png )</FileSubTxt>
-                    <FileInput
-                        id="input-file"
-                        name="PostImg"
-                        type="file"
-                        accept=".png, .jpg, .jpeg"
-                        onChange={ImgView}
-                        ref={fileInput}
-                    />
-                </FileUpload>
-
-            {/* 업로드 버튼 부분 */}
-                <PostUploadFooter UploadPost={UploadPost} disabled={uploadBtn ? null : 'disabled'} />
-            </UploadSec>
+    return (
+        <>
+        <Common page = {page} />
         </>
     );
 };
