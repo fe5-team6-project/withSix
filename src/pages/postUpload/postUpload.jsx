@@ -32,6 +32,28 @@ export default function PostUpload (){
     const navigate = useNavigate();
     const [imageSrc, setImageSrc] = useState('');
 
+        const data = {
+        post: {
+            content: "",
+            image: "",
+        },
+    };
+
+    // 1. 이미지 업로드 부분
+    async function UploadImg(file) {
+        const url = "https://api.mandarin.weniv.co.kr/";
+        const formData = new FormData();
+        formData.append("image", file);
+
+        const response = await axios.post(
+            "https://api.mandarin.weniv.co.kr/image/uploadfiles",
+            formData
+        );
+        const imgName = url + response.data.filename;
+
+        return imgName;
+    }
+
     return (
 
         <>
