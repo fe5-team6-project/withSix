@@ -28,7 +28,7 @@ export default function Footer() {
                 </li>
 
                 <li>
-                    <Link to={'/home'}>
+                    <Link to={'/together'}>
                         <img src={together} alt="모임 아이콘" />
                         <span>모임</span>
                     </Link>
