@@ -1,16 +1,14 @@
 import React from 'react'
 import { styled } from 'styled-components';
 
-export default function TogetherList() {
+export default function TogetherList({ id, itemName, price, link, itemImage }) {
     return (
         <>
             <TogetherItem>
-                <TogetherImage />
-                <TogetherName>모임이름</TogetherName>
-                <TogetherPrice><span>50,000</span>원</TogetherPrice>
+                <TogetherImage src={itemImage} />
+                <TogetherName>{itemName}</TogetherName>
+                <TogetherPrice><span>{price}</span>원</TogetherPrice>
             </TogetherItem>
-            <TogetherItem></TogetherItem>
-            <TogetherItem></TogetherItem>
         </>
     )
 }
@@ -34,6 +32,7 @@ const TogetherImage = styled.img`
     height: 90px;
     background: yellow;
     border-radius: 5px;
+    object-fit: cover;
 `
 
 const TogetherName = styled.strong`

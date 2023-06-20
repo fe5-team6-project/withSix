@@ -29,7 +29,7 @@ export default function Together() {
             <TogetherSection>
                 <TogetherWrap>
                     {!togetherList ? [] : togetherList.map((item) => (
-                        <TogetherList></TogetherList>
+                        <TogetherList key={item.id} {...item}></TogetherList>
                     ))}
                     {/* {togetherList.map((item) => (
                         <TogetherList></TogetherList>
