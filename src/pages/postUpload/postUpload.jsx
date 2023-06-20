@@ -88,6 +88,21 @@ export default function PostUpload (){
         setPostImg(fileImgs);
     }
 
+    // 3. 이미지 삭제 부분
+    const DeleteImg = (id) => {
+        setShowImg(
+            showImg.filter((_, index) => {
+                return index !== id;
+            })
+        );
+
+        setPostImg(
+            postImg.filter((_, index) => {
+                return index !== id;
+            })
+        );
+    };
+
     return (
 
         <>
