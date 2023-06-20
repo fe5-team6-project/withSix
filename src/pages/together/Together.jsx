@@ -1,4 +1,4 @@
-import React from 'react'
+import { React, useState } from 'react'
 import { api } from '../../lib/apis/axiosConfig'
 import { styled } from 'styled-components';
 import Common from '../../components/main/Common';
@@ -9,17 +9,22 @@ import { useSelector } from 'react-redux';
 export default function Together() {
     const myInfo = useSelector((state) => { return state.user.myInfo })
 
-    const togetherList = async () => {
-        const res = api.get(`/product/${myInfo.accountname}/?limit=Number&skip=Number`)
-        console.log(res);
+    const [togetherList, setTogetherList] = useState([]);
+
+    const axiosTogetherList = async () => {
+        const res = await api.get(`/product/${myInfo.accountname}/?limit=Number&skip=Number`);
+        setTogetherList([...res.data.product]);
+        console.log(togetherList);
     }
 
     const page = (
         <>
             <TogetherSection>
                 <TogetherWrap>
-                    <TogetherList></TogetherList>
-                    <div onClick={togetherList}>together</div>
+                    <TogetherList>
+                        {togetherList}
+                    </TogetherList>
+                    <div onClick={axiosTogetherList}>together</div>
                 </TogetherWrap>
             </TogetherSection>
         </>
