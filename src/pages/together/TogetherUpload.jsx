@@ -58,6 +58,7 @@ export default function GroupUpload() {
 
 
     const sendTogether = async () => {
+        console.log(togetherReq);
         try {
             const togetherBody = {
                 "product": {
