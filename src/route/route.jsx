@@ -23,7 +23,7 @@ export default function MyRouter() {
                     <Route path="/home" element={<Home />} />
                     <Route path="/together" element={<Together />} />
                     <Route
-                        path="/togetherUpload"
+                        path="/together/upload"
                         element={<TogetherUpload />}
                     />
                     <Route path="/togetherEdit" element={<TogetherEdit />} />
