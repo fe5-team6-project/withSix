@@ -66,7 +66,7 @@ const Li = styled.li`
     display: flex;
     // justify-content:
     // height: 60px;
-    margin: 10px 0px;
+    margin-bottom: 20px;
 `;
 
 const Img = styled.img`
