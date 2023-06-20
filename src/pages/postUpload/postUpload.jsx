@@ -54,6 +54,40 @@ export default function PostUpload (){
         return imgName;
     }
 
+    // 2. 이미지 미리보기 부분
+    function ImgView(e) {
+        // console.log(e.target.files);
+        const files = e.target.files;
+        let fileUrls = [...showImg];
+        let fileImgs = [...postImg];
+
+        // 이미지 사이즈 10MB 제한
+        const maxSize = 10 * 1024 * 1024;
+        let TotalImgSize = 0;
+
+        for (let i = 0; i < files.length; i++) {
+            TotalImgSize += files[i].size;
+
+            if (TotalImgSize > maxSize) {
+                alert(" 총 이미지의 크기는 10MB입니다.");
+            } else {
+                const createImgUrl = URL.createObjectURL(files[i]);
+                fileUrls.push(createImgUrl);
+                fileImgs.push(files[i]);
+            }
+        }
+
+        // 이미지는 3장까지 업로드
+        if (fileUrls.length > 3) {
+            alert(" 이미지는 3장까지 업로드할 수 있습니다.");
+            fileUrls = fileUrls.slice(0, 3);
+            fileImgs = fileImgs.slice(0, 3);
+        }
+
+        setShowImg(fileUrls);
+        setPostImg(fileImgs);
+    }
+
     return (
 
         <>
