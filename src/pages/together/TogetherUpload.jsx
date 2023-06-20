@@ -13,7 +13,6 @@ export default function GroupUpload() {
     const togetherReq = useSelector((state) => { return state.together.req });
     console.log(togetherReq);
     const dispatch = useDispatch();
-
     //미리보기 사진 변경
     const [img, setImg] = useState('');
     //이미지 업로드
