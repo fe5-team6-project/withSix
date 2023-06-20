@@ -4,14 +4,15 @@ import { styled } from 'styled-components';
 import initialImage from '../../assets/images/initialImage.png'
 import { useSelector, useDispatch } from 'react-redux';
 import { inputTogether } from '../../store/slices/togetherSlice';
-import { imgApi } from '../../lib/apis/axiosConfig';
+import { api, urlApi } from '../../lib/apis/axiosConfig';
+// import axios from 'axios';
 // import { URL } from '../../lib/apis/constants';
+
 
 export default function GroupUpload() {
     const togetherReq = useSelector((state) => { return state.together.req });
     console.log(togetherReq);
     const dispatch = useDispatch();
-
     //미리보기 사진 변경
     const [img, setImg] = useState('');
     //이미지 업로드
@@ -20,7 +21,8 @@ export default function GroupUpload() {
         const imgUrl = URL.createObjectURL(file);
         setImg(imgUrl);
         console.log(file);
-        dispatch(inputTogether({ together: file }));
+        dispatch(inputTogether({ itemImage: file }));
+        console.log(togetherReq);
     };
 
 
@@ -32,21 +34,51 @@ export default function GroupUpload() {
     };
 
     const saveImg = async (e) => {
-        const imageFile = togetherReq.itemImage;
-        console.log(imageFile);
-        const formData = new FormData();
-        formData.append("image", imageFile);
-        console.log(togetherReq.itemImage);
 
-        const res = await imgApi.post(`/image/uploadfile`, formData);
-        console.log(res);
-        const imageUrl = "https://api.mandarin.weniv.co.kr/" + res.filename;
-        console.log(imageUrl);
-        dispatch(inputTogether({ itemImage: imageUrl }))
-        console.log(togetherReq)
+        try {
+            console.log(togetherReq);
+            const imageFile = togetherReq.itemImage;
+            console.log(imageFile);
+            const formData = new FormData();
+            formData.append('image', imageFile);
+            console.log(togetherReq.itemImage);
+
+            const res = await urlApi.post(`/image/uploadfile`, formData);
+            console.log(res);
+            const fileName = res.data.filename;
+            console.log(fileName);
+            const imageUrl = "https://api.mandarin.weniv.co.kr/" + fileName;  // 수정: res.filename 대신 fileName을 사용
+            console.log(imageUrl);
+            dispatch(inputTogether({ itemImage: imageUrl }));
+            console.log(togetherReq);
+        } catch (error) {
+            console.error("saveImg 오류 :", error)
+        }
+    };
+
+
+    const sendTogether = async () => {
+        console.log(togetherReq);
+        try {
+            const togetherBody = {
+                "product": {
+                    ...togetherReq
+                }
+            };
+            const response = await api.post(`/product`, togetherBody);
+            console.log(response);
+        } catch (error) {
+            console.error("sendTogether 오류:", error);
+        }
     }
-    function handleSave() {
-        saveImg()
+
+    async function handleSave() {
+        try {
+            await saveImg();
+            await sendTogether();
+        } catch (error) {
+            console.error("handleSave 오류:", error);
+        }
     }
 
     const page = (
