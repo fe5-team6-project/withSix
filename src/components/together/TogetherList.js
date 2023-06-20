@@ -17,7 +17,7 @@ const TogetherItem = styled.li`
     display:flex;
     justify-content: space-between;
     flex-wrap:wrap;
-    flex:auto;
+    flex:1;
     min-width:180px;
     height:130px;
     background: #fff;
@@ -25,11 +25,19 @@ const TogetherItem = styled.li`
     gap:10px;
     border-radius: 5px;
     padding:10px;
+    cursor: pointer;
+    &:nth-of-type(1){
+        flex-basis: 100%;
+        height:240px;
+        & img {
+            height:200px;
+        }
+    }
 `
 
 const TogetherImage = styled.img`
     width:100%;
-    height: 90px;
+    height: 100px;
     background: yellow;
     border-radius: 5px;
     object-fit: cover;

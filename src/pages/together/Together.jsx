@@ -7,7 +7,8 @@ import { useSelector } from 'react-redux';
 
 
 export default function Together() {
-    const myInfo = useSelector((state) => { return state.user.myInfo })
+    const myInfo = useSelector((state) => { return state.user.myInfo });
+    const [pages, setPages] = useState(10)
     const [togetherList, setTogetherList] = useState([]);
 
     useEffect(() => {
@@ -21,7 +22,7 @@ export default function Together() {
         }
         console.log(myInfo);
         axiosTogetherList();
-    }, [myInfo]);
+    }, [pages]);
 
 
     const page = (
