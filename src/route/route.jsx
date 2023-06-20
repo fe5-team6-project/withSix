@@ -11,6 +11,7 @@ import PostDetail from '../components/postDetail';
 import Search from '../components/search';
 import UserProfile from '../pages/userprofile/UserProfile';
 import UpdateProfile from '../pages/myprofile/UpdateProfile';
+import Together from '../pages/together/Together';
 
 export default function MyRouter() {
     return (
@@ -19,6 +20,7 @@ export default function MyRouter() {
                 <Routes>
                     <Route path="/" element={<Main />} />
                     <Route path="/home" element={<Home />} />
+                    <Route path="/together" element={<Together />} />
                     <Route
                         path="/togetherUpload"
                         element={<TogetherUpload />}
