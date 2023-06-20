@@ -6,25 +6,25 @@ import { styled } from 'styled-components';
 import { useSelector } from 'react-redux';
 
 export default function MyProfile() {
-    const user = useSelector((state) => state.user.myInfo);
+    const user = useSelector((state) => state.user?.myInfo);
     const navigate = useNavigate();
 
     const page = (
         <LayoutDiv>
             <ImageWrap>
                 <h2 className="a11y-hidden">프로필 이미지</h2>
-                <Img src={user.image} alt="" />
+                <Img src={user?.image} alt="" />
             </ImageWrap>
 
             <Section>
                 <h2 className="a11y-hidden">팔로우</h2>
                 <FollowDiv className="followers">
                     <Label>Followers</Label>
-                    <FollowLink to={''}>{user.followerCount}</FollowLink>
+                    <FollowLink to={''}>{user?.followerCount}</FollowLink>
                 </FollowDiv>
                 <FollowDiv className="followings">
                     <Label>Followings</Label>
-                    <FollowLink to={''}>{user.followingCount}</FollowLink>
+                    <FollowLink to={''}>{user?.followingCount}</FollowLink>
                 </FollowDiv>
             </Section>
 
@@ -32,15 +32,15 @@ export default function MyProfile() {
                 <h2 className="a11y-hidden">프로필</h2>
                 <Div className="id">
                     <Label>ID</Label>
-                    <Strong>{user.accountname}</Strong>
+                    <Strong>{user?.accountname}</Strong>
                 </Div>
                 <Div>
                     <Label>Nickname</Label>
-                    <Strong>{user.username}</Strong>
+                    <Strong>{user?.username}</Strong>
                 </Div>
                 <Div>
                     <Label>Introduce</Label>
-                    <Strong>{user.intro}</Strong>
+                    <Strong>{user?.intro}</Strong>
                 </Div>
             </Section>
 
@@ -69,7 +69,7 @@ export default function MyProfile() {
     );
 
     const pageTitle = '프로필';
-    const pageDesc = `${user.username}님의 프로필을 확인합니다.`;
+    const pageDesc = `${user?.username}님의 프로필을 확인합니다.`;
 
     return (
         <>

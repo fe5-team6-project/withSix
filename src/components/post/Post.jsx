@@ -8,7 +8,7 @@ import {
     emptyProfileImage,
 } from './validationProfileImage';
 import { emptyContentImage } from './validationContentImage';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function Post(props) {
     const user = props.item.author;
@@ -19,40 +19,40 @@ export default function Post(props) {
             <Link to={'#'}>
                 <ProfileWrap>
                     <ProfileLeft>
-                        <Link to={`../profile/${user.accountname}`}>
+                        <Link to={`../profile/${user?.accountname}`}>
                             <ImgProfile
-                                src={validationProfileImage(user.image)}
+                                src={validationProfileImage(user?.image)}
                                 onError={(e) => emptyProfileImage(e)}
                                 alt="유저 프로필"
                             />
                         </Link>
                     </ProfileLeft>
                     <ProfileRight>
-                        <UserName>{user.username}</UserName>
-                        <UserId>@ {user.accountname}</UserId>
+                        <UserName>{user?.username}</UserName>
+                        <UserId>@ {user?.accountname}</UserId>
                     </ProfileRight>
                 </ProfileWrap>
                 <ImageWrap>
-                    {item.image ? (
+                    {item?.image ? (
                         <ImgContent
-                            src={item.image}
+                            src={item?.image}
                             onError={(e) => emptyContentImage(e)}
                             alt="등록된이미지"
                         />
-                    ) : null}
+                    ) : undefined}
                 </ImageWrap>
                 <ContentWrap>
-                    <p>{item.content}</p>
+                    <p>{item?.content}</p>
                     <span>{}</span>
                 </ContentWrap>
                 <EtcWrap>
                     <img
-                        src={item.hearted ? iconHeartFill : iconHeart}
+                        src={item?.hearted ? iconHeartFill : iconHeart}
                         alt="좋아요"
                     />
-                    <span>{item.heartCount}</span>
+                    <span>{item?.heartCount}</span>
                     <img src={iconComment} alt="댓글" />
-                    <span>{item.comments.length}</span>
+                    <span>{item?.comments.length}</span>
                 </EtcWrap>
             </Link>
         </Li>
