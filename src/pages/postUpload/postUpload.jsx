@@ -103,6 +103,44 @@ export default function PostUpload (){
         );
     };
 
+    // 4. 게시글 업로드 부분
+    async function UploadPost() {
+        const url = "https://api.mandarin.weniv.co.kr/";
+        const imgList = [];
+
+        for (let i = 0; i < postImg.length; i++) {
+            imgList.push(UploadImg(postImg[i]));
+        }
+
+        const snsImgList = await Promise.all(imgList);
+
+        data.post.image = snsImgList.join(",");
+        data.post.content = content;
+
+        try {
+            await axios
+                .post("https://api.mandarin.weniv.co.kr/post", data, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-type": "application/json",
+                    },
+                })
+                // 전 페이지로
+                .then(navigate(-1));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    // 게시물 업로드할 때 게시글과 이미지가 없으면 업로드 불가
+    useEffect(() => {
+        if (content.length === 0 && postImg.length === 0) {
+            setUploadBtn(false);
+        } else {
+            setUploadBtn(true);
+        }
+    }, [content, postImg]);
+
     return (
 
         <>
