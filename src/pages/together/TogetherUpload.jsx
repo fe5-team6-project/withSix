@@ -60,12 +60,16 @@ export default function GroupUpload() {
     }
 
     const sendTogether = async () => {
-        console.log(togetherBody);
+        const response = await api.post(`/product`, togetherBody);
+        console.log(response);
     }
 
-    function handleSave() {
-        saveImg();
-        sendTogether();
+    async function handleSave() {
+        try {
+            await saveImg();
+            await sendTogether();
+        } catch (error) {
+        }
     }
 
     const page = (
