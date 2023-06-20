@@ -1,3 +1,5 @@
+import { styled } from 'styled-components';
+
 export default function UserLIst({ showUser }) {
     return showUser.map((item) => {
         let imgSrc = item.image;
@@ -8,11 +10,35 @@ export default function UserLIst({ showUser }) {
             imgSrc = 'http://146.56.183.55:5050/Ellipse.png';
         }
         return (
-            <div key={item._id}>
-                <p>{item.accountname}</p>
-                <p>{item.username}</p>
-                <img src={imgSrc}></img>
-            </div>
+            <UserWrapper key={item._id}>
+                <Img src={imgSrc}></Img>
+                <Right>
+                    <UserName>{item.username}</UserName>
+                    <AccountName>@{item.accountname}</AccountName>
+                </Right>
+            </UserWrapper>
         );
     });
 }
+
+const UserWrapper = styled.div`
+    display: flex;
+    margin: 10px 0;
+    // background-color: blue;
+`;
+
+const Right = styled.div`
+    flex-grow: 1;
+    // background-color: red;
+`;
+
+const Img = styled.img`
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 50%;
+`;
+
+const UserName = styled.p``;
+
+const AccountName = styled.p``;
