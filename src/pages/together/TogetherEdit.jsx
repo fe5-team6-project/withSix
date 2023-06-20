@@ -7,27 +7,15 @@ export default function GroupEdit() {
         <>
             <Form>
                 <GroupHeader>
-                    <H1>모임 수정</H1>
+                    <H1>모임 등록</H1>
                     <P>글과 사진을 남기고 공유할 수 있습니다.</P>
                 </GroupHeader>
                 <GroupInputWrapper>
-                    <GroupInput
-                        id="GroupName"
-                        placeholder="모임명"
-                    ></GroupInput>
-                    <GroupInput
-                        id="GroupPrice"
-                        placeholder="모임비"
-                    ></GroupInput>
+                    <GroupInput id="GroupName" placeholder="모임명"></GroupInput>
+                    <GroupInput id="GroupPrice" placeholder="모임비"></GroupInput>
                     {/* <GroupInput id="GroupInfo" placeholder="모임 소개"></GroupInput> */}
-                    <GroupInfo
-                        id="GroupInfo"
-                        placeholder="모임 소개"
-                    ></GroupInfo>
-                    <GroupInput
-                        id="GroupImage"
-                        placeholder="모임 소개"
-                    ></GroupInput>
+                    <GroupInfo id="GroupInfo" placeholder="모임 소개"></GroupInfo>
+                    <GroupInput id="GroupImage" placeholder="모임 소개"></GroupInput>
                 </GroupInputWrapper>
                 <GroupLabel htmlFor="GroupImage">
                     <GroupImage id="PreImage"></GroupImage>

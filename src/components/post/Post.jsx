@@ -3,71 +3,60 @@ import { styled } from 'styled-components';
 import iconHeart from '../../assets/icons/post/icon-heart.svg';
 import iconHeartFill from '../../assets/icons/post/icon-heart-fill.svg';
 import iconComment from '../../assets/icons/post/icon-comment.svg';
-
-const URL = 'https://api.mandarin.weniv.co.kr';
-const DEFALUT_IMAGE = 'http://146.56.183.55:5050/Ellipse.png';
+import {
+    validationProfileImage,
+    emptyProfileImage,
+} from './validationProfileImage';
+import { emptyContentImage } from './validationContentImage';
+import { Link } from 'react-router-dom';
 
 export default function Post(props) {
     const user = props.item.author;
     const { item } = props;
-    console.log(item);
 
     return (
         <Li>
-            <a href="#">
+            <Link to={'#'}>
                 <ProfileWrap>
                     <ProfileLeft>
-                        <ImgProfile
-                            src={checkProfileImage(user.image)}
-                            alt="유저 프로필"
-                        />
+                        <Link to={`../profile/${user?.accountname}`}>
+                            <ImgProfile
+                                src={validationProfileImage(user?.image)}
+                                onError={(e) => emptyProfileImage(e)}
+                                alt="유저 프로필"
+                            />
+                        </Link>
                     </ProfileLeft>
                     <ProfileRight>
-                        <UserName>{user.username}</UserName>
-                        <UserId>@ {user.accountname}</UserId>
+                        <UserName>{user?.username}</UserName>
+                        <UserId>@ {user?.accountname}</UserId>
                     </ProfileRight>
                 </ProfileWrap>
                 <ImageWrap>
-                    {item.image ? (
+                    {item?.image ? (
                         <ImgContent
-                            src={item.image}
-                            onError={(e) => emptyImage(e)}
+                            src={item?.image}
+                            onError={(e) => emptyContentImage(e)}
                             alt="등록된이미지"
                         />
-                    ) : null}
+                    ) : undefined}
                 </ImageWrap>
                 <ContentWrap>
-                    <p>{item.content}</p>
+                    <p>{item?.content}</p>
                     <span>{}</span>
                 </ContentWrap>
                 <EtcWrap>
                     <img
-                        src={item.hearted ? iconHeartFill : iconHeart}
+                        src={item?.hearted ? iconHeartFill : iconHeart}
                         alt="좋아요"
                     />
-                    <span>{item.heartCount}</span>
+                    <span>{item?.heartCount}</span>
                     <img src={iconComment} alt="댓글" />
-                    <span>{item.comments.length}</span>
+                    <span>{item?.comments.length}</span>
                 </EtcWrap>
-            </a>
+            </Link>
         </Li>
     );
-}
-
-function checkProfileImage(image) {
-    let src = image;
-
-    if (!src) {
-        src = DEFALUT_IMAGE;
-        return src;
-    }
-
-    src = `${URL}/${image}`;
-    return src;
-}
-
-function emptyImage(e) {
-    e.currentTarget.style.display = 'none';
 }
 
 const Li = styled.li`
@@ -104,14 +93,17 @@ const ProfileWrap = styled(SectionDefault)`
 
 const ProfileLeft = styled.section`
     width: 30px;
+    height: 30px;
+    margin-right: 5px;
     border-radius: 50%;
     overflow: hidden;
 `;
 
 const ImgProfile = styled.img`
-    width: 30px;
-    margin-right: 5px;
-    vertical-align: middle;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
 `;
 
 const ProfileRight = styled.section`

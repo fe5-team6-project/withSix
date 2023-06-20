@@ -4,20 +4,21 @@ import { styled } from 'styled-components';
 import divLine from '../../assets/icons/post/div-line.svg';
 import Post from '../../components/post/Post';
 import { useSelector } from 'react-redux';
+import getPost from './getPost';
 
 export default function Home() {
     const [postList, setPostList] = useState([]);
     const [category, setCategory] = useState('');
-    const user = useSelector((state) => state.user.myInfo);
-    console.log(user.accountname);
+    const [pages, setPages] = useState(10);
+    const user = useSelector((state) => state.user?.myInfo);
 
     useEffect(() => {
         async function fetchData() {
-            setPostList(await getPost(category, user.username));
+            setPostList(await getPost(category, user?.username, pages));
         }
 
         fetchData();
-    }, [category]);
+    }, [category, pages]);
 
     const page = (
         <>
@@ -32,7 +33,6 @@ export default function Home() {
                 <DivLine src={divLine} alt="" />
                 <CategoryButton
                     onClick={() => {
-                        console.log(1);
                         setCategory('my');
                     }}
                 >
@@ -51,8 +51,21 @@ export default function Home() {
             <ul>
                 {!postList
                     ? []
-                    : postList.map((item) => {
-                          return <Post key={item._id} item={item} />;
+                    : postList.map((item, idx) => {
+                          return postList.length - 1 !== idx ? (
+                              <Post key={item?._id} item={item} />
+                          ) : (
+                              <>
+                                  <Post key={item?._id} item={item} />
+                                  <MoreButton
+                                      onClick={() =>
+                                          setPages((pages) => pages + 10)
+                                      }
+                                  >
+                                      더보기
+                                  </MoreButton>
+                              </>
+                          );
                       })}
             </ul>
         </>
@@ -65,55 +78,23 @@ export default function Home() {
     );
 }
 
-const URL = 'https://api.mandarin.weniv.co.kr';
-
-async function getPost(category, accountname) {
-    console.log(accountname);
-    let requestPath = '/post';
-    const type = category;
-
-    if (type === '') {
-        requestPath = '/post';
-    } else if (type === 'my') {
-        requestPath = `/post/${accountname}/userpost`;
-    } else if (type === 'feed') {
-        requestPath = '/post/feed';
-    }
-
-    const requestUrl = `${URL}${requestPath}`;
-
-    const token = localStorage.token;
-    const bearerToken = `Bearer ${token}`;
-
-    console.log(requestUrl);
-    const response = await fetch(requestUrl, {
-        method: 'GET',
-        headers: {
-            Authorization: bearerToken,
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify(),
-    });
-
-    const json = await response.json();
-    const postList = json.posts;
-
-    return postList;
-}
-
 const CategoryNav = styled.article`
     position: sticky;
-    top: 10px;
-    width: 100%;
-    margin: 10px 0;
-    height: 20px;
+    top: 0px;
+    width: 390px;
+    height: 40px;
+    margin: 0 auto;
+    padding: 10px 20px 0 0;
+    box-sizing: border-box;
+    background-color: var(--color-back);
     text-align: right;
 `;
 
 const CategoryButton = styled.button`
     all: unset;
-    font-size: var(--fsize-button-sub);
+    font-size: var(--fsize-m);
     color: var(--color-gray);
+    cursor: pointer;
 
     &:focus,
     &:hover {
@@ -125,4 +106,16 @@ const CategoryButton = styled.button`
 const DivLine = styled.img`
     margin: 10px;
     vertical-align: middle;
+`;
+
+const MoreButton = styled.button`
+    all: unset;
+    display: block;
+    width: 100px;
+    height: 20px;
+    margin: 0 auto 20px;
+    border-radius: var(--radius-m);
+    font-size: var(--fsize-m);
+    text-align: center;
+    cursor: pointer;
 `;

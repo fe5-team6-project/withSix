@@ -5,10 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMyInfo } from '../../store/slices/userSlice';
+import checkToken from '../../pages/login/checkToken';
+import getMyInfo from '../../pages/login/getMyInfo';
 
 export default function Common(props) {
     const navigator = useNavigate();
     const dispatch = useDispatch();
+    const autoMove = props.autoMoveIgnore ? true : false;
 
     const userInfo = useSelector((state) => state.user.myInfo);
     const [user, setUser] = useState(userInfo);
@@ -22,7 +25,10 @@ export default function Common(props) {
             const user = await getMyInfo();
             dispatch(setMyInfo(user));
         } else {
-            // navigator('/');
+            setUser('');
+            if (!autoMove) {
+                navigator('/');
+            }
         }
     }
 
@@ -43,40 +49,6 @@ export default function Common(props) {
     );
 }
 
-const URL = 'https://api.mandarin.weniv.co.kr';
-
-function checkToken() {
-    const token = localStorage.token;
-
-    if (!token) {
-        return false;
-    }
-
-    return true;
-}
-
-async function getMyInfo() {
-    const requestPath = '/user/myinfo';
-    const requestUrl = `${URL}${requestPath}`;
-
-    const token = localStorage.token;
-    const bearerToken = `Bearer ${token}`;
-
-    const response = await fetch(requestUrl, {
-        method: 'GET',
-        headers: {
-            Authorization: bearerToken,
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify(),
-    });
-
-    const json = await response.json();
-    const user = json.user;
-
-    return user;
-}
-
 const StyledMain = styled.main`
     position: relative;
     width: 100%;
@@ -85,6 +57,7 @@ const StyledMain = styled.main`
     margin: 70px auto 50px;
     padding: 0 10px;
     box-sizing: border-box;
+    overflow-x: hidden;
     overflow-y: auto;
 `;
 
