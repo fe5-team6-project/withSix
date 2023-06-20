@@ -36,5 +36,7 @@ export default function Report() {
 }
 
 const Icon = styled.img`
+    position: absolute;
+    right: 0;
     cursor: pointer;
 `;

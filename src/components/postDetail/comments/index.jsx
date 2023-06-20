@@ -32,16 +32,20 @@ export default function Comments({ setCommentCount }) {
             <CommentWrapper>
                 {comment.map((item) => (
                     <Li key={item.id}>
-                        <Img src={item.author.image} />
+                        <ImgWrapper>
+                            <Img src={item.author.image} />
+                        </ImgWrapper>
                         <CommentRight>
-                            <span>{item.author.username}</span>
-                            <CommentSideToggle
-                                authorId={item.author._id}
-                                commentId={item.id}
-                                setReload={setReload}
-                                setCommentCount={setCommentCount}
-                            />
-                            <p>{item.content}</p>
+                            <RightTop>
+                                <div>{item.author.username}</div>
+                                <CommentSideToggle
+                                    authorId={item.author._id}
+                                    commentId={item.id}
+                                    setReload={setReload}
+                                    setCommentCount={setCommentCount}
+                                />
+                            </RightTop>
+                            <Content>{item.content}</Content>
                         </CommentRight>
                     </Li>
                 ))}
@@ -60,14 +64,36 @@ const CommentWrapper = styled.ul`
 
 const Li = styled.li`
     display: flex;
+    // justify-content:
+    // height: 60px;
     margin: 10px 0px;
 `;
 
 const Img = styled.img`
-    display: inline-block;
+    // display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
 `;
 
 const CommentRight = styled.div`
     width: 200px;
-    background-color: red;
+    flex-grow: 1;
+    // background-color: red;
+`;
+
+const RightTop = styled.div`
+    display: flex;
+    justify-content: space-between;
+`;
+
+const ImgWrapper = styled.div`
+    width: 50px;
+    height: 30px;
+    object-fit: cover;
+`;
+
+const Content = styled.div`
+    width: 260px;
+    word-break: break-all;
 `;

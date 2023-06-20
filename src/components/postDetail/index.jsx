@@ -91,6 +91,7 @@ const SectionDefault = styled.section`
 `;
 
 const ProfileWrap = styled(SectionDefault)`
+    position: relative;
     display: flex;
     justify-content: flex-start;
     align-items: center;
