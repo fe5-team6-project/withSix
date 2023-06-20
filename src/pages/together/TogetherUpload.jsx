@@ -36,32 +36,40 @@ export default function GroupUpload() {
 
     const saveImg = async (e) => {
 
-        console.log(togetherReq);
-        const imageFile = togetherReq.itemImage;
-        console.log(imageFile);
-        const formData = new FormData();
-        formData.append('image', imageFile);
-        console.log(togetherReq.itemImage);
+        try {
+            console.log(togetherReq);
+            const imageFile = togetherReq.itemImage;
+            console.log(imageFile);
+            const formData = new FormData();
+            formData.append('image', imageFile);
+            console.log(togetherReq.itemImage);
 
-        const res = await urlApi.post(`/image/uploadfile`, formData);
-        console.log(res);
-        const fileName = res.data.filename;
-        console.log(fileName);
-        const imageUrl = "https://api.mandarin.weniv.co.kr/" + fileName;  // 수정: res.filename 대신 fileName을 사용
-        console.log(imageUrl);
-        dispatch(inputTogether({ itemImage: imageUrl }));
-        console.log(togetherReq);
+            const res = await urlApi.post(`/image/uploadfile`, formData);
+            console.log(res);
+            const fileName = res.data.filename;
+            console.log(fileName);
+            const imageUrl = "https://api.mandarin.weniv.co.kr/" + fileName;  // 수정: res.filename 대신 fileName을 사용
+            console.log(imageUrl);
+            dispatch(inputTogether({ itemImage: imageUrl }));
+            console.log(togetherReq);
+        } catch (error) {
+            console.error("saveImg 오류 :", error)
+        }
     };
 
-    const togetherBody = {
-        "product": {
-            ...togetherReq
-        }
-    }
 
     const sendTogether = async () => {
-        const response = await api.post(`/product`, togetherBody);
-        console.log(response);
+        try {
+            const togetherBody = {
+                "product": {
+                    ...togetherReq
+                }
+            };
+            const response = await api.post(`/product`, togetherBody);
+            console.log(response);
+        } catch (error) {
+            console.error("sendTogether 오류:", error);
+        }
     }
 
     async function handleSave() {
@@ -69,6 +77,7 @@ export default function GroupUpload() {
             await saveImg();
             await sendTogether();
         } catch (error) {
+            console.error("handleSave 오류:", error);
         }
     }
 
