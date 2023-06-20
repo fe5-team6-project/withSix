@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 import initialImage from '../../assets/images/initialImage.png'
 import { useSelector, useDispatch } from 'react-redux';
 import { inputTogether } from '../../store/slices/togetherSlice';
-import { urlApi } from '../../lib/apis/axiosConfig';
+import { api, urlApi } from '../../lib/apis/axiosConfig';
 // import axios from 'axios';
 // import { URL } from '../../lib/apis/constants';
 
@@ -53,8 +53,19 @@ export default function GroupUpload() {
         console.log(togetherReq);
     };
 
+    const togetherBody = {
+        "product": {
+            ...togetherReq
+        }
+    }
+
+    const sendTogether = async () => {
+        console.log(togetherBody);
+    }
+
     function handleSave() {
         saveImg();
+        sendTogether();
     }
 
     const page = (
