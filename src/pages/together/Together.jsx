@@ -1,4 +1,4 @@
-import { React, useState } from 'react'
+import { React, useEffect, useState } from 'react'
 import { api } from '../../lib/apis/axiosConfig'
 import { styled } from 'styled-components';
 import Common from '../../components/main/Common';
@@ -7,24 +7,35 @@ import { useSelector } from 'react-redux';
 
 
 export default function Together() {
-    const myInfo = useSelector((state) => { return state.user.myInfo })
+    // const myInfo = useSelector((state) => { return state.user.myInfo })
 
     const [togetherList, setTogetherList] = useState([]);
+    const [myInfo, setMyInfo] = useState(useSelector((state) => { return state.user.myInfo }))
 
-    const axiosTogetherList = async () => {
-        const res = await api.get(`/product/${myInfo.accountname}/?limit=Number&skip=Number`);
-        setTogetherList([...res.data.product]);
-        console.log(togetherList);
-    }
+
+    useEffect(() => {
+        async function axiosTogetherList() {
+            const res = await api.get(`/product/${myInfo.accountname}`);
+            console.log(res);
+            const abc = res.data.product;
+            setTogetherList([...abc]);
+            console.log(togetherList);
+        }
+        console.log(myInfo);
+        axiosTogetherList();
+    }, [myInfo]);
+
 
     const page = (
         <>
             <TogetherSection>
                 <TogetherWrap>
-                    <TogetherList>
-                        {togetherList}
-                    </TogetherList>
-                    <div onClick={axiosTogetherList}>together</div>
+                    {!togetherList ? [] : togetherList.map((item) => (
+                        <TogetherList></TogetherList>
+                    ))}
+                    {/* {togetherList.map((item) => (
+                        <TogetherList></TogetherList>
+                    ))} */}
                 </TogetherWrap>
             </TogetherSection>
         </>
