@@ -114,6 +114,7 @@ const MoreButton = styled.button`
     width: 100px;
     height: 20px;
     margin: 0 auto 20px;
+    border-radius: var(--radius-m);
     font-size: var(--fsize-m);
     text-align: center;
     cursor: pointer;
