@@ -11,6 +11,7 @@ import PostDetail from '../components/postDetail';
 import Search from '../components/search';
 import UserProfile from '../pages/userprofile/UserProfile';
 import UpdateProfile from '../pages/myprofile/UpdateProfile';
+import PostUpload from '../pages/postUpload/postUpload';
 
 export default function MyRouter() {
     return (
@@ -32,6 +33,7 @@ export default function MyRouter() {
                         path="/myprofile/update"
                         element={<UpdateProfile />}
                     />
+                    <Route path="/post/upload" element={<PostUpload />} />
                     <Route path="/post/detail/:id" element={<PostDetail />} />
                     <Route path="/search" element={<Search />} />
                     <Route path="/profile/:id" element={<UserProfile />} />
