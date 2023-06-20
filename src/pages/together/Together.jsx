@@ -7,18 +7,16 @@ import { useSelector } from 'react-redux';
 
 
 export default function Together() {
-    const myInfo = useSelector((state) => { return state.user.myInfo });
-    const [pages, setPages] = useState(10)
+    const myInfo = useSelector((state) => { return state?.user?.myInfo; });
+    const [pages, setPages] = useState(10);
+
     const [togetherList, setTogetherList] = useState([]);
 
     useEffect(() => {
         async function axiosTogetherList() {
-            const res = await api.get(`/product/${myInfo.accountname}`);
-            console.log(res);
-            const abc = res.data.product;
-            console.log(abc);
+            const res = await api.get(`/product/hailey_ha`);
+            const abc = res?.data?.product;
             setTogetherList([...abc]);
-            console.log(togetherList);
         }
         console.log(myInfo);
         axiosTogetherList();
