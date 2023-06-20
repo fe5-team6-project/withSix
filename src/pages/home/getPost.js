@@ -1,11 +1,11 @@
 import { URL } from '../../lib/apis/constant/path';
 
-export default async function getPost(category, accountname) {
+export default async function getPost(category, accountname, pages) {
     let requestPath = '/post';
     const type = category;
 
     if (type === '') {
-        requestPath = '/post';
+        requestPath = `/post/?limit=${pages}&skip=${0}`;
     } else if (type === 'my') {
         requestPath = `/post/${accountname}/userpost`;
     } else if (type === 'feed') {
