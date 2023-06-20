@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Common from '../../components/main/Common';
 import { styled } from 'styled-components';
 import divLine from '../../assets/icons/post/div-line.svg';
@@ -10,11 +10,11 @@ export default function Home() {
     const [postList, setPostList] = useState([]);
     const [category, setCategory] = useState('');
     const [pages, setPages] = useState(10);
-    const user = useSelector((state) => state.user.myInfo);
+    const user = useSelector((state) => state.user?.myInfo);
 
     useEffect(() => {
         async function fetchData() {
-            setPostList(await getPost(category, user.username, pages));
+            setPostList(await getPost(category, user?.username, pages));
         }
 
         fetchData();
@@ -53,10 +53,10 @@ export default function Home() {
                     ? []
                     : postList.map((item, idx) => {
                           return postList.length - 1 !== idx ? (
-                              <Post key={item._id} item={item} />
+                              <Post key={item?._id} item={item} />
                           ) : (
                               <>
-                                  <Post key={item._id} item={item} />
+                                  <Post key={item?._id} item={item} />
                                   <MoreButton
                                       onClick={() =>
                                           setPages((pages) => pages + 10)

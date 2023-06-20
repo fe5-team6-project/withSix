@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import prevPage from '../../assets/icons/common/icon-back.svg';
 
 export default function Header(props) {
-    const user = useSelector((state) => state.user.myInfo);
+    const user = useSelector((state) => state?.user?.myInfo);
     const navigate = useNavigate();
 
     return (
@@ -19,7 +19,7 @@ export default function Header(props) {
                 </H1>
 
                 <Article>
-                    <Strong>{user.username}</Strong>
+                    <Strong>{user?.username}</Strong>
                 </Article>
             </Div>
             <BackLinkDiv>

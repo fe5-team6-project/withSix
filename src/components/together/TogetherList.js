@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { styled } from 'styled-components';
 
 export default function TogetherList({ id, itemName, price, link, itemImage }) {
@@ -10,11 +10,11 @@ export default function TogetherList({ id, itemName, price, link, itemImage }) {
                 <TogetherPrice><span>{price}</span>원</TogetherPrice>
             </TogetherItem>
         </>
-    )
+    );
 }
 
 const TogetherItem = styled.li`
-    display:flex;
+    display: flex;
     justify-content: space-between;
     flex-wrap:wrap;
     flex:1;
@@ -22,7 +22,7 @@ const TogetherItem = styled.li`
     height:130px;
     background: #fff;
     align-items: center;
-    gap:10px;
+    gap: 10px;
     border-radius: 5px;
     padding:10px;
     cursor: pointer;
@@ -42,15 +42,14 @@ const TogetherImage = styled.img`
     border-radius: 5px;
     object-fit: cover;
 `
-
 const TogetherName = styled.strong`
     font-size: var(--fsize-m);
-`
+`;
 
 const TogetherPrice = styled.p`
     font-size: var(--fsize-s);
     color: var(--color-gray);
-    span{
+    span {
         color: var(--color-main);
     }
-`
+`;
