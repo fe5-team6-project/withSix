@@ -1,30 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Common from '../../components/main/Common';
-import { Link, useNavigate } from 'react-router-dom';
-import logout from '../../assets/icons/common/icon-logout.svg';
+import { Link, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { useSelector } from 'react-redux';
+import getUserProfile from './getUserProfile';
+import { validationProfileImage } from '../../components/post/validationProfileImage';
 
-export default function MyProfile() {
-    const user = useSelector((state) => state.user.myInfo);
-    const navigate = useNavigate();
+export default function UserProfile() {
+    const accountname = useParams().id;
+    console.log(accountname);
+    const [profile, setProfile] = useState(undefined);
+
+    useEffect(() => {
+        getProfile();
+    }, []);
+
+    async function getProfile() {
+        const user = await getUserProfile(accountname);
+        setProfile(user);
+    }
+
+    console.log(profile);
 
     const page = (
         <LayoutDiv>
             <ImageWrap>
                 <h2 className="a11y-hidden">프로필 이미지</h2>
-                <Img src={user.image} alt="" />
+                <Img
+                    src={validationProfileImage(profile?.image)}
+                    alt="유저 프로필 이미지"
+                />
             </ImageWrap>
 
             <Section>
                 <h2 className="a11y-hidden">팔로우</h2>
                 <FollowDiv className="followers">
                     <Label>Followers</Label>
-                    <FollowLink to={''}>{user.followerCount}</FollowLink>
+                    <FollowLink to={''}>{profile?.followerCount}</FollowLink>
                 </FollowDiv>
                 <FollowDiv className="followings">
                     <Label>Followings</Label>
-                    <FollowLink to={''}>{user.followingCount}</FollowLink>
+                    <FollowLink to={''}>{profile?.followingCount}</FollowLink>
                 </FollowDiv>
             </Section>
 
@@ -32,15 +47,15 @@ export default function MyProfile() {
                 <h2 className="a11y-hidden">프로필</h2>
                 <Div className="id">
                     <Label>ID</Label>
-                    <Strong>{user.accountname}</Strong>
+                    <Strong>{profile?.accountname}</Strong>
                 </Div>
                 <Div>
                     <Label>Nickname</Label>
-                    <Strong>{user.username}</Strong>
+                    <Strong>{profile?.username}</Strong>
                 </Div>
                 <Div>
                     <Label>Introduce</Label>
-                    <Strong>{user.intro}</Strong>
+                    <Strong>{profile?.intro}</Strong>
                 </Div>
             </Section>
 
@@ -48,28 +63,13 @@ export default function MyProfile() {
                 <span></span>
             </Section>
             <Div>
-                <Button
-                    onClick={() => {
-                        navigate('./update');
-                    }}
-                >
-                    프로필 수정
-                </Button>
-                <LogoutLink
-                    onClick={() => {
-                        localStorage.clear();
-                    }}
-                    to={'/'}
-                >
-                    <img src={logout} alt="로그아웃 아이콘" />
-                    Logout
-                </LogoutLink>
+                <Button>팔로우 수정</Button>
             </Div>
         </LayoutDiv>
     );
 
     const pageTitle = '프로필';
-    const pageDesc = `${user.username}님의 프로필을 확인합니다.`;
+    const pageDesc = `${profile?.username}님의 프로필을 확인합니다.`;
 
     return (
         <>
@@ -156,18 +156,6 @@ const Strong = styled.strong`
     }
     ${Div}.id > &::before {
         content: '@';
-    }
-`;
-
-const LogoutLink = styled(Link)`
-    position: absolute;
-    right: 5px;
-    bottom: 0;
-    font-size: var(--fsize-s);
-    color: var(--color-gray);
-
-    & > img {
-        margin-right: 5px;
     }
 `;
 

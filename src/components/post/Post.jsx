@@ -8,6 +8,7 @@ import {
     emptyProfileImage,
 } from './validationProfileImage';
 import { emptyContentImage } from './validationContentImage';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Post(props) {
     const user = props.item.author;
@@ -15,14 +16,16 @@ export default function Post(props) {
 
     return (
         <Li>
-            <a href="#">
+            <Link to={'#'}>
                 <ProfileWrap>
                     <ProfileLeft>
-                        <ImgProfile
-                            src={validationProfileImage(user.image)}
-                            onError={(e) => emptyProfileImage(e)}
-                            alt="유저 프로필"
-                        />
+                        <Link to={`../profile/${user.accountname}`}>
+                            <ImgProfile
+                                src={validationProfileImage(user.image)}
+                                onError={(e) => emptyProfileImage(e)}
+                                alt="유저 프로필"
+                            />
+                        </Link>
                     </ProfileLeft>
                     <ProfileRight>
                         <UserName>{user.username}</UserName>
@@ -51,7 +54,7 @@ export default function Post(props) {
                     <img src={iconComment} alt="댓글" />
                     <span>{item.comments.length}</span>
                 </EtcWrap>
-            </a>
+            </Link>
         </Li>
     );
 }
@@ -98,7 +101,9 @@ const ProfileLeft = styled.section`
 
 const ImgProfile = styled.img`
     width: 100%;
-    vertical-align: middle;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
 `;
 
 const ProfileRight = styled.section`

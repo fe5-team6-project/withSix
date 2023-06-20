@@ -22,9 +22,11 @@ export default function Header(props) {
                     <Strong>{user.username}</Strong>
                 </Article>
             </Div>
-            <BackLink onClick={() => navigate(-1)}>
-                <img src={prevPage} alt="뒤로가기 아이콘" />
-            </BackLink>
+            <BackLinkDiv>
+                <BackLink onClick={() => navigate(-1)}>
+                    <img src={prevPage} alt="뒤로가기 아이콘" />
+                </BackLink>
+            </BackLinkDiv>
         </StyledHeader>
     );
 }
@@ -84,14 +86,19 @@ const Strong = styled.strong`
     }
 `;
 
+const BackLinkDiv = styled.div`
+    position: relative;
+    width: 390px;
+    margin: 0 auto;
+`;
+
 const BackLink = styled(Link)`
     position: absolute;
-    top: 60px;
-    left: 50%;
+    top: -10px;
+    left: 20px;
     display: block;
-    width: 390px;
+    width: 20px;
     padding: 0 20px;
     box-sizing: border-box;
     transform: translate(-50%);
-    /* z-index: ; */
 `;
