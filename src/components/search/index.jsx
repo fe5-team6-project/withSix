@@ -80,5 +80,6 @@ const Input = styled.input`
 `;
 
 const AddButton = styled.button`
+    margin-top: 20px;
     margin-left: 55px;
 `;
