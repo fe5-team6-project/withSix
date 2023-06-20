@@ -57,6 +57,7 @@ const StyledMain = styled.main`
     margin: 70px auto 50px;
     padding: 0 10px;
     box-sizing: border-box;
+    overflow-x: hidden;
     overflow-y: auto;
 `;
 
