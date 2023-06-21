@@ -1,6 +1,15 @@
+import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 export default function UserLIst({ showUser }) {
+    const navigate = useNavigate();
+
+    const handleRouting = useCallback((item) => {
+        // console.log(item);
+        navigate(`/profile/${item.accountname}`);
+    }, []);
+
     return showUser.map((item) => {
         let imgSrc = item.image;
         if (
@@ -11,7 +20,7 @@ export default function UserLIst({ showUser }) {
             imgSrc = 'http://146.56.183.55:5050/Ellipse.png';
         }
         return (
-            <UserWrapper key={item._id}>
+            <UserWrapper key={item._id} onClick={() => handleRouting(item)}>
                 <Img src={imgSrc}></Img>
                 <Right>
                     <UserName>{item.username}</UserName>
@@ -25,6 +34,7 @@ export default function UserLIst({ showUser }) {
 const UserWrapper = styled.div`
     display: flex;
     margin: 10px 0;
+    cursor: pointer;
     // background-color: blue;
 `;
 
