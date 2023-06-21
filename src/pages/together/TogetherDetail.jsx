@@ -8,14 +8,20 @@ import { api, urlApi } from '../../lib/apis/axiosConfig';
 
 export default function TogetherDetail() {
 
-    const [togetherDetail, setTogetherDetail] = useState([]);
+    const [togetherDetail, setTogetherDetail] = useState('');
 
     const togetherDetails = async () => {
         const res = await api.get(`/product/detail/64912abfb2cb20566341bccf`);
         console.log(res);
-        const abc = res.data.product;
-        const c = [...abc];
-        console.log(c);
+        const detailData = res.data.product;
+        console.log(detailData.itemName)
+        setTogetherDetail(detailData);
+        console.log(togetherDetail);
+
+        // const { itemName, itemImage } = detailData;
+        // setTogetherDetail([itemName, itemImage])
+        // console.log(itemName);
+        // console.log(togetherDetail)
         // setTogetherDetail([abc]);
     }
     const page = (
@@ -25,10 +31,10 @@ export default function TogetherDetail() {
                     <H1 onClick={togetherDetails}>모임 등록</H1>
                 </GroupHeader>
                 <GroupWrapper>
-                    <GroupImg></GroupImg>
-                    <GroupText>힝힝/</GroupText>
-                    <GroupText>50,000원</GroupText>
-                    <GroupDetailInfo>모임소개글</GroupDetailInfo>
+                    <GroupImg src={togetherDetail.itemImage} ></GroupImg>
+                    <GroupText>{togetherDetail.itemName}</GroupText>
+                    <GroupText>{togetherDetail.price}</GroupText>
+                    <GroupDetailInfo>{togetherDetail.link}</GroupDetailInfo>
                 </GroupWrapper>
                 <GroupBtn>버튼</GroupBtn>
                 {/* <RegiButton onClick={() => { }}>등록</RegiButton> */}
@@ -72,7 +78,8 @@ const GroupText = styled.p`
     }
 `;
 
-const GroupDetailInfo = styled.textarea`
+const GroupDetailInfo = styled.p`
+    text-align: left;
     width: 100%; //조정예정
     height: 100px;
     margin-top: 20px;
@@ -95,7 +102,7 @@ const GroupWrapper = styled.div`
 const GroupImg = styled.img`
     width: 100%;
     height: 200px;
-    background-color: #ddd;
+    /* background-color: #ddd; */
     object-fit: cover;
     border: none;
     border-radius: var(--radius-s);
