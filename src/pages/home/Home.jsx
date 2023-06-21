@@ -9,15 +9,16 @@ import getPost from './getPost';
 export default function Home() {
     const [postList, setPostList] = useState([]);
     const [category, setCategory] = useState('');
-    const user = useSelector((state) => state.user.myInfo);
+    const [pages, setPages] = useState(10);
+    const user = useSelector((state) => state.user?.myInfo);
 
     useEffect(() => {
         async function fetchData() {
-            setPostList(await getPost(category, user.username));
+            setPostList(await getPost(category, user?.username, pages));
         }
 
         fetchData();
-    }, [category]);
+    }, [category, pages]);
 
     const page = (
         <>
@@ -50,8 +51,21 @@ export default function Home() {
             <ul>
                 {!postList
                     ? []
-                    : postList.map((item) => {
-                          return <Post key={item._id} item={item} />;
+                    : postList.map((item, idx) => {
+                          return postList.length - 1 !== idx ? (
+                              <Post key={item?._id} item={item} />
+                          ) : (
+                              <>
+                                  <Post key={item?._id} item={item} />
+                                  <MoreButton
+                                      onClick={() =>
+                                          setPages((pages) => pages + 10)
+                                      }
+                                  >
+                                      더보기
+                                  </MoreButton>
+                              </>
+                          );
                       })}
             </ul>
         </>
@@ -92,4 +106,16 @@ const CategoryButton = styled.button`
 const DivLine = styled.img`
     margin: 10px;
     vertical-align: middle;
+`;
+
+const MoreButton = styled.button`
+    all: unset;
+    display: block;
+    width: 100px;
+    height: 20px;
+    margin: 0 auto 20px;
+    border-radius: var(--radius-m);
+    font-size: var(--fsize-m);
+    text-align: center;
+    cursor: pointer;
 `;

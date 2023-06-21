@@ -10,11 +10,11 @@ import { useSelector } from 'react-redux';
 const DEFAULT_IMAGE = 'http://146.56.183.55:5050/Ellipse.png';
 
 export default function Footer() {
-    const user = useSelector((state) => state.user.myInfo);
+    const user = useSelector((state) => state.user?.myInfo);
     let profileImage = DEFAULT_IMAGE;
 
-    if (user._id !== String) {
-        profileImage = user.image;
+    if (user?._id !== String) {
+        profileImage = user?.image;
     } // isToken으로 변경
 
     return (
@@ -28,7 +28,7 @@ export default function Footer() {
                 </li>
 
                 <li>
-                    <Link to={'/home'}>
+                    <Link to={'/together'}>
                         <img src={together} alt="모임 아이콘" />
                         <span>모임</span>
                     </Link>

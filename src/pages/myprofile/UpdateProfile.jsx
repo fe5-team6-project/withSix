@@ -12,19 +12,19 @@ import handleProfileUpdate from './handleProfileUpdate';
 import checkAleadyUseId from './checkAleadyUseId';
 
 export default function UpdateProfile() {
-    const user = useSelector((state) => state.user.myInfo);
+    const user = useSelector((state) => state.user?.myInfo);
     const navigate = useNavigate();
-    const [accountname, setAccountname] = useState(user.accountname);
-    const [username, setUsername] = useState(user.username);
-    const [intro, setIntro] = useState(user.intro);
-    const [image, setImage] = useState(user.image);
+    const [accountname, setAccountname] = useState(user?.accountname);
+    const [username, setUsername] = useState(user?.username);
+    const [intro, setIntro] = useState(user?.intro);
+    const [image, setImage] = useState(user?.image);
 
     async function handleSubmit(e) {
         e.preventDefault();
         const id = document.querySelector('#id').value;
         const name = document.querySelector('#name').value;
 
-        if (checkAleadyUseId()) {
+        if (checkAleadyUseId(user.accountname, id)) {
             if (!(await validationId(id))) {
                 return false;
             }
