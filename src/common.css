@@ -126,3 +126,12 @@ button:hover {
     margin: -1px;
     overflow: hidden;
 }
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--color-cover);
+    border-radius: 3px;
+}

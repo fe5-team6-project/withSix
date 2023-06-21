@@ -1,17 +1,7 @@
 import { URL } from '../../lib/apis/constant/path';
 
-export default async function getPost(category, accountname, pages) {
-    let requestPath = '/post';
-    const type = category;
-
-    if (type === '') {
-        requestPath = `/post/?limit=${pages}&skip=${0}`;
-    } else if (type === 'my') {
-        requestPath = `/post/${accountname}/userpost`;
-    } else if (type === 'feed') {
-        requestPath = '/post/feed';
-    }
-
+export default async function getUserProfile(accountname) {
+    const requestPath = `/profile/${accountname}`;
     const requestUrl = `${URL}${requestPath}`;
 
     const token = localStorage.token;
@@ -27,7 +17,6 @@ export default async function getPost(category, accountname, pages) {
     });
 
     const json = await response.json();
-    const postList = json.posts;
 
-    return postList;
+    return json.profile;
 }

@@ -8,6 +8,7 @@ import {
     emptyProfileImage,
 } from './validationProfileImage';
 import { emptyContentImage } from './validationContentImage';
+import { Link } from 'react-router-dom';
 
 export default function Post(props) {
     const user = props.item.author;
@@ -15,43 +16,45 @@ export default function Post(props) {
 
     return (
         <Li>
-            <a href="#">
+            <Link to={'#'}>
                 <ProfileWrap>
                     <ProfileLeft>
-                        <ImgProfile
-                            src={validationProfileImage(user.image)}
-                            onError={(e) => emptyProfileImage(e)}
-                            alt="유저 프로필"
-                        />
+                        <Link to={`../profile/${user?.accountname}`}>
+                            <ImgProfile
+                                src={validationProfileImage(user?.image)}
+                                onError={(e) => emptyProfileImage(e)}
+                                alt="유저 프로필"
+                            />
+                        </Link>
                     </ProfileLeft>
                     <ProfileRight>
-                        <UserName>{user.username}</UserName>
-                        <UserId>@ {user.accountname}</UserId>
+                        <UserName>{user?.username}</UserName>
+                        <UserId>@ {user?.accountname}</UserId>
                     </ProfileRight>
                 </ProfileWrap>
                 <ImageWrap>
-                    {item.image ? (
+                    {item?.image ? (
                         <ImgContent
-                            src={item.image}
+                            src={item?.image}
                             onError={(e) => emptyContentImage(e)}
                             alt="등록된이미지"
                         />
-                    ) : null}
+                    ) : undefined}
                 </ImageWrap>
                 <ContentWrap>
-                    <p>{item.content}</p>
+                    <p>{item?.content}</p>
                     <span>{}</span>
                 </ContentWrap>
                 <EtcWrap>
                     <img
-                        src={item.hearted ? iconHeartFill : iconHeart}
+                        src={item?.hearted ? iconHeartFill : iconHeart}
                         alt="좋아요"
                     />
-                    <span>{item.heartCount}</span>
+                    <span>{item?.heartCount}</span>
                     <img src={iconComment} alt="댓글" />
-                    <span>{item.comments.length}</span>
+                    <span>{item?.comments.length}</span>
                 </EtcWrap>
-            </a>
+            </Link>
         </Li>
     );
 }
@@ -98,7 +101,9 @@ const ProfileLeft = styled.section`
 
 const ImgProfile = styled.img`
     width: 100%;
-    vertical-align: middle;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
 `;
 
 const ProfileRight = styled.section`
