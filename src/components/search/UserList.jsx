@@ -5,7 +5,8 @@ export default function UserLIst({ showUser }) {
         let imgSrc = item.image;
         if (
             !item.image.includes('https://api.mandarin') ||
-            item.image.includes('/undefined')
+            item.image.includes('/undefined') ||
+            item.image.includes('/null')
         ) {
             imgSrc = 'http://146.56.183.55:5050/Ellipse.png';
         }
