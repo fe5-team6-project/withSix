@@ -4,6 +4,7 @@ import { styled } from 'styled-components';
 import initialImage from '../../assets/images/initialImage.png'
 import { api } from '../../lib/apis/axiosConfig';
 import { useParams } from 'react-router-dom';
+import TogetherEditButton from '../../components/together/TogetherEditButton';
 
 export default function TogetherDetail() {
 
@@ -35,7 +36,9 @@ export default function TogetherDetail() {
                     <GroupText>{togetherDetail.price}</GroupText>
                     <GroupDetailInfo>{togetherDetail.link}</GroupDetailInfo>
                 </GroupWrapper>
-                <GroupBtn>버튼</GroupBtn>
+                <GroupBtnWrap>
+                    <TogetherEditButton />
+                </GroupBtnWrap>
             </Form>
         </>
     );
@@ -106,6 +109,8 @@ const GroupImg = styled.img`
     border-radius: var(--radius-s);
 `
 
-const GroupBtn = styled.button`
-    
+const GroupBtnWrap = styled.div`
+    display:flex;
+    gap:10px;
+    justify-content: space-between;
 `
