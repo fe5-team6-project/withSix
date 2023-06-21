@@ -60,6 +60,9 @@ export default function Comments({ setCommentCount }) {
 
 const CommentWrapper = styled.ul`
     // background-color: var(--color-gray);
+    height: 300px;
+    overflow: auto;
+    padding: 10px;
 `;
 
 const Li = styled.li`

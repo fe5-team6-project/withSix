@@ -32,7 +32,7 @@ function CommentReq({ setReload, setCommentCount }) {
     };
 
     return (
-        <WriteSection>
+        <WriteForm onSubmit={(e) => e.preventDefault()}>
             <Input
                 type="text"
                 value={text}
@@ -40,13 +40,13 @@ function CommentReq({ setReload, setCommentCount }) {
                 onChange={(e) => setText(e.target.value)}
             />
             <Button onClick={() => sendCommentReq()}>게시</Button>
-        </WriteSection>
+        </WriteForm>
     );
 }
 
 export default CommentReq;
 
-const WriteSection = styled.section`
+const WriteForm = styled.form`
     position: relative;
     display: flex;
     width: 350px;
