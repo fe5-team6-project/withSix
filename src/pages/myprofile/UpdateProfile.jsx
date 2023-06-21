@@ -24,7 +24,7 @@ export default function UpdateProfile() {
         const id = document.querySelector('#id').value;
         const name = document.querySelector('#name').value;
 
-        if (checkAleadyUseId()) {
+        if (checkAleadyUseId(user.accountname, id)) {
             if (!(await validationId(id))) {
                 return false;
             }
