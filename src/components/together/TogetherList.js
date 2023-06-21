@@ -1,12 +1,38 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
+import { changeDetail } from '../../store/slices/togetherSlice';
 
 export default function TogetherList({ id, itemName, price, link, itemImage }) {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const s = useSelector((detail) => { return detail.together.detail });
+    console.log(s);
+    console.log(s.itemName);
+
+    const handleClick = () => {
+        const detail = {
+            id: id,
+            itemName: itemName,
+            price: price,
+            link: link,
+            itemImage: itemImage
+        };
+
+        dispatch(changeDetail(detail));
+        // 나머지 코드는 그대로 유지합니다.
+        console.log(s);
+    };
+
     return (
         <>
-            <TogetherItem>
+            <TogetherItem onClick={() => {
+                handleClick();
+                navigate(`/together/detail/${id}`);
+            }}>
                 <TogetherImage src={itemImage} />
-                <TogetherName>{itemName}</TogetherName>
+                <TogetherName>a</TogetherName>
                 <TogetherPrice><span>{price}</span>원</TogetherPrice>
             </TogetherItem>
         </>

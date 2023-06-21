@@ -18,6 +18,7 @@ export default function Together() {
             const res = await api.get(`/product/${myInfo.accountname}`);
             const abc = res?.data?.product;
             setTogetherList([...abc]);
+            console.log(abc)
         }
         console.log(myInfo);
         axiosTogetherList();
