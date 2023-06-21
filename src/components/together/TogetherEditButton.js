@@ -12,6 +12,6 @@ export default function TogetherEditButton() {
 
 const EditButton = styled.button`
     &#editBtn{
-        background-color: var(--color-disabled);
+        background-color: var(--color-main);
     }
 `
