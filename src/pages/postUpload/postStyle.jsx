@@ -61,6 +61,7 @@ export const FileTxt = styled.p`
 color: #FFFFFF;
 font-size: 16px;
 font-weight: 700;
+margin-top: 20px;
 `
 
 export const FileSubTxt = styled.p`
@@ -93,21 +94,21 @@ export const PostHeaderSec = styled.section`
 
 export const TitleSec = styled.div`
 position: relative;
-line-height: 10px;
+line-height: 20px;
 `
 
-export const BackBtn = styled.button`
-width: 20px;
-height: 20px;
-background-image: url('../../assets/icon/icon-back.png');
-background-repeat: no-repeat;
-background-position: center;
-background-size: cover;
-/* 버튼 오른쪽 상단 고정 */
-position: absolute;
-left: -70px;
-top: -30px;
-`;
+// export const BackBtn = styled.button`
+// width: 20px;
+// height: 20px;
+// background-image: url('../../assets/icon/icon-back.png');
+// background-repeat: no-repeat;
+// background-position: center;
+// background-size: cover;
+// /* 버튼 오른쪽 상단 고정 */
+// position: absolute;
+// left: -70px;
+// top: -30px;
+// `;
 
 export const Tit = styled.p`
 margin-top: 50px;
