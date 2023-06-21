@@ -28,6 +28,13 @@ const together = createSlice({
                 "followerCount": 1,
                 "followingCount": 0
             }
+        },
+        detail: {
+            "id": String,
+            "itemName": String,
+            "price": Number,
+            "link": String,
+            "itemImage": String,
         }
     },
     reducers: {
@@ -37,9 +44,17 @@ const together = createSlice({
             if (price) state.req.price = parseInt(price);
             if (link) state.req.link = link;
             if (itemImage) state.req.itemImage = itemImage;
+        },
+        changeDetail(state, actions) {
+            const { id, itemName, price, link, itemImage } = actions.payload;
+            if (id) state.detail.id = id;
+            if (itemName) state.detail.itemName = itemName;
+            if (price) state.detail.price = price;
+            if (link) state.detail.link = link;
+            if (itemImage) state.detail.itemImage = itemImage;
         }
     }
 })
 
-export const { inputTogether } = together.actions;
+export const { inputTogether, changeDetail } = together.actions;
 export { together };
