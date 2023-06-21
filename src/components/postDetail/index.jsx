@@ -9,6 +9,7 @@ import Comments from './comments';
 import Common from '../main/Common';
 import { styled } from 'styled-components';
 import iconComment from '../../assets/icons/post/icon-comment.svg';
+import Slick from '../slick';
 
 // const postId = '6478c001b2cb2056632d23f2';
 
@@ -55,8 +56,9 @@ export default function PostDetail() {
                             height={100}
                             alt="이미지" */}
 
+                    {/* 사용자가 등록한 게시글 이미지 표시 */}
                     <ImageWrap>
-                        {data.image.split(', ').map((img) => (
+                        {/* {data.image.split(',').map((img) => (
                             <ImgContent
                                 key={img}
                                 src={img}
@@ -64,7 +66,8 @@ export default function PostDetail() {
                                 height={100}
                                 alt="이미지"
                             />
-                        ))}
+                        ))} */}
+                        <Slick images={data.image} />
                     </ImageWrap>
 
                     <Content>{data.content}</Content>
