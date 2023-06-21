@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import DeleteMent from './DeleteMent';
 import ReportMent from './Report';
 
@@ -10,8 +11,11 @@ export default function CommentSideToggle({
     setReload,
     setCommentCount,
 }) {
+    const {
+        myInfo: { _id },
+    } = useSelector((state) => state.user);
     //내가 작성한 글
-    if (authorId === userId) {
+    if (authorId === _id) {
         return (
             <DeleteMent
                 commentId={commentId}
