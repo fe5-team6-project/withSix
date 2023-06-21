@@ -14,7 +14,7 @@ export default function Home() {
 
     useEffect(() => {
         async function fetchData() {
-            setPostList(await getPost(category, user?.username, pages));
+            setPostList(await getPost(category, user?.accountname, pages));
         }
 
         fetchData();
@@ -49,7 +49,7 @@ export default function Home() {
             </CategoryNav>
 
             <ul>
-            {!postList
+                {!postList
                     ? []
                     : postList.map((item, idx) => {
                           return postList.length - 1 !== idx ? (
