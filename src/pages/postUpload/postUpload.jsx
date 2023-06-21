@@ -6,7 +6,7 @@ import Common from "../../components/main/Common"
 import {
     PostHeaderSec,
     TitleSec,
-    BackBtn,
+    // BackBtn,
     Tit,
     SubTit,
     UploadSec,
@@ -25,12 +25,12 @@ import {PostUploadFooter} from './UploadFooter/uploadfooter'
 export default function PostUpload (){
     const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzZkN2I3YjJjYjIwNTY2MzJkMDA5MyIsImV4cCI6MTY5MDgxNzQyOCwiaWF0IjoxNjg1NjMzNDI4fQ.fuRi1qVjgU4C7my-RPJrPOoBFjAvSHauogh8alP9mbI';
     const [content, setContent] = useState(""); // 게시글 입력 내용
-    const [showImg, setShowImg] = useState([]); // 이미지 선택 시에 파일선택 옆에 뜨는 url
-    const [postImg, setPostImg] = useState([]); // 이미지 선택 시에 아래에 미리보기로 뜨는 이미지
+    const [showImg, setShowImg] = useState([]); // 미리보기에 올라오는 이미지
+    const [postImg, setPostImg] = useState([]); // 업로드 페이지에 올라오는 이미지
     const [uploadBtn, setUploadBtn] = useState(true);
     const fileInput = useRef(null);
     const navigate = useNavigate();
-    const [imageSrc, setImageSrc] = useState('');
+    // const [imageSrc, setImageSrc] = useState('');
 
         const data = {
         post: {
@@ -46,17 +46,19 @@ export default function PostUpload (){
         formData.append("image", file);
 
         const response = await axios.post(
-            "https://api.mandarin.weniv.co.kr/image/uploadfiles",
+            "https://api.mandarin.weniv.co.kr/image/uploadfile",
             formData
         );
         const imgName = url + response.data.filename;
+        const imgNameList = [];
+        imgNameList.push(imgName);
+        console.log(imgNameList);
 
-        return imgName;
+        return imgNameList;
     }
 
     // 2. 이미지 미리보기 부분
     function ImgView(e) {
-        // console.log(e.target.files);
         const files = e.target.files;
         let fileUrls = [...showImg];
         let fileImgs = [...postImg];
@@ -73,7 +75,9 @@ export default function PostUpload (){
             } else {
                 const createImgUrl = URL.createObjectURL(files[i]);
                 fileUrls.push(createImgUrl);
+                // console.log(fileUrls);
                 fileImgs.push(files[i]);
+                // console.log(fileImgs);
             }
         }
 
@@ -126,7 +130,7 @@ export default function PostUpload (){
                     },
                 })
                 // 전 페이지로
-                .then(navigate(-1));
+                .then(navigate('/home'));
         } catch (error) {
             console.log(error);
         }
@@ -152,10 +156,9 @@ export default function PostUpload (){
         <UploadSec>
             <PostHeaderSec>
                 <TitleSec>
-                <BackBtn onClick={() => { navigate(-1); }} />
+                {/* <BackBtn onClick={() => { navigate(-1); }} /> */}
                 <Tit>포스팅</Tit>
                 <SubTit>글과 사진을 남기고 공유할 수 있습니다.</SubTit>
-                {/* <UploadBtn size='middle-sm' isActive={isActive} UploadPost={UploadPost} disabled={disabled} text='저장' /> */}
                 </TitleSec>
             </PostHeaderSec>   
 
