@@ -5,6 +5,7 @@ import initialImage from '../../assets/images/initialImage.png'
 import { api } from '../../lib/apis/axiosConfig';
 import { useParams } from 'react-router-dom';
 import TogetherEditButton from '../../components/together/TogetherEditButton';
+import TogetherDelButton from '../../components/together/TogetherDelButton';
 
 export default function TogetherDetail() {
 
@@ -38,6 +39,7 @@ export default function TogetherDetail() {
                 </GroupWrapper>
                 <GroupBtnWrap>
                     <TogetherEditButton />
+                    <TogetherDelButton />
                 </GroupBtnWrap>
             </Form>
         </>
