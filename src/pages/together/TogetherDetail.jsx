@@ -2,8 +2,6 @@ import { React, useState } from 'react';
 import Common from '../../components/main/Common';
 import { styled } from 'styled-components';
 import initialImage from '../../assets/images/initialImage.png'
-import { useSelector, useDispatch } from 'react-redux';
-import { inputTogether } from '../../store/slices/togetherSlice';
 import { api, urlApi } from '../../lib/apis/axiosConfig';
 import { useParams } from 'react-router-dom';
 
@@ -19,12 +17,6 @@ export default function TogetherDetail() {
         console.log(detailData.itemName)
         setTogetherDetail(detailData);
         console.log(togetherDetail);
-
-        // const { itemName, itemImage } = detailData;
-        // setTogetherDetail([itemName, itemImage])
-        // console.log(itemName);
-        // console.log(togetherDetail)
-        // setTogetherDetail([abc]);
     }
     const page = (
         <>
@@ -39,7 +31,6 @@ export default function TogetherDetail() {
                     <GroupDetailInfo>{togetherDetail.link}</GroupDetailInfo>
                 </GroupWrapper>
                 <GroupBtn>버튼</GroupBtn>
-                {/* <RegiButton onClick={() => { }}>등록</RegiButton> */}
             </Form>
         </>
     );
