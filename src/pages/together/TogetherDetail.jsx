@@ -5,13 +5,15 @@ import initialImage from '../../assets/images/initialImage.png'
 import { useSelector, useDispatch } from 'react-redux';
 import { inputTogether } from '../../store/slices/togetherSlice';
 import { api, urlApi } from '../../lib/apis/axiosConfig';
+import { useParams } from 'react-router-dom';
 
 export default function TogetherDetail() {
 
     const [togetherDetail, setTogetherDetail] = useState('');
-
+    const id = useParams().id
+    console.log(id);
     const togetherDetails = async () => {
-        const res = await api.get(`/product/detail/64912abfb2cb20566341bccf`);
+        const res = await api.get(`/product/detail/${id}`);
         console.log(res);
         const detailData = res.data.product;
         console.log(detailData.itemName)
