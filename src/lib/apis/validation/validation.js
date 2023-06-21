@@ -18,20 +18,26 @@ import {
 } from '../constant/regexp';
 import { checkDuplicationEmail, checkDuplicationId } from './checkDuplication';
 
+const result = {
+    state: false,
+    message: String,
+};
+
 export const validationLogin = (email, password) => {
     const lenEmail = email.length;
     const lenPassword = password.length;
 
     if (!lenEmail) {
-        alert(FAIL_NULL_EMAIL);
-        return false;
+        result.message = FAIL_NULL_EMAIL;
+        return result;
     }
     if (!lenPassword) {
-        alert(FAIL_NULL_PASSWORD);
-        return false;
+        result.message = FAIL_NULL_PASSWORD;
+        return result;
     }
 
-    return true;
+    result.state = true;
+    return result;
 };
 
 export const validationEmail = async (email) => {
