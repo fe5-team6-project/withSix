@@ -17,7 +17,6 @@ function CommentReq({ setReload, setCommentCount }) {
                     content: text,
                 },
             });
-            console.log(a);
             if (a.status === 200) {
                 setReload((prev) => !prev);
                 setCommentCount((prev) => prev + 1);
@@ -54,6 +53,7 @@ const WriteForm = styled.form`
 `;
 const Input = styled.input`
     width: 275px;
+    margin: 0;
     background-color: white;
     color: black;
     &:focus {
@@ -67,7 +67,7 @@ const Input = styled.input`
 const Button = styled.button`
     position: absolute;
     width: 75px;
-    height: 30px;
+    height: 25px;
     right: 0;
     bottom: 0;
 `;
