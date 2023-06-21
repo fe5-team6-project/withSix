@@ -1,10 +1,17 @@
 import React from 'react'
 import { styled } from 'styled-components'
+import { api } from '../../lib/apis/axiosConfig'
+import { useParams } from 'react-router-dom'
 
 export default function TogetherDelButton() {
+    const id = useParams().id
+    const TogetherDeleteButton = async () => {
+        await api.delete(`/product/${id}`);
+    }
+
     return (
         <>
-            <DeleteButton id="delBtn">삭제</DeleteButton>
+            <DeleteButton id="delBtn" onClick={TogetherDeleteButton}>삭제</DeleteButton>
         </>
     )
 }
