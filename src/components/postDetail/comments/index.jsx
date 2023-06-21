@@ -37,7 +37,7 @@ export default function Comments({ setCommentCount }) {
                         </ImgWrapper>
                         <CommentRight>
                             <RightTop>
-                                <div>{item.author.username}</div>
+                                <UserName>{item.author.username}</UserName>
                                 <CommentSideToggle
                                     authorId={item.author._id}
                                     commentId={item.id}
@@ -92,8 +92,13 @@ const RightTop = styled.div`
 
 const ImgWrapper = styled.div`
     width: 50px;
-    height: 30px;
+    height: 50px;
+    margin-right: 5px;
     object-fit: cover;
+`;
+
+const UserName = styled.div`
+    margin-bottom: 3px;
 `;
 
 const Content = styled.div`
