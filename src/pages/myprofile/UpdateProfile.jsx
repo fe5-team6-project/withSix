@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Common from '../../components/main/Common';
 import { styled } from 'styled-components';
 import handleFileUpload from '../signup/handleFileUload';
-import { useNavigate } from 'react-router-dom';
 import {
     validationId,
     validationName,
@@ -10,91 +9,127 @@ import {
 import { useSelector } from 'react-redux';
 import handleProfileUpdate from './handleProfileUpdate';
 import checkAleadyUseId from './checkAleadyUseId';
+import { PROFILE_UPDATE_OK } from '../../lib/apis/constant/message';
+import Modal from '../../components/modal/Modal';
 
 export default function UpdateProfile() {
     const user = useSelector((state) => state.user?.myInfo);
-    const navigate = useNavigate();
     const [accountname, setAccountname] = useState(user?.accountname);
     const [username, setUsername] = useState(user?.username);
     const [intro, setIntro] = useState(user?.intro);
     const [image, setImage] = useState(user?.image);
+    const [url, setUrl] = useState(undefined);
+    const [state, setState] = useState(undefined);
+    const [message, setMessage] = useState(undefined);
+    const [isShow, setIsShow] = useState(false);
+
+    function setModal(state, message) {
+        setState(state);
+        setMessage(message);
+        console.log(state, message);
+    }
+    console.log(state);
 
     async function handleSubmit(e) {
         e.preventDefault();
         const id = document.querySelector('#id').value;
         const name = document.querySelector('#name').value;
 
-        if (checkAleadyUseId(user.accountname, id)) {
-            if (!(await validationId(id))) {
+        const validAleadyUseId = checkAleadyUseId(user?.accountname, id);
+        if (validAleadyUseId) {
+            const validId = await validationId(id);
+
+            console.log(validId, 'id');
+            if (!validId.state) {
+                setModal(validId.state, validId.message);
+                setIsShow(true);
                 return false;
             }
         }
 
-        if (!validationName(name)) {
+        const validName = validationName(name);
+        console.log(validName, 'name');
+        if (!validName.state) {
+            setModal(validName.state, validName.message);
+            setIsShow(true);
             return false;
         }
 
-        const status = await handleProfileUpdate();
+        const imageStatus = await handleProfileUpdate();
+        const status = true;
 
-        navigate('/myprofile');
+        setModal(status, PROFILE_UPDATE_OK);
+        setUrl('/myprofile');
+        setIsShow(true);
         return status;
     }
 
     const page = (
-        <Form
-            onSubmit={(e) => {
-                handleSubmit(e);
-            }}
-        >
-            <ImageWrap>
-                <Img src={image} alt={'회원 이미지'} id="profile_image" />
-                <ImageInputLabel htmlFor="image">사진 변경</ImageInputLabel>
-                <ImageInput
-                    type="file"
-                    id="image"
-                    onChange={(e) => {
-                        setImage(handleFileUpload(e));
-                    }}
+        <>
+            <Form
+                onSubmit={(e) => {
+                    handleSubmit(e);
+                }}
+            >
+                <ImageWrap>
+                    <Img src={image} alt={'회원 이미지'} id="profile_image" />
+                    <ImageInputLabel htmlFor="image">사진 변경</ImageInputLabel>
+                    <ImageInput
+                        type="file"
+                        id="image"
+                        onChange={(e) => {
+                            setImage(handleFileUpload(e));
+                        }}
+                    />
+                </ImageWrap>
+                <Div className="id_wrap">
+                    <Input
+                        type="text"
+                        id="id"
+                        placeholder=" "
+                        value={accountname}
+                        onChange={(e) => {
+                            setAccountname(e.currentTarget.value);
+                        }}
+                    />
+                    <Label htmlFor="id">ID</Label>
+                </Div>
+                <Div>
+                    <Input
+                        type="text"
+                        id="name"
+                        placeholder=" "
+                        value={username}
+                        onChange={(e) => {
+                            setUsername(e.currentTarget.value);
+                        }}
+                    />
+                    <Label htmlFor="name">Nickname</Label>
+                </Div>
+                <Div>
+                    <Input
+                        type="text"
+                        id="intro"
+                        placeholder=" "
+                        value={intro}
+                        onChange={(e) => {
+                            setIntro(e.currentTarget.value);
+                        }}
+                    />
+                    <Label htmlFor="intro">Introduce</Label>
+                </Div>
+                <Button>프로필 저장</Button>
+            </Form>
+
+            {isShow ? (
+                <Modal
+                    setIsShow={setIsShow}
+                    state={state}
+                    message={message}
+                    url={url}
                 />
-            </ImageWrap>
-            <Div className="id_wrap">
-                <Input
-                    type="text"
-                    id="id"
-                    placeholder=" "
-                    value={accountname}
-                    onChange={(e) => {
-                        setAccountname(e.currentTarget.value);
-                    }}
-                />
-                <Label htmlFor="id">ID</Label>
-            </Div>
-            <Div>
-                <Input
-                    type="text"
-                    id="name"
-                    placeholder=" "
-                    value={username}
-                    onChange={(e) => {
-                        setUsername(e.currentTarget.value);
-                    }}
-                />
-                <Label htmlFor="name">Nickname</Label>
-            </Div>
-            <Div>
-                <Input
-                    type="text"
-                    id="intro"
-                    placeholder=" "
-                    value={intro}
-                    onChange={(e) => {
-                        setIntro(e.currentTarget.value);
-                    }}
-                />
-                <Label htmlFor="intro">Introduce</Label>
-            </Div>
-            <Button>프로필 저장</Button>
-        </Form>
+            ) : undefined}
+        </>
     );
 
     const pagaTitle = '프로필 수정';

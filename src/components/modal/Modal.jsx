@@ -20,7 +20,7 @@ export default function Modal(props) {
 
     return (
         <CoverDiv>
-            <section>
+            <article>
                 <ImageWrap>
                     {state ? (
                         <img src={successIcon} alt="성공 아이콘" />
@@ -43,7 +43,7 @@ export default function Modal(props) {
                         close
                     </button>
                 </ButtonWrap>
-            </section>
+            </article>
         </CoverDiv>
     );
 }
@@ -56,15 +56,19 @@ const CoverDiv = styled.div`
     height: 100vh;
     background-color: var(--color-cover);
 
-    & > section {
+    & > article {
         position: absolute;
+        left: 50%;
         bottom: 0;
+        width: 100%;
         max-width: 390px;
         height: 120px;
+        padding: 20px 0;
         background-color: white;
         border-top-left-radius: var(--radius-l);
         border-top-right-radius: var(--radius-l);
         text-align: center;
+        transform: translateX(-50%);
     }
 `;
 
@@ -74,7 +78,7 @@ const ImageWrap = styled.section`
     }
 `;
 
-const TextWrap = styled.article`
+const TextWrap = styled.section`
     width: 100%;
     max-width: 390px;
 `;
