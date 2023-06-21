@@ -1,8 +1,8 @@
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import Common from '../../components/main/Common';
 import { styled } from 'styled-components';
 import initialImage from '../../assets/images/initialImage.png'
-import { api, urlApi } from '../../lib/apis/axiosConfig';
+import { api } from '../../lib/apis/axiosConfig';
 import { useParams } from 'react-router-dom';
 
 export default function TogetherDetail() {
@@ -18,11 +18,16 @@ export default function TogetherDetail() {
         setTogetherDetail(detailData);
         console.log(togetherDetail);
     }
+
+    useEffect(() => {
+        togetherDetails();
+    }, [])
+
     const page = (
         <>
             <Form>
                 <GroupHeader>
-                    <H1 onClick={togetherDetails}>모임 등록</H1>
+                    <H1>{togetherDetail.itemName}</H1>
                 </GroupHeader>
                 <GroupWrapper>
                     <GroupImg src={togetherDetail.itemImage} ></GroupImg>
