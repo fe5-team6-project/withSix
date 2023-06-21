@@ -2,13 +2,20 @@ import React from 'react';
 import { styled } from 'styled-components';
 import successIcon from '../../assets/icons/modal/icon-success.svg';
 import failureIcon from '../../assets/icons/modal/icon-failure.svg';
+import { useNavigate } from 'react-router-dom';
 
 export default function Modal(props) {
     const state = props.state;
     const message = props.message;
+    const url = props.url;
+    const navigate = useNavigate();
 
     function closeModal() {
         props.setIsShow(false);
+    }
+
+    function movePage() {
+        navigate(url);
     }
 
     return (
@@ -27,7 +34,12 @@ export default function Modal(props) {
                 </TextWrap>
 
                 <ButtonWrap>
-                    <button autoFocus={true} onClick={() => closeModal()}>
+                    <button
+                        autoFocus={true}
+                        onClick={() => {
+                            url ? movePage(url) : closeModal();
+                        }}
+                    >
                         close
                     </button>
                 </ButtonWrap>
