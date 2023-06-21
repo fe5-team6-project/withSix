@@ -27,7 +27,9 @@ export default function Modal(props) {
                 </TextWrap>
 
                 <ButtonWrap>
-                    <button>close</button>
+                    <button autoFocus={true} onClick={() => closeModal()}>
+                        close
+                    </button>
                 </ButtonWrap>
             </section>
         </CoverDiv>
