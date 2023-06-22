@@ -12,6 +12,7 @@ import {
     setUrl,
 } from '../../store/slices/modalSlice';
 import Modal from '../../components/modal/Modal';
+import { setMyInfo } from '../../store/slices/userSlice';
 
 export default function Login() {
     const dispatch = useDispatch();
@@ -54,6 +55,7 @@ export default function Login() {
             return false;
         }
         const user = await getMyInfo();
+        dispatch(setMyInfo(user));
         setModalUrl('/home');
         setModalVisible(true);
         return status.state;
