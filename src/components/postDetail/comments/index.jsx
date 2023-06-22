@@ -5,33 +5,50 @@ import { returnServerErrorMessage } from '../utils/errorMessage';
 import { api } from '../../../lib/apis/axiosConfig';
 import CommentSideToggle from './sideToggle';
 import { styled } from 'styled-components';
+import { useInView } from 'react-intersection-observer';
 
-export default function Comments({ setCommentCount }) {
+export default function Comments({ setCommentCount, commentCount }) {
     const { id } = useParams();
     const [comment, setComment] = useState([]);
     const [reload, setReload] = useState(false);
-
+    const [ref, inView] = useInView();
+    const [page, setPage] = useState(0); // 현재 페이지 번호 (페이지네이션)
     const fetchComment = useCallback(async () => {
         try {
+            // console.log(page);
             const {
                 data: { comments },
-            } = await api.get(`/post/${id}/comments`);
-            setComment(comments);
+                // https://api.mandarin.weniv.co.kr/post/648fa8f9b2cb2056633a809c/comments?limit=3&skip=9
+            } = await api.get(`/post/${id}/comments/?limit=5&skip=${page * 5}`);
+            // 리스트 뒤로 붙여주기
+            // console.log(page);
+            // console.log(comments);
+            // console.log(page);
+            // console.log(comment, comments);
+            setComment([...comment, ...comments]);
+            // 요청 성공 시에 페이지에 1 카운트 해주기
+            setPage((page) => page + 1);
         } catch (error) {
             returnServerErrorMessage(error);
         }
-    }, [reload]);
+    }, [reload, inView]);
 
     useEffect(() => {
-        fetchComment();
-    }, [reload]);
+        if (inView) {
+            console.log(inView, '무한 스크롤 요청 🎃');
+
+            fetchComment();
+        }
+        // fetchComment();
+    }, [reload, inView, ref]);
 
     if (!comment) return <div>Loading...</div>;
     return (
         <>
             <CommentWrapper>
-                {comment.map((item) => (
-                    <Li key={item.id}>
+                {/* {console.log(comment)} */}
+                {comment.map((item, idx) => (
+                    <Li key={idx}>
                         <ImgWrapper>
                             <Img src={item.author.image} />
                         </ImgWrapper>
@@ -49,8 +66,10 @@ export default function Comments({ setCommentCount }) {
                         </CommentRight>
                     </Li>
                 ))}
+                {commentCount > comment.length ? <div ref={ref}></div> : null}
             </CommentWrapper>
             <CommentReq
+                setComment={setComment}
                 setReload={setReload}
                 setCommentCount={setCommentCount}
             />

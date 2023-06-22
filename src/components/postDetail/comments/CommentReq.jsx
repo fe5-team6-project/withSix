@@ -7,7 +7,7 @@ import {
 } from '../utils/errorMessage';
 import { styled } from 'styled-components';
 
-function CommentReq({ setReload, setCommentCount }) {
+function CommentReq({ setReload, setCommentCount, setComment }) {
     const [text, setText] = useState('');
     const { id } = useParams();
     const sendCommentReq = async () => {
@@ -18,8 +18,10 @@ function CommentReq({ setReload, setCommentCount }) {
                 },
             });
             if (a.status === 200) {
-                setReload((prev) => !prev);
+                // setReload((prev) => !prev);
                 setCommentCount((prev) => prev + 1);
+                // console.log(a.data);
+                setComment((prev) => [...prev, a.data.comment]);
             } else {
                 returnServerErrorMessage();
             }

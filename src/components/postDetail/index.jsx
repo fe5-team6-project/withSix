@@ -76,7 +76,10 @@ export default function PostDetail() {
                         <img src={iconComment} alt="댓글" />
                         <span>{commentCount}</span>
                     </EtcWrap>
-                    <Comments setCommentCount={setCommentCount} />
+                    <Comments
+                        setCommentCount={setCommentCount}
+                        commentCount={commentCount}
+                    />
                 </Div>
             }
         />
