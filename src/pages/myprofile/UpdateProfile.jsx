@@ -6,11 +6,14 @@ import {
     validationId,
     validationName,
 } from '../../lib/apis/validation/validation';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import handleProfileUpdate from './handleProfileUpdate';
 import checkAleadyUseId from './checkAleadyUseId';
-import { PROFILE_UPDATE_OK } from '../../lib/apis/constant/message';
-import Modal from '../../components/modal/Modal';
+import {
+    setContent,
+    setIsVisible,
+    setUrl,
+} from '../../store/slices/modalSlice';
 
 export default function UpdateProfile() {
     const user = useSelector((state) => state.user?.myInfo);
@@ -18,17 +21,23 @@ export default function UpdateProfile() {
     const [username, setUsername] = useState(user?.username);
     const [intro, setIntro] = useState(user?.intro);
     const [image, setImage] = useState(user?.image);
-    const [url, setUrl] = useState(undefined);
-    const [state, setState] = useState(undefined);
-    const [message, setMessage] = useState(undefined);
-    const [isShow, setIsShow] = useState(false);
 
-    function setModal(state, message) {
-        setState(state);
-        setMessage(message);
-        console.log(state, message);
-    }
-    console.log(state);
+    const dispatch = useDispatch();
+
+    const setModalContent = (props) => {
+        dispatch(
+            setContent({
+                state: props.state,
+                message: props.message,
+            })
+        );
+    };
+    const setModalUrl = (url) => {
+        dispatch(setUrl({ url: url }));
+    };
+    const setModalVisible = (isVisible) => {
+        dispatch(setIsVisible({ isVisible: isVisible }));
+    };
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -38,30 +47,26 @@ export default function UpdateProfile() {
         const validAleadyUseId = checkAleadyUseId(user?.accountname, id);
         if (validAleadyUseId) {
             const validId = await validationId(id);
-
-            console.log(validId, 'id');
             if (!validId.state) {
-                setModal(validId.state, validId.message);
-                setIsShow(true);
+                setModalContent(validId);
+                setModalVisible(true);
                 return false;
             }
         }
 
         const validName = validationName(name);
-        console.log(validName, 'name');
         if (!validName.state) {
-            setModal(validName.state, validName.message);
-            setIsShow(true);
+            setModalContent(validName);
+            setModalVisible(true);
             return false;
         }
 
-        const imageStatus = await handleProfileUpdate();
-        const status = true;
+        const status = await handleProfileUpdate();
 
-        setModal(status, PROFILE_UPDATE_OK);
-        setUrl('/myprofile');
-        setIsShow(true);
-        return status;
+        setModalContent(status);
+        setModalVisible(true);
+        setModalUrl('/myprofile');
+        return status.state;
     }
 
     const page = (
@@ -120,15 +125,6 @@ export default function UpdateProfile() {
                 </Div>
                 <Button>프로필 저장</Button>
             </Form>
-
-            {isShow ? (
-                <Modal
-                    setIsShow={setIsShow}
-                    state={state}
-                    message={message}
-                    url={url}
-                />
-            ) : undefined}
         </>
     );
 
