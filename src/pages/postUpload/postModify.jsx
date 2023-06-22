@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Common from "../../components/main/Common" 
 import {
@@ -20,7 +20,7 @@ import {PostUploadFooter} from './UploadFooter/uploadfooter'
 import { URL } from "../../lib/apis/constant/path";
 
 export default function PostUpload (){
-
+    const { id } = useParams();
     const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzZkN2I3YjJjYjIwNTY2MzJkMDA5MyIsImV4cCI6MTY5MDgxNzQyOCwiaWF0IjoxNjg1NjMzNDI4fQ.fuRi1qVjgU4C7my-RPJrPOoBFjAvSHauogh8alP9mbI';
     const [content, setContent] = useState(""); // 게시글 입력 내용
     const [showImg, setShowImg] = useState([]); // 미리보기에 올라오는 이미지
@@ -28,6 +28,8 @@ export default function PostUpload (){
     const [uploadBtn, setUploadBtn] = useState(true);
     const fileInput = useRef(null);
     const navigate = useNavigate();
+    // postUpload에서 불러온 데이터
+    const [ postData, setPostData] = useState([]);
 
         const data = {
         post: {
@@ -108,7 +110,6 @@ export default function PostUpload (){
         const snsImgList = await Promise.all(imgList);
 
         data.post.image = snsImgList.join(",");
-        console.log(data.post.image);
         data.post.content = content;
 
         try {
@@ -120,11 +121,34 @@ export default function PostUpload (){
                     },
                 })
                 .then(navigate('/home'));
-                // console.log(res);
         } catch (error) {
             console.log(error);
         }
     }
+
+    async function ModifyPost(){
+        const {data : {
+            // 기존의 게시물 데이터를 모두 가지고 있음
+            post
+        }} = await axios
+        .get(`${URL}/post/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-type": "application/json",
+            },
+        })
+        // console.log(res);
+        // console.log(post)
+        //데이터 전역변수로 저장
+        setPostData(post);
+        //미리보기 이미지 주소를 배열에 저장
+        setShowImg([post.image]);
+        setContent(post.content)
+    }
+    
+    useEffect(()=>{
+        ModifyPost();
+    },[])
 
     // 게시물 업로드할 때 게시글과 이미지가 없으면 업로드 불가
     useEffect(() => {
@@ -153,6 +177,8 @@ export default function PostUpload (){
                 name="post"
                 id="post"
                 placeholder="글을 작성해주세요."
+                key={postData.content}
+                // value
                 value={content}
                 // input값 바뀌면 이벤트 실행
                 onChange={(e) => {

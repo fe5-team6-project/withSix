@@ -14,6 +14,7 @@ import UpdateProfile from '../pages/myprofile/UpdateProfile';
 import PostUpload from '../pages/postUpload/postUpload';
 import Together from '../pages/together/Together'
 import TogetherDetail from '../pages/together/TogetherDetail';
+import PostModify from '../pages/postUpload/postModify';
 
 export default function MyRouter() {
     return (
@@ -32,6 +33,7 @@ export default function MyRouter() {
                     <Route path="/myprofile" element={<MyProfile />} />
                     <Route path="/myprofile/update" element={<UpdateProfile />} />
                     <Route path="/post/upload" element={<PostUpload />} />
+                    <Route path="/post/modify/:id" element={<PostModify />} />
                     <Route path="/post/detail/:id" element={<PostDetail />} />
                     <Route path="/search" element={<Search />} />
                     <Route path="/profile/:id" element={<UserProfile />} />

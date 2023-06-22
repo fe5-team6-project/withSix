@@ -42,7 +42,7 @@ resize: none;
 export const PostUploadImg = styled.div`
 display: flex;
 margin-top: 20px;
-gap: 20px;
+gap: 25px;
 `;
 
 export const FileUpload = styled.label`
@@ -50,7 +50,7 @@ width: 90px;
 height: 90px;
 background-image: url(${ImgUploadBtn});
 background-repeat: no-repeat;
-background-size: 40px 40px;
+background-size: 50px 50px;
 background-color: #77CBD6;;
 background-position: 50% 50%;
 cursor: pointer;
@@ -69,19 +69,6 @@ clip:rect(0,0,0,0);
 border: 0;
 `;
 
-export const FileTxt = styled.p`
-/* color: #FFFFFF;
-font-size: 16px;
-font-weight: 700;
-margin-top: 20px; */
-`
-
-export const FileSubTxt = styled.p`
-/* color: #FFFFFF;
-font-size: 12px;
-font-weight: 700; */
-`
-
 export const DeleteBtn = styled.button`
 width: 20px;
 height: 20px;
@@ -93,20 +80,10 @@ background-size: cover;
 border: none;
 `;
 
-export const SingleImg = styled.img`
-width: 80px;
-height: 80px;
-background-size: cover;
-`;
-
 export const Img = styled.img`
 width: 80px;
 height: 80px;
 background-size: cover;
-`;
-
-export const PostHeaderSec = styled.section`
-
 `;
 
 export const TitleSec = styled.div`
