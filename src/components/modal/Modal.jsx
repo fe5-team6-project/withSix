@@ -17,7 +17,14 @@ export default function Modal() {
     const url = modal.url.path;
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    console.log(url);
 
+    /**
+     * resetModal
+     *  모달 닫을 때 모달이 가진 상태를 초기화
+     * movePage
+     *  url이 입력되었을 경우 해당 url로 이동
+     */
     function resetModal() {
         dispatch(setContent({ state: Boolean, message: String }));
         dispatch(setIsVisible({ isVisible: false }));

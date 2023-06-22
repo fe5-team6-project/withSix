@@ -12,6 +12,7 @@ import Modal from '../modal/Modal';
 export default function Common(props) {
     const navigator = useNavigate();
     const dispatch = useDispatch();
+    // 비로그인시 자동이동을 무시해야할 페이지에 사용
     const autoMove = props.autoMoveIgnore ? true : false;
 
     const userInfo = useSelector((state) => state.user.myInfo);
@@ -27,6 +28,7 @@ export default function Common(props) {
             dispatch(setMyInfo(user));
         } else {
             setUser('');
+            // 자동이동 무시 여부 체크
             if (!autoMove) {
                 navigator('/');
             }
@@ -49,6 +51,7 @@ export default function Common(props) {
                 {props.page}
             </StyledMain>
             <Footer />
+            {/* 모달 표시 위치 */}
             {modalVisible && <Modal />}
         </>
     );
