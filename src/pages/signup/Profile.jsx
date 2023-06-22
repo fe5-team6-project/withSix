@@ -31,9 +31,11 @@ export default function Profile(props) {
         }
 
         const status = await handleSignup(userData);
-        if (status.state) props.setModalContent(status);
-        props.setModalVisible(true);
-        props.setModalUrl('/');
+        if (status.state) {
+            props.setModalContent(status);
+            props.setModalVisible(true);
+            props.setModalUrl('/');
+        }
         return status.state;
     }
 
