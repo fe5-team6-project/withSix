@@ -1,25 +1,37 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { setMyInfo } from '../../store/slices/userSlice';
 import signupIcon from '../../assets/icons/common/icon-signup.svg';
 import handleLogin from './handleLogin';
 import getMyInfo from './getMyInfo';
 import { validationLogin } from '../../lib/apis/validation/validation';
+import {
+    setContent,
+    setIsVisible,
+    setUrl,
+} from '../../store/slices/modalSlice';
 import Modal from '../../components/modal/Modal';
 
 export default function Login() {
     const dispatch = useDispatch();
-    const [url, setUrl] = useState(undefined);
-    const [state, setState] = useState(undefined);
-    const [message, setMessage] = useState(undefined);
-    const [isShow, setIsShow] = useState(false);
+    const modal = useSelector((state) => state?.modal);
+    const modalVisible = modal.display.isVisible;
 
-    function setModal(state, message) {
-        setState(state);
-        setMessage(message);
-    }
+    const setModalContent = (props) => {
+        dispatch(
+            setContent({
+                state: props.state,
+                message: props.message,
+            })
+        );
+    };
+    const setModalUrl = (url) => {
+        dispatch(setUrl({ url: url }));
+    };
+    const setModalVisible = (isVisible) => {
+        dispatch(setIsVisible({ isVisible: isVisible }));
+    };
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -28,24 +40,22 @@ export default function Login() {
 
         const validLogin = validationLogin(email, password);
         if (!validLogin.state) {
-            setModal(validLogin.state, validLogin.message);
-            setIsShow(true);
+            setModalContent(validLogin);
+            setModalVisible(true);
             return false;
         }
 
         const status = await handleLogin();
-        setModal(status.state, status.message);
+        setModalContent(status);
 
         if (!status.state) {
-            setIsShow(true);
+            dispatch(setIsVisible({ isVisible: true }));
+            setModalVisible(true);
             return false;
         }
         const user = await getMyInfo();
-        dispatch(setMyInfo(user));
-
-        setIsShow(true);
-        setUrl('/home');
-
+        setModalUrl('/home');
+        setModalVisible(true);
         return status.state;
     }
 
@@ -87,14 +97,7 @@ export default function Login() {
                     </SignupLink>
                 </Div>
             </Form>
-            {isShow ? (
-                <Modal
-                    setIsShow={setIsShow}
-                    state={state}
-                    message={message}
-                    url={url}
-                />
-            ) : undefined}
+            {modalVisible ? <Modal /> : undefined}
         </>
     );
 }
