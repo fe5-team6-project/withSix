@@ -6,19 +6,26 @@ import { api } from '../../lib/apis/axiosConfig';
 import { useParams } from 'react-router-dom';
 import TogetherEditButton from '../../components/together/TogetherEditButton';
 import TogetherDelButton from '../../components/together/TogetherDelButton';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeDetail, together } from '../../store/slices/togetherSlice';
 
 export default function TogetherDetail() {
+    const a = useSelector((state) => { return state.together.detail });
+    const dispatch = useDispatch();
 
     const [togetherDetail, setTogetherDetail] = useState('');
-    const id = useParams().id
-    console.log(id);
+    const idd = useParams().id; //밑에서 상태관리 id 값 보내기 위해 id에서 idd로 임시 변경
+    console.log(idd);
     const togetherDetails = async () => {
-        const res = await api.get(`/product/detail/${id}`);
+        const res = await api.get(`/product/detail/${idd}`);
         console.log(res);
         const detailData = res.data.product;
         console.log(detailData.itemName)
         setTogetherDetail(detailData);
         console.log(togetherDetail);
+        const { id, itemImage, itemName, link, price } = togetherDetail;
+        dispatch(changeDetail({ id, itemImage, itemName, link, price }));
+        console.log(a);
     }
 
     useEffect(() => {
