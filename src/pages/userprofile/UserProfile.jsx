@@ -35,11 +35,11 @@ export default function UserProfile() {
                 <h2 className="a11y-hidden">팔로우</h2>
                 <FollowDiv className="followers">
                     <Label>Followers</Label>
-                    <FollowLink to={''}>{profile?.followerCount}</FollowLink>
+                    <FollowLink to={`/profile/${accountname}/follower`}>{profile?.followerCount}</FollowLink>
                 </FollowDiv>
                 <FollowDiv className="followings">
                     <Label>Followings</Label>
-                    <FollowLink to={''}>{profile?.followingCount}</FollowLink>
+                    <FollowLink to={`/profile/${accountname}/following`}>{profile?.followingCount}</FollowLink>
                 </FollowDiv>
             </Section>
 
