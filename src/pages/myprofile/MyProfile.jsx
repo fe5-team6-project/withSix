@@ -24,7 +24,7 @@ export default function MyProfile() {
                 </FollowDiv>
                 <FollowDiv className="followings">
                     <Label>Followings</Label>
-                    <FollowLink to={''}>{user?.followingCount}</FollowLink>
+                    <FollowLink to={`/profile/${user.accountname}/following`}>{user?.followingCount}</FollowLink>
                 </FollowDiv>
             </Section>
 
