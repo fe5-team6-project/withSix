@@ -26,7 +26,7 @@ export default function Signup() {
         );
     };
     const setModalUrl = (url) => {
-        dispatch(setUrl({ url: url }));
+        dispatch(setUrl({ path: url }));
     };
     const setModalVisible = (isVisible) => {
         dispatch(setIsVisible({ isVisible: isVisible }));

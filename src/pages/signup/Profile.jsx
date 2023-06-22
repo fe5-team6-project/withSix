@@ -8,7 +8,6 @@ import {
 } from '../../lib/apis/validation/validation';
 
 export default function Profile(props) {
-    console.log(props);
     const userData = props.userData;
 
     async function handleSubmit(e) {
