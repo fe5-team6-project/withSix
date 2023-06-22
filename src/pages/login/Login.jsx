@@ -87,7 +87,7 @@ export default function Login() {
                     <Label className="font-eng" htmlFor="password">
                         Password
                     </Label>
-                    <ForgotLink href={'/'}>forgot :(</ForgotLink>
+                    {/* <ForgotLink href={'/'}>forgot :(</ForgotLink> */}
                 </Div>
                 <Div>
                     <Button>로그인</Button>
@@ -97,7 +97,7 @@ export default function Login() {
                     </SignupLink>
                 </Div>
             </Form>
-            {modalVisible ? <Modal /> : undefined}
+            {modalVisible && <Modal />}
         </>
     );
 }
