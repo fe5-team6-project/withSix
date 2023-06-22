@@ -1,10 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 export default function TogetherList({ id, itemName, price, link, itemImage }) {
+    const navigate = useNavigate();
     return (
         <>
-            <TogetherItem>
+            <TogetherItem onClick={() => {
+                navigate(`/together/detail/${id}`);
+            }}>
                 <TogetherImage src={itemImage} />
                 <TogetherName>{itemName}</TogetherName>
                 <TogetherPrice><span>{price}</span>원</TogetherPrice>

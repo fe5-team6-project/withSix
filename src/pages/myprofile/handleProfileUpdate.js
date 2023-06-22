@@ -1,4 +1,3 @@
-import { PROFILE_UPDATE_OK } from '../../lib/apis/constant/message';
 import { URL } from '../../lib/apis/constant/path';
 
 export default async function handleProfileUpdate() {
@@ -32,8 +31,6 @@ export default async function handleProfileUpdate() {
     });
 
     const json = await response.json();
-    console.log(json);
 
-    alert(PROFILE_UPDATE_OK);
     return true;
 }

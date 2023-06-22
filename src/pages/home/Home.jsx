@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Common from '../../components/main/Common';
 import { styled } from 'styled-components';
 import divLine from '../../assets/icons/post/div-line.svg';
@@ -14,7 +14,7 @@ export default function Home() {
 
     useEffect(() => {
         async function fetchData() {
-            setPostList(await getPost(category, user?.username, pages));
+            setPostList(await getPost(category, user?.accountname, pages));
         }
 
         fetchData();

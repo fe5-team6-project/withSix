@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { setMyInfo } from '../../store/slices/userSlice';
 import signupIcon from '../../assets/icons/common/icon-signup.svg';
@@ -26,9 +26,9 @@ export default function Login() {
         const email = document.querySelector('#email').value;
         const password = document.querySelector('#password').value;
 
-        const valid = validationLogin(email, password);
-        if (!valid.state) {
-            setModal(valid.state, valid.message);
+        const validLogin = validationLogin(email, password);
+        if (!validLogin.state) {
+            setModal(validLogin.state, validLogin.message);
             setIsShow(true);
             return false;
         }

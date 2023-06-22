@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-// 나중에 백이미지로 넣을 것들 
-// import imgBtn from '../../assets/upload-file.png'
-// import deleteBtn from '../../assets/icon/icon-delete.png';
+import deleteBtn from '../../assets/icons/post/icon-delete.png';
+import ImgUploadBtn from '../../assets/icons/post/icon-image.png'
 
 
 export const UploadSec = styled.section`
@@ -16,7 +15,17 @@ width: 100%;
 height: 100%;
 `;
 
+export const UploadSubSec = styled.section`
+display: flex;
+gap: 20px;
+width: 450px;
+margin: 0 auto;
+margin-top: 20px;
+`
+
 export const Lable = styled.label`
+position: fixed;
+left: 20px;
 `;
 
 export const Input = styled.textarea`
@@ -33,16 +42,19 @@ resize: none;
 export const PostUploadImg = styled.div`
 display: flex;
 margin-top: 20px;
-gap: 20px;
+gap: 25px;
 `;
 
 export const FileUpload = styled.label`
-width: 360px;
+width: 90px;
 height: 90px;
-background-color: #DDDDDD ;
-border-color: none;
+background-image: url(${ImgUploadBtn});
+background-repeat: no-repeat;
+background-size: 50px 50px;
+background-color: #77CBD6;;
+background-position: 50% 50%;
 cursor: pointer;
-border-radius: 5px;
+border-radius: 30px;
 `;
 
 // 파일 선택 버튼 숨김 처리
@@ -57,26 +69,11 @@ clip:rect(0,0,0,0);
 border: 0;
 `;
 
-export const FileTxt = styled.p`
-color: #FFFFFF;
-font-size: 16px;
-font-weight: 700;
-`
-
-export const FileSubTxt = styled.p`
-color: #FFFFFF;
-font-size: 12px;
-font-weight: 700;
-`
-
-export const SingleImg = styled.img`
-
-`;
-
 export const DeleteBtn = styled.button`
-width: 15px;
-height: 15px;
-
+width: 20px;
+height: 20px;
+margin-left: 10px;
+background-image: url(${deleteBtn});
 background-position: center;
 background-repeat: no-repeat;
 background-size: cover;
@@ -84,30 +81,28 @@ border: none;
 `;
 
 export const Img = styled.img`
-
-`;
-
-export const PostHeaderSec = styled.section`
-
+width: 80px;
+height: 80px;
+background-size: cover;
 `;
 
 export const TitleSec = styled.div`
 position: relative;
-line-height: 10px;
+line-height: 20px;
 `
 
-export const BackBtn = styled.button`
-width: 20px;
-height: 20px;
-background-image: url('../../assets/icon/icon-back.png');
-background-repeat: no-repeat;
-background-position: center;
-background-size: cover;
-/* 버튼 오른쪽 상단 고정 */
-position: absolute;
-left: -70px;
-top: -30px;
-`;
+// export const BackBtn = styled.button`
+// width: 50px;
+// height: 50px;
+// background-image: url('../../assets/icons/post/icon-delete.png');
+// background-repeat: no-repeat;
+// background-position: center;
+// background-size: cover;
+// /* 버튼 오른쪽 상단 고정 */
+// position: absolute;
+// left: -70px;
+// top: -30px;
+// `;
 
 export const Tit = styled.p`
 margin-top: 50px;
