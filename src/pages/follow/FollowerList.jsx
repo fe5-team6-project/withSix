@@ -1,21 +1,32 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Common from '../../components/main/Common';
 import { styled } from "styled-components";
-import FollowButton from '../../components/follow/FollowButton';
+import FollowList from '../../components/follow/FollowList';
+import { api } from '../../lib/apis/axiosConfig';
+import { useParams } from 'react-router-dom';
 
-export default function FollowerList() {
+export default function Follower() {
+    const [followerList, setFollowerList] = useState([]);
+    const accountName = useParams().accountname;
+    const [pages, setPages] = useState(10);
+    const FollowerList = async () => {
+        const res = await api.get(`profile/${accountName}/follower`);
+        console.log(res.data);
+        const data = res.data
+        setFollowerList([...data]);
+    }
+
+    useEffect(() => {
+        FollowerList();
+    }, [pages])
+
     const page = (
         <>
             <Main>
                 <FollowWrap>
-                    <FollowList>
-                        <ProfileImg></ProfileImg>
-                        <TextWrap>
-                            <ProfileTitle>뮹뮹</ProfileTitle>
-                            <ProfileContent>난 세상에서 제일 반짝이는 사람이 될 거야!</ProfileContent>
-                        </TextWrap>
-                        <FollowButton id="FollowBtn">팔로우</FollowButton>
-                    </FollowList>
+                    {followerList.map((item) => (
+                        <FollowList key={item.id} {...item}></FollowList>
+                    ))}
                 </FollowWrap>
             </Main>
         </>
@@ -36,40 +47,4 @@ const FollowWrap = styled.ul`
     display:flex;
     flex-direction: column;
     gap:20px;
-`
-
-const FollowList = styled.li`
-    display:flex;
-    width:100%;
-    height:50px;
-    background: #fff;
-    cursor: pointer;
-    align-items: center;
-    gap:14px;
-`
-
-const ProfileImg = styled.img`
-    width:50px;
-    height:50px;
-    border-radius: 50%;
-    object-fit: cover;
-    background: gold;
-`
-
-const TextWrap = styled.div`
-    display: flex;
-    flex-direction: column;
-    flex:1;
-    flex-basis : 290px;
-    flex-shrink: 0;
-`
-
-const ProfileTitle = styled.strong`
-    color: var(--color-black);
-    font-weight: bold;
-`
-
-const ProfileContent = styled.p`
-    font-size : var(--fsize-s);
-    color: var(--color-gray);
 `
