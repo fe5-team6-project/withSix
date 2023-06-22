@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setMyInfo } from '../../store/slices/userSlice';
 import checkToken from '../../pages/login/checkToken';
 import getMyInfo from '../../pages/login/getMyInfo';
+import Modal from '../modal/Modal';
 
 export default function Common(props) {
     const navigator = useNavigate();
@@ -32,6 +33,9 @@ export default function Common(props) {
         }
     }
 
+    const modal = useSelector((state) => state?.modal);
+    const modalVisible = modal.display.isVisible;
+
     return (
         <>
             <Header />
@@ -45,6 +49,7 @@ export default function Common(props) {
                 {props.page}
             </StyledMain>
             <Footer />
+            {modalVisible && <Modal />}
         </>
     );
 }
