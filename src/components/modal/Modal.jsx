@@ -3,15 +3,19 @@ import { styled } from 'styled-components';
 import successIcon from '../../assets/icons/modal/icon-success.svg';
 import failureIcon from '../../assets/icons/modal/icon-failure.svg';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setIsVisible } from '../../store/slices/modalSlice';
 
-export default function Modal(props) {
-    const state = props.state;
-    const message = props.message;
-    const url = props.url;
+export default function Modal() {
+    const modal = useSelector((state) => state?.modal);
+    const state = modal.content.state;
+    const message = modal.content.message;
+    const url = modal.url.path;
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     function closeModal() {
-        props.setIsShow(false);
+        dispatch(setIsVisible({ isVisible: false }));
     }
 
     function movePage() {
@@ -37,7 +41,8 @@ export default function Modal(props) {
                     <button
                         autoFocus={true}
                         onClick={() => {
-                            url ? movePage(url) : closeModal();
+                            closeModal();
+                            url || movePage(url);
                         }}
                     >
                         close
