@@ -27,13 +27,17 @@ export default function Search() {
     };
 
     const delayedSearch = useCallback(
-        debounce((q) => sendQuery(q), 500),
+        debounce((q) => sendQuery(q), 400),
         []
     );
 
     const handleTyping = (e) => {
         setSearch(e.target.value);
-        if (e.target.value === '') return;
+        if (e.target.value === '') {
+            setUserList('');
+            setShowUser('');
+            return;
+        }
         delayedSearch(e.target.value);
     };
 
