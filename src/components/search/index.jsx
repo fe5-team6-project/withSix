@@ -53,7 +53,9 @@ export default function Search() {
                         onChange={handleTyping}
                         value={search}
                     />
-                    {search && showUser && <UserLIst showUser={showUser} />}
+                    {search && showUser && (
+                        <UserLIst showUser={showUser} searchQuery={search} />
+                    )}
                     {
                         //현재 보여주고 있는 데이터길이가 전체 데이터 길이보다 짧을때 더보기 생성
                         search && showUser.length < userList.length ? (
@@ -74,7 +76,8 @@ const SearchWrapper = styled.div`
 
 const Input = styled.input`
     width: inherit;
-    margin: 0;
+    margin-top: 20px;
+    margin-bottom: 10px;
     color: black;
     outline: none;
 `;

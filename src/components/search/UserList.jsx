@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-export default function UserLIst({ showUser }) {
+export default function UserLIst({ showUser, searchQuery }) {
     const navigate = useNavigate();
 
     const handleRouting = useCallback((item) => {
@@ -23,8 +23,34 @@ export default function UserLIst({ showUser }) {
             <UserWrapper key={item._id} onClick={() => handleRouting(item)}>
                 <Img src={imgSrc}></Img>
                 <Right>
-                    <UserName>{item.username}</UserName>
-                    <AccountName>@{item.accountname}</AccountName>
+                    {/* <UserName>{item.username}</UserName> */}
+                    <UserName>
+                        {item.username.includes(searchQuery) ? (
+                            <>
+                                {item.username.split(searchQuery)[0]}
+                                <span style={{ color: '#F26E22' }}>
+                                    {searchQuery}
+                                </span>
+                                {item.username.split(searchQuery)[1]}
+                            </>
+                        ) : (
+                            item.username
+                        )}
+                    </UserName>
+                    <AccountName>
+                        @
+                        {item.accountname.includes(searchQuery) ? (
+                            <>
+                                {item.accountname.split(searchQuery)[0]}
+                                <span style={{ color: '#F26E22' }}>
+                                    {searchQuery}
+                                </span>
+                                {item.accountname.split(searchQuery)[1]}
+                            </>
+                        ) : (
+                            item.accountname
+                        )}
+                    </AccountName>
                 </Right>
             </UserWrapper>
         );
