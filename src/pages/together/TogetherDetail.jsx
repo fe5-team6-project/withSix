@@ -23,6 +23,9 @@ export default function TogetherDetail() {
         console.log(detailData.itemName)
         setTogetherDetail(detailData);
         console.log(togetherDetail);
+        togetherInfo();
+    }
+    const togetherInfo = () => {
         const { id, itemImage, itemName, link, price } = togetherDetail;
         dispatch(changeDetail({ id, itemImage, itemName, link, price }));
         console.log(a);
