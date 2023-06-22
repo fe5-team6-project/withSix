@@ -24,7 +24,9 @@ export default function Following() {
         <>
             <Main>
                 <FollowWrap>
-                    <FollowList></FollowList>
+                    {followList.map((item) => (
+                        <FollowList key={item.id} {...item}></FollowList>
+                    ))}
                 </FollowWrap>
             </Main>
         </>

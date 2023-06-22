@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import FollowButton from '../../components/follow/FollowButton';
 import { styled } from 'styled-components';
 
-export default function FollowList() {
+export default function FollowList({ accountname, username, intro, image, isfollow }) {
     return (
         <>
             <FollowItem>
-                <ProfileImg></ProfileImg>
+                <ProfileImg src={image}></ProfileImg>
                 <TextWrap>
-                    <ProfileTitle>햄밍이당</ProfileTitle>
-                    <ProfileContent>난 세상에서 제일 빛나는 사람이 될 거야!</ProfileContent>
+                    <ProfileTitle>{username}</ProfileTitle>
+                    <ProfileContent>@ {accountname}</ProfileContent>
                 </TextWrap>
                 <FollowButton id="FollowBtn">팔로우</FollowButton>
             </FollowItem>
@@ -33,7 +33,7 @@ const ProfileImg = styled.img`
     height:50px;
     border-radius: 50%;
     object-fit: cover;
-    background: red;
+    /* background: red; */
 `
 
 const TextWrap = styled.div`
