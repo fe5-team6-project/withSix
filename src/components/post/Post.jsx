@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import iconHeart from '../../assets/icons/post/icon-heart.svg';
 import iconHeartFill from '../../assets/icons/post/icon-heart-fill.svg';
@@ -8,50 +8,97 @@ import {
     emptyProfileImage,
 } from './validationProfileImage';
 import { emptyContentImage } from './validationContentImage';
+import { Link } from 'react-router-dom';
+import changeHeart from './changeHeart';
 
 export default function Post(props) {
-    const user = props.item.author;
+    const writer = props.item.author;
     const { item } = props;
+
+    const [heartState, setHeartState] = useState(item?.hearted);
+    const [heartCount, setHeartCount] = useState(item?.heartCount);
+    const [heartImg, setHeartImg] = useState(
+        item?.hearted ? iconHeartFill : iconHeart
+    );
+
+    useEffect(() => {
+        handleHeart();
+    }, [heartState]);
+
+    function checkHeart() {
+        if (item?.hearted === undefined) {
+            return false;
+        }
+
+        return true;
+    }
+
+    async function handleHeart() {
+        if (!checkHeart()) {
+            return false;
+        }
+
+        await changeHeart(heartState, item?.id);
+
+        setHeartImg(heartState ? iconHeartFill : iconHeart);
+        console.log(heartState);
+    }
 
     return (
         <Li>
-            <a href="#">
+            <Link to={'#'}>
                 <ProfileWrap>
                     <ProfileLeft>
-                        <ImgProfile
-                            src={validationProfileImage(user.image)}
-                            onError={(e) => emptyProfileImage(e)}
-                            alt="유저 프로필"
-                        />
+                        <Link to={`../profile/${writer?.accountname}`}>
+                            <ImgProfile
+                                src={validationProfileImage(writer?.image)}
+                                onError={(e) => emptyProfileImage(e)}
+                                alt="유저 프로필"
+                            />
+                        </Link>
                     </ProfileLeft>
                     <ProfileRight>
-                        <UserName>{user.username}</UserName>
-                        <UserId>@ {user.accountname}</UserId>
+                        <UserName>{writer?.username}</UserName>
+                        <UserId>@ {writer?.accountname}</UserId>
                     </ProfileRight>
                 </ProfileWrap>
                 <ImageWrap>
-                    {item.image ? (
+                    {item?.image ? (
                         <ImgContent
-                            src={item.image}
+                            src={item?.image}
                             onError={(e) => emptyContentImage(e)}
                             alt="등록된이미지"
                         />
-                    ) : null}
+                    ) : undefined}
                 </ImageWrap>
                 <ContentWrap>
-                    <p>{item.content}</p>
+                    <p>{item?.content}</p>
                     <span>{}</span>
                 </ContentWrap>
                 <EtcWrap>
                     <img
-                        src={item.hearted ? iconHeartFill : iconHeart}
+                        onClick={() => {
+                            if (!checkHeart()) {
+                                // 모달
+                                alert(
+                                    '팔로우한 회원의 글만 좋아요를 누를 수 있습니다.'
+                                );
+                                return false;
+                            }
+
+                            setHeartState(!heartState);
+                            setHeartCount((prev) =>
+                                heartState ? prev - 1 : prev + 1
+                            );
+                        }}
+                        src={heartImg}
                         alt="좋아요"
                     />
-                    <span>{item.heartCount}</span>
+                    <span>{heartCount}</span>
                     <img src={iconComment} alt="댓글" />
-                    <span>{item.comments.length}</span>
+                    <span>{item?.comments.length}</span>
                 </EtcWrap>
-            </a>
+            </Link>
         </Li>
     );
 }
@@ -98,7 +145,9 @@ const ProfileLeft = styled.section`
 
 const ImgProfile = styled.img`
     width: 100%;
-    vertical-align: middle;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
 `;
 
 const ProfileRight = styled.section`

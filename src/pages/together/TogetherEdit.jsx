@@ -1,8 +1,37 @@
 import React from 'react';
 import Common from '../../components/main/Common';
 import { styled } from 'styled-components';
+import { api } from '../../lib/apis/axiosConfig';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { inputTogether } from '../../store/slices/togetherSlice';
 
 export default function GroupEdit() {
+    const togetherInfo = useSelector((state) => { return state.together.req });
+    const dispatch = useDispatch();
+    const id = useParams().id;
+    const navigate = useNavigate();
+
+    const togetherEdit = async () => {
+        const aa = {
+            "product": {
+                ...togetherInfo
+            }
+        };
+        const res = api.put(`/product/${id}`, aa);
+        console.log(res);
+    }
+    console.log(togetherInfo);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        if (name === 'itemName' || name === 'price' || name === 'link') {
+            dispatch(inputTogether({ [name]: value }));
+        }
+    };
+    console.log(togetherInfo);
+
+
     const page = (
         <>
             <Form>
@@ -11,28 +40,16 @@ export default function GroupEdit() {
                     <P>글과 사진을 남기고 공유할 수 있습니다.</P>
                 </GroupHeader>
                 <GroupInputWrapper>
-                    <GroupInput
-                        id="GroupName"
-                        placeholder="모임명"
-                    ></GroupInput>
-                    <GroupInput
-                        id="GroupPrice"
-                        placeholder="모임비"
-                    ></GroupInput>
+                    <GroupInput id="GroupName" placeholder="모임명" value={togetherInfo.itemName} name="itemName" onChange={handleChange}></GroupInput>
+                    <GroupInput id="GroupPrice" placeholder="모임비" value={togetherInfo.price} name="price" onChange={handleChange}></GroupInput>
                     {/* <GroupInput id="GroupInfo" placeholder="모임 소개"></GroupInput> */}
-                    <GroupInfo
-                        id="GroupInfo"
-                        placeholder="모임 소개"
-                    ></GroupInfo>
-                    <GroupInput
-                        id="GroupImage"
-                        placeholder="모임 소개"
-                    ></GroupInput>
+                    <GroupInfo id="GroupInfo" placeholder="모임 소개" value={togetherInfo.link} name="link" onChange={handleChange}></GroupInfo>
+                    <GroupInput id="GroupImage" placeholder="모임 소개" name="itemImage" ></GroupInput>
                 </GroupInputWrapper>
                 <GroupLabel htmlFor="GroupImage">
-                    <GroupImage id="PreImage"></GroupImage>
+                    <GroupImage id="PreImage" src={togetherInfo.itemImage}></GroupImage>
                 </GroupLabel>
-                <RegiButton>등록</RegiButton>
+                <RegiButton onClick={() => { togetherEdit(); navigate(-1); }}>수 정</RegiButton>
             </Form>
         </>
     );
@@ -79,12 +96,9 @@ const GroupInput = styled.input`
     font-size: var(--fsize-desc);
     box-sizing: border-box;
     margin-top: 20px;
+    border-radius: var(--radius-s);
     &#GroupImage {
         display: none;
-    }
-    &:focus,
-    &:hover {
-        border-radius: var(--radius-s);
     }
 `;
 
@@ -99,6 +113,7 @@ const GroupInfo = styled.textarea`
     border-radius: var(--radius-s);
     resize: none; //크기조절 삭제
     font-family: inherit;
+    transition: margin, height 0.3s, 0.3s;
 `;
 
 const GroupLabel = styled.div``;

@@ -1,72 +1,101 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { setMyInfo } from '../../store/slices/userSlice';
 import signupIcon from '../../assets/icons/common/icon-signup.svg';
 import handleLogin from './handleLogin';
 import getMyInfo from './getMyInfo';
 import { validationLogin } from '../../lib/apis/validation/validation';
+import Modal from '../../components/modal/Modal';
 
 export default function Login() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const [url, setUrl] = useState(undefined);
+    const [state, setState] = useState(undefined);
+    const [message, setMessage] = useState(undefined);
+    const [isShow, setIsShow] = useState(false);
+
+    function setModal(state, message) {
+        setState(state);
+        setMessage(message);
+    }
 
     async function handleSubmit(e) {
         e.preventDefault();
         const email = document.querySelector('#email').value;
         const password = document.querySelector('#password').value;
 
-        if (!validationLogin(email, password)) {
+        const validLogin = validationLogin(email, password);
+        if (!validLogin.state) {
+            setModal(validLogin.state, validLogin.message);
+            setIsShow(true);
             return false;
         }
 
         const status = await handleLogin();
+        setModal(status.state, status.message);
+
+        if (!status.state) {
+            setIsShow(true);
+            return false;
+        }
         const user = await getMyInfo();
         dispatch(setMyInfo(user));
 
-        status && navigate('/home');
+        setIsShow(true);
+        setUrl('/home');
 
-        return status;
+        return status.state;
     }
 
     return (
-        <Form
-            onSubmit={(e) => {
-                handleSubmit(e);
-            }}
-        >
-            <Div>
-                <Input
-                    className="font-eng"
-                    id="email"
-                    type="text"
-                    placeholder=" "
+        <>
+            <Form
+                onSubmit={(e) => {
+                    handleSubmit(e);
+                }}
+            >
+                <Div>
+                    <Input
+                        className="font-eng"
+                        id="email"
+                        type="text"
+                        placeholder=" "
+                    />
+                    <Label className="font-eng" htmlFor="email">
+                        E-mail
+                    </Label>
+                </Div>
+                <Div>
+                    <Input
+                        className="font-eng"
+                        id="password"
+                        type="password"
+                        placeholder=" "
+                    />
+                    <Label className="font-eng" htmlFor="password">
+                        Password
+                    </Label>
+                    <ForgotLink href={'/'}>forgot :(</ForgotLink>
+                </Div>
+                <Div>
+                    <Button>로그인</Button>
+                    <SignupLink to={'/signup'}>
+                        <img src={signupIcon} alt="회원가입 아이콘" />
+                        Signup
+                    </SignupLink>
+                </Div>
+            </Form>
+            {isShow ? (
+                <Modal
+                    setIsShow={setIsShow}
+                    state={state}
+                    message={message}
+                    url={url}
                 />
-                <Label className="font-eng" htmlFor="email">
-                    E-mail
-                </Label>
-            </Div>
-            <Div>
-                <Input
-                    className="font-eng"
-                    id="password"
-                    type="password"
-                    placeholder=" "
-                />
-                <Label className="font-eng" htmlFor="password">
-                    Password
-                </Label>
-                <ForgotLink href={'/'}>forgot :(</ForgotLink>
-            </Div>
-            <Div>
-                <Button>로그인</Button>
-                <SignupLink to={'/signup'}>
-                    <img src={signupIcon} alt="회원가입 아이콘" />
-                    Signup
-                </SignupLink>
-            </Div>
-        </Form>
+            ) : undefined}
+        </>
     );
 }
 

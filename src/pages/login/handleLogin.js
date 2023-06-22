@@ -18,6 +18,11 @@ export default async function handleLogin() {
         },
     };
 
+    const result = {
+        state: false,
+        message: String,
+    };
+
     const response = await fetch(requestUrl, {
         method: 'POST',
         headers: {
@@ -28,12 +33,16 @@ export default async function handleLogin() {
 
     const json = await response.json();
     if (!json.user) {
-        alert(FAIL_VALID_EMAIL_PASSWORD);
-        return false;
+        result.state = false;
+        result.message = FAIL_VALID_EMAIL_PASSWORD;
+        return result;
+    } else {
+        result.state = true;
+        result.message = LOGIN_OK;
     }
+
     const token = json.user.token;
     localStorage.setItem('token', token);
 
-    alert(LOGIN_OK);
-    return true;
+    return result;
 }

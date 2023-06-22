@@ -7,18 +7,9 @@ import {
     validationName,
 } from '../../lib/apis/validation/validation';
 import { useNavigate } from 'react-router-dom';
-import checkToken from '../login/checkToken';
 
 export default function Profile({ userData }) {
     const navigate = useNavigate();
-
-    const movePage = () => {
-        if (checkToken()) {
-            navigate('/home');
-        } else {
-            navigate('/');
-        }
-    };
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -35,7 +26,7 @@ export default function Profile({ userData }) {
 
         const status = await handleSignup(userData);
 
-        movePage('/', navigate);
+        navigate('/');
         return status;
     }
 

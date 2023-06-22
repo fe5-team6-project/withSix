@@ -18,41 +18,53 @@ import {
 } from '../constant/regexp';
 import { checkDuplicationEmail, checkDuplicationId } from './checkDuplication';
 
+const result = {
+    state: false,
+    message: String,
+};
+
 export const validationLogin = (email, password) => {
     const lenEmail = email.length;
     const lenPassword = password.length;
 
     if (!lenEmail) {
-        alert(FAIL_NULL_EMAIL);
-        return false;
+        result.state = false;
+        result.message = FAIL_NULL_EMAIL;
+        return result;
     }
     if (!lenPassword) {
-        alert(FAIL_NULL_PASSWORD);
-        return false;
+        result.state = false;
+        result.message = FAIL_NULL_PASSWORD;
+        return result;
     }
 
-    return true;
+    result.state = true;
+    return result;
 };
 
 export const validationEmail = async (email) => {
     const length = email.length;
 
     if (!length) {
-        alert(FAIL_NULL_EMAIL);
-        return false;
+        result.state = false;
+        result.message = FAIL_NULL_EMAIL;
+        return result;
     }
 
     if (!REG_EXP_EMAIL.test(email)) {
-        alert(FAIL_FORM_EMAIL);
-        return false;
+        result.state = false;
+        result.message = FAIL_FORM_EMAIL;
+        return result;
     }
 
     if (!(await checkDuplicationEmail())) {
-        alert(FAIL_ALEADY_EMAIL);
-        return false;
+        result.state = false;
+        result.message = FAIL_ALEADY_EMAIL;
+        return result;
     }
 
-    return true;
+    result.state = true;
+    return result;
 };
 
 export const validationPassword = (password) => {
@@ -60,42 +72,50 @@ export const validationPassword = (password) => {
     const [minLen, maxLen] = [6, 16];
 
     if (!length) {
-        alert(FAIL_NULL_PASSWORD);
-        return false;
+        result.state = false;
+        result.message = FAIL_NULL_PASSWORD;
+        return result;
     }
 
     if (maxLen < length || length < minLen) {
-        alert(FAIL_LENGTH_PASSWORD);
-        return false;
+        result.state = false;
+        result.message = FAIL_LENGTH_PASSWORD;
+        return result;
     }
 
     if (!REG_EXP_PASSWORD.test(password)) {
-        alert(FAIL_FORM_PASSWORD);
-        return false;
+        result.state = false;
+        result.message = FAIL_FORM_PASSWORD;
+        return result;
     }
 
-    return true;
+    result.state = true;
+    return result;
 };
 
 export const validationId = async (id) => {
     const length = id.length;
 
     if (!length) {
-        alert(FAIL_NULL_ID);
-        return false;
+        result.state = false;
+        result.message = FAIL_NULL_ID;
+        return result;
     }
 
     if (!REG_EXP_ID.test(id)) {
-        alert(FAIL_FORM_ID);
-        return false;
+        result.state = false;
+        result.message = FAIL_FORM_ID;
+        return result;
     }
 
     if (!(await checkDuplicationId())) {
-        alert(FAIL_ALEADY_ID);
-        return false;
+        result.state = false;
+        result.message = FAIL_ALEADY_ID;
+        return result;
     }
 
-    return true;
+    result.state = true;
+    return result;
 };
 
 export const validationCheckPassword = (password, password2) => {
@@ -103,25 +123,30 @@ export const validationCheckPassword = (password, password2) => {
     const length2 = password2.length;
 
     if (!length || !length2) {
-        alert(FAIL_NULL_PASSWORD);
-        return false;
+        result.state = false;
+        result.message = FAIL_NULL_PASSWORD;
+        return result;
     }
 
     if (password !== password2) {
-        alert(FAIL_CHECK_PASSWORD);
-        return false;
+        result.state = false;
+        result.message = FAIL_CHECK_PASSWORD;
+        return result;
     }
 
-    return true;
+    result.state = true;
+    return result;
 };
 
 export const validationName = (name) => {
     const length = name.length;
 
     if (!length) {
-        alert(FAIL_NULL_NAME);
-        return false;
+        result.state = false;
+        result.message = FAIL_NULL_NAME;
+        return result;
     }
 
-    return true;
+    result.state = true;
+    return result;
 };

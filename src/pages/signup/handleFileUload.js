@@ -23,6 +23,5 @@ export default async function handleFileUpload(e) {
     const profileImageSrc = `${URL}/${json.filename}`;
 
     img.src = profileImageSrc;
-    console.log(img.src);
-    return true;
+    return profileImageSrc;
 }
