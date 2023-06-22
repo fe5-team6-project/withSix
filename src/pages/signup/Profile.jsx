@@ -6,65 +6,74 @@ import {
     validationId,
     validationName,
 } from '../../lib/apis/validation/validation';
-import { useNavigate } from 'react-router-dom';
 
-export default function Profile({ userData }) {
-    const navigate = useNavigate();
+export default function Profile(props) {
+    console.log(props);
+    const userData = props.userData;
 
     async function handleSubmit(e) {
         e.preventDefault();
         const id = document.querySelector('#id').value;
         const name = document.querySelector('#name').value;
 
-        if (!(await validationId(id))) {
+        const validId = await validationId(id);
+        if (!validId.state) {
+            props.setModalContent(validId);
+            props.setModalVisible(true);
             return false;
         }
 
-        if (!validationName(name)) {
+        const validName = validationName(name);
+        if (!validName.state) {
+            props.setModalContent(validName);
+            props.setModalVisible(true);
             return false;
         }
 
         const status = await handleSignup(userData);
-
-        navigate('/');
-        return status;
+        if (status.state) props.setModalContent(status);
+        props.setModalVisible(true);
+        props.setModalUrl('/');
+        return status.state;
     }
 
     return (
-        <Form
-            onSubmit={(e) => {
-                handleSubmit(e);
-            }}
-        >
-            <ImageWrap>
-                <Img
-                    src={DEFAULT_IMAGE}
-                    alt={'기본 회원 이미지'}
-                    id="profile_image"
-                />
-                <ImageInputLabel htmlFor="image">사진 등록</ImageInputLabel>
-                <ImageInput
-                    type="file"
-                    id="image"
-                    onChange={(event) => {
-                        handleFileUpload(event);
-                    }}
-                />
-            </ImageWrap>
-            <Div className="id_wrap">
-                <Input type="text" id="id" placeholder=" " />
-                <Label htmlFor="id">ID</Label>
-            </Div>
-            <Div>
-                <Input type="text" id="name" placeholder=" " />
-                <Label htmlFor="name">Nickname</Label>
-            </Div>
-            <Div>
-                <Input type="text" id="intro" placeholder=" " />
-                <Label htmlFor="intro">Introduce</Label>
-            </Div>
-            <Button>시작하기</Button>
-        </Form>
+        <>
+            <Form
+                onSubmit={(e) => {
+                    handleSubmit(e);
+                }}
+            >
+                <ImageWrap>
+                    <Img
+                        src={DEFAULT_IMAGE}
+                        alt={'기본 회원 이미지'}
+                        id="profile_image"
+                    />
+                    <ImageInputLabel htmlFor="image">사진 등록</ImageInputLabel>
+                    <ImageInput
+                        type="file"
+                        id="image"
+                        onChange={(event) => {
+                            handleFileUpload(event);
+                        }}
+                    />
+                </ImageWrap>
+                <Div className="id_wrap">
+                    <Input type="text" id="id" placeholder=" " />
+                    <Label htmlFor="id">ID</Label>
+                </Div>
+                <Div>
+                    <Input type="text" id="name" placeholder=" " />
+                    <Label htmlFor="name">Nickname</Label>
+                </Div>
+                <Div>
+                    <Input type="text" id="intro" placeholder=" " />
+                    <Label htmlFor="intro">Introduce</Label>
+                </Div>
+                <Button>시작하기</Button>
+            </Form>
+        </>
     );
 }
 
