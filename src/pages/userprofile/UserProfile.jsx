@@ -39,7 +39,7 @@ export default function UserProfile() {
                 </FollowDiv>
                 <FollowDiv className="followings">
                     <Label>Followings</Label>
-                    <FollowLink to={''}>{profile?.followingCount}</FollowLink>
+                    <FollowLink to={`/profile/${accountname}/following`}>{profile?.followingCount}</FollowLink>
                 </FollowDiv>
             </Section>
 
