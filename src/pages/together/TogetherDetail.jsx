@@ -14,38 +14,36 @@ export default function TogetherDetail() {
     const dispatch = useDispatch();
 
     const [togetherDetail, setTogetherDetail] = useState('');
+    const [num, setNum] = useState(0)
     const idd = useParams().id; //밑에서 상태관리 id 값 보내기 위해 id에서 idd로 임시 변경
-    console.log(idd);
+
     const togetherDetails = async () => {
         const res = await api.get(`/product/detail/${idd}`);
-        console.log(res);
-        const detailData = res.data.product;
-        console.log(detailData.itemName)
+
+        const detailData = res.data?.product;
+        console.log(detailData, 1);
         setTogetherDetail(detailData);
         console.log(togetherDetail);
-        togetherInfo();
-    }
-    const togetherInfo = () => {
-        const { id, itemImage, itemName, link, price } = togetherDetail;
+        const { id, itemImage, itemName, link, price } = detailData;
         dispatch(changeDetail({ id, itemImage, itemName, link, price }));
-        console.log(a);
     }
+
 
     useEffect(() => {
         togetherDetails();
-    }, [])
+    }, [num])
 
     const page = (
         <>
             <Form>
                 <GroupHeader>
-                    <H1>{togetherDetail.itemName}</H1>
+                    <H1>{togetherDetail?.itemName}</H1>
                 </GroupHeader>
                 <GroupWrapper>
-                    <GroupImg src={togetherDetail.itemImage} ></GroupImg>
-                    <GroupText>{togetherDetail.itemName}</GroupText>
-                    <GroupText>{togetherDetail.price}</GroupText>
-                    <GroupDetailInfo>{togetherDetail.link}</GroupDetailInfo>
+                    <GroupImg src={togetherDetail?.itemImage} ></GroupImg>
+                    <GroupText>{togetherDetail?.itemName}</GroupText>
+                    <GroupText>{togetherDetail?.price}</GroupText>
+                    <GroupDetailInfo>{togetherDetail?.link}</GroupDetailInfo>
                 </GroupWrapper>
                 <GroupBtnWrap>
                     <TogetherEditButton />
