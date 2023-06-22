@@ -7,10 +7,10 @@ import { useParams } from 'react-router-dom';
 import TogetherEditButton from '../../components/together/TogetherEditButton';
 import TogetherDelButton from '../../components/together/TogetherDelButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeDetail, together } from '../../store/slices/togetherSlice';
+import { inputTogether } from '../../store/slices/togetherSlice';
 
 export default function TogetherDetail() {
-    const a = useSelector((state) => { return state.together.detail });
+    const a = useSelector((state) => { return state.together.req });
     const dispatch = useDispatch();
 
     const [togetherDetail, setTogetherDetail] = useState('');
@@ -21,11 +21,10 @@ export default function TogetherDetail() {
         const res = await api.get(`/product/detail/${idd}`);
 
         const detailData = res.data?.product;
-        console.log(detailData, 1);
         setTogetherDetail(detailData);
         console.log(togetherDetail);
-        const { id, itemImage, itemName, link, price } = detailData;
-        dispatch(changeDetail({ id, itemImage, itemName, link, price }));
+        const { itemImage, itemName, link, price } = detailData;
+        dispatch(inputTogether({ itemImage, itemName, link, price }));
     }
 
 
