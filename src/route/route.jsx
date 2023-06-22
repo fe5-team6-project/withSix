@@ -27,8 +27,8 @@ export default function MyRouter() {
                     <Route path="/together/edit/:id" element={<TogetherEdit />} />
                     <Route path="/together/detail/:id" element={<TogetherDetail />} />
                     <Route path="/signup" element={<Signup />} />
-                    <Route path="/following" element={<FollowingList />} />
-                    <Route path="/follower" element={<FollowerList />} />
+                    <Route path="/profile/:accountname/following" element={<FollowingList />} />
+                    <Route path="/profile/:accountname/follower" element={<FollowerList />} />
                     <Route path="/myprofile" element={<MyProfile />} />
                     <Route path="/myprofile/update" element={<UpdateProfile />} />
                     <Route path="/post/upload" element={<PostUpload />} />
