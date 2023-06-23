@@ -101,7 +101,8 @@ const ProfileWrap = styled(SectionDefault)`
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding: 20px;
+    height: 80px;
+    // padding: 20px;
 `;
 const ProfileLeft = styled.section`
     width: 30px;
