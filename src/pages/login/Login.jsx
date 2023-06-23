@@ -14,6 +14,15 @@ import {
 import Modal from '../../components/modal/Modal';
 import { setMyInfo } from '../../store/slices/userSlice';
 
+/**
+ * 로그인 요청시
+ *  1. 입력 데이터 유효성 확인
+ *  2. 로그인 시 유저 정보를 전역에서 사용하도록 리덕스로 관리
+ *  3. 토큰은 새로고침 후에도 삭제되지 않도록 로컬 스토리지에 저장
+ *
+ *  >> 이메일 문제인지 비밀번호 문제인지 따로 알려주지 않음(보안)
+ *  >> 토큰은 직접 삭제(로그아웃)할 때까지 저장
+ */
 export default function Login() {
     const dispatch = useDispatch();
     const modal = useSelector((state) => state?.modal);
@@ -39,6 +48,11 @@ export default function Login() {
         const email = document.querySelector('#email').value;
         const password = document.querySelector('#password').value;
 
+        /**
+         * 로그인 유효성
+         * 데이터 입력 확인
+         * 이메일, 비밀번호 형식 확인
+         */
         const validLogin = validationLogin(email, password);
         if (!validLogin.state) {
             setModalContent(validLogin);
@@ -46,6 +60,17 @@ export default function Login() {
             return false;
         }
 
+        /**
+         * 로그인 요청
+         *  요청 시 결과와 메시지(모달)를 반환받음
+         *  결과를 모달에 저장 후 결과에 따라 모달 분기 처리
+         *
+         * 로그인 실패
+         *  모달 출력
+         * 로그인 성공
+         *  로그인 유저 정보를 받아와 상태에 저장
+         *  home으로 이동할 수 있도록 url을 담아주고 모달 출력
+         */
         const status = await handleLogin();
         setModalContent(status);
 
