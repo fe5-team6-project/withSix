@@ -78,6 +78,7 @@ export default function PostUpload (){
         if (fileUrls.length > 3) {
             alert(" 이미지는 3장까지 업로드할 수 있습니다.");
             fileUrls = fileUrls.slice(0, 3);
+            // console.log(fileUrls.length);
             fileImgs = fileImgs.slice(0, 3);
         }
 
@@ -87,22 +88,22 @@ export default function PostUpload (){
 
     // 3. 이미지 삭제 부분
     const DeleteImg = (id) => {
-        setShowImg(
-            showImg.filter((_, index) => {
-                return index !== id;
-            })
-        );
-
-        setPostImg(
-            postImg.filter((_, index) => {
-                return index !== id;
-            })
-        );
+        // console.log(id);
+        // console.log('포스트이미지', postImg);
+        const newShowImg = showImg[0].split(',').filter((_, index) => {
+            return index !== id;
+        });
+        setShowImg([newShowImg.join(',')]);
+        const newPostImg = postImg.filter((_, index) => {
+            return index !== id;
+        });
+        setPostImg([newPostImg.join(',')]);
     };
 
     // 4. 게시글 업로드 부분
     async function UploadPost() {
         const imgList = [];
+        console.log(postImg);
         for (let i = 0; i < postImg.length; i++) {
             imgList.push(UploadImg(postImg[i]));
         }
@@ -111,7 +112,7 @@ export default function PostUpload (){
 
         data.post.image = snsImgList.join(",");
         data.post.content = content;
-
+        console.log(data);
         try {
             const res = await axios
                 .put(`${URL}/post/${id}`, data, {
@@ -200,10 +201,13 @@ export default function PostUpload (){
 
                 {/* 미리보기 이미지 부분 */}
                     <PostUploadImg>
+                    {/* {console.log(showImg[0])} */}
                         
                         {
-                            showImg.map((image, id) => {
+                            showImg.length !== 0?
+                            showImg[0].split(',').map((image, id) => {
                                     return (
+                                        image &&
                                         <div key={id}>
                                             <Img key={id} src={image} />
                                             <DeleteBtn
@@ -213,7 +217,10 @@ export default function PostUpload (){
                                             />
                                         </div>
                                     );
-                                })}
+                                })
+                            :
+                            null
+                            }
                     </PostUploadImg>
             </UploadSubSec>
 
