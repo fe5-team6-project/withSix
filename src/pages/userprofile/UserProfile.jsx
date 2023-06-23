@@ -1,27 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Common from '../../components/main/Common';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
-import getUserProfile from './getUserProfile';
 import { validationProfileImage } from '../../components/post/validationProfileImage';
 import FollowButton from '../../components/follow/FollowButton';
+import { useSelector } from 'react-redux';
 
 export default function UserProfile() {
-    const navigate = useNavigate();
     const accountname = useParams().id;
-    console.log(accountname);
-    const [profile, setProfile] = useState(undefined);
-
-    useEffect(() => {
-        getProfile();
-    }, []);
-
-    async function getProfile() {
-        const user = await getUserProfile(accountname);
-        setProfile(user);
-    }
-
-    console.log(profile);
+    const profile = useSelector((state) => state.user.userInfo);
+    const [isFollow, setIsFollow] = useState(profile.isfollow);
+    const [followCount, setFollowCount] = useState(profile.followingCount);
 
     const page = (
         <LayoutDiv>
@@ -37,11 +26,15 @@ export default function UserProfile() {
                 <h2 className="a11y-hidden">팔로우</h2>
                 <FollowDiv className="followers">
                     <Label>Followers</Label>
-                    <FollowLink to={`/profile/${accountname}/follower`}>{profile?.followerCount}</FollowLink>
+                    <FollowLink to={`/profile/${accountname}/follower`}>
+                        {followCount}
+                    </FollowLink>
                 </FollowDiv>
                 <FollowDiv className="followings">
                     <Label>Followings</Label>
-                    <FollowLink to={`/profile/${accountname}/following`}>{profile?.followingCount}</FollowLink>
+                    <FollowLink to={`/profile/${accountname}/following`}>
+                        {profile?.followingCount}
+                    </FollowLink>
                 </FollowDiv>
             </Section>
 
@@ -64,10 +57,18 @@ export default function UserProfile() {
             <Section>
                 <span></span>
             </Section>
-            <Div id="btnBox">
-                {/* <Button onClick={() => { navigate(`/post`) }}>게시물</Button>
-                <Button onClick={() => { navigate(`/together`) }}>모임</Button> */}
-                <FollowButton id="followBtnBig" accountname={profile?.accountname} isfollow={profile?.isfollow}></FollowButton>
+            <Div
+                id="btnBox"
+                onClick={() => {
+                    setIsFollow(!isFollow);
+                    setFollowCount((prev) => (isFollow ? prev - 1 : prev + 1));
+                }}
+            >
+                <FollowButton
+                    id="followBtnBig"
+                    accountname={profile?.accountname}
+                    isfollow={isFollow}
+                ></FollowButton>
             </Div>
         </LayoutDiv>
     );
