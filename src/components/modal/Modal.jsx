@@ -51,7 +51,7 @@ export default function Modal() {
                 </TextWrap>
 
                 <ButtonWrap>
-                    <button
+                    <CloseButton
                         autoFocus={true}
                         onClick={() => {
                             resetModal();
@@ -59,7 +59,7 @@ export default function Modal() {
                         }}
                     >
                         close
-                    </button>
+                    </CloseButton>
                 </ButtonWrap>
             </article>
         </CoverDiv>
@@ -78,6 +78,10 @@ const CoverDiv = styled.div`
         position: absolute;
         left: 50%;
         bottom: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
         width: 100%;
         max-width: 390px;
         height: 120px;
@@ -102,5 +106,21 @@ const TextWrap = styled.section`
 `;
 
 const ButtonWrap = styled.section`
+    width: 100%;
+    padding: 0 50px;
+    box-sizing: border-box;
+    text-align: right;
+`;
+
+const CloseButton = styled.button`
+    all: unset;
+    width: 100px;
+    height: 25px;
+    border-radius: var(--radius-l);
+    background-color: transparent;
     font-family: var(--font-eng);
+    font-style: italic;
+    text-align: center;
+    line-height: 25px;
+    cursor: pointer;
 `;
