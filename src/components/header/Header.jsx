@@ -5,10 +5,9 @@ import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import prevPage from '../../assets/icons/common/icon-back.svg';
 
-export default function Header(props) {
+export default function Header() {
     const user = useSelector((state) => state?.user?.myInfo);
     const navigate = useNavigate();
-    console.log(user.username === String);
 
     return (
         <StyledHeader>

@@ -3,11 +3,33 @@ import Common from '../../components/main/Common';
 import { Link, useNavigate } from 'react-router-dom';
 import logout from '../../assets/icons/common/icon-logout.svg';
 import { styled } from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setMyInfo } from '../../store/slices/userSlice';
 
 export default function MyProfile() {
     const user = useSelector((state) => state.user?.myInfo);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    function logoutHandle() {
+        localStorage.clear();
+        (function resetUser() {
+            dispatch(
+                setMyInfo({
+                    _id: String,
+                    username: String,
+                    isfollow: false,
+                    intro: String,
+                    image: String,
+                    followingCount: Number,
+                    following: Array,
+                    followerCount: Number,
+                    follower: Array,
+                    accountname: String,
+                })
+            );
+        })();
+    }
 
     const page = (
         <LayoutDiv>
@@ -20,11 +42,15 @@ export default function MyProfile() {
                 <h2 className="a11y-hidden">팔로우</h2>
                 <FollowDiv className="followers">
                     <Label>Followers</Label>
-                    <FollowLink to={`/profile/${user.accountname}/follower`}>{user?.followerCount}</FollowLink>
+                    <FollowLink to={`/profile/${user.accountname}/follower`}>
+                        {user?.followerCount}
+                    </FollowLink>
                 </FollowDiv>
                 <FollowDiv className="followings">
                     <Label>Followings</Label>
-                    <FollowLink to={`/profile/${user.accountname}/following`}>{user?.followingCount}</FollowLink>
+                    <FollowLink to={`/profile/${user.accountname}/following`}>
+                        {user?.followingCount}
+                    </FollowLink>
                 </FollowDiv>
             </Section>
 
@@ -55,12 +81,7 @@ export default function MyProfile() {
                 >
                     프로필 수정
                 </Button>
-                <LogoutLink
-                    onClick={() => {
-                        localStorage.clear();
-                    }}
-                    to={'/'}
-                >
+                <LogoutLink onClick={() => logoutHandle()} to={'/'}>
                     <img src={logout} alt="로그아웃 아이콘" />
                     Logout
                 </LogoutLink>
