@@ -8,6 +8,7 @@ import prevPage from '../../assets/icons/common/icon-back.svg';
 export default function Header(props) {
     const user = useSelector((state) => state?.user?.myInfo);
     const navigate = useNavigate();
+    console.log(user.username === String);
 
     return (
         <StyledHeader>
@@ -19,7 +20,9 @@ export default function Header(props) {
                 </H1>
 
                 <Article>
-                    <Strong>{user?.username}</Strong>
+                    {user?.username !== String && (
+                        <Strong>{user?.username}</Strong>
+                    )}
                 </Article>
             </Div>
             <BackLinkDiv>
