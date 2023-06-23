@@ -10,9 +10,13 @@ import {
 } from './validationProfileImage';
 import { emptyContentImage } from './validationContentImage';
 import changeHeart from './changeHeart';
+import { useDispatch } from 'react-redux';
+import { setUserInfo } from '../../store/slices/userSlice';
+import getUserProfile from '../../pages/userprofile/getUserProfile';
 
 export default function Post(props) {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const writer = props.item.author;
     const { item } = props;
 
@@ -34,15 +38,18 @@ export default function Post(props) {
         return true;
     }
 
+    async function setUser() {
+        const user = await getUserProfile(writer.accountname);
+        dispatch(setUserInfo(user));
+    }
+
     async function handleHeart() {
         if (!checkHeart()) {
             return false;
         }
 
         await changeHeart(heartState, item?.id);
-
         setHeartImg(heartState ? iconHeartFill : iconHeart);
-        console.log(heartState);
     }
 
     return (
@@ -54,9 +61,10 @@ export default function Post(props) {
             <ProfileWrap>
                 <ProfileLeft>
                     <ImgProfile
-                        onClick={(e) => {
+                        onClick={async (e) => {
                             e.stopPropagation();
-                            navigate(`../profile/${writer?.accountname}`);
+                            await setUser();
+                            await navigate(`../profile/${writer?.accountname}`);
                         }}
                         src={validationProfileImage(writer?.image)}
                         onError={(e) => emptyProfileImage(e)}
