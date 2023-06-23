@@ -1,15 +1,20 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
+import togetherImg from '../../assets/images/togetherImg.png'
 
 export default function TogetherList({ id, itemName, price, link, itemImage }) {
     const navigate = useNavigate();
+    const handleErrorImg = (e) => {
+        e.target.src = togetherImg;
+    };
+
     return (
         <>
             <TogetherItem onClick={() => {
                 navigate(`/together/detail/${id}`);
             }}>
-                <TogetherImage src={itemImage} />
+                <TogetherImage src={itemImage} onError={handleErrorImg} />
                 <TogetherName>{itemName}</TogetherName>
                 <TogetherPrice><span>{price}</span>원</TogetherPrice>
             </TogetherItem>
