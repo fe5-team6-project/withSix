@@ -6,8 +6,7 @@ import review from '../../assets/icons/nav/review.png';
 import chat from '../../assets/icons/nav/chat.png';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
-const DEFAULT_IMAGE = 'http://146.56.183.55:5050/Ellipse.png';
+import { DEFAULT_IMAGE } from '../../lib/apis/constant/path';
 
 export default function Footer() {
     const user = useSelector((state) => state.user?.myInfo);
