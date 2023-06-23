@@ -1,17 +1,16 @@
 import { URL } from '../../lib/apis/constant/path';
 
 export default async function getPost(category, accountname, pages) {
+    console.log(accountname);
     const type = category;
     let requestPath = '/post';
-    let method = 'GET';
 
     if (type === '') {
-        requestPath = `/post/?limit=${pages}&skip=${0}`;
+        requestPath = `/post/?limit=${pages}&skip=0`;
     } else if (type === 'my') {
-        method = 'POST';
-        requestPath = `/post/${accountname}/userpost`;
+        requestPath = `/post/testN/userpost/?limit=20&skip=0`;
     } else if (type === 'feed') {
-        requestPath = '/post/feed';
+        requestPath = `/post/feed/?limit=${pages}&skip=0`;
     }
 
     const requestUrl = `${URL}${requestPath}`;
@@ -20,7 +19,7 @@ export default async function getPost(category, accountname, pages) {
     const bearerToken = `Bearer ${token}`;
 
     const response = await fetch(requestUrl, {
-        method: method,
+        method: 'GET',
         headers: {
             Authorization: bearerToken,
             'Content-type': 'application/json',
@@ -29,7 +28,7 @@ export default async function getPost(category, accountname, pages) {
     });
 
     const json = await response.json();
-    const postList = json.posts;
+    const postList = json.posts || json.post || [];
 
     return postList;
 }
