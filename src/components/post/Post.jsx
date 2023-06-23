@@ -9,7 +9,6 @@ import {
     emptyProfileImage,
 } from './validationProfileImage';
 import { emptyContentImage } from './validationContentImage';
-import { Link } from 'react-router-dom';
 import changeHeart from './changeHeart';
 
 export default function Post(props) {
@@ -116,6 +115,7 @@ const Li = styled.li`
     background-color: white;
     border-radius: var(--radius-m);
     color: var(--color-gray);
+    cursor: pointer;
 `;
 
 const UserName = styled.strong`
@@ -155,6 +155,7 @@ const ImgProfile = styled.img`
     height: 100%;
     object-fit: cover;
     object-position: 50% 50%;
+    cursor: pointer;
 `;
 
 const ProfileRight = styled.section`
@@ -190,6 +191,9 @@ const EtcWrap = styled(SectionDefault)`
         width: 12px;
         margin-right: 5px;
         vertical-align: middle;
+        &:nth-of-type(1) {
+            cursor: pointer;
+        }
     }
 
     & > span {
