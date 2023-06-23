@@ -33,17 +33,14 @@ export default function FollowButton({ accountname, isfollow }) {
     return (
         // <StyledButton onClick={HandleFollow}>Follow</StyledButton>
         // <FollowUnButton id="FollowBtn" onClick={follow}>팔로우</FollowUnButton>
-        <FollowUnButton id="FollowBtn" onClick={handleFollow}>
+        // <FollowUnButton id="FollowBtn" onClick={handleFollow}>
+        //     {isFollow ? '언팔로우' : '팔로우'}
+        // </FollowUnButton>
+        <FollowUnButton onClick={handleFollow}>
             {isFollow ? '언팔로우' : '팔로우'}
         </FollowUnButton>
     )
 }
 
 const FollowUnButton = styled.button`
-    &#FollowBtn{
-        width:58px;
-        height: 28px;
-        font-size: var(--fsize-s);
-        font-weight: lighter;
-    }
 `
