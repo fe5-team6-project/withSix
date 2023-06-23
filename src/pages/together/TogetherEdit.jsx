@@ -5,6 +5,7 @@ import { api } from '../../lib/apis/axiosConfig';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { inputTogether } from '../../store/slices/togetherSlice';
+import togetherImg from '../../assets/images/togetherImg.png'
 
 export default function GroupEdit() {
     const togetherInfo = useSelector((state) => { return state.together.req });
@@ -44,10 +45,10 @@ export default function GroupEdit() {
                     <GroupInput id="GroupPrice" placeholder="모임비" value={togetherInfo.price} name="price" onChange={handleChange}></GroupInput>
                     {/* <GroupInput id="GroupInfo" placeholder="모임 소개"></GroupInput> */}
                     <GroupInfo id="GroupInfo" placeholder="모임 소개" value={togetherInfo.link} name="link" onChange={handleChange}></GroupInfo>
-                    <GroupInput id="GroupImage" placeholder="모임 소개" name="itemImage" ></GroupInput>
+                    <GroupInput id="GroupImage" name="itemImage" ></GroupInput>
                 </GroupInputWrapper>
                 <GroupLabel htmlFor="GroupImage">
-                    <GroupImage id="PreImage" src={togetherInfo.itemImage}></GroupImage>
+                    <GroupImage id="PreImage" src={togetherInfo.itemImage && !togetherInfo.itemImage.endsWith('/undefined') ? togetherInfo.itemImage : togetherImg}></GroupImage>
                 </GroupLabel>
                 <RegiButton onClick={() => { togetherEdit(); navigate(-1); }}>수 정</RegiButton>
             </Form>
