@@ -134,6 +134,7 @@ const UserId = styled.span`
 
 const ImageWrap = styled(SectionDefault)`
     width: 100%;
+    margin-bottom: 30px;
 `;
 
 const ImgContent = styled.img`
