@@ -48,13 +48,15 @@ export default function Footer() {
                     </Link>
                 </li>
 
-                <li>
-                    <Link to={'/myprofile'}>
-                        <ImageWrap>
-                            <img src={profileImage} alt="" />
-                        </ImageWrap>
-                    </Link>
-                </li>
+                {user?.username !== String && (
+                    <li>
+                        <Link to={'/myprofile'}>
+                            <ImageWrap>
+                                <img src={profileImage} alt="" />
+                            </ImageWrap>
+                        </Link>
+                    </li>
+                )}
             </Ul>
         </StyledFooter>
     );
@@ -97,7 +99,7 @@ const Ul = styled.ul`
         width: 25px;
     }
 
-    & > li:last-child img {
+    & > li:nth-child(5) img {
         width: 100%;
         height: 100%;
         object-fit: cover;
