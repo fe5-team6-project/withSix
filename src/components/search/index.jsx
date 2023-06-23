@@ -2,6 +2,8 @@ import { useCallback, useState } from 'react';
 import { debounce } from 'lodash';
 import UserLIst from './UserList';
 import { api } from '../../lib/apis/axiosConfig';
+import Common from '../main/Common';
+import { styled } from 'styled-components';
 
 export default function Search() {
     // console.log("Search렌더링");
@@ -25,13 +27,17 @@ export default function Search() {
     };
 
     const delayedSearch = useCallback(
-        debounce((q) => sendQuery(q), 500),
+        debounce((q) => sendQuery(q), 400),
         []
     );
 
     const handleTyping = (e) => {
         setSearch(e.target.value);
-        if (e.target.value === '') return;
+        if (e.target.value === '') {
+            setUserList('');
+            setShowUser('');
+            return;
+        }
         delayedSearch(e.target.value);
     };
 
@@ -42,15 +48,45 @@ export default function Search() {
     };
 
     return (
-        <>
-            <input type="text" onChange={handleTyping} value={search} />
-            {search && showUser && <UserLIst showUser={showUser} />}
-            {
-                //현재 보여주고 있는 데이터길이가 전체 데이터 길이보다 짧을때 더보기 생성
-                search && showUser.length < userList.length ? (
-                    <button onClick={addShowUser}>더보기</button>
-                ) : null
+        <Common
+            page={
+                <SearchWrapper>
+                    <Input
+                        type="text"
+                        placeholder="유저 검색"
+                        onChange={handleTyping}
+                        value={search}
+                    />
+                    {search && showUser && (
+                        <UserLIst showUser={showUser} searchQuery={search} />
+                    )}
+                    {
+                        //현재 보여주고 있는 데이터길이가 전체 데이터 길이보다 짧을때 더보기 생성
+                        search && showUser.length < userList.length ? (
+                            <AddButton onClick={addShowUser}>더보기</AddButton>
+                        ) : null
+                    }
+                </SearchWrapper>
             }
-        </>
+        ></Common>
     );
 }
+
+const SearchWrapper = styled.div`
+    width: 350px;
+    margin: 50px auto 20px;
+    // background-color: red;
+`;
+
+const Input = styled.input`
+    width: inherit;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: black;
+    outline: none;
+`;
+
+const AddButton = styled.button`
+    margin-top: 20px;
+    margin-left: 55px;
+`;
