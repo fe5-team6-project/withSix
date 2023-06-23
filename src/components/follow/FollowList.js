@@ -4,11 +4,12 @@ import FollowButton from '../../components/follow/FollowButton';
 import { styled } from 'styled-components';
 
 export default function FollowList({ accountname, username, intro, image, isfollow }) {
+    const navigate = useNavigate();
     return (
         <>
             <FollowItem>
-                <ProfileImg src={image}></ProfileImg>
-                <TextWrap>
+                <ProfileImg src={image} onClick={() => { navigate(`/profile/${accountname}`) }}></ProfileImg>
+                <TextWrap onClick={() => { navigate(`/profile/${accountname}`) }}>
                     <ProfileTitle>{username}</ProfileTitle>
                     <ProfileContent>@ {accountname}</ProfileContent>
                 </TextWrap>
