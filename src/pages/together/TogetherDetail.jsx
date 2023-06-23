@@ -8,6 +8,7 @@ import TogetherEditButton from '../../components/together/TogetherEditButton';
 import TogetherDelButton from '../../components/together/TogetherDelButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { inputTogether } from '../../store/slices/togetherSlice';
+import togetherImg from '../../assets/images/togetherImg.png'
 
 export default function TogetherDetail() {
     const a = useSelector((state) => { return state.together.req });
@@ -27,6 +28,10 @@ export default function TogetherDetail() {
         dispatch(inputTogether({ itemImage, itemName, link, price }));
     }
 
+    const handleErrorImg = (e) => {
+        e.target.src = togetherImg;
+    };
+
 
     useEffect(() => {
         togetherDetails();
@@ -39,7 +44,7 @@ export default function TogetherDetail() {
                     <H1>{togetherDetail?.itemName}</H1>
                 </GroupHeader>
                 <GroupWrapper>
-                    <GroupImg src={togetherDetail?.itemImage} ></GroupImg>
+                    <GroupImg src={togetherDetail?.itemImage} onError={handleErrorImg}></GroupImg>
                     <GroupText>{togetherDetail?.itemName}</GroupText>
                     <GroupText>{togetherDetail?.price}</GroupText>
                     <GroupDetailInfo>{togetherDetail?.link}</GroupDetailInfo>
