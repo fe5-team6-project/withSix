@@ -5,6 +5,8 @@ import {
     returnErrorMessage,
     returnServerErrorMessage,
 } from '../utils/errorMessage';
+import iconMoreVertical from '../../../assets/icons/post/icon-more-vertical.svg';
+import { styled } from 'styled-components';
 
 export default function ModifyAndDelete() {
     const [visible, setVisible] = useState(false);
@@ -32,7 +34,7 @@ export default function ModifyAndDelete() {
 
     return (
         <>
-            <button onClick={() => setVisible(!visible)}>수정,삭제 버튼</button>
+            <Icon onClick={() => setVisible(!visible)} src={iconMoreVertical} />
             {visible && (
                 <>
                     <button onClick={handlePostModify}>수정</button>
@@ -42,3 +44,9 @@ export default function ModifyAndDelete() {
         </>
     );
 }
+
+const Icon = styled.img`
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+`;

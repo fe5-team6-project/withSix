@@ -6,11 +6,8 @@ import {
     returnErrorMessage,
     returnServerErrorMessage,
 } from '../../utils/errorMessage';
-
-const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzZkN2I3YjJjYjIwNTY2MzJkMDA5MyIsImV4cCI6MTY5MDgxNzQyOCwiaWF0IjoxNjg1NjMzNDI4fQ.fuRi1qVjgU4C7my-RPJrPOoBFjAvSHauogh8alP9mbI';
-const postId = '6478c001b2cb2056632d23f2'; //post 아이디가 필요하기 때문에 전역변수로 설정하던지 context 사용해야 할듯
-//Comment 컴포넌트에는 게시글 아이디가 없다
+import { styled } from 'styled-components';
+import iconMoreVertical from '../../../../assets/icons/post/icon-more-vertical.svg';
 
 export default function DeleteMent({ commentId, setReload, setCommentCount }) {
     const { id } = useParams();
@@ -42,8 +39,12 @@ export default function DeleteMent({ commentId, setReload, setCommentCount }) {
 
     return (
         <>
-            <button onClick={() => setVisible(!visible)}>삭제 버튼</button>
+            <Img onClick={() => setVisible(!visible)} src={iconMoreVertical} />
             {visible && <button onClick={() => handleRemoved()}>삭제</button>}
         </>
     );
 }
+
+const Img = styled.img`
+    cursor: pointer;
+`;

@@ -6,6 +6,9 @@ import {
     returnErrorMessage,
     returnServerErrorMessage,
 } from '../postDetail/utils/errorMessage';
+import heart from '../../assets/icons/post/icon-heart.svg';
+import heartFill from '../../assets/icons/post/icon-heart-fill.svg';
+import { styled } from 'styled-components';
 
 export default function LikeBtn({ data }) {
     const { id } = useParams();
@@ -43,11 +46,15 @@ export default function LikeBtn({ data }) {
     return (
         <>
             {!isLike ? (
-                <button onClick={() => turnOnLike()}>좋아요</button>
+                <HeartImg onClick={() => turnOnLike()} src={heart} />
             ) : (
-                <button onClick={() => turnOffLike()}>좋아요취소</button>
+                <HeartImg onClick={() => turnOffLike()} src={heartFill} />
             )}
-            <h3>{likeCount}</h3>
+            <span>{likeCount}</span>
         </>
     );
 }
+
+const HeartImg = styled.img`
+    cursor: pointer;
+`;
