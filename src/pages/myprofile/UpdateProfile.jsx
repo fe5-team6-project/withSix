@@ -6,29 +6,46 @@ import {
     validationId,
     validationName,
 } from '../../lib/apis/validation/validation';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import handleProfileUpdate from './handleProfileUpdate';
 import checkAleadyUseId from './checkAleadyUseId';
-import { PROFILE_UPDATE_OK } from '../../lib/apis/constant/message';
-import Modal from '../../components/modal/Modal';
+import {
+    setContent,
+    setIsVisible,
+    setUrl,
+} from '../../store/slices/modalSlice';
 
 export default function UpdateProfile() {
     const user = useSelector((state) => state.user?.myInfo);
+    const dispatch = useDispatch();
     const [accountname, setAccountname] = useState(user?.accountname);
     const [username, setUsername] = useState(user?.username);
     const [intro, setIntro] = useState(user?.intro);
     const [image, setImage] = useState(user?.image);
-    const [url, setUrl] = useState(undefined);
-    const [state, setState] = useState(undefined);
-    const [message, setMessage] = useState(undefined);
-    const [isShow, setIsShow] = useState(false);
 
-    function setModal(state, message) {
-        setState(state);
-        setMessage(message);
-        console.log(state, message);
-    }
-    console.log(state);
+    /**
+     * setModalContent { content }
+     *  state : 요청에 대한 처리 상태
+     *  content : 안내 메시지
+     * setModalUrl { url }
+     *  url : close시 이동해야 하는 경우 입력
+     * setModalVisible { isVisible }
+     *  isVisible: 모달 표시 여부
+     */
+    const setModalContent = (props) => {
+        dispatch(
+            setContent({
+                state: props.state,
+                message: props.message,
+            })
+        );
+    };
+    const setModalUrl = (url) => {
+        dispatch(setUrl({ path: url }));
+    };
+    const setModalVisible = (isVisible) => {
+        dispatch(setIsVisible({ isVisible: isVisible }));
+    };
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -38,30 +55,33 @@ export default function UpdateProfile() {
         const validAleadyUseId = checkAleadyUseId(user?.accountname, id);
         if (validAleadyUseId) {
             const validId = await validationId(id);
-
-            console.log(validId, 'id');
+            /**
+             * 모달 세팅
+             * setModalContent(=> 27)
+             * setModalVisible(=> 32)
+             * setModalUrl(=> 43)
+             */
             if (!validId.state) {
-                setModal(validId.state, validId.message);
-                setIsShow(true);
+                // validId.state에 유효성 결과에 대한 state, message가 반환됨
+                setModalContent(validId);
+                setModalVisible(true);
                 return false;
             }
         }
 
         const validName = validationName(name);
-        console.log(validName, 'name');
         if (!validName.state) {
-            setModal(validName.state, validName.message);
-            setIsShow(true);
+            setModalContent(validName);
+            setModalVisible(true);
             return false;
         }
 
-        const imageStatus = await handleProfileUpdate();
-        const status = true;
+        const status = await handleProfileUpdate();
 
-        setModal(status, PROFILE_UPDATE_OK);
-        setUrl('/myprofile');
-        setIsShow(true);
-        return status;
+        setModalContent(status);
+        setModalVisible(true);
+        setModalUrl('/myprofile'); // 모달 close시 이동할 URL
+        return status.state;
     }
 
     const page = (
@@ -120,15 +140,6 @@ export default function UpdateProfile() {
                 </Div>
                 <Button>프로필 저장</Button>
             </Form>
-
-            {isShow ? (
-                <Modal
-                    setIsShow={setIsShow}
-                    state={state}
-                    message={message}
-                    url={url}
-                />
-            ) : undefined}
         </>
     );
 

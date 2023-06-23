@@ -13,6 +13,11 @@ export default async function handleSignup(user) {
     const requestPath = '/user';
     const requestUrl = `${URL}${requestPath}`;
 
+    const result = {
+        state: false,
+        message: String,
+    };
+
     const userData = {
         user: {
             username: nickname,
@@ -33,7 +38,8 @@ export default async function handleSignup(user) {
     });
 
     const json = response.json();
+    result.state = true;
+    result.message = SIGNUP_OK;
 
-    alert(SIGNUP_OK);
-    return true;
+    return result;
 }
