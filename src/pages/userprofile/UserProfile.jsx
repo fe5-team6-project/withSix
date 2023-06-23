@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Common from '../../components/main/Common';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 import getUserProfile from './getUserProfile';
 import { validationProfileImage } from '../../components/post/validationProfileImage';
 
 export default function UserProfile() {
+    const navigate = useNavigate();
     const accountname = useParams().id;
     console.log(accountname);
     const [profile, setProfile] = useState(undefined);
@@ -62,8 +63,9 @@ export default function UserProfile() {
             <Section>
                 <span></span>
             </Section>
-            <Div>
-                <Button>팔로우 수정</Button>
+            <Div id="btnBox">
+                <Button onClick={() => { navigate(`/post`) }}>게시물</Button>
+                <Button onClick={() => { navigate(`/together`) }}>모임</Button>
             </Div>
         </LayoutDiv>
     );
@@ -116,6 +118,12 @@ const Div = styled.div`
     position: relative;
     height: 70px;
     text-align: center;
+    &#btnBox{
+        display:flex;
+        width: 236px;
+        gap:10px;
+        margin-bottom:30px;
+    }
 `;
 
 const FollowDiv = styled(Div)`
