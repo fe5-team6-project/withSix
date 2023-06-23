@@ -1,3 +1,4 @@
+import { PROFILE_UPDATE_OK } from '../../lib/apis/constant/message';
 import { URL } from '../../lib/apis/constant/path';
 
 export default async function handleProfileUpdate() {
@@ -11,6 +12,11 @@ export default async function handleProfileUpdate() {
 
     const token = localStorage.token;
     const bearerToken = `Bearer ${token}`;
+
+    const result = {
+        state: false,
+        message: String,
+    };
 
     const userData = {
         user: {
@@ -31,6 +37,8 @@ export default async function handleProfileUpdate() {
     });
 
     const json = await response.json();
+    result.state = true;
+    result.message = PROFILE_UPDATE_OK;
 
-    return true;
+    return result;
 }

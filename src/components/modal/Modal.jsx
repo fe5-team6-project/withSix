@@ -3,15 +3,32 @@ import { styled } from 'styled-components';
 import successIcon from '../../assets/icons/modal/icon-success.svg';
 import failureIcon from '../../assets/icons/modal/icon-failure.svg';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    setContent,
+    setIsVisible,
+    setUrl,
+} from '../../store/slices/modalSlice';
 
-export default function Modal(props) {
-    const state = props.state;
-    const message = props.message;
-    const url = props.url;
+export default function Modal() {
+    const modal = useSelector((state) => state?.modal);
+    const state = modal.content.state;
+    const message = modal.content.message;
+    const url = modal.url.path;
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    console.log(url);
 
-    function closeModal() {
-        props.setIsShow(false);
+    /**
+     * resetModal
+     *  모달 닫을 때 모달이 가진 상태를 초기화
+     * movePage
+     *  url이 입력되었을 경우 해당 url로 이동
+     */
+    function resetModal() {
+        dispatch(setContent({ state: Boolean, message: String }));
+        dispatch(setIsVisible({ isVisible: false }));
+        dispatch(setUrl({ url: String }));
     }
 
     function movePage() {
@@ -37,7 +54,8 @@ export default function Modal(props) {
                     <button
                         autoFocus={true}
                         onClick={() => {
-                            url ? movePage(url) : closeModal();
+                            resetModal();
+                            url !== String && movePage(url);
                         }}
                     >
                         close
