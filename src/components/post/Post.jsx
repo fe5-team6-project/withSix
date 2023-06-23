@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import iconHeart from '../../assets/icons/post/icon-heart.svg';
 import iconHeartFill from '../../assets/icons/post/icon-heart-fill.svg';
@@ -8,10 +9,10 @@ import {
     emptyProfileImage,
 } from './validationProfileImage';
 import { emptyContentImage } from './validationContentImage';
-import { Link } from 'react-router-dom';
 import changeHeart from './changeHeart';
 
 export default function Post(props) {
+    const navigate = useNavigate();
     const writer = props.item.author;
     const { item } = props;
 
@@ -45,60 +46,65 @@ export default function Post(props) {
     }
 
     return (
-        <Li>
-            <Link to={'#'}>
-                <ProfileWrap>
-                    <ProfileLeft>
-                        <Link to={`../profile/${writer?.accountname}`}>
-                            <ImgProfile
-                                src={validationProfileImage(writer?.image)}
-                                onError={(e) => emptyProfileImage(e)}
-                                alt="유저 프로필"
-                            />
-                        </Link>
-                    </ProfileLeft>
-                    <ProfileRight>
-                        <UserName>{writer?.username}</UserName>
-                        <UserId>@ {writer?.accountname}</UserId>
-                    </ProfileRight>
-                </ProfileWrap>
-                <ImageWrap>
-                    {item?.image ? (
-                        <ImgContent
-                            src={item?.image}
-                            onError={(e) => emptyContentImage(e)}
-                            alt="등록된이미지"
-                        />
-                    ) : undefined}
-                </ImageWrap>
-                <ContentWrap>
-                    <p>{item?.content}</p>
-                    <span>{}</span>
-                </ContentWrap>
-                <EtcWrap>
-                    <img
-                        onClick={() => {
-                            if (!checkHeart()) {
-                                // 모달
-                                alert(
-                                    '팔로우한 회원의 글만 좋아요를 누를 수 있습니다.'
-                                );
-                                return false;
-                            }
-
-                            setHeartState(!heartState);
-                            setHeartCount((prev) =>
-                                heartState ? prev - 1 : prev + 1
-                            );
+        <Li
+            onClick={(e) => {
+                navigate(`/post/detail/${item?.id || item?._id}`);
+            }}
+        >
+            <ProfileWrap>
+                <ProfileLeft>
+                    <ImgProfile
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            navigate(`../profile/${writer?.accountname}`);
                         }}
-                        src={heartImg}
-                        alt="좋아요"
+                        src={validationProfileImage(writer?.image)}
+                        onError={(e) => emptyProfileImage(e)}
+                        alt="유저 프로필"
                     />
-                    <span>{heartCount}</span>
-                    <img src={iconComment} alt="댓글" />
-                    <span>{item?.comments.length}</span>
-                </EtcWrap>
-            </Link>
+                </ProfileLeft>
+                <ProfileRight>
+                    <UserName>{writer?.username}</UserName>
+                    <UserId>@ {writer?.accountname}</UserId>
+                </ProfileRight>
+            </ProfileWrap>
+            <ImageWrap>
+                {item?.image ? (
+                    <ImgContent
+                        src={item?.image}
+                        onError={(e) => emptyContentImage(e)}
+                        alt="등록된이미지"
+                    />
+                ) : undefined}
+            </ImageWrap>
+            <ContentWrap>
+                <p>{item?.content}</p>
+                <span>{}</span>
+            </ContentWrap>
+            <EtcWrap>
+                <img
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        if (!checkHeart()) {
+                            // 모달
+                            alert(
+                                '팔로우한 회원의 글만 좋아요를 누를 수 있습니다.'
+                            );
+                            return false;
+                        }
+
+                        setHeartState(!heartState);
+                        setHeartCount((prev) =>
+                            heartState ? prev - 1 : prev + 1
+                        );
+                    }}
+                    src={heartImg}
+                    alt="좋아요"
+                />
+                <span>{heartCount}</span>
+                <img src={iconComment} alt="댓글" />
+                <span>{item?.comments.length}</span>
+            </EtcWrap>
         </Li>
     );
 }
@@ -109,6 +115,7 @@ const Li = styled.li`
     background-color: white;
     border-radius: var(--radius-m);
     color: var(--color-gray);
+    cursor: pointer;
 `;
 
 const UserName = styled.strong`
@@ -148,6 +155,7 @@ const ImgProfile = styled.img`
     height: 100%;
     object-fit: cover;
     object-position: 50% 50%;
+    cursor: pointer;
 `;
 
 const ProfileRight = styled.section`
@@ -179,9 +187,13 @@ const EtcWrap = styled(SectionDefault)`
     text-align: right;
 
     & > img {
+        position: relative;
         width: 12px;
         margin-right: 5px;
         vertical-align: middle;
+        &:nth-of-type(1) {
+            cursor: pointer;
+        }
     }
 
     & > span {

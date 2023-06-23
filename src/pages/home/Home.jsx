@@ -53,7 +53,7 @@ export default function Home() {
                     ? []
                     : postList.map((item, idx) => {
                           return postList.length - 1 !== idx ? (
-                              <Post key={item?._id} item={item} />
+                              <Post key={item?._id || item?.id} item={item} />
                           ) : (
                               <>
                                   <Post key={item?._id} item={item} />

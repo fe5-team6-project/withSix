@@ -21,7 +21,7 @@ import { URL } from "../../lib/apis/constant/path";
 
 export default function PostUpload (){
     const { id } = useParams();
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzZkN2I3YjJjYjIwNTY2MzJkMDA5MyIsImV4cCI6MTY5MDgxNzQyOCwiaWF0IjoxNjg1NjMzNDI4fQ.fuRi1qVjgU4C7my-RPJrPOoBFjAvSHauogh8alP9mbI';
+    const token = localStorage.getItem('token');
     const [content, setContent] = useState(""); // 게시글 입력 내용
     const [showImg, setShowImg] = useState([]); // 미리보기에 올라오는 이미지
     const [postImg, setPostImg] = useState([]); // 업로드 페이지에 올라오는 이미지
@@ -31,7 +31,7 @@ export default function PostUpload (){
     // postUpload에서 불러온 데이터
     const [ postData, setPostData] = useState([]);
 
-        const data = {
+    const data = {
         post: {
             content: "",
             image: "",
@@ -114,7 +114,7 @@ export default function PostUpload (){
 
         try {
             const res = await axios
-                .post(`${URL}/post`, data, {
+                .put(`${URL}/post/${id}`, data, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         "Content-type": "application/json",
@@ -128,7 +128,7 @@ export default function PostUpload (){
 
     async function ModifyPost(){
         const {data : {
-            // 기존의 게시물 데이터를 모두 가지고 있음
+            // post는 기존의 게시물 데이터를 모두 가지고 있음
             post
         }} = await axios
         .get(`${URL}/post/${id}`, {
@@ -137,15 +137,15 @@ export default function PostUpload (){
                 "Content-type": "application/json",
             },
         })
-        // console.log(res);
-        // console.log(post)
+        console.log(post);
         //데이터 전역변수로 저장
         setPostData(post);
         //미리보기 이미지 주소를 배열에 저장
         setShowImg([post.image]);
-        setContent(post.content)
+        setContent(post.content);
     }
-    
+
+    // 빈배열이니까 새로고침하고 내가 기존에 썼던거 한 번만 렌더링됨. 그걸 불러오면 됨
     useEffect(()=>{
         ModifyPost();
     },[])
@@ -177,8 +177,6 @@ export default function PostUpload (){
                 name="post"
                 id="post"
                 placeholder="글을 작성해주세요."
-                key={postData.content}
-                // value
                 value={content}
                 // input값 바뀌면 이벤트 실행
                 onChange={(e) => {
@@ -187,7 +185,7 @@ export default function PostUpload (){
             />
 
             <UploadSubSec>
-                {/* 이미지 등록 라벨 / 인풋 */}
+                {/* 이미지 등록 라벨 */}
                     <FileUpload htmlFor="input-file">
 
                         <FileInput

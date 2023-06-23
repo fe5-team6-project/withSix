@@ -6,8 +6,7 @@ import review from '../../assets/icons/nav/review.png';
 import chat from '../../assets/icons/nav/chat.png';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
-const DEFAULT_IMAGE = 'http://146.56.183.55:5050/Ellipse.png';
+import { DEFAULT_IMAGE } from '../../lib/apis/constant/path';
 
 export default function Footer() {
     const user = useSelector((state) => state.user?.myInfo);
@@ -19,43 +18,45 @@ export default function Footer() {
 
     return (
         <StyledFooter>
-            <Ul>
-                <li>
-                    <Link to={'/home'}>
-                        <img src={home} alt="홈 아이콘" />
-                        <span>홈</span>
-                    </Link>
-                </li>
+            {user?.username !== String && (
+                <Ul>
+                    <li>
+                        <Link to={'/home'}>
+                            <img src={home} alt="홈 아이콘" />
+                            <span>홈</span>
+                        </Link>
+                    </li>
 
-                <li>
-                    <Link to={'/together'}>
-                        <img src={together} alt="모임 아이콘" />
-                        <span>모임</span>
-                    </Link>
-                </li>
+                    <li>
+                        <Link to={'/together'}>
+                            <img src={together} alt="모임 아이콘" />
+                            <span>모임</span>
+                        </Link>
+                    </li>
 
-                <li>
-                    <Link to={'/home'}>
-                        <img src={review} alt="후기 아이콘" />
-                        <span>후기</span>
-                    </Link>
-                </li>
+                    <li>
+                        <Link to={'/home'}>
+                            <img src={review} alt="후기 아이콘" />
+                            <span>후기</span>
+                        </Link>
+                    </li>
 
-                <li>
-                    <Link to={'/home'}>
-                        <img src={chat} alt="채팅 아이콘" />
-                        <span>채팅</span>
-                    </Link>
-                </li>
+                    <li>
+                        <Link to={'/home'}>
+                            <img src={chat} alt="채팅 아이콘" />
+                            <span>채팅</span>
+                        </Link>
+                    </li>
 
-                <li>
-                    <Link to={'/myprofile'}>
-                        <ImageWrap>
-                            <img src={profileImage} alt="" />
-                        </ImageWrap>
-                    </Link>
-                </li>
-            </Ul>
+                    <li>
+                        <Link to={'/myprofile'}>
+                            <ImageWrap>
+                                <img src={profileImage} alt="" />
+                            </ImageWrap>
+                        </Link>
+                    </li>
+                </Ul>
+            )}
         </StyledFooter>
     );
 }
@@ -97,7 +98,7 @@ const Ul = styled.ul`
         width: 25px;
     }
 
-    & > li:last-child img {
+    & > li:nth-child(5) img {
         width: 100%;
         height: 100%;
         object-fit: cover;
