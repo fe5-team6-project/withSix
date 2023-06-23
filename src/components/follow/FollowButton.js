@@ -4,8 +4,8 @@ import { styled } from 'styled-components'
 import { api } from '../../lib/apis/axiosConfig'
 import { useState } from 'react';
 
-export default function FollowButton({ accountname }) {
-    const [isFollow, setIsFollow] = useState(true);
+export default function FollowButton({ accountname, isfollow }) {
+    const [isFollow, setIsFollow] = useState(isfollow);
     //팔로우 상태이면 : 버튼에 '언팔로우'뜨기 +(버튼누르기)> 언팔로우 처리 + '팔로우'로 버튼 변경
     const handleFollow = async () => {
         if (isFollow) {
