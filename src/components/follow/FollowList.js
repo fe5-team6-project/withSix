@@ -12,7 +12,7 @@ export default function FollowList({ accountname, username, intro, image, isfoll
                     <ProfileTitle>{username}</ProfileTitle>
                     <ProfileContent>@ {accountname}</ProfileContent>
                 </TextWrap>
-                <FollowButton id="FollowBtn">팔로우</FollowButton>
+                <FollowButton id="FollowBtn" accountname={accountname}>팔로우</FollowButton>
             </FollowItem>
         </>
     )
