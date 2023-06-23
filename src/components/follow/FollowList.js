@@ -27,6 +27,12 @@ const FollowItem = styled.li`
     cursor: pointer;
     align-items: center;
     gap:14px;
+    &>button{
+        width:58px;
+        height: 28px;
+        font-size: var(--fsize-s);
+        font-weight: lighter;
+    }
 `
 
 const ProfileImg = styled.img`

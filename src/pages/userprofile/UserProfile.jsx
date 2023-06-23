@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 import getUserProfile from './getUserProfile';
 import { validationProfileImage } from '../../components/post/validationProfileImage';
+import FollowButton from '../../components/follow/FollowButton';
 
 export default function UserProfile() {
     const navigate = useNavigate();
@@ -64,8 +65,9 @@ export default function UserProfile() {
                 <span></span>
             </Section>
             <Div id="btnBox">
-                <Button onClick={() => { navigate(`/post`) }}>게시물</Button>
-                <Button onClick={() => { navigate(`/together`) }}>모임</Button>
+                {/* <Button onClick={() => { navigate(`/post`) }}>게시물</Button>
+                <Button onClick={() => { navigate(`/together`) }}>모임</Button> */}
+                <FollowButton id="followBtnBig" accountname={profile?.accountname} isfollow={profile?.isfollow}></FollowButton>
             </Div>
         </LayoutDiv>
     );
@@ -118,12 +120,6 @@ const Div = styled.div`
     position: relative;
     height: 70px;
     text-align: center;
-    &#btnBox{
-        display:flex;
-        width: 236px;
-        gap:10px;
-        margin-bottom:30px;
-    }
 `;
 
 const FollowDiv = styled(Div)`
