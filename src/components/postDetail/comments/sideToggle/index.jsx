@@ -10,6 +10,9 @@ export default function CommentSideToggle({
     commentId,
     setReload,
     setCommentCount,
+    setComment,
+    comment,
+    setPage,
 }) {
     const {
         myInfo: { _id },
@@ -21,6 +24,8 @@ export default function CommentSideToggle({
                 commentId={commentId}
                 setReload={setReload}
                 setCommentCount={setCommentCount}
+                setComment={setComment}
+                comment={comment}
             />
         );
     }
