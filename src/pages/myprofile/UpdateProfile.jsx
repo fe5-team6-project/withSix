@@ -57,9 +57,9 @@ export default function UpdateProfile() {
             const validId = await validationId(id);
             /**
              * 모달 세팅
-             * setModalContent(=> 27)
-             * setModalVisible(=> 32)
-             * setModalUrl(=> 43)
+             * setModalContent(=> 27 라인)
+             * setModalUrl(=> 30 라인)
+             * setModalVisible(=> 32 라인)
              */
             if (!validId.state) {
                 // validId.state에 유효성 결과에 대한 state, message가 반환됨
