@@ -187,7 +187,6 @@ const EtcWrap = styled(SectionDefault)`
     text-align: right;
 
     & > img {
-        position: relative;
         width: 12px;
         margin-right: 5px;
         vertical-align: middle;
