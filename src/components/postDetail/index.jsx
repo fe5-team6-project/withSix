@@ -142,9 +142,10 @@ const ImgContent = styled.img`
     object-fit: cover;
 `;
 
-const Content = styled.p`
+const Content = styled.span`
     width: 200px;
     margin: 30px 0px;
+    word-break: break-all;
 `;
 
 const EtcWrap = styled(SectionDefault)`
