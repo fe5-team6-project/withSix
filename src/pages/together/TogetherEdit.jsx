@@ -48,7 +48,7 @@ export default function GroupEdit() {
                     <GroupInput id="GroupImage" name="itemImage" ></GroupInput>
                 </GroupInputWrapper>
                 <GroupLabel htmlFor="GroupImage">
-                    <GroupImage id="PreImage" src={togetherInfo.itemImage && !togetherInfo.itemImage.endsWith('/undefined') ? togetherInfo.itemImage : togetherImg}></GroupImage>
+                    <GroupImage id="PreImage" src={togetherInfo.itemImage && !/\/undefined$/.test(togetherInfo.itemImage) ? togetherInfo.itemImage : togetherImg}></GroupImage>
                 </GroupLabel>
                 <RegiButton onClick={() => { togetherEdit(); navigate(-1); }}>수 정</RegiButton>
             </Form>
