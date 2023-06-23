@@ -114,7 +114,7 @@ export default function PostUpload (){
 
         try {
             const res = await axios
-                .post(`${URL}/post`, data, {
+                .put(`${URL}/post/${id}`, data, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         "Content-type": "application/json",
@@ -137,6 +137,7 @@ export default function PostUpload (){
                 "Content-type": "application/json",
             },
         })
+        console.log(post);
         //데이터 전역변수로 저장
         setPostData(post);
         //미리보기 이미지 주소를 배열에 저장
