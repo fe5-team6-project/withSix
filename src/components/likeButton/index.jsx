@@ -11,7 +11,6 @@ import heartFill from '../../assets/icons/post/icon-heart-fill.svg';
 import { styled } from 'styled-components';
 
 export default function LikeBtn({ data }) {
-    console.log(data);
     const { id } = useParams();
     const [isLike, setIsLike] = useState(data.hearted);
     const [likeCount, setLikeCount] = useState(data.heartCount);

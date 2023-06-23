@@ -8,6 +8,9 @@ import {
 } from '../../utils/errorMessage';
 import { styled } from 'styled-components';
 import iconMoreVertical from '../../../../assets/icons/post/icon-more-vertical.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import Modal from '../../../modal/Modal';
+import { setContent, setIsVisible } from '../../../../store/slices/modalSlice';
 
 export default function DeleteMent({
     commentId,
@@ -18,6 +21,10 @@ export default function DeleteMent({
 }) {
     const { id } = useParams();
     const [visible, setVisible] = useState(false);
+    const {
+        display: { isVisible },
+    } = useSelector((state) => state?.modal);
+    const dispatch = useDispatch();
     // Todo
     // 삭제 기능 구현
     // console.log(comment);
@@ -29,18 +36,25 @@ export default function DeleteMent({
                 const {
                     data: { message },
                 } = data;
-                alert(message);
+                // alert(message);
                 const newComments = comment.filter((el) => el.id !== commentId);
                 setComment(newComments);
                 setReload((prev) => !prev);
                 // setPage((prev) => prev - 1);
                 setCommentCount((prev) => prev - 1);
+                dispatch(
+                    setContent({
+                        state: true,
+                        message: message,
+                    })
+                );
+                dispatch(setIsVisible({ isVisible: true }));
             } else {
                 returnServerErrorMessage();
             }
         } catch (error) {
-            console.log(error);
-            // returnErrorMessage(error);
+            // console.log(error);
+            returnErrorMessage(error);
         } finally {
             setVisible(!visible);
         }
@@ -48,12 +62,19 @@ export default function DeleteMent({
 
     return (
         <>
+            {visible && (
+                <DeleteTitle onClick={() => handleRemoved()}>삭제</DeleteTitle>
+            )}
             <Img onClick={() => setVisible(!visible)} src={iconMoreVertical} />
-            {visible && <button onClick={() => handleRemoved()}>삭제</button>}
+            {isVisible && <Modal />}
         </>
     );
 }
 
 const Img = styled.img`
+    cursor: pointer;
+`;
+const DeleteTitle = styled.div`
+    color: red;
     cursor: pointer;
 `;
