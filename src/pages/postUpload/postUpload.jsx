@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+// import { useSelector} from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Common from "../../components/main/Common" 
@@ -21,13 +22,15 @@ import { URL } from "../../lib/apis/constant/path";
 
 export default function PostUpload (){
 
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzZkN2I3YjJjYjIwNTY2MzJkMDA5MyIsImV4cCI6MTY5MDgxNzQyOCwiaWF0IjoxNjg1NjMzNDI4fQ.fuRi1qVjgU4C7my-RPJrPOoBFjAvSHauogh8alP9mbI';
+    const token = localStorage.getItem('token');
     const [content, setContent] = useState(""); // 게시글 입력 내용
     const [showImg, setShowImg] = useState([]); // 미리보기에 올라오는 이미지
     const [postImg, setPostImg] = useState([]); // 업로드 페이지에 올라오는 이미지
     const [uploadBtn, setUploadBtn] = useState(true);
     const fileInput = useRef(null);
     const navigate = useNavigate();
+    // const { myInfo } = useSelector((state) => state.user);
+    // console.log(myInfo);
 
         const data = {
         post: {
@@ -108,7 +111,7 @@ export default function PostUpload (){
         const snsImgList = await Promise.all(imgList);
 
         data.post.image = snsImgList.join(",");
-        console.log(data.post.image);
+        // console.log(data.post.image);
         data.post.content = content;
 
         try {
