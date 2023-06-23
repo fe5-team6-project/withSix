@@ -18,36 +18,36 @@ export default function Footer() {
 
     return (
         <StyledFooter>
-            <Ul>
-                <li>
-                    <Link to={'/home'}>
-                        <img src={home} alt="홈 아이콘" />
-                        <span>홈</span>
-                    </Link>
-                </li>
+            {user?.username !== String && (
+                <Ul>
+                    <li>
+                        <Link to={'/home'}>
+                            <img src={home} alt="홈 아이콘" />
+                            <span>홈</span>
+                        </Link>
+                    </li>
 
-                <li>
-                    <Link to={'/together'}>
-                        <img src={together} alt="모임 아이콘" />
-                        <span>모임</span>
-                    </Link>
-                </li>
+                    <li>
+                        <Link to={'/together'}>
+                            <img src={together} alt="모임 아이콘" />
+                            <span>모임</span>
+                        </Link>
+                    </li>
 
-                <li>
-                    <Link to={'/home'}>
-                        <img src={review} alt="후기 아이콘" />
-                        <span>후기</span>
-                    </Link>
-                </li>
+                    <li>
+                        <Link to={'/home'}>
+                            <img src={review} alt="후기 아이콘" />
+                            <span>후기</span>
+                        </Link>
+                    </li>
 
-                <li>
-                    <Link to={'/home'}>
-                        <img src={chat} alt="채팅 아이콘" />
-                        <span>채팅</span>
-                    </Link>
-                </li>
+                    <li>
+                        <Link to={'/home'}>
+                            <img src={chat} alt="채팅 아이콘" />
+                            <span>채팅</span>
+                        </Link>
+                    </li>
 
-                {user?.username !== String && (
                     <li>
                         <Link to={'/myprofile'}>
                             <ImageWrap>
@@ -55,8 +55,8 @@ export default function Footer() {
                             </ImageWrap>
                         </Link>
                     </li>
-                )}
-            </Ul>
+                </Ul>
+            )}
         </StyledFooter>
     );
 }
