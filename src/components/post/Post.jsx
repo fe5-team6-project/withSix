@@ -78,14 +78,7 @@ export default function Post(props) {
                 </ProfileRight>
             </ProfileWrap>
             <ImageWrap onClick={(e) => e.stopPropagation()}>
-                {item?.image ? (
-                    <Slick images={item?.image} />
-                ) : // <ImgContent
-                //     src={item?.image}
-                //     onError={(e) => emptyContentImage(e)}
-                //     alt="등록된이미지"
-                // />
-                undefined}
+                {item?.image ? <Slick images={item?.image} /> : null}
             </ImageWrap>
             <ContentWrap>
                 <p>{item?.content}</p>
