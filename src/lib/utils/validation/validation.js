@@ -10,12 +10,12 @@ import {
     FAIL_NULL_ID,
     FAIL_NULL_NAME,
     FAIL_NULL_PASSWORD,
-} from '../constant/message';
+} from '../../apis/constant/message';
 import {
     REG_EXP_EMAIL,
     REG_EXP_ID,
     REG_EXP_PASSWORD,
-} from '../constant/regexp';
+} from '../../apis/constant/regexp';
 import { checkDuplicationEmail, checkDuplicationId } from './checkDuplication';
 
 const result = {

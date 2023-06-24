@@ -2,10 +2,7 @@ import React, { useState } from 'react';
 import Common from '../../components/main/Common';
 import { styled } from 'styled-components';
 import handleFileUpload from '../signup/handleFileUload';
-import {
-    validationId,
-    validationName,
-} from '../../lib/apis/validation/validation';
+
 import { useDispatch, useSelector } from 'react-redux';
 import handleProfileUpdate from './handleProfileUpdate';
 import checkAleadyUseId from './checkAleadyUseId';
@@ -14,6 +11,10 @@ import {
     setIsVisible,
     setUrl,
 } from '../../store/slices/modalSlice';
+import {
+    validationId,
+    validationName,
+} from '../../lib/utils/validation/validation';
 
 export default function UpdateProfile() {
     const user = useSelector((state) => state.user?.myInfo);

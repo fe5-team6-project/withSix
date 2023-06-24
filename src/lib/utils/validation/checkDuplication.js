@@ -1,4 +1,4 @@
-import { URL } from '../constant/path';
+import { URL } from '../../apis/constant/path';
 
 export async function checkDuplicationEmail() {
     const input = document.querySelector('#email');

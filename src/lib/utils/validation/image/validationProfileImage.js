@@ -1,4 +1,4 @@
-import { DEFAULT_IMAGE, URL } from '../../lib/apis/constant/path';
+import { DEFAULT_IMAGE, URL } from '../../../apis/constant/path';
 
 export function validationProfileImage(image) {
     let src = image;
@@ -28,5 +28,5 @@ export function validationProfileImage(image) {
 }
 
 export function emptyProfileImage(e) {
-    e.currentTarget.style.src = DEFAULT_IMAGE;
+    e.target.src = DEFAULT_IMAGE;
 }
