@@ -14,7 +14,7 @@ export default function FollowList({ accountname, username, image, isfollow }) {
         const user = await getUserProfile(accountname);
         dispatch(setUserInfo(user));
     }
-    const [] = useState();
+    const [isFollow, setIsFollow] = useState(isfollow);//똑딱
 
     return (
         <>
@@ -26,7 +26,9 @@ export default function FollowList({ accountname, username, image, isfollow }) {
                         <ProfileContent>@ {accountname}</ProfileContent>
                     </TextWrap>
                 </ProfileWrap>
-                <FollowButton id="FollowBtn" accountname={accountname} isfollow={isfollow}></FollowButton>
+                <div onClick={() => { setIsFollow(!isFollow) }}>
+                    <FollowButton id="FollowBtn" accountname={accountname} isfollow={isFollow}></FollowButton>
+                </div>
             </FollowItem>
         </>
     )
