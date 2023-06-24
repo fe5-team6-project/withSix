@@ -28,5 +28,5 @@ export function validationProfileImage(image) {
 }
 
 export function emptyProfileImage(e) {
-    e.currentTarget.style.src = DEFAULT_IMAGE;
+    e.target.src = DEFAULT_IMAGE;
 }

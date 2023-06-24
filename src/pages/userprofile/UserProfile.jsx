@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import Common from '../../components/main/Common';
 import { Link, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { validationProfileImage } from '../../components/post/validationProfileImage';
+import {
+    emptyProfileImage,
+    validationProfileImage,
+} from '../../components/post/validationProfileImage';
 import FollowButton from '../../components/follow/FollowButton';
 import { useSelector } from 'react-redux';
 
@@ -19,6 +22,7 @@ export default function UserProfile() {
                 <h2 className="a11y-hidden">프로필 이미지</h2>
                 <Img
                     src={validationProfileImage(profile?.image)}
+                    onError={(e) => emptyProfileImage(e)}
                     alt="유저 프로필 이미지"
                 />
             </ImageWrap>
