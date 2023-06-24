@@ -5,6 +5,8 @@ import { styled } from 'styled-components';
 import getUserProfile from '../../pages/userprofile/getUserProfile';
 import { setUserInfo } from '../../store/slices/userSlice';
 import { useDispatch } from 'react-redux';
+import { emptyProfileImage, validationProfileImage } from '../../lib/utils/validation/image/validationProfileImage';
+
 
 export default function FollowList({ accountname, username, image, isfollow }) {
     const navigate = useNavigate();
@@ -20,7 +22,8 @@ export default function FollowList({ accountname, username, image, isfollow }) {
         <>
             <FollowItem>
                 <ProfileWrap onClick={async (e) => { e.stopPropagation(); await setUser(); navigate(`../profile/${accountname}`); }} >
-                    <ProfileImg src={image} />
+                    <ProfileImg src={validationProfileImage(image)}
+                        onError={(e) => emptyProfileImage(e)} />
                     <TextWrap>
                         <ProfileTitle>{username}</ProfileTitle>
                         <ProfileContent>@ {accountname}</ProfileContent>
