@@ -5,10 +5,11 @@ import Common from '../../components/main/Common';
 import TogetherList from '../../components/together/TogetherList';
 import { useSelector } from 'react-redux';
 import WriteButton from '../../components/writebutton/WriteButton'
+import { useParams } from 'react-router';
 
 
 export default function Together() {
-    const myInfo = useSelector((state) => { return state?.user?.myInfo; });
+    const accountname = useParams().id;
     const [pages, setPages] = useState(10);
     //추후 '더보기'추가예정
 
@@ -16,12 +17,11 @@ export default function Together() {
 
     useEffect(() => {
         async function axiosTogetherList() {
-            const res = await api.get(`/product/${myInfo.accountname}`);
+            const res = await api.get(`/product/${accountname}`);
             const abc = res?.data?.product;
             setTogetherList([...abc]);
             console.log(abc)
         }
-        console.log(myInfo);
         axiosTogetherList();
     }, [pages]);
 
