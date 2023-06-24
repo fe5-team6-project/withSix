@@ -38,7 +38,7 @@ const FollowItem = styled.li`
     background: #fff;
     display:flex;
     align-items: center;
-    &>button{
+    & button{
         width:58px;
         height: 28px;
         font-size: var(--fsize-s);
