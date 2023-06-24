@@ -15,6 +15,14 @@ export default function Home() {
 
     useEffect(() => {
         async function fetchData() {
+            setPostList(await getPost(category, user?.accountname, skip));
+        }
+
+        fetchData();
+    }, [category]);
+
+    useEffect(() => {
+        async function fetchData() {
             setPostList([
                 ...postList,
                 ...(await getPost(category, user?.accountname, skip)),
@@ -22,7 +30,7 @@ export default function Home() {
         }
 
         fetchData();
-    }, [category, skip]);
+    }, [skip]);
 
     const page = (
         <>
