@@ -13,7 +13,6 @@ import {
 export default function UserProfile() {
     const accountname = useParams().id;
     const profile = useSelector((state) => state.user.userInfo);
-    console.log(profile);
     const [isFollow, setIsFollow] = useState(profile?.isfollow);
     const [followCount, setFollowCount] = useState(profile?.followerCount);
 
@@ -70,6 +69,7 @@ export default function UserProfile() {
                     setFollowCount((prev) => (isFollow ? prev - 1 : prev + 1));
                 }}
             >
+                <Link to={`/together/${accountname}`}>투게더 목록</Link>
                 <FollowButton
                     id="followBtnBig"
                     accountname={profile?.accountname}
@@ -127,6 +127,14 @@ const Div = styled.div`
     position: relative;
     height: 70px;
     text-align: center;
+
+    &#btnBox > a {
+        position: absolute;
+        top: -35px;
+        right: 0;
+        font-size: var(--fsize-m);
+        transform: translateX(-50%);
+    }
 `;
 
 const FollowDiv = styled(Div)`
