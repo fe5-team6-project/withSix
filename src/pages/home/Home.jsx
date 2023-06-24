@@ -15,7 +15,10 @@ export default function Home() {
 
     useEffect(() => {
         async function fetchData() {
-            setPostList(await getPost(category, user?.accountname, skip));
+            setPostList([
+                ...postList,
+                ...(await getPost(category, user?.accountname, skip)),
+            ]);
         }
 
         fetchData();
