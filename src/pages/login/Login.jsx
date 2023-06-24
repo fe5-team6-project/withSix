@@ -25,6 +25,8 @@ import { setMyInfo } from '../../store/slices/userSlice';
  */
 export default function Login() {
     const dispatch = useDispatch();
+    const [email, setEmail] = useState(undefined);
+    const [password, setPassword] = useState(undefined);
     const modal = useSelector((state) => state?.modal);
     const modalVisible = modal.display.isVisible;
     const [email, setEmail] = useState(undefined);
