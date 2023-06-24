@@ -35,7 +35,7 @@ export default function Comments({ setCommentCount, commentCount }) {
 
     useEffect(() => {
         if (inView) {
-            console.log(inView, '무한 스크롤 요청 🎃');
+            // console.log(inView, '무한 스크롤 요청 🎃');
 
             fetchComment();
         }
@@ -59,7 +59,9 @@ export default function Comments({ setCommentCount, commentCount }) {
                                     authorId={item.author._id}
                                     commentId={item.id}
                                     setReload={setReload}
+                                    setComment={setComment}
                                     setCommentCount={setCommentCount}
+                                    comment={comment}
                                 />
                             </RightTop>
                             <Content>{item.content}</Content>
