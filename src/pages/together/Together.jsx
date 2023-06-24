@@ -4,6 +4,7 @@ import { styled } from 'styled-components';
 import Common from '../../components/main/Common';
 import TogetherList from '../../components/together/TogetherList';
 import { useSelector } from 'react-redux';
+import WriteButton from '../../components/writebutton/WriteButton'
 
 
 export default function Together() {
@@ -37,6 +38,7 @@ export default function Together() {
                         <TogetherList></TogetherList>
                     ))} */}
                 </TogetherWrap>
+                <WriteButton url={`/together/upload`} />
             </TogetherSection>
         </>
     )
