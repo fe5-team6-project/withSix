@@ -2,9 +2,11 @@ import React from 'react'
 import { styled } from 'styled-components'
 import { api } from '../../lib/apis/axiosConfig'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 export default function TogetherDelButton() {
     const id = useParams().id
+    const accountname = useSelector((state) => { return state.user.myInfo.accountname })
     const TogetherDeleteButton = async () => {
         await api.delete(`/product/${id}`);
     }
@@ -14,7 +16,7 @@ export default function TogetherDelButton() {
         <>
             <DeleteButton id="delBtn" onClick={() => {
                 TogetherDeleteButton();
-                navigate('/together');
+                navigate(`/together/${accountname}`);
             }}>삭제</DeleteButton>
         </>
     )
