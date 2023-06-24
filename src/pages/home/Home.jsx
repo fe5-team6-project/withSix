@@ -6,6 +6,7 @@ import getPost from './getPost';
 import { styled } from 'styled-components';
 import divLine from '../../assets/icons/post/div-line.svg';
 import WriteButton from '../../components/writebutton/WriteButton';
+import EmptyPost from '../../components/post/EmptyPost';
 
 export default function Home() {
     const [postList, setPostList] = useState([]);
@@ -61,24 +62,24 @@ export default function Home() {
             </CategoryMenu>
 
             <ul>
-                {!postList
-                    ? []
-                    : postList.map((item, idx) => {
-                          return postList.length - 1 !== idx ? (
-                              <Post key={item?._id || item?.id} item={item} />
-                          ) : (
-                              <>
-                                  <Post key={item?._id} item={item} />
-                                  <MoreButton
-                                      onClick={() =>
-                                          setSkip((skip) => skip + 10)
-                                      }
-                                  >
-                                      더보기
-                                  </MoreButton>
-                              </>
-                          );
-                      })}
+                {postList.length ? (
+                    postList.map((item, idx) => {
+                        return postList.length - 1 !== idx ? (
+                            <Post key={item?._id || item?.id} item={item} />
+                        ) : (
+                            <>
+                                <Post key={item?._id} item={item} />
+                                <MoreButton
+                                    onClick={() => setSkip((skip) => skip + 10)}
+                                >
+                                    더보기
+                                </MoreButton>
+                            </>
+                        );
+                    })
+                ) : (
+                    <EmptyPost url={'../post/upload'} />
+                )}
             </ul>
 
             <WriteButton url={'../post/upload'} />
