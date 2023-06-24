@@ -2,7 +2,7 @@ import React from 'react';
 import { styled } from 'styled-components';
 import home from '../../assets/icons/nav/home.png';
 import together from '../../assets/icons/nav/together.png';
-import review from '../../assets/icons/nav/review.png';
+import search from '../../assets/icons/common/icon-search.svg';
 import chat from '../../assets/icons/nav/chat.png';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -35,9 +35,9 @@ export default function Footer() {
                     </li>
 
                     <li>
-                        <Link to={'/home'}>
-                            <img src={review} alt="후기 아이콘" />
-                            <span>후기</span>
+                        <Link to={'/search'}>
+                            <img src={search} alt="검색 아이콘" />
+                            <span>검색</span>
                         </Link>
                     </li>
 
