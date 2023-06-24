@@ -1,16 +1,15 @@
 import { URL } from '../../lib/apis/constant/path';
 
-export default async function getPost(category, accountname, pages) {
-    console.log(accountname);
+export default async function getPost(category, accountname, skip) {
     const type = category;
     let requestPath = '/post';
 
     if (type === '') {
-        requestPath = `/post/?limit=${pages}&skip=0`;
+        requestPath = `/post/?limit=10&skip=${skip}`;
     } else if (type === 'my') {
-        requestPath = `/post/${accountname}/userpost/?limit=20&skip=0`;
+        requestPath = `/post/${accountname}/userpost/?limit=10&skip=${skip}`;
     } else if (type === 'feed') {
-        requestPath = `/post/feed/?limit=${pages}&skip=0`;
+        requestPath = `/post/feed/?limit=10&skip=${skip}`;
     }
 
     const requestUrl = `${URL}${requestPath}`;

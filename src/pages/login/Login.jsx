@@ -120,7 +120,6 @@ export default function Login() {
                     <Label className="font-eng" htmlFor="password">
                         Password
                     </Label>
-                    {/* <ForgotLink href={'/'}>forgot :(</ForgotLink> */}
                 </Div>
                 <Div>
                     <Button>로그인</Button>
@@ -193,15 +192,6 @@ const Input = styled.input`
         line-height: 20px;
         z-index: -1;
     }
-`;
-
-const ForgotLink = styled(Link)`
-    position: absolute;
-    bottom: -20px;
-    right: 5px;
-    font-size: var(--fsize-s);
-    font-style: italic;
-    color: var(--color-gray);
 `;
 
 const SignupLink = styled(Link)`

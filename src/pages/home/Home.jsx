@@ -5,24 +5,24 @@ import Post from '../../components/post/Post';
 import getPost from './getPost';
 import { styled } from 'styled-components';
 import divLine from '../../assets/icons/post/div-line.svg';
-import write from '../../assets/icons/common/icon-write.svg';
-import { useNavigate } from 'react-router-dom';
 import WriteButton from '../../components/writebutton/WriteButton';
 
 export default function Home() {
     const [postList, setPostList] = useState([]);
     const [category, setCategory] = useState('');
-    const [pages, setPages] = useState(10);
+    const [skip, setSkip] = useState(0);
     const user = useSelector((state) => state.user?.myInfo);
-    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchData() {
-            setPostList(await getPost(category, user?.accountname, pages));
+            setPostList([
+                ...postList,
+                ...(await getPost(category, user?.accountname, skip)),
+            ]);
         }
 
         fetchData();
-    }, [category, pages]);
+    }, [category, skip]);
 
     const page = (
         <>
@@ -63,7 +63,7 @@ export default function Home() {
                                   <Post key={item?._id} item={item} />
                                   <MoreButton
                                       onClick={() =>
-                                          setPages((pages) => pages + 10)
+                                          setSkip((skip) => skip + 10)
                                       }
                                   >
                                       더보기
