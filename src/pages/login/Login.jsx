@@ -25,8 +25,6 @@ import { setMyInfo } from '../../store/slices/userSlice';
  */
 export default function Login() {
     const dispatch = useDispatch();
-    const [email, setEmail] = useState(undefined);
-    const [password, setPassword] = useState(undefined);
     const modal = useSelector((state) => state?.modal);
     const modalVisible = modal.display.isVisible;
     const [email, setEmail] = useState(undefined);
@@ -122,7 +120,6 @@ export default function Login() {
                     <Label className="font-eng" htmlFor="password">
                         Password
                     </Label>
-                    {/* <ForgotLink href={'/'}>forgot :(</ForgotLink> */}
                 </Div>
                 <Div>
                     <Button>로그인</Button>
@@ -195,15 +192,6 @@ const Input = styled.input`
         line-height: 20px;
         z-index: -1;
     }
-`;
-
-const ForgotLink = styled(Link)`
-    position: absolute;
-    bottom: -20px;
-    right: 5px;
-    font-size: var(--fsize-s);
-    font-style: italic;
-    color: var(--color-gray);
 `;
 
 const SignupLink = styled(Link)`
