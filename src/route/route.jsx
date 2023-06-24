@@ -12,7 +12,7 @@ import Search from '../components/search';
 import UserProfile from '../pages/userprofile/UserProfile';
 import UpdateProfile from '../pages/myprofile/UpdateProfile';
 import PostUpload from '../pages/postUpload/postUpload';
-import Together from '../pages/together/Together'
+import Together from '../pages/together/Together';
 import TogetherDetail from '../pages/together/TogetherDetail';
 import PostModify from '../pages/postUpload/postModify';
 
@@ -23,15 +23,33 @@ export default function MyRouter() {
                 <Routes>
                     <Route path="/" element={<Main />} />
                     <Route path="/home" element={<Home />} />
-                    <Route path="/together" element={<Together />} />
-                    <Route path="/together/upload" element={<TogetherUpload />} />
-                    <Route path="/together/edit/:id" element={<TogetherEdit />} />
-                    <Route path="/together/detail/:id" element={<TogetherDetail />} />
+                    <Route path="/together/:id" element={<Together />} />
+                    <Route
+                        path="/together/upload"
+                        element={<TogetherUpload />}
+                    />
+                    <Route
+                        path="/together/edit/:id"
+                        element={<TogetherEdit />}
+                    />
+                    <Route
+                        path="/together/detail/:id"
+                        element={<TogetherDetail />}
+                    />
                     <Route path="/signup" element={<Signup />} />
-                    <Route path="/profile/:accountname/following" element={<FollowingList />} />
-                    <Route path="/profile/:accountname/follower" element={<FollowerList />} />
+                    <Route
+                        path="/profile/:accountname/following"
+                        element={<FollowingList />}
+                    />
+                    <Route
+                        path="/profile/:accountname/follower"
+                        element={<FollowerList />}
+                    />
                     <Route path="/myprofile" element={<MyProfile />} />
-                    <Route path="/myprofile/update" element={<UpdateProfile />} />
+                    <Route
+                        path="/myprofile/update"
+                        element={<UpdateProfile />}
+                    />
                     <Route path="/post/upload" element={<PostUpload />} />
                     <Route path="/post/modify/:id" element={<PostModify />} />
                     <Route path="/post/detail/:id" element={<PostDetail />} />
