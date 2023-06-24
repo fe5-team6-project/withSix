@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import FollowButton from '../../components/follow/FollowButton';
 import { styled } from 'styled-components';
@@ -6,7 +6,7 @@ import getUserProfile from '../../pages/userprofile/getUserProfile';
 import { setUserInfo } from '../../store/slices/userSlice';
 import { useDispatch } from 'react-redux';
 
-export default function FollowList({ accountname, username, intro, image, isfollow }) {
+export default function FollowList({ accountname, username, image, isfollow }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -14,6 +14,7 @@ export default function FollowList({ accountname, username, intro, image, isfoll
         const user = await getUserProfile(accountname);
         dispatch(setUserInfo(user));
     }
+    const [] = useState();
 
     return (
         <>
