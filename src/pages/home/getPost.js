@@ -8,7 +8,7 @@ export default async function getPost(category, accountname, pages) {
     if (type === '') {
         requestPath = `/post/?limit=${pages}&skip=0`;
     } else if (type === 'my') {
-        requestPath = `/post/testN/userpost/?limit=20&skip=0`;
+        requestPath = `/post/${accountname}/userpost/?limit=20&skip=0`;
     } else if (type === 'feed') {
         requestPath = `/post/feed/?limit=${pages}&skip=0`;
     }
