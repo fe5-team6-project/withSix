@@ -1,13 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import togetherImg from '../../assets/images/togetherImg.png'
+import { handleErrorImg } from '../../lib/utils/validation/image/validationContentImage'
 
 export default function TogetherList({ id, itemName, price, link, itemImage }) {
     const navigate = useNavigate();
-    const handleErrorImg = (e) => {
-        e.target.src = togetherImg;
-    };
 
     return (
         <>

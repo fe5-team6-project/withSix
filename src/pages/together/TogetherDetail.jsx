@@ -1,14 +1,13 @@
 import { React, useEffect, useState } from 'react';
 import Common from '../../components/main/Common';
 import { styled } from 'styled-components';
-import initialImage from '../../assets/images/initialImage.png'
 import { api } from '../../lib/apis/axiosConfig';
 import { useParams } from 'react-router-dom';
 import TogetherEditButton from '../../components/together/TogetherEditButton';
 import TogetherDelButton from '../../components/together/TogetherDelButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { inputTogether } from '../../store/slices/togetherSlice';
-import togetherImg from '../../assets/images/togetherImg.png'
+import { handleErrorImg } from '../../lib/utils/validation/image/validationContentImage'
 
 export default function TogetherDetail() {
     const a = useSelector((state) => { return state.together.req });
@@ -27,11 +26,6 @@ export default function TogetherDetail() {
         const { itemImage, itemName, link, price } = detailData;
         dispatch(inputTogether({ itemImage, itemName, link, price }));
     }
-
-    const handleErrorImg = (e) => {
-        e.target.src = togetherImg;
-    };
-
 
     useEffect(() => {
         togetherDetails();
