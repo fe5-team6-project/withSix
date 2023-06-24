@@ -13,6 +13,7 @@ import changeHeart from './changeHeart';
 import { useDispatch } from 'react-redux';
 import { setUserInfo } from '../../store/slices/userSlice';
 import getUserProfile from '../../pages/userprofile/getUserProfile';
+import Slick from '../slick';
 
 export default function Post(props) {
     const navigate = useNavigate();
@@ -76,14 +77,15 @@ export default function Post(props) {
                     <UserId>@ {writer?.accountname}</UserId>
                 </ProfileRight>
             </ProfileWrap>
-            <ImageWrap>
+            <ImageWrap onClick={(e) => e.stopPropagation()}>
                 {item?.image ? (
-                    <ImgContent
-                        src={item?.image}
-                        onError={(e) => emptyContentImage(e)}
-                        alt="등록된이미지"
-                    />
-                ) : undefined}
+                    <Slick images={item?.image} />
+                ) : // <ImgContent
+                //     src={item?.image}
+                //     onError={(e) => emptyContentImage(e)}
+                //     alt="등록된이미지"
+                // />
+                undefined}
             </ImageWrap>
             <ContentWrap>
                 <p>{item?.content}</p>
@@ -172,6 +174,17 @@ const ProfileRight = styled.section`
 
 const ImageWrap = styled(SectionDefault)`
     width: 100%;
+    /* margin-bottom: -10px; */
+
+    & img {
+        width: 350px;
+        height: 192px;
+        object-fit: cover;
+    }
+
+    & .slick-dots button::before {
+        transform: translateY(-200%);
+    }
 `;
 
 const ImgContent = styled.img`
