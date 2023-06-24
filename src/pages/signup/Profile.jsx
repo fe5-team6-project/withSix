@@ -1,11 +1,11 @@
 import { styled } from 'styled-components';
 import handleFileUpload from './handleFileUload';
 import handleSignup from './handleSignup';
-import { DEFAULT_IMAGE } from '../../lib/apis/constant/path';
 import {
     validationId,
     validationName,
-} from '../../lib/apis/validation/validation';
+} from '../../lib/utils/validation/validation';
+import { DEFAULT_IMAGE } from '../../lib/apis/constant/path';
 
 export default function Profile(props) {
     const userData = props.userData;

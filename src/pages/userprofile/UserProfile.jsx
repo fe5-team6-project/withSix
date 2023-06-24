@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import Common from '../../components/main/Common';
 import { Link, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
+
+import FollowButton from '../../components/follow/FollowButton';
+import { useSelector } from 'react-redux';
 import {
     emptyProfileImage,
     validationProfileImage,
-} from '../../components/post/validationProfileImage';
-import FollowButton from '../../components/follow/FollowButton';
-import { useSelector } from 'react-redux';
+} from '../../lib/utils/validation/image/validationProfileImage';
 
 export default function UserProfile() {
     const accountname = useParams().id;

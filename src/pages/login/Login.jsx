@@ -5,7 +5,6 @@ import { styled } from 'styled-components';
 import signupIcon from '../../assets/icons/common/icon-signup.svg';
 import handleLogin from './handleLogin';
 import getMyInfo from './getMyInfo';
-import { validationLogin } from '../../lib/apis/validation/validation';
 import {
     setContent,
     setIsVisible,
@@ -13,6 +12,7 @@ import {
 } from '../../store/slices/modalSlice';
 import Modal from '../../components/modal/Modal';
 import { setMyInfo } from '../../store/slices/userSlice';
+import { validationLogin } from '../../lib/utils/validation/validation';
 
 /**
  * 로그인 요청시

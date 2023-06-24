@@ -4,7 +4,7 @@ import {
     validationCheckPassword,
     validationEmail,
     validationPassword,
-} from '../../lib/apis/validation/validation';
+} from '../../lib/utils/validation/validation';
 
 export default function EmailPassword(props) {
     async function handleSubmit(e) {

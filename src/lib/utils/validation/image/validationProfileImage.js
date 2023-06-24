@@ -1,4 +1,4 @@
-import { DEFAULT_IMAGE, URL } from '../../lib/apis/constant/path';
+import { DEFAULT_IMAGE, URL } from '../../../apis/constant/path';
 
 export function validationProfileImage(image) {
     let src = image;

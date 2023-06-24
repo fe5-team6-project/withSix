@@ -4,15 +4,16 @@ import { styled } from 'styled-components';
 import iconHeart from '../../assets/icons/post/icon-heart.svg';
 import iconHeartFill from '../../assets/icons/post/icon-heart-fill.svg';
 import iconComment from '../../assets/icons/post/icon-comment.svg';
-import {
-    validationProfileImage,
-    emptyProfileImage,
-} from './validationProfileImage';
+
 import changeHeart from './changeHeart';
 import { useDispatch } from 'react-redux';
 import { setUserInfo } from '../../store/slices/userSlice';
 import getUserProfile from '../../pages/userprofile/getUserProfile';
 import Slick from '../slick';
+import {
+    emptyProfileImage,
+    validationProfileImage,
+} from '../../lib/utils/validation/image/validationProfileImage';
 
 export default function Post(props) {
     const navigate = useNavigate();
