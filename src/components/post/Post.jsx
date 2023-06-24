@@ -8,7 +8,6 @@ import {
     validationProfileImage,
     emptyProfileImage,
 } from './validationProfileImage';
-import { emptyContentImage } from './validationContentImage';
 import changeHeart from './changeHeart';
 import { useDispatch } from 'react-redux';
 import { setUserInfo } from '../../store/slices/userSlice';
