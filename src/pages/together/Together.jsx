@@ -17,7 +17,7 @@ export default function Together() {
 
     useEffect(() => {
         async function axiosTogetherList() {
-            const res = await api.get(`/product/${accountname}`);
+            const res = await api.get(`/product/${accountname}/?limit=${pages}&skip=0`);
             const abc = res?.data?.product;
             setTogetherList([...abc]);
             console.log(abc)
@@ -38,6 +38,11 @@ export default function Together() {
                         <TogetherList></TogetherList>
                     ))} */}
                 </TogetherWrap>
+                <MoreButton
+                    onClick={() => setPages((pagse) => pages + 5)}
+                >
+                    더보기
+                </MoreButton>
                 <WriteButton url={`/together/upload`} />
             </TogetherSection>
         </>
@@ -58,3 +63,15 @@ const TogetherWrap = styled.ul`
     flex-wrap: wrap;
     gap:10px;
 `
+
+const MoreButton = styled.button`
+    all: unset;
+    display: block;
+    width: 100px;
+    height: 20px;
+    margin: 20px auto 20px;
+    border-radius: var(--radius-m);
+    font-size: var(--fsize-m);
+    text-align: center;
+    cursor: pointer;
+`;
