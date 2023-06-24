@@ -10,9 +10,14 @@ import {
 } from './validationProfileImage';
 import { emptyContentImage } from './validationContentImage';
 import changeHeart from './changeHeart';
+import { useDispatch } from 'react-redux';
+import { setUserInfo } from '../../store/slices/userSlice';
+import getUserProfile from '../../pages/userprofile/getUserProfile';
+import Slick from '../slick';
 
 export default function Post(props) {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const writer = props.item.author;
     const { item } = props;
 
@@ -34,15 +39,18 @@ export default function Post(props) {
         return true;
     }
 
+    async function setUser() {
+        const user = await getUserProfile(writer.accountname);
+        dispatch(setUserInfo(user));
+    }
+
     async function handleHeart() {
         if (!checkHeart()) {
             return false;
         }
 
         await changeHeart(heartState, item?.id);
-
         setHeartImg(heartState ? iconHeartFill : iconHeart);
-        console.log(heartState);
     }
 
     return (
@@ -54,8 +62,9 @@ export default function Post(props) {
             <ProfileWrap>
                 <ProfileLeft>
                     <ImgProfile
-                        onClick={(e) => {
+                        onClick={async (e) => {
                             e.stopPropagation();
+                            await setUser();
                             navigate(`../profile/${writer?.accountname}`);
                         }}
                         src={validationProfileImage(writer?.image)}
@@ -68,14 +77,8 @@ export default function Post(props) {
                     <UserId>@ {writer?.accountname}</UserId>
                 </ProfileRight>
             </ProfileWrap>
-            <ImageWrap>
-                {item?.image ? (
-                    <ImgContent
-                        src={item?.image}
-                        onError={(e) => emptyContentImage(e)}
-                        alt="등록된이미지"
-                    />
-                ) : undefined}
+            <ImageWrap onClick={(e) => e.stopPropagation()}>
+                {item?.image ? <Slick images={item?.image} /> : null}
             </ImageWrap>
             <ContentWrap>
                 <p>{item?.content}</p>
@@ -164,6 +167,17 @@ const ProfileRight = styled.section`
 
 const ImageWrap = styled(SectionDefault)`
     width: 100%;
+    /* margin-bottom: -10px; */
+
+    & img {
+        width: 350px;
+        height: 192px;
+        object-fit: cover;
+    }
+
+    & .slick-dots button::before {
+        transform: translateY(-200%);
+    }
 `;
 
 const ImgContent = styled.img`
@@ -187,7 +201,6 @@ const EtcWrap = styled(SectionDefault)`
     text-align: right;
 
     & > img {
-        position: relative;
         width: 12px;
         margin-right: 5px;
         vertical-align: middle;

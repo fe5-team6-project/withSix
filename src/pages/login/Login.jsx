@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
@@ -27,6 +27,8 @@ export default function Login() {
     const dispatch = useDispatch();
     const modal = useSelector((state) => state?.modal);
     const modalVisible = modal.display.isVisible;
+    const [email, setEmail] = useState(undefined);
+    const [password, setPassword] = useState(undefined);
 
     const setModalContent = (props) => {
         dispatch(
@@ -45,8 +47,6 @@ export default function Login() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const email = document.querySelector('#email').value;
-        const password = document.querySelector('#password').value;
 
         /**
          * 로그인 유효성
@@ -99,6 +99,9 @@ export default function Login() {
                         id="email"
                         type="text"
                         placeholder=" "
+                        onChange={(e) => {
+                            setEmail(e.target.value);
+                        }}
                     />
                     <Label className="font-eng" htmlFor="email">
                         E-mail
@@ -110,6 +113,9 @@ export default function Login() {
                         id="password"
                         type="password"
                         placeholder=" "
+                        onChange={(e) => {
+                            setPassword(e.target.value);
+                        }}
                     />
                     <Label className="font-eng" htmlFor="password">
                         Password

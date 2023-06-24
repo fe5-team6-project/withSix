@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import Common from '../../components/main/Common';
+import Post from '../../components/post/Post';
+import getPost from './getPost';
 import { styled } from 'styled-components';
 import divLine from '../../assets/icons/post/div-line.svg';
-import Post from '../../components/post/Post';
-import { useSelector } from 'react-redux';
-import getPost from './getPost';
+import write from '../../assets/icons/common/icon-write.svg';
+import { useNavigate } from 'react-router-dom';
+import WriteButton from '../../components/writebutton/WriteButton';
 
 export default function Home() {
     const [postList, setPostList] = useState([]);
     const [category, setCategory] = useState('');
     const [pages, setPages] = useState(10);
     const user = useSelector((state) => state.user?.myInfo);
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchData() {
@@ -22,7 +26,7 @@ export default function Home() {
 
     const page = (
         <>
-            <CategoryNav>
+            <CategoryMenu>
                 <CategoryButton
                     onClick={() => {
                         setCategory('');
@@ -46,7 +50,7 @@ export default function Home() {
                 >
                     친구 글
                 </CategoryButton>
-            </CategoryNav>
+            </CategoryMenu>
 
             <ul>
                 {!postList
@@ -68,6 +72,8 @@ export default function Home() {
                           );
                       })}
             </ul>
+
+            <WriteButton url={'../post/upload'} />
         </>
     );
 
@@ -78,7 +84,7 @@ export default function Home() {
     );
 }
 
-const CategoryNav = styled.article`
+const CategoryMenu = styled.article`
     position: sticky;
     top: 0px;
     width: 390px;
