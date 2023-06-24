@@ -24,15 +24,15 @@ const result = {
 };
 
 export const validationLogin = (email, password) => {
-    const lenEmail = email.length;
-    const lenPassword = password.length;
+    const lenEmail = email?.length;
+    const lenPassword = password?.length;
 
-    if (!lenEmail) {
+    if (!lenEmail || !email) {
         result.state = false;
         result.message = FAIL_NULL_EMAIL;
         return result;
     }
-    if (!lenPassword) {
+    if (!lenPassword || !password) {
         result.state = false;
         result.message = FAIL_NULL_PASSWORD;
         return result;
@@ -43,7 +43,7 @@ export const validationLogin = (email, password) => {
 };
 
 export const validationEmail = async (email) => {
-    const length = email.length;
+    const length = email?.length;
 
     if (!length) {
         result.state = false;
@@ -68,7 +68,7 @@ export const validationEmail = async (email) => {
 };
 
 export const validationPassword = (password) => {
-    const length = password.length;
+    const length = password?.length;
     const [minLen, maxLen] = [6, 16];
 
     if (!length) {
@@ -94,7 +94,7 @@ export const validationPassword = (password) => {
 };
 
 export const validationId = async (id) => {
-    const length = id.length;
+    const length = id?.length;
 
     if (!length) {
         result.state = false;
