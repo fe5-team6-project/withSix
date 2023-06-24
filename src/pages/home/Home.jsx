@@ -7,6 +7,7 @@ import { styled } from 'styled-components';
 import divLine from '../../assets/icons/post/div-line.svg';
 import write from '../../assets/icons/common/icon-write.svg';
 import { useNavigate } from 'react-router-dom';
+import WriteButton from '../../components/writebutton/WriteButton';
 
 export default function Home() {
     const [postList, setPostList] = useState([]);
@@ -72,12 +73,7 @@ export default function Home() {
                       })}
             </ul>
 
-            <WriteButton
-                type="button"
-                onClick={() => navigate('../post/upload')}
-            >
-                <img src={write} alt="글쓰기" />
-            </WriteButton>
+            <WriteButton url={'../post/upload'} />
         </>
     );
 
@@ -128,21 +124,4 @@ const MoreButton = styled.button`
     font-size: var(--fsize-m);
     text-align: center;
     cursor: pointer;
-`;
-
-const WriteButton = styled.button`
-    position: fixed;
-    bottom: 70px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    font-size: var(--fsize-s);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    & > img {
-        width: 25px;
-        height: 25px;
-        vertical-align: middle;
-        object-position: 50% 50%;
-    }
 `;
