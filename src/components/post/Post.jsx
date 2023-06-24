@@ -64,7 +64,7 @@ export default function Post(props) {
                         onClick={async (e) => {
                             e.stopPropagation();
                             await setUser();
-                            await navigate(`../profile/${writer?.accountname}`);
+                            navigate(`../profile/${writer?.accountname}`);
                         }}
                         src={validationProfileImage(writer?.image)}
                         onError={(e) => emptyProfileImage(e)}

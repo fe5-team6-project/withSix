@@ -9,8 +9,9 @@ import { useSelector } from 'react-redux';
 export default function UserProfile() {
     const accountname = useParams().id;
     const profile = useSelector((state) => state.user.userInfo);
-    const [isFollow, setIsFollow] = useState(profile.isfollow);
-    const [followCount, setFollowCount] = useState(profile.followingCount);
+    console.log(profile);
+    const [isFollow, setIsFollow] = useState(profile?.isfollow);
+    const [followCount, setFollowCount] = useState(profile?.followerCount);
 
     const page = (
         <LayoutDiv>
