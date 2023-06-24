@@ -28,7 +28,7 @@ export default function Footer() {
                     </li>
 
                     <li>
-                        <Link to={'/together'}>
+                        <Link to={`/together/${user?.accountname}`}>
                             <img src={together} alt="모임 아이콘" />
                             <span>모임</span>
                         </Link>
