@@ -23,8 +23,17 @@ export default function GroupUpload() {
         setTogetherInfo({ ...togetherInfo, itemImage: file });
         setImg(URL.createObjectURL(file));
     }
-    console.log(img)
-    console.log(togetherInfo);
+
+    const saveImg = async (e) => {
+        console.log(img)
+        const formData = new FormData();
+        formData.append('image', togetherInfo.itemImage);
+        const res = await urlApi.post(`/image/uploadfile`, formData);
+        const data = res.data.filename;
+        const imageUrl = "https://api.mandarin.weniv.co.kr/" + data;
+        console.log(imageUrl);
+    }
+    saveImg();
 
 
     const page = (
@@ -36,7 +45,7 @@ export default function GroupUpload() {
                 </GroupHeader>
                 <GroupInputWrapper>
                     <GroupInput id="GroupName" placeholder="모임명" name="itemName" onChange={handleChange}></GroupInput>
-                    <GroupInput id="GroupPrice" placeholder="모임비" name="price" onChange={handleChange}></GroupInput>
+                    <GroupInput type="number" id="GroupPrice" placeholder="모임비" name="price" onChange={handleChange}></GroupInput>
                     {/* <GroupInput id="GroupInfo" placeholder="모임 소개"></GroupInput> */}
                     <GroupInfo id="GroupInfo" placeholder="모임 소개" name="link" onChange={handleChange}></GroupInfo>
                     <GroupInput id="GroupImage" placeholder="모임 이미지" type="file" name="itemImage" accept="image/*" onChange={handleImgChange}></GroupInput>
