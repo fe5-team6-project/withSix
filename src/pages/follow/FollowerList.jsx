@@ -4,6 +4,8 @@ import { styled } from "styled-components";
 import FollowList from '../../components/follow/FollowList';
 import { api } from '../../lib/apis/axiosConfig';
 import { useParams } from 'react-router-dom';
+import EmptyData from '../../components/common/EmptyData';
+
 
 export default function Follower() {
     const [followerList, setFollowerList] = useState([]);
@@ -23,12 +25,18 @@ export default function Follower() {
     const page = (
         <>
             <Main>
-                <FollowWrap>
-                    {followerList.map((item) => (
-                        <FollowList key={item.id} {...item}></FollowList>
-                    ))}
-                </FollowWrap>
-                <MoreButton onClick={() => setPages((pages) => pages + 5)}>더보기</MoreButton>
+                {followerList.length ? (
+                    <>
+                        <FollowWrap>
+                            {followerList.map((item) => (
+                                <FollowList key={item.id} {...item}></FollowList>
+                            ))}
+                        </FollowWrap>
+                        <MoreButton onClick={() => setPages((pages) => pages + 5)}>더보기</MoreButton>
+                    </>
+                ) : (
+                    <EmptyData url={'../together/upload'} />
+                )}
             </Main>
         </>
     )
