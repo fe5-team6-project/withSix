@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Common from '../../components/main/Common';
 import { styled } from 'styled-components';
 import deleteIcon from '../../assets/icons/common/icon-delete.svg';
+import imageIcon from '../../assets/icons/common/icon-image.svg';
 
 export default function PostUpload() {
     const [imageList, setImageList] = useState([]);
@@ -32,21 +33,26 @@ export default function PostUpload() {
     function handlePostUpload(e) {}
 
     const page = (
-        <>
+        <PostUploadWrap>
             <section>
-                <textarea id="content" cols="30" rows="10">
-                    {/** */}
-                </textarea>
+                <h2 className="a11y-hidden">내용 입력</h2>
+                <TextArea
+                    id="content"
+                    cols="30"
+                    rows="10"
+                    onChange={(e) => {
+                        setContent(e.target.value);
+                    }}
+                ></TextArea>
             </section>
 
             <section>
                 <h2 className="a11y-hidden">이미지 업로드</h2>
-                <section></section>
-                <label htmlFor="upload_image">
+                <PreviewImageWrap>
                     <ul>
                         {imageList.map((item, key) => {
                             return (
-                                <PreviewImageWrap key={key}>
+                                <li key={key}>
                                     <PreviewImage src={item} alt="" />
                                     <DeleteButton
                                         type="button"
@@ -57,21 +63,26 @@ export default function PostUpload() {
                                     >
                                         <img src={deleteIcon} alt="delete" />
                                     </DeleteButton>
-                                </PreviewImageWrap>
+                                </li>
                             );
                         })}
                     </ul>
-                </label>
-                <input
-                    id="upload_image"
-                    type="file"
-                    multiple
-                    onChange={(e) => {
-                        handelImageUpload(e);
-                    }}
-                />
+                </PreviewImageWrap>
+                <InputWrap>
+                    <InputLabel htmlFor="upload_image">
+                        <img src={imageIcon} alt="" />
+                    </InputLabel>
+                    <ImageInput
+                        id="upload_image"
+                        type="file"
+                        multiple
+                        onChange={(e) => {
+                            handelImageUpload(e);
+                        }}
+                    />
+                </InputWrap>
             </section>
-        </>
+        </PostUploadWrap>
     );
 
     const pagaTitle = '포스팅';
@@ -79,19 +90,82 @@ export default function PostUpload() {
 
     return <Common page={page} title={pagaTitle} desc={pageDesc} />;
 }
-
-const PreviewImageWrap = styled.li`
+const PostUploadWrap = styled.section`
     position: relative;
-    width: 200px;
-    height: 100px;
+    max-width: 390px;
+    margin: 150px auto 0;
+`;
+
+const TextArea = styled.textarea`
+    width: 100%;
+    height: 200px;
+    border: none;
+    margin-bottom: 10px;
+    resize: none;
+`;
+
+const InputWrap = styled.section`
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin-top: 20px;
+`;
+
+const InputLabel = styled.label`
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+    width: 100%;
+    height: 50px;
+    background-color: var(--color-main);
+    border-radius: var(--radius-m);
+    text-align: center;
+    line-height: 46px;
+    cursor: pointer;
+
+    &:focus,
+    &:hover {
+        outline: 3px solid var(--color-focus);
+    }
+
+    & > img {
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+    }
+`;
+
+const ImageInput = styled.input`
+    display: none;
+`;
+
+const PreviewImageWrap = styled.section`
+    width: 100%;
+    overflow: hidden;
+    overflow-x: auto;
+    & ul {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        width: fit-content;
+        /* padding: 10px 0; */
+    }
+
+    & li {
+        position: relative;
+        width: 200px;
+        height: 100px;
+        margin-bottom: 10px;
+        border-radius: var(--radius-s);
+        overflow: hidden;
+    }
 `;
 
 const PreviewImage = styled.img`
     width: 200px;
     height: 100px;
     object-fit: cover;
-    border: 1px solid #333;
-    border-radius: var(--radius-s);
 `;
 
 const DeleteButton = styled.button`
@@ -101,10 +175,6 @@ const DeleteButton = styled.button`
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    line-height: 20px;
     text-align: center;
-
-    & > img {
-        object-fit: cover;
-    }
+    line-height: 27px;
 `;
