@@ -3,21 +3,28 @@ import Common from '../../components/main/Common';
 import { styled } from 'styled-components';
 import deleteIcon from '../../assets/icons/common/icon-delete.svg';
 import imageIcon from '../../assets/icons/common/icon-image.svg';
+import handleImagePreview from './handleImagePreview';
 
 export default function PostUpload() {
     const [imageList, setImageList] = useState([]);
-    const [imageSrc, setImageSrc] = useState(undefined);
+    const [imagesSrc, setImagesSrc] = useState([]);
     const [content, setContent] = useState(undefined);
 
-    function handelImageUpload(e) {
-        const images = e.target.files;
-        if (!images.length) return;
-        setImageList([...imageList, URL.createObjectURL(images[0])]);
-    }
+    console.log(imageList);
+    console.log(imagesSrc);
 
     function deleteImage(key) {
         setImageList(
             imageList.filter((item, idx) => {
+                if (key === idx) {
+                    return undefined;
+                }
+                return item;
+            })
+        );
+
+        setImagesSrc(
+            imagesSrc.filter((item, idx) => {
                 if (key === idx) {
                     return undefined;
                 }
@@ -30,10 +37,14 @@ export default function PostUpload() {
         console.log(imageList);
     }, [imageList]);
 
-    function handlePostUpload(e) {}
+    async function imageUploader(e) {
+        const formData = new FormData();
+    }
+
+    async function handleSubmit(e) {}
 
     const page = (
-        <PostUploadWrap>
+        <PostUploadWrap onSubmit={() => {}}>
             <section>
                 <h2 className="a11y-hidden">내용 입력</h2>
                 <TextArea
@@ -77,7 +88,9 @@ export default function PostUpload() {
                         type="file"
                         multiple
                         onChange={(e) => {
-                            handelImageUpload(e);
+                            const image = handleImagePreview(e);
+                            setImageList([...imageList, image[0]]);
+                            setImagesSrc([...imagesSrc, image[1]]);
                         }}
                     />
                 </InputWrap>
@@ -90,7 +103,7 @@ export default function PostUpload() {
 
     return <Common page={page} title={pagaTitle} desc={pageDesc} />;
 }
-const PostUploadWrap = styled.section`
+const PostUploadWrap = styled.form`
     position: relative;
     max-width: 390px;
     margin: 150px auto 0;
