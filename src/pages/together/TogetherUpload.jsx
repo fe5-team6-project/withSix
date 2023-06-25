@@ -33,17 +33,16 @@ export default function GroupUpload() {
         try {
             const formData = new FormData();
             formData.append('image', togetherInfo.itemImage);
-            const res1 = await urlApi.post(`/image/uploadfile`, formData);
-            const img = `${BaseURL}/${res1.data.filename}`;
+            const imgRes = await urlApi.post(`/image/uploadfile`, formData);
+            const img = `${BaseURL}/${imgRes.data.filename}`;
             const togetherBody = { product: { ...togetherInfo, itemImage: img } };
-            const res2 = await api.post(`/product`, togetherBody, { timeout: 3000 });
-            console.log(res2);
+            const res = await api.post(`/product`, togetherBody, { timeout: 3000 });
+            console.log(res);
         } catch (error) {
             console.error(error);
         }
     }
     console.log(togetherInfo);
-
 
     const page = (
         <>
@@ -54,7 +53,7 @@ export default function GroupUpload() {
                 </GroupHeader>
                 <GroupInputWrapper>
                     <GroupInput id="GroupName" placeholder="모임명" name="itemName" onChange={handleChange}></GroupInput>
-                    <GroupInput type="number" id="GroupPrice" placeholder="모임비" name="price" onChange={handleChange}></GroupInput>
+                    <GroupInput id="GroupPrice" placeholder="모임비" name="price" onChange={handleChange}></GroupInput>
                     {/* <GroupInput id="GroupInfo" placeholder="모임 소개"></GroupInput> */}
                     <GroupInfo id="GroupInfo" placeholder="모임 소개" name="link" onChange={handleChange}></GroupInfo>
                     <GroupInput id="GroupImage" placeholder="모임 이미지" type="file" name="itemImage" accept="image/*" onChange={handleImgChange}></GroupInput>
