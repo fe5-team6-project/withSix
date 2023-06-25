@@ -4,9 +4,28 @@ import { styled } from 'styled-components';
 import initialImage from '../../assets/images/initialImage.png'
 import { api, urlApi } from '../../lib/apis/axiosConfig';
 
-
-
 export default function GroupUpload() {
+    const [togetherInfo, setTogetherInfo] = useState({
+        "itemName": String,
+        "price": Number,
+        "link": String,
+        "itemImage": '',
+    })
+    const [img, setImg] = useState('');
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setTogetherInfo({ ...togetherInfo, [name]: value })
+    }
+
+    const handleImgChange = (e) => {
+        const file = e.target.files[0];
+        setTogetherInfo({ ...togetherInfo, itemImage: file });
+        setImg(URL.createObjectURL(file));
+    }
+    console.log(img)
+    console.log(togetherInfo);
+
 
     const page = (
         <>
@@ -16,15 +35,15 @@ export default function GroupUpload() {
                     <P>글과 사진을 남기고 공유할 수 있습니다.</P>
                 </GroupHeader>
                 <GroupInputWrapper>
-                    <GroupInput id="GroupName" placeholder="모임명" name="itemName" onChange={() => { }}></GroupInput>
-                    <GroupInput id="GroupPrice" placeholder="모임비" name="price" onChange={() => { }}></GroupInput>
+                    <GroupInput id="GroupName" placeholder="모임명" name="itemName" onChange={handleChange}></GroupInput>
+                    <GroupInput id="GroupPrice" placeholder="모임비" name="price" onChange={handleChange}></GroupInput>
                     {/* <GroupInput id="GroupInfo" placeholder="모임 소개"></GroupInput> */}
-                    <GroupInfo id="GroupInfo" placeholder="모임 소개" name="link" onChange={() => { }}></GroupInfo>
-                    <GroupInput id="GroupImage" placeholder="모임 이미지" type="file" name="itemImage" accept="image/*" onChange={() => { }}></GroupInput>
+                    <GroupInfo id="GroupInfo" placeholder="모임 소개" name="link" onChange={handleChange}></GroupInfo>
+                    <GroupInput id="GroupImage" placeholder="모임 이미지" type="file" name="itemImage" accept="image/*" onChange={handleImgChange}></GroupInput>
                 </GroupInputWrapper>
                 <GroupLabel htmlFor="GroupImage">
                     {/* <GroupImage id="PreImage" src={img || togetherReq.itemImage || initialImage}></GroupImage> */}
-                    <GroupImage id="PreImage" src={initialImage}></GroupImage>
+                    <GroupImage id="PreImage" src={img || initialImage}></GroupImage>
                 </GroupLabel>
                 <RegiButton onClick={() => { }}>등록</RegiButton>
             </Form>
