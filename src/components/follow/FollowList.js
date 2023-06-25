@@ -41,6 +41,8 @@ const FollowItem = styled.li`
     background: #fff;
     display:flex;
     align-items: center;
+    padding:10px;
+    border-radius: 10px;
     & button{
         width:58px;
         height: 28px;
