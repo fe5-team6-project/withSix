@@ -12,7 +12,6 @@ export default function MyProfile() {
     const navigate = useNavigate();
 
     function logoutHandle() {
-        localStorage.clear();
         (function resetUser() {
             dispatch(
                 setMyInfo({
@@ -29,6 +28,7 @@ export default function MyProfile() {
                 })
             );
         })();
+        localStorage.clear();
     }
 
     const page = (
