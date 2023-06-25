@@ -11,6 +11,8 @@ import { handleErrorImg } from '../../lib/utils/validation/image/validationConte
 
 export default function TogetherDetail() {
     const a = useSelector((state) => { return state.together.req });
+    const myAccountname = useSelector((state) => { return state.user.myInfo.accountname });
+    const [userAccountname, setUserAccountname] = useState();
     const dispatch = useDispatch();
 
     const [togetherDetail, setTogetherDetail] = useState('');
@@ -19,12 +21,11 @@ export default function TogetherDetail() {
 
     const togetherDetails = async () => {
         const res = await api.get(`/product/detail/${idd}`);
-
         const detailData = res.data?.product;
         setTogetherDetail(detailData);
-        console.log(togetherDetail);
         const { itemImage, itemName, link, price } = detailData;
         dispatch(inputTogether({ itemImage, itemName, link, price }));
+        setUserAccountname(res.data?.product?.author?.accountname);
     }
 
     useEffect(() => {
@@ -44,8 +45,10 @@ export default function TogetherDetail() {
                     <GroupDetailInfo>{togetherDetail?.link}</GroupDetailInfo>
                 </GroupWrapper>
                 <GroupBtnWrap>
-                    <TogetherEditButton />
-                    <TogetherDelButton />
+                    {myAccountname === userAccountname && <>
+                        <TogetherEditButton />
+                        <TogetherDelButton />
+                    </>}
                 </GroupBtnWrap>
             </Form>
         </>
