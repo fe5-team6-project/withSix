@@ -3,7 +3,7 @@ import Common from '../../components/main/Common';
 import { styled } from 'styled-components';
 import initialImage from '../../assets/images/initialImage.png'
 import { api, urlApi } from '../../lib/apis/axiosConfig';
-import { BaseURL } from '../../lib/apis/constants';
+import { BASE_URL } from '../../lib/apis/constants';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -38,7 +38,7 @@ export default function GroupUpload() {
             const formData = new FormData();
             formData.append('image', togetherInfo.itemImage);
             const imgRes = await urlApi.post(`/image/uploadfile`, formData);
-            const img = `${BaseURL}/${imgRes.data.filename}`;
+            const img = `${BASE_URL}/${imgRes.data.filename}`;
             const togetherBody = { product: { ...togetherInfo, itemImage: img } };
             const res = await api.post(`/product`, togetherBody, { timeout: 3000 });
             console.log(res);
