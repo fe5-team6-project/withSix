@@ -3,6 +3,7 @@ import Common from '../../components/main/Common';
 import { styled } from 'styled-components';
 import initialImage from '../../assets/images/initialImage.png'
 import { api, urlApi } from '../../lib/apis/axiosConfig';
+import { BaseURL } from '../../lib/apis/constants';
 
 export default function GroupUpload() {
     const [togetherInfo, setTogetherInfo] = useState({
@@ -33,7 +34,7 @@ export default function GroupUpload() {
             const formData = new FormData();
             formData.append('image', togetherInfo.itemImage);
             const res1 = await urlApi.post(`/image/uploadfile`, formData);
-            const img = "https://api.mandarin.weniv.co.kr/" + res1.data.filename;
+            const img = `${BaseURL}/${res1.data.filename}`;
             const togetherBody = { product: { ...togetherInfo, itemImage: img } };
             const res2 = await api.post(`/product`, togetherBody, { timeout: 3000 });
             console.log(res2);
