@@ -40,8 +40,7 @@ export default function GroupUpload() {
             const imgRes = await urlApi.post(`/image/uploadfile`, formData);
             const img = `${BASE_URL}/${imgRes.data.filename}`;
             const togetherBody = { product: { ...togetherInfo, itemImage: img } };
-            const res = await api.post(`/product`, togetherBody, { timeout: 3000 });
-            console.log(res);
+            await api.post(`/product`, togetherBody, { timeout: 3000 });
         } catch (error) {
             console.error(error);
         }
@@ -65,7 +64,7 @@ export default function GroupUpload() {
                     {/* <GroupImage id="PreImage" src={img || togetherReq.itemImage || initialImage}></GroupImage> */}
                     <GroupImage id="PreImage" src={img || initialImage}></GroupImage>
                 </GroupLabel>
-                <RegiButton onClick={() => { sendTogether(); navigate(`/together/${accoutname}`); }}>등록</RegiButton>
+                <RegiButton onClick={async () => { await sendTogether(); navigate(`/together/${accoutname}`); }}>등록</RegiButton>
             </Form>
         </>
     );

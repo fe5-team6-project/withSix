@@ -5,10 +5,13 @@ import Common from '../../components/main/Common';
 import TogetherList from '../../components/together/TogetherList';
 import WriteButton from '../../components/writebutton/WriteButton';
 import { useParams } from 'react-router';
+import EmptyPost from '../../components/post/EmptyPost';
+import { useSelector } from 'react-redux';
 
 
 export default function Together() {
     const accountname = useParams().id;
+    const myInfo = useSelector((state) => { return state.user.myInfo.accountname });
     const [pages, setPages] = useState(10);
     const [togetherList, setTogetherList] = useState([]);
 
@@ -22,17 +25,22 @@ export default function Together() {
         axiosTogetherList();
     }, [pages]);
 
+
     const page = (
         <>
-            <TogetherSection>
-                <TogetherWrap>
-                    {!togetherList ? [] : togetherList.map((item) => (
-                        <TogetherList key={item.id} {...item}></TogetherList>
-                    ))}
-                </TogetherWrap>
-                <MoreButton onClick={() => setPages((pagse) => pages + 5)}>더보기</MoreButton>
-                <WriteButton url={`/together/upload`} />
-            </TogetherSection>
+            {togetherList.length ? (
+                <TogetherSection>
+                    <TogetherWrap>
+                        {!togetherList ? [] : togetherList.map((item) => (
+                            <TogetherList key={item.id} {...item}></TogetherList>
+                        ))}
+                    </TogetherWrap>
+                    <MoreButton onClick={() => setPages((pages) => pages + 5)}>더보기</MoreButton>
+                    {accountname === myInfo && <WriteButton url={`/together/upload`} />}
+                </TogetherSection>
+            ) : (
+                <EmptyPost url={'../together/upload'} />
+            )}
         </>
     )
     return (
