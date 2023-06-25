@@ -2,48 +2,82 @@ import { React, useState } from 'react';
 import Common from '../../components/main/Common';
 import { styled } from 'styled-components';
 import initialImage from '../../assets/images/initialImage.png'
+import { useSelector, useDispatch } from 'react-redux';
+import { inputTogether } from '../../store/slices/togetherSlice';
 import { api, urlApi } from '../../lib/apis/axiosConfig';
-import { BaseURL } from '../../lib/apis/constants';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+// import axios from 'axios';
+// import { URL } from '../../lib/apis/constants';
+
 
 export default function GroupUpload() {
-    const navigate = useNavigate();
-    const accoutname = useSelector((state) => { return state.user.myInfo.accountname });
-    const [togetherInfo, setTogetherInfo] = useState({
-        "itemName": String,
-        "price": Number,
-        "link": String,
-        "itemImage": '',
-    })
+    const togetherReq = useSelector((state) => { return state.together.req });
+    console.log(togetherReq);
+    const dispatch = useDispatch();
+    //미리보기 사진 변경
     const [img, setImg] = useState('');
+    //이미지 업로드
+    const handleImgChange = (e) => {
+        const file = e.target.files[0];
+        const imgUrl = URL.createObjectURL(file);
+        setImg(imgUrl);
+        console.log(file);
+        dispatch(inputTogether({ itemImage: file }));
+        console.log(togetherReq);
+    };
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        if (name === "price") {
-            setTogetherInfo({ ...togetherInfo, [name]: parseInt(value) });
-        } else {
-            setTogetherInfo({ ...togetherInfo, [name]: value });
+        if (name === 'itemName' || name === 'price' || name === 'link') {
+            dispatch(inputTogether({ [name]: value }));
+        }
+    };
+
+    const saveImg = async (e) => {
+
+        try {
+            console.log(togetherReq);
+            const imageFile = togetherReq.itemImage;
+            console.log(imageFile);
+            const formData = new FormData();
+            formData.append('image', imageFile);
+            console.log(togetherReq.itemImage);
+
+            const res = await urlApi.post(`/image/uploadfile`, formData);
+            console.log(res);
+            const fileName = res.data.filename;
+            console.log(fileName);
+            const imageUrl = "https://api.mandarin.weniv.co.kr/" + fileName;  // 수정: res.filename 대신 fileName을 사용
+            console.log(imageUrl);
+            dispatch(inputTogether({ itemImage: imageUrl }));
+            console.log(togetherReq);
+        } catch (error) {
+            console.error("saveImg 오류 :", error)
+        }
+    };
+
+
+    const sendTogether = async () => {
+        console.log(togetherReq);
+        try {
+            const togetherBody = {
+                "product": {
+                    ...togetherReq
+                }
+            };
+            const response = await api.post(`/product`, togetherBody);
+            console.log(response);
+        } catch (error) {
+            console.error("sendTogether 오류:", error);
         }
     }
 
-    const handleImgChange = (e) => {
-        const file = e.target.files[0];
-        setTogetherInfo({ ...togetherInfo, itemImage: file });
-        setImg(URL.createObjectURL(file));
-    }
-
-    const sendTogether = async () => {
+    async function handleSave() {
         try {
-            const formData = new FormData();
-            formData.append('image', togetherInfo.itemImage);
-            const imgRes = await urlApi.post(`/image/uploadfile`, formData);
-            const img = `${BaseURL}/${imgRes.data.filename}`;
-            const togetherBody = { product: { ...togetherInfo, itemImage: img } };
-            const res = await api.post(`/product`, togetherBody, { timeout: 3000 });
-            console.log(res);
+            await saveImg();
+            await sendTogether();
         } catch (error) {
-            console.error(error);
+            console.error("handleSave 오류:", error);
         }
     }
 
@@ -56,16 +90,15 @@ export default function GroupUpload() {
                 </GroupHeader>
                 <GroupInputWrapper>
                     <GroupInput id="GroupName" placeholder="모임명" name="itemName" onChange={handleChange}></GroupInput>
-                    <GroupInput type="number" id="GroupPrice" placeholder="모임비" name="price" onChange={handleChange}></GroupInput>
+                    <GroupInput id="GroupPrice" placeholder="모임비" name="price" onChange={handleChange}></GroupInput>
                     {/* <GroupInput id="GroupInfo" placeholder="모임 소개"></GroupInput> */}
                     <GroupInfo id="GroupInfo" placeholder="모임 소개" name="link" onChange={handleChange}></GroupInfo>
                     <GroupInput id="GroupImage" placeholder="모임 이미지" type="file" name="itemImage" accept="image/*" onChange={handleImgChange}></GroupInput>
                 </GroupInputWrapper>
                 <GroupLabel htmlFor="GroupImage">
-                    {/* <GroupImage id="PreImage" src={img || togetherReq.itemImage || initialImage}></GroupImage> */}
-                    <GroupImage id="PreImage" src={img || initialImage}></GroupImage>
+                    <GroupImage id="PreImage" src={img || togetherReq.itemImage || initialImage}></GroupImage>
                 </GroupLabel>
-                <RegiButton onClick={() => { sendTogether(); navigate(`/together/${accoutname}`); }}>등록</RegiButton>
+                <RegiButton onClick={handleSave}>등록</RegiButton>
             </Form>
         </>
     );
