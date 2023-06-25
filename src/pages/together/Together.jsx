@@ -5,7 +5,7 @@ import Common from '../../components/main/Common';
 import TogetherList from '../../components/together/TogetherList';
 import WriteButton from '../../components/writebutton/WriteButton';
 import { useParams } from 'react-router';
-import EmptyPost from '../../components/post/EmptyPost';
+import EmptyData from '../../components/common/EmptyData';
 import { useSelector } from 'react-redux';
 
 
@@ -39,7 +39,7 @@ export default function Together() {
                     {accountname === myInfo && <WriteButton url={`/together/upload`} />}
                 </TogetherSection>
             ) : (
-                <EmptyPost url={'../together/upload'} />
+                <EmptyData url={'../together/upload'} />
             )}
         </>
     )
