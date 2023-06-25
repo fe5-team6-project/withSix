@@ -35,7 +35,7 @@ export default function Together() {
                             <TogetherList key={item.id} {...item}></TogetherList>
                         ))}
                     </TogetherWrap>
-                    <MoreButton onClick={() => setPages((pagse) => pages + 5)}>더보기</MoreButton>
+                    <MoreButton onClick={() => setPages((pages) => pages + 5)}>더보기</MoreButton>
                     {accountname === myInfo && <WriteButton url={`/together/upload`} />}
                 </TogetherSection>
             ) : (
