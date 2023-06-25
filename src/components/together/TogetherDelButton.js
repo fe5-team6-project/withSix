@@ -14,8 +14,8 @@ export default function TogetherDelButton() {
 
     return (
         <>
-            <DeleteButton id="delBtn" onClick={() => {
-                TogetherDeleteButton();
+            <DeleteButton id="delBtn" onClick={async () => {
+                await TogetherDeleteButton();
                 navigate(`/together/${accountname}`);
             }}>삭제</DeleteButton>
         </>
