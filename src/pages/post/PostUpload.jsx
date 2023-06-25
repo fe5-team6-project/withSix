@@ -14,6 +14,17 @@ export default function PostUpload() {
         setImageList([...imageList, URL.createObjectURL(images[0])]);
     }
 
+    function deleteImage(key) {
+        setImageList(
+            imageList.filter((item, idx) => {
+                if (key === idx) {
+                    return undefined;
+                }
+                return item;
+            })
+        );
+    }
+
     useEffect(() => {
         console.log(imageList);
     }, [imageList]);
@@ -41,6 +52,7 @@ export default function PostUpload() {
                                         type="button"
                                         onClick={(e) => {
                                             e.preventDefault();
+                                            deleteImage(key);
                                         }}
                                     >
                                         <img src={deleteIcon} alt="delete" />
