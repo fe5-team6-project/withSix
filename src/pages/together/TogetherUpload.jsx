@@ -28,22 +28,18 @@ export default function GroupUpload() {
         setImg(URL.createObjectURL(file));
     }
 
-    const saveImg = async (e) => {
-        console.log(img)
-        const formData = new FormData();
-        formData.append('image', togetherInfo.itemImage);
-        const res = await urlApi.post(`/image/uploadfile`, formData);
-        const data = res.data.filename;
-        const imageUrl = "https://api.mandarin.weniv.co.kr/" + data;
-        console.log(imageUrl);
-    }
-
     const sendTogether = async () => {
-        saveImg();
-        const togetherBody = { "product": { ...togetherInfo } }
-        console.log(togetherInfo);
-        const res = await api.post(`/product`, togetherBody);
-        console.log(res);
+        try {
+            const formData = new FormData();
+            formData.append('image', togetherInfo.itemImage);
+            const res1 = await urlApi.post(`/image/uploadfile`, formData);
+            const img = "https://api.mandarin.weniv.co.kr/" + res1.data.filename;
+            const togetherBody = { product: { ...togetherInfo, itemImage: img } };
+            const res2 = await api.post(`/product`, togetherBody, { timeout: 3000 });
+            console.log(res2);
+        } catch (error) {
+            console.error(error);
+        }
     }
     console.log(togetherInfo);
 
