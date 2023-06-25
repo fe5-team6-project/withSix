@@ -1,10 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Common from '../../components/main/Common';
 import { styled } from 'styled-components';
 import deleteIcon from '../../assets/icons/common/icon-delete.svg';
 
 export default function PostUpload() {
     const [imageList, setImageList] = useState([]);
+    const [imageSrc, setImageSrc] = useState(undefined);
+    const [content, setContent] = useState(undefined);
+
+    function handelImageUpload(e) {
+        const images = e.target.files;
+        if (!images.length) return;
+        setImageList([...imageList, URL.createObjectURL(images[0])]);
+    }
+
+    useEffect(() => {
+        console.log(imageList);
+    }, [imageList]);
+
+    function handlePostUpload(e) {}
 
     const page = (
         <>
@@ -25,7 +39,9 @@ export default function PostUpload() {
                                     <PreviewImage src={item} alt="" />
                                     <DeleteButton
                                         type="button"
-                                        onClick={(e) => {}}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                        }}
                                     >
                                         <img src={deleteIcon} alt="delete" />
                                     </DeleteButton>
@@ -38,7 +54,9 @@ export default function PostUpload() {
                     id="upload_image"
                     type="file"
                     multiple
-                    onChange={(e) => {}}
+                    onChange={(e) => {
+                        handelImageUpload(e);
+                    }}
                 />
             </section>
         </>
