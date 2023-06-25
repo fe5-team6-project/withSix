@@ -50,6 +50,10 @@ const TogetherImage = styled.img`
 `
 const TogetherName = styled.strong`
     font-size: var(--fsize-m);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width:130px;
 `;
 
 const TogetherPrice = styled.p`
