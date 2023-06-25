@@ -15,7 +15,11 @@ export default function GroupUpload() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setTogetherInfo({ ...togetherInfo, [name]: value })
+        if (name === "price") {
+            setTogetherInfo({ ...togetherInfo, [name]: parseInt(value) });
+        } else {
+            setTogetherInfo({ ...togetherInfo, [name]: value });
+        }
     }
 
     const handleImgChange = (e) => {
@@ -33,7 +37,15 @@ export default function GroupUpload() {
         const imageUrl = "https://api.mandarin.weniv.co.kr/" + data;
         console.log(imageUrl);
     }
-    saveImg();
+
+    const sendTogether = async () => {
+        saveImg();
+        const togetherBody = { "product": { ...togetherInfo } }
+        console.log(togetherInfo);
+        const res = await api.post(`/product`, togetherBody);
+        console.log(res);
+    }
+    console.log(togetherInfo);
 
 
     const page = (
@@ -54,7 +66,7 @@ export default function GroupUpload() {
                     {/* <GroupImage id="PreImage" src={img || togetherReq.itemImage || initialImage}></GroupImage> */}
                     <GroupImage id="PreImage" src={img || initialImage}></GroupImage>
                 </GroupLabel>
-                <RegiButton onClick={() => { }}>등록</RegiButton>
+                <RegiButton onClick={sendTogether}>등록</RegiButton>
             </Form>
         </>
     );
