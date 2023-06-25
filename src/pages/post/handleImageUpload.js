@@ -5,7 +5,7 @@ export async function handleMultiImageUpload(imagesSrc) {
     const uploadPath = `${URL}/image/uploadfiles`;
     const result = [];
 
-    if (!imagesSrc.length) {
+    if (!imagesSrc?.length) {
         return false;
     }
 
@@ -20,5 +20,5 @@ export async function handleMultiImageUpload(imagesSrc) {
         result.push(`${URL}/${json[0].filename}`);
     }
 
-    return result;
+    return result.join(',');
 }
