@@ -4,8 +4,12 @@ import { styled } from 'styled-components';
 import initialImage from '../../assets/images/initialImage.png'
 import { api, urlApi } from '../../lib/apis/axiosConfig';
 import { BaseURL } from '../../lib/apis/constants';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function GroupUpload() {
+    const navigate = useNavigate();
+    const accoutname = useSelector((state) => { return state.user.myInfo.accountname });
     const [togetherInfo, setTogetherInfo] = useState({
         "itemName": String,
         "price": Number,
@@ -42,7 +46,6 @@ export default function GroupUpload() {
             console.error(error);
         }
     }
-    console.log(togetherInfo);
 
     const page = (
         <>
@@ -53,7 +56,7 @@ export default function GroupUpload() {
                 </GroupHeader>
                 <GroupInputWrapper>
                     <GroupInput id="GroupName" placeholder="모임명" name="itemName" onChange={handleChange}></GroupInput>
-                    <GroupInput id="GroupPrice" placeholder="모임비" name="price" onChange={handleChange}></GroupInput>
+                    <GroupInput type="number" id="GroupPrice" placeholder="모임비" name="price" onChange={handleChange}></GroupInput>
                     {/* <GroupInput id="GroupInfo" placeholder="모임 소개"></GroupInput> */}
                     <GroupInfo id="GroupInfo" placeholder="모임 소개" name="link" onChange={handleChange}></GroupInfo>
                     <GroupInput id="GroupImage" placeholder="모임 이미지" type="file" name="itemImage" accept="image/*" onChange={handleImgChange}></GroupInput>
@@ -62,7 +65,7 @@ export default function GroupUpload() {
                     {/* <GroupImage id="PreImage" src={img || togetherReq.itemImage || initialImage}></GroupImage> */}
                     <GroupImage id="PreImage" src={img || initialImage}></GroupImage>
                 </GroupLabel>
-                <RegiButton onClick={sendTogether}>등록</RegiButton>
+                <RegiButton onClick={() => { sendTogether(); navigate(`/together/${accoutname}`); }}>등록</RegiButton>
             </Form>
         </>
     );
