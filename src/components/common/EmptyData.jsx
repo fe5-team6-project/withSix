@@ -17,6 +17,7 @@ const Li = styled.li`
     margin: 50px auto;
     text-align: center;
     font-size: var(--fsize-m);
+    list-style: none;
 
     & > a {
         display: inline-block;
