@@ -4,6 +4,8 @@ import { styled } from 'styled-components';
 import deleteIcon from '../../assets/icons/common/icon-delete.svg';
 import imageIcon from '../../assets/icons/common/icon-image.svg';
 import handleImagePreview from './handleImagePreview';
+import { handleMultiImageUpload } from './handleImageUpload';
+import handlePostUpload from './handlePostUpload';
 
 export default function PostUpload() {
     const [imageList, setImageList] = useState([]);
@@ -31,18 +33,20 @@ export default function PostUpload() {
     }
 
     useEffect(() => {
-        console.log(imageList);
+        console.log(imageList, imagesSrc);
     }, [imageList]);
 
-    async function handleSubmit(imagesSrc) {}
+    async function handleSubmit() {
+        const resImages = await handleMultiImageUpload(imagesSrc);
+        handlePostUpload(content, resImages);
+        console.log(resImages);
+    }
 
     const page = (
         <PostUploadWrap
             onSubmit={async (e) => {
                 e.preventDefault();
-
-                // await handleMultiImageUpload(imagesSrc);
-                // await handleSubmit(imagesSrc);
+                await handleSubmit();
             }}
         >
             <section>
