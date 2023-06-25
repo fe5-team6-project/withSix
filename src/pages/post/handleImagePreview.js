@@ -1,11 +1,11 @@
-import { BASE_URL } from '../../lib/apis/constants';
-
 export default function handleImagePreview(e) {
-    const images = e.target.files;
-    const imageUrl = `${BASE_URL}/${images[0].lastModified}`;
-    console.log(images);
+    const image = e.target.files[0];
+    console.log(image);
 
-    if (!images.length) return;
+    if (!image) return;
 
-    return [URL.createObjectURL(images[0]), imageUrl];
+    const preview = URL.createObjectURL(image);
+    const result = [preview, image];
+
+    return result;
 }

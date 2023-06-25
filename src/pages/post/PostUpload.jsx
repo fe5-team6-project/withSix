@@ -10,9 +10,6 @@ export default function PostUpload() {
     const [imagesSrc, setImagesSrc] = useState([]);
     const [content, setContent] = useState(undefined);
 
-    console.log(imageList);
-    console.log(imagesSrc);
-
     function deleteImage(key) {
         setImageList(
             imageList.filter((item, idx) => {
@@ -37,14 +34,17 @@ export default function PostUpload() {
         console.log(imageList);
     }, [imageList]);
 
-    async function imageUploader(e) {
-        const formData = new FormData();
-    }
-
-    async function handleSubmit(e) {}
+    async function handleSubmit(imagesSrc) {}
 
     const page = (
-        <PostUploadWrap onSubmit={() => {}}>
+        <PostUploadWrap
+            onSubmit={async (e) => {
+                e.preventDefault();
+
+                // await handleMultiImageUpload(imagesSrc);
+                // await handleSubmit(imagesSrc);
+            }}
+        >
             <section>
                 <h2 className="a11y-hidden">내용 입력</h2>
                 <TextArea
@@ -64,7 +64,11 @@ export default function PostUpload() {
                         {imageList.map((item, key) => {
                             return (
                                 <li key={key}>
-                                    <PreviewImage src={item} alt="" />
+                                    <PreviewImage
+                                        className="upload_images"
+                                        src={item}
+                                        alt=""
+                                    />
                                     <DeleteButton
                                         type="button"
                                         onClick={(e) => {
@@ -80,6 +84,7 @@ export default function PostUpload() {
                     </ul>
                 </PreviewImageWrap>
                 <InputWrap>
+                    <Button>전송</Button>
                     <InputLabel htmlFor="upload_image">
                         <img src={imageIcon} alt="" />
                     </InputLabel>
@@ -88,9 +93,12 @@ export default function PostUpload() {
                         type="file"
                         multiple
                         onChange={(e) => {
-                            const image = handleImagePreview(e);
-                            setImageList([...imageList, image[0]]);
-                            setImagesSrc([...imagesSrc, image[1]]);
+                            const url = handleImagePreview(e);
+
+                            if (!url) return;
+
+                            setImageList([...imageList, url[0]]);
+                            setImagesSrc([...imagesSrc, url[1]]);
                         }}
                     />
                 </InputWrap>
@@ -121,14 +129,14 @@ const InputWrap = styled.section`
     position: relative;
     width: 100%;
     height: 50px;
-    margin-top: 20px;
+    margin-top: 10px;
 `;
 
 const InputLabel = styled.label`
     position: absolute;
     right: 0;
-    bottom: 10px;
-    width: 100%;
+    bottom: 0;
+    width: 50px;
     height: 50px;
     background-color: var(--color-main);
     border-radius: var(--radius-m);
@@ -150,6 +158,10 @@ const InputLabel = styled.label`
 
 const ImageInput = styled.input`
     display: none;
+`;
+
+const Button = styled.button`
+    width: calc(100% - 60px);
 `;
 
 const PreviewImageWrap = styled.section`
