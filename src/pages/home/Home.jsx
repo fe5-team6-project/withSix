@@ -6,7 +6,7 @@ import getPost from './getPost';
 import { styled } from 'styled-components';
 import divLine from '../../assets/icons/post/div-line.svg';
 import WriteButton from '../../components/writebutton/WriteButton';
-import EmptyPost from '../../components/post/EmptyPost';
+import EmptyData from '../../components/common/EmptyData';
 
 export default function Home() {
     const [postList, setPostList] = useState([]);
@@ -78,7 +78,7 @@ export default function Home() {
                         );
                     })
                 ) : (
-                    <EmptyPost url={'../post/upload'} />
+                    <EmptyData url={'../post/upload'} />
                 )}
             </ul>
 

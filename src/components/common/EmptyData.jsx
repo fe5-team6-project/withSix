@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-export default function EmptyPost({ url }) {
+export default function EmptyData({ url }) {
     return (
         <Li>
             등록된 글이 없습니다. <br />
@@ -17,6 +17,7 @@ const Li = styled.li`
     margin: 50px auto;
     text-align: center;
     font-size: var(--fsize-m);
+    list-style: none;
 
     & > a {
         display: inline-block;
