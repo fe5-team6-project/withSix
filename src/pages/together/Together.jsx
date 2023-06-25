@@ -5,6 +5,7 @@ import Common from '../../components/main/Common';
 import TogetherList from '../../components/together/TogetherList';
 import WriteButton from '../../components/writebutton/WriteButton';
 import { useParams } from 'react-router';
+import EmptyPost from '../../components/post/EmptyPost';
 
 
 export default function Together() {
@@ -24,15 +25,19 @@ export default function Together() {
 
     const page = (
         <>
-            <TogetherSection>
-                <TogetherWrap>
-                    {!togetherList ? [] : togetherList.map((item) => (
-                        <TogetherList key={item.id} {...item}></TogetherList>
-                    ))}
-                </TogetherWrap>
-                <MoreButton onClick={() => setPages((pagse) => pages + 5)}>더보기</MoreButton>
-                <WriteButton url={`/together/upload`} />
-            </TogetherSection>
+            {togetherList.length ? (
+                <TogetherSection>
+                    <TogetherWrap>
+                        {!togetherList ? [] : togetherList.map((item) => (
+                            <TogetherList key={item.id} {...item}></TogetherList>
+                        ))}
+                    </TogetherWrap>
+                    <MoreButton onClick={() => setPages((pagse) => pages + 5)}>더보기</MoreButton>
+                    <WriteButton url={`/together/upload`} />
+                </TogetherSection>
+            ) : (
+                <EmptyPost url={'../together/upload'} />
+            )}
         </>
     )
     return (
