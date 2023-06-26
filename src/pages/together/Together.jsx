@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux';
 export default function Together() {
     const accountname = useParams().id;
     const myInfo = useSelector((state) => { return state.user.myInfo.accountname });
-    const [pages, setPages] = useState(10);
+    const [pages, setPages] = useState(9);
     const [togetherList, setTogetherList] = useState([]);
 
     useEffect(() => {
@@ -35,7 +35,7 @@ export default function Together() {
                             <TogetherList key={item.id} {...item}></TogetherList>
                         ))}
                     </TogetherWrap>
-                    <MoreButton onClick={() => setPages((pages) => pages + 5)}>더보기</MoreButton>
+                    <MoreButton onClick={() => setPages((pages) => pages + 6)}>더보기</MoreButton>
                     {accountname === myInfo && <WriteButton url={`/together/upload`} />}
                 </TogetherSection>
             ) : (
@@ -58,8 +58,10 @@ const TogetherWrap = styled.ul`
     display:flex;
     flex-wrap: wrap;
     gap:10px;
-    width:390px;
     margin:auto;
+    width:390px;
+    padding:10px;
+    box-sizing: border-box;
 `
 
 const MoreButton = styled.button`

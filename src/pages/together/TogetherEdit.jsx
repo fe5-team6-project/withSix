@@ -67,6 +67,7 @@ const Form = styled.section`
     margin:auto;
     min-width:280px;
     max-width:390px;
+    box-sizing: border-box;
 `;
 
 const GroupHeader = styled.header`

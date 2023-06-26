@@ -13,7 +13,7 @@ export default function TogetherList({ id, itemName, price, link, itemImage }) {
             }}>
                 <TogetherImage src={itemImage} onError={handleErrorImg} />
                 <TogetherName>{itemName}</TogetherName>
-                <TogetherPrice><span>{price}</span>원</TogetherPrice>
+                <TogetherPrice><span>{price.toLocaleString('ko-KR')}</span>원</TogetherPrice>
             </TogetherItem>
         </>
     );
@@ -24,7 +24,7 @@ const TogetherItem = styled.li`
     justify-content: space-between;
     flex-wrap:wrap;
     flex:1;
-    min-width:170px;
+    min-width:160px;
     height:130px;
     background: #fff;
     align-items: center;
@@ -44,14 +44,14 @@ const TogetherItem = styled.li`
             & > span {
                 overflow: hidden;
                 text-overflow: ellipsis;
-                max-width:100px;
+                max-width:90px;
                 display:inline-block;
             }
         }
         & strong {
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width:230px;
+            max-width:210px;
         }
     }
 `
@@ -68,20 +68,24 @@ const TogetherName = styled.strong`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width:100px;
+    max-width:90px;
 `;
 
 const TogetherPrice = styled.p`
     font-size: var(--fsize-s);
     color: var(--color-gray);
     display:inline-block;
-    line-height:10px;
+    line-height:13px;
+
     & > span {
+        display:inline-block;
         color: var(--color-main);
         overflow: hidden;
         text-overflow: ellipsis;
-        max-width:40px;
+        max-width:45px;
         white-space: nowrap;
-        display:inline-block;
+        line-height: 13px;
+        vertical-align: bottom;
+        margin-right:2px;
     }
 `;
