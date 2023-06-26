@@ -39,6 +39,26 @@ export default function PostUpdate() {
         dispatch(setIsVisible({ isVisible: isVisible }));
     };
 
+    function deleteImage(key) {
+        setImageList(
+            imageList.filter((item, idx) => {
+                if (key === idx) {
+                    return undefined;
+                }
+                return item;
+            })
+        );
+
+        setImagesSrc(
+            imagesSrc.filter((item, idx) => {
+                if (key === idx) {
+                    return undefined;
+                }
+                return item;
+            })
+        );
+    }
+
     useEffect(() => {
         // console.log(imageList, imagesSrc);
     }, [imageList]);
@@ -69,6 +89,31 @@ export default function PostUpdate() {
         }
         setPostInit();
     }, []);
+
+    useEffect(() => {
+        setContents(post?.content);
+        setImagesSrc([post?.image]);
+        setImageList([post?.image]);
+    }, [post]);
+
+    async function handleSubmit() {
+        const validContent = validPostContent(contents);
+        if (!validContent.state) {
+            console.log(validContent);
+            setModalContent(validContent);
+            setModalVisible(true);
+            return false;
+        }
+
+        const resImages = await handleMultiImageUpload(imagesSrc);
+        const [status, postId] = await handlePostUpdate(contents, resImages);
+        console.log(status, postId);
+
+        setModalContent(status);
+        setModalVisible(true);
+        setModalUrl(`/post/detail/${postId}`);
+        return status.state;
+    }
 
     const page = (
         <PostUploadWrap
