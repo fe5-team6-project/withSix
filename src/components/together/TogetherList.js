@@ -13,7 +13,7 @@ export default function TogetherList({ id, itemName, price, link, itemImage }) {
             }}>
                 <TogetherImage src={itemImage} onError={handleErrorImg} />
                 <TogetherName>{itemName}</TogetherName>
-                <TogetherPrice><span>{price}</span>원</TogetherPrice>
+                <TogetherPrice><span>{price.toLocaleString('ko-KR')}</span>원</TogetherPrice>
             </TogetherItem>
         </>
     );
@@ -75,13 +75,17 @@ const TogetherPrice = styled.p`
     font-size: var(--fsize-s);
     color: var(--color-gray);
     display:inline-block;
-    line-height:10px;
+    line-height:13px;
+
     & > span {
+        display:inline-block;
         color: var(--color-main);
         overflow: hidden;
         text-overflow: ellipsis;
         max-width:40px;
         white-space: nowrap;
-        display:inline-block;
+        line-height: 13px;
+        vertical-align: bottom;
+        margin-right:2px;
     }
 `;
