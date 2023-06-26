@@ -56,6 +56,9 @@ const FollowWrap = styled.ul`
     display:flex;
     flex-direction: column;
     gap:20px;
+    margin:auto;
+    min-width:300px;
+    max-width:390px;
 `
 
 const MoreButton = styled.button`
