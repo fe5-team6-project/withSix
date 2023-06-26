@@ -34,14 +34,13 @@ export default function TogetherDetail() {
 
     const page = (
         <>
-            <Form>
+            {togetherDetail && <Form>
                 <GroupHeader>
                     <H1>{togetherDetail?.itemName}</H1>
                 </GroupHeader>
                 <GroupWrapper>
                     <GroupImg src={togetherDetail?.itemImage} onError={handleErrorImg}></GroupImg>
-                    <GroupText>{togetherDetail?.itemName}</GroupText>
-                    <GroupText>{togetherDetail?.price}</GroupText>
+                    <GroupText id="togetherPrice"><span>{togetherDetail?.price.toLocaleString('ko-KR')}</span>원</GroupText>
                     <GroupDetailInfo>{togetherDetail?.link}</GroupDetailInfo>
                 </GroupWrapper>
                 <GroupBtnWrap>
@@ -50,7 +49,7 @@ export default function TogetherDetail() {
                         <TogetherDelButton />
                     </>}
                 </GroupBtnWrap>
-            </Form>
+            </Form>}
         </>
     );
 
@@ -67,6 +66,7 @@ const Form = styled.section`
     margin:auto;
     min-width:280px;
     max-width:390px;
+    box-sizing: border-box;
 `;
 
 const GroupHeader = styled.header`
@@ -85,11 +85,15 @@ const GroupText = styled.p`
     text-align: left;
     margin-top:34px;
     text-indent: 10px;
-    &:after{
-        content: '';
-        display:block;
-        border-bottom:1px solid var(--color-main);
-        margin-top:8px;
+    &#togetherPrice{
+        text-align:right;
+        & span {
+            margin-right:3px;
+            font-size:var(--fsize-l);
+            color: var(--color-main);
+            font-family: var(--font-eng);
+            font-weight: 500;
+        }
     }
 `;
 

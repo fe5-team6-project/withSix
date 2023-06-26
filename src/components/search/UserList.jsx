@@ -1,9 +1,18 @@
 import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
+import getUserProfile from '../../pages/userprofile/getUserProfile';
+import { setUserInfo } from '../../store/slices/userSlice';
 
 export default function UserLIst({ showUser, searchQuery }) {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    async function setUser(accountname) {
+        const user = await getUserProfile(accountname);
+        dispatch(setUserInfo(user));
+    }
 
     const handleRouting = useCallback((item) => {
         // console.log(item);
@@ -20,7 +29,13 @@ export default function UserLIst({ showUser, searchQuery }) {
             imgSrc = 'http://146.56.183.55:5050/Ellipse.png';
         }
         return (
-            <UserWrapper key={item._id} onClick={() => handleRouting(item)}>
+            <UserWrapper
+                key={item._id}
+                onClick={async () => {
+                    await setUser(item?.accountname);
+                    navigate(`../profile/${item?.accountname}`);
+                }}
+            >
                 <Img src={imgSrc}></Img>
                 <Right>
                     {/* <UserName>{item.username}</UserName> */}

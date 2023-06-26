@@ -1,17 +1,24 @@
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import Common from '../../components/main/Common';
 import { styled } from 'styled-components';
 import initialImage from '../../assets/images/initialImage.png'
 import { api, urlApi } from '../../lib/apis/axiosConfig';
 import { BASE_URL } from '../../lib/apis/constants';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { validationTogether } from '../../lib/utils/validation/validation';
+import {
+    setContent,
+    setIsVisible,
+    setUrl,
+} from '../../store/slices/modalSlice';
+import Modal from '../../components/modal/Modal';
 
 export default function GroupUpload() {
     const navigate = useNavigate();
     const accoutname = useSelector((state) => { return state.user.myInfo.accountname });
     const [togetherInfo, setTogetherInfo] = useState({
-        "itemName": String,
+        "itemName": '',
         "price": Number,
         "link": String,
         "itemImage": '',
@@ -21,7 +28,7 @@ export default function GroupUpload() {
     const handleChange = (e) => {
         const { name, value } = e.target;
         if (name === "price") {
-            setTogetherInfo({ ...togetherInfo, [name]: parseInt(value) });
+            setTogetherInfo({ ...togetherInfo, [name]: !value ? 0 : parseInt(value) });
         } else {
             setTogetherInfo({ ...togetherInfo, [name]: value });
         }
@@ -33,8 +40,38 @@ export default function GroupUpload() {
         setImg(URL.createObjectURL(file));
     }
 
+    const { itemName, price, link } = togetherInfo;
+    const dispatch = useDispatch();
+    const modal = useSelector((state) => state?.modal);
+    const modalVisible = modal.display.isVisible;
+
+    const setModalContent = (props) => {
+        dispatch(
+            setContent({
+                state: props.state,
+                message: props.message,
+            })
+        );
+    };
+    // const setModalUrl = (url) => {
+    //     dispatch(setUrl({ url: url }));
+    // };
+    const setModalVisible = (isVisible) => {
+        dispatch(setIsVisible({ isVisible: isVisible }));
+    };
+
     const sendTogether = async () => {
         try {
+            // e.preventDefault();
+            console.log(itemName);
+            const validTogether = validationTogether(itemName, price, link);
+            console.log(validTogether);
+            if (!validTogether.state) {
+                setModalContent(validTogether);
+                setModalVisible(true);
+                return false;
+            }
+
             const formData = new FormData();
             formData.append('image', togetherInfo.itemImage);
             const imgRes = await urlApi.post(`/image/uploadfile`, formData);
@@ -45,6 +82,15 @@ export default function GroupUpload() {
             console.error(error);
         }
     }
+
+    // const [saveBtnActive, setSaveBtnActive] = useState(true);
+    // useEffect(() => {
+    //     console.log(togetherInfo)
+    //     if (togetherInfo.price !== 0 && !!togetherInfo.itemName.length !== 0) {
+    //         setSaveBtnActive(false);
+    //     }
+    // }, [togetherInfo])
+    // console.log(saveBtnActive);
 
     const page = (
         <>
@@ -64,8 +110,11 @@ export default function GroupUpload() {
                     {/* <GroupImage id="PreImage" src={img || togetherReq.itemImage || initialImage}></GroupImage> */}
                     <GroupImage id="PreImage" src={img || initialImage}></GroupImage>
                 </GroupLabel>
-                <RegiButton onClick={async () => { await sendTogether(); navigate(`/together/${accoutname}`); }}>등록</RegiButton>
+                {/* <RegiButton disabled={saveBtnActive} onClick={async () => { await sendTogether(); navigate(`/together/${accoutname}`); }}>등록</RegiButton> */}
+                {/* <RegiButton onClick={async () => { await sendTogether(); navigate(`/together/${accoutname}`); }}>등록</RegiButton> */}
+                <RegiButton onClick={async () => { await sendTogether(); }}>등록</RegiButton>
             </Form>
+            {modalVisible && <Modal />}
         </>
     );
 
@@ -80,7 +129,9 @@ const Form = styled.section`
     padding: 20px;
     text-align: center;
     margin:auto;
-    width:390px;
+    min-width:280px;
+    max-width:390px;
+    box-sizing: border-box;
 `;
 
 const GroupHeader = styled.header`
