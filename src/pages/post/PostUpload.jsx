@@ -7,13 +7,18 @@ import handleImagePreview from './handleImagePreview';
 import { handleMultiImageUpload } from './handleImageUpload';
 import handlePostUpload from './handlePostUpload';
 import { useDispatch } from 'react-redux';
-import { setIsVisible, setUrl } from '../../store/slices/modalSlice';
+import {
+    setContent,
+    setIsVisible,
+    setUrl,
+} from '../../store/slices/modalSlice';
+import { validPostContent } from './validPost';
 
 export default function PostUpload() {
     const dispatch = useDispatch();
     const [imageList, setImageList] = useState([]);
     const [imagesSrc, setImagesSrc] = useState([]);
-    const [content, setContent] = useState(undefined);
+    const [contents, setContents] = useState(undefined);
 
     const setModalContent = (props) => {
         dispatch(
@@ -51,17 +56,21 @@ export default function PostUpload() {
     }
 
     useEffect(() => {
-        console.log(imageList, imagesSrc);
+        // console.log(imageList, imagesSrc);
     }, [imageList]);
 
     async function handleSubmit() {
-        const resImages = await handleMultiImageUpload(imagesSrc);
-        const [status, postId] = await handlePostUpload(content, resImages);
-        console.log(status, postId);
-
-        if (!status.state) {
-            setModalContent();
+        const validContent = validPostContent(contents);
+        if (!validContent.state) {
+            console.log(validContent);
+            setModalContent(validContent);
+            setModalVisible(true);
+            return false;
         }
+
+        const resImages = await handleMultiImageUpload(imagesSrc);
+        const [status, postId] = await handlePostUpload(contents, resImages);
+        console.log(status, postId);
 
         setModalContent(status);
         setModalVisible(true);
@@ -73,7 +82,7 @@ export default function PostUpload() {
         <PostUploadWrap
             onSubmit={async (e) => {
                 e.preventDefault();
-                await handleSubmit();
+                console.log(await handleSubmit());
             }}
         >
             <section>
@@ -83,7 +92,7 @@ export default function PostUpload() {
                     cols="30"
                     rows="10"
                     onChange={(e) => {
-                        setContent(e.target.value);
+                        setContents(e.target.value);
                     }}
                 ></TextArea>
             </section>
