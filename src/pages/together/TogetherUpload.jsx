@@ -5,14 +5,21 @@ import initialImage from '../../assets/images/initialImage.png'
 import { api, urlApi } from '../../lib/apis/axiosConfig';
 import { BASE_URL } from '../../lib/apis/constants';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { validationTogether } from '../../lib/utils/validation/validation';
+import {
+    setContent,
+    setIsVisible,
+    setUrl,
+} from '../../store/slices/modalSlice';
+import Modal from '../../components/modal/Modal';
 
 export default function GroupUpload() {
     const navigate = useNavigate();
     const accoutname = useSelector((state) => { return state.user.myInfo.accountname });
     const [togetherInfo, setTogetherInfo] = useState({
         "itemName": '',
-        "price": 0,
+        "price": Number,
         "link": String,
         "itemImage": '',
     })
@@ -33,8 +40,38 @@ export default function GroupUpload() {
         setImg(URL.createObjectURL(file));
     }
 
+    const { itemName, price, link } = togetherInfo;
+    const dispatch = useDispatch();
+    const modal = useSelector((state) => state?.modal);
+    const modalVisible = modal.display.isVisible;
+
+    const setModalContent = (props) => {
+        dispatch(
+            setContent({
+                state: props.state,
+                message: props.message,
+            })
+        );
+    };
+    // const setModalUrl = (url) => {
+    //     dispatch(setUrl({ url: url }));
+    // };
+    const setModalVisible = (isVisible) => {
+        dispatch(setIsVisible({ isVisible: isVisible }));
+    };
+
     const sendTogether = async () => {
         try {
+            // e.preventDefault();
+            console.log(itemName);
+            const validTogether = validationTogether(itemName, price, link);
+            console.log(validTogether);
+            if (!validTogether.state) {
+                setModalContent(validTogether);
+                setModalVisible(true);
+                return false;
+            }
+
             const formData = new FormData();
             formData.append('image', togetherInfo.itemImage);
             const imgRes = await urlApi.post(`/image/uploadfile`, formData);
@@ -46,14 +83,14 @@ export default function GroupUpload() {
         }
     }
 
-    const [saveBtnActive, setSaveBtnActive] = useState(true);
-    useEffect(() => {
-        console.log(togetherInfo)
-        if (togetherInfo.price !== 0 && !!togetherInfo.itemName.length !== 0) {
-            setSaveBtnActive(false);
-        }
-    }, [togetherInfo])
-    console.log(saveBtnActive);
+    // const [saveBtnActive, setSaveBtnActive] = useState(true);
+    // useEffect(() => {
+    //     console.log(togetherInfo)
+    //     if (togetherInfo.price !== 0 && !!togetherInfo.itemName.length !== 0) {
+    //         setSaveBtnActive(false);
+    //     }
+    // }, [togetherInfo])
+    // console.log(saveBtnActive);
 
     const page = (
         <>
@@ -73,8 +110,11 @@ export default function GroupUpload() {
                     {/* <GroupImage id="PreImage" src={img || togetherReq.itemImage || initialImage}></GroupImage> */}
                     <GroupImage id="PreImage" src={img || initialImage}></GroupImage>
                 </GroupLabel>
-                <RegiButton disabled={saveBtnActive} onClick={async () => { await sendTogether(); navigate(`/together/${accoutname}`); }}>등록</RegiButton>
+                {/* <RegiButton disabled={saveBtnActive} onClick={async () => { await sendTogether(); navigate(`/together/${accoutname}`); }}>등록</RegiButton> */}
+                {/* <RegiButton onClick={async () => { await sendTogether(); navigate(`/together/${accoutname}`); }}>등록</RegiButton> */}
+                <RegiButton onClick={async () => { await sendTogether(); }}>등록</RegiButton>
             </Form>
+            {modalVisible && <Modal />}
         </>
     );
 
