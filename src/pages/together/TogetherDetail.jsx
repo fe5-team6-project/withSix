@@ -40,8 +40,7 @@ export default function TogetherDetail() {
                 </GroupHeader>
                 <GroupWrapper>
                     <GroupImg src={togetherDetail?.itemImage} onError={handleErrorImg}></GroupImg>
-                    <GroupText>{togetherDetail?.itemName}</GroupText>
-                    <GroupText id="togetherPrice">{togetherDetail?.price.toLocaleString('ko-KR')}<span>원</span></GroupText>
+                    <GroupText id="togetherPrice"><span>{togetherDetail?.price.toLocaleString('ko-KR')}</span>원</GroupText>
                     <GroupDetailInfo>{togetherDetail?.link}</GroupDetailInfo>
                 </GroupWrapper>
                 <GroupBtnWrap>
@@ -67,6 +66,7 @@ const Form = styled.section`
     margin:auto;
     min-width:280px;
     max-width:390px;
+    box-sizing: border-box;
 `;
 
 const GroupHeader = styled.header`
@@ -85,16 +85,14 @@ const GroupText = styled.p`
     text-align: left;
     margin-top:34px;
     text-indent: 10px;
-    &:after{
-        content: '';
-        display:block;
-        border-bottom:1px solid var(--color-main);
-        margin-top:8px;
-    }
     &#togetherPrice{
         text-align:right;
         & span {
-            margin-left:2px;
+            margin-right:3px;
+            font-size:var(--fsize-l);
+            color: var(--color-main);
+            font-family: var(--font-eng);
+            font-weight: 500;
         }
     }
 `;

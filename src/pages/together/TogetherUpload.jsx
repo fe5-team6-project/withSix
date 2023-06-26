@@ -80,7 +80,9 @@ const Form = styled.section`
     padding: 20px;
     text-align: center;
     margin:auto;
-    width:390px;
+    min-width:280px;
+    max-width:390px;
+    box-sizing: border-box;
 `;
 
 const GroupHeader = styled.header`

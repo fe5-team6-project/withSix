@@ -24,7 +24,7 @@ const TogetherItem = styled.li`
     justify-content: space-between;
     flex-wrap:wrap;
     flex:1;
-    min-width:170px;
+    min-width:160px;
     height:130px;
     background: #fff;
     align-items: center;
@@ -44,14 +44,14 @@ const TogetherItem = styled.li`
             & > span {
                 overflow: hidden;
                 text-overflow: ellipsis;
-                max-width:100px;
+                max-width:90px;
                 display:inline-block;
             }
         }
         & strong {
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width:230px;
+            max-width:210px;
         }
     }
 `
@@ -68,7 +68,7 @@ const TogetherName = styled.strong`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width:100px;
+    max-width:90px;
 `;
 
 const TogetherPrice = styled.p`
@@ -82,7 +82,7 @@ const TogetherPrice = styled.p`
         color: var(--color-main);
         overflow: hidden;
         text-overflow: ellipsis;
-        max-width:40px;
+        max-width:45px;
         white-space: nowrap;
         line-height: 13px;
         vertical-align: bottom;
