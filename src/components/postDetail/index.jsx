@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { api } from '../../lib/apis/axiosConfig';
 import { returnErrorMessage } from './utils/errorMessage';
 import { URL } from '../../lib/apis/constants';
@@ -17,12 +17,14 @@ export default function PostDetail() {
     const { id } = useParams();
     const [data, setData] = useState('');
     const [commentCount, setCommentCount] = useState('');
+    const navigate = useNavigate();
 
     const fetchData = async () => {
         try {
             const {
                 data: { post },
             } = await api.get(`/post/${id}`);
+            console.log(post);
             setData(post);
             setCommentCount(post.commentCount);
         } catch (error) {
@@ -41,10 +43,18 @@ export default function PostDetail() {
             page={
                 <Div>
                     <ProfileWrap>
-                        <ProfileLeft>
+                        <ProfileLeft
+                            onClick={() =>
+                                navigate(`/profile/${data.author.accountname}`)
+                            }
+                        >
                             <ImgProfile src={data.author.image} />
                         </ProfileLeft>
-                        <ProfileRight>
+                        <ProfileRight
+                            onClick={() =>
+                                navigate(`/profile/${data.author.accountname}`)
+                            }
+                        >
                             <UserName>{data.author.username}</UserName>
                             <UserId>@{data.author.accountname}</UserId>
                         </ProfileRight>
@@ -79,6 +89,7 @@ export default function PostDetail() {
                     <Comments
                         setCommentCount={setCommentCount}
                         commentCount={commentCount}
+                        accountname={data.author.accountname}
                     />
                 </Div>
             }
@@ -110,6 +121,7 @@ const ProfileLeft = styled.section`
     margin-right: 5px;
     border-radius: 50%;
     overflow: hidden;
+    cursor: pointer;
 `;
 
 const ImgProfile = styled.img`
@@ -119,6 +131,7 @@ const ImgProfile = styled.img`
 
 const ProfileRight = styled.section`
     line-height: 12px;
+    cursor: pointer;
 `;
 
 const UserName = styled.strong`
