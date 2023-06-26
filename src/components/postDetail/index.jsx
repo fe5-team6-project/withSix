@@ -67,19 +67,12 @@ export default function PostDetail() {
                             alt="이미지" */}
 
                     {/* 사용자가 등록한 게시글 이미지 표시 */}
-                    <ImageWrap>
-                        {/* {data.image.split(',').map((img) => (
-                            <ImgContent
-                                key={img}
-                                src={img}
-                                width={100}
-                                height={100}
-                                alt="이미지"
-                            />
-                        ))} */}
+                    {/* <ImageWrap>
                         <Slick images={data.image} />
+                    </ImageWrap> */}
+                    <ImageWrap>
+                        {data?.image ? <Slick images={data?.image} /> : null}
                     </ImageWrap>
-
                     <Content>{data.content}</Content>
                     <EtcWrap>
                         <LikeBtn data={data} />
@@ -145,10 +138,19 @@ const UserId = styled.span`
     font-style: italic;
     color: var(--color-gray);
 `;
-
 const ImageWrap = styled(SectionDefault)`
     width: 100%;
-    margin-bottom: 30px;
+    /* margin-bottom: -10px; */
+
+    & img {
+        width: 350px;
+        height: 192px;
+        object-fit: cover;
+    }
+
+    & .slick-dots button::before {
+        transform: translateY(-200%);
+    }
 `;
 
 const ImgContent = styled.img`

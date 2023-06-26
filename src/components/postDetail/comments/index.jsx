@@ -23,8 +23,9 @@ export default function Comments({
             // console.log(page);
             const {
                 data: { comments },
-                // https://api.mandarin.weniv.co.kr/post/648fa8f9b2cb2056633a809c/comments?limit=3&skip=9
-            } = await api.get(`/post/${id}/comments/?limit=5&skip=${page * 5}`);
+            } = await api.get(
+                `/post/${id}/comments/?limit=10&skip=${page * 10}`
+            );
             // console.log(comments);
             setComment([...comment, ...comments]);
             // 요청 성공 시에 페이지에 1 카운트 해주기
@@ -47,7 +48,6 @@ export default function Comments({
     return (
         <>
             <CommentWrapper>
-                {/* {console.log(comment)} */}
                 {comment.map((item, idx) => (
                     <Li key={idx}>
                         <ImgWrapper
