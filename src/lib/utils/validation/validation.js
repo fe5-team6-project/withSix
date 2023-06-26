@@ -6,10 +6,13 @@ import {
     FAIL_FORM_ID,
     FAIL_FORM_PASSWORD,
     FAIL_LENGTH_PASSWORD,
+    FAIL_NULL_CONTENT,
     FAIL_NULL_EMAIL,
     FAIL_NULL_ID,
     FAIL_NULL_NAME,
     FAIL_NULL_PASSWORD,
+    FAIL_NULL_PRICE,
+    FAIL_NULL_TITLE,
 } from '../../apis/constant/message';
 import {
     REG_EXP_EMAIL,
@@ -150,3 +153,30 @@ export const validationName = (name) => {
     result.state = true;
     return result;
 };
+
+export const validationTogether = (itemName, price, link) => {
+    const lenItemName = itemName?.length;
+    const lenPrice = price?.length;
+    const lenLink = link?.length;
+
+    if (!lenItemName || itemName) {
+        result.state = false;
+        result.message = FAIL_NULL_TITLE;
+        return result;
+    }
+
+    if (!lenPrice || price) {
+        result.state = false;
+        result.message = FAIL_NULL_PRICE;
+        return result;
+    }
+
+    if (!lenLink || link) {
+        result.state = false;
+        result.message = FAIL_NULL_CONTENT;
+        return result;
+    }
+
+    result.state = true;
+    return result;
+}

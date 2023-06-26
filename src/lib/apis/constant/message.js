@@ -28,3 +28,5 @@ export const CONTENT_UPDATE_OK = '내용 수정 성공!';
 export const FAIL_NULL_CONTENT = '내용을 입력해주세요!';
 export const FAIL_OVER_SIZE = '이미지 업로드 최대 용량은 5MB입니다.';
 export const FAIL_OVER_IMAGE = '사진은 최대 3장까지 등록이 가능합니다.';
+export const FAIL_NULL_PRICE = '가격을 입력해주세요!';
+export const FAIL_NULL_TITLE = '모임명을 입력해주세요!';
