@@ -64,6 +64,9 @@ export default function TogetherDetail() {
 const Form = styled.section`
     padding: 20px;
     text-align: center;
+    margin:auto;
+    min-width:280px;
+    max-width:390px;
 `;
 
 const GroupHeader = styled.header`
