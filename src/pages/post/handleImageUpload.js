@@ -11,7 +11,7 @@ export async function handleMultiImageUpload(imagesSrc) {
     };
 
     if (!imagesSrc?.length) {
-        return false;
+        return undefined;
     }
 
     for (const item of imagesSrc) {
