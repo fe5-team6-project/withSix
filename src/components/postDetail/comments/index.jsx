@@ -6,6 +6,9 @@ import { api } from '../../../lib/apis/axiosConfig';
 import CommentSideToggle from './sideToggle';
 import { styled } from 'styled-components';
 import { useInView } from 'react-intersection-observer';
+import getUserProfile from '../../../pages/userprofile/getUserProfile';
+import { setUserInfo } from '../../../store/slices/userSlice';
+import { useDispatch } from 'react-redux';
 
 export default function Comments({
     setCommentCount,
@@ -18,6 +21,7 @@ export default function Comments({
     const [ref, inView] = useInView();
     const [page, setPage] = useState(0); // 현재 페이지 번호 (페이지네이션)
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const fetchComment = useCallback(async () => {
         try {
             // console.log(page);
@@ -44,27 +48,37 @@ export default function Comments({
         // fetchComment();
     }, [reload, inView, ref]);
 
+    async function setUser(accountname) {
+        const user = await getUserProfile(accountname);
+        dispatch(setUserInfo(user));
+    }
+
     if (!comment) return <div>Loading...</div>;
     return (
         <>
             <CommentWrapper>
+                {console.log(comment)}
                 {comment.map((item, idx) => (
                     <Li key={idx}>
                         <ImgWrapper
-                            onClick={() =>
-                                navigate(`/profile/${item.author.accountname}`)
-                            }
+                            onClick={async () => {
+                                await setUser(item.author.accountname);
+                                navigate(
+                                    `../profile/${item.author.accountname}`
+                                );
+                            }}
                         >
                             <Img src={item.author.image} />
                         </ImgWrapper>
                         <CommentRight>
                             <RightTop>
                                 <UserName
-                                    onClick={() =>
+                                    onClick={async () => {
+                                        await setUser(item.author.accountname);
                                         navigate(
-                                            `/profile/${item.author.accountname}`
-                                        )
-                                    }
+                                            `../profile/${item.author.accountname}`
+                                        );
+                                    }}
                                 >
                                     {item.author.username}
                                 </UserName>
