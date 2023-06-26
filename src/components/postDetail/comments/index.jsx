@@ -1,30 +1,32 @@
 import { useCallback, useEffect, useState } from 'react';
 import CommentReq from './CommentReq';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { returnServerErrorMessage } from '../utils/errorMessage';
 import { api } from '../../../lib/apis/axiosConfig';
 import CommentSideToggle from './sideToggle';
 import { styled } from 'styled-components';
 import { useInView } from 'react-intersection-observer';
 
-export default function Comments({ setCommentCount, commentCount }) {
+export default function Comments({
+    setCommentCount,
+    commentCount,
+    accountname,
+}) {
     const { id } = useParams();
     const [comment, setComment] = useState([]);
     const [reload, setReload] = useState(false);
     const [ref, inView] = useInView();
     const [page, setPage] = useState(0); // 현재 페이지 번호 (페이지네이션)
+    const navigate = useNavigate();
     const fetchComment = useCallback(async () => {
         try {
             // console.log(page);
             const {
                 data: { comments },
-                // https://api.mandarin.weniv.co.kr/post/648fa8f9b2cb2056633a809c/comments?limit=3&skip=9
-            } = await api.get(`/post/${id}/comments/?limit=5&skip=${page * 5}`);
-            // 리스트 뒤로 붙여주기
-            // console.log(page);
+            } = await api.get(
+                `/post/${id}/comments/?limit=10&skip=${page * 10}`
+            );
             // console.log(comments);
-            // console.log(page);
-            // console.log(comment, comments);
             setComment([...comment, ...comments]);
             // 요청 성공 시에 페이지에 1 카운트 해주기
             setPage((page) => page + 1);
@@ -46,15 +48,26 @@ export default function Comments({ setCommentCount, commentCount }) {
     return (
         <>
             <CommentWrapper>
-                {/* {console.log(comment)} */}
                 {comment.map((item, idx) => (
                     <Li key={idx}>
-                        <ImgWrapper>
+                        <ImgWrapper
+                            onClick={() =>
+                                navigate(`/profile/${item.author.accountname}`)
+                            }
+                        >
                             <Img src={item.author.image} />
                         </ImgWrapper>
                         <CommentRight>
                             <RightTop>
-                                <UserName>{item.author.username}</UserName>
+                                <UserName
+                                    onClick={() =>
+                                        navigate(
+                                            `/profile/${item.author.accountname}`
+                                        )
+                                    }
+                                >
+                                    {item.author.username}
+                                </UserName>
                                 <CommentSideToggle
                                     authorId={item.author._id}
                                     commentId={item.id}
@@ -64,7 +77,9 @@ export default function Comments({ setCommentCount, commentCount }) {
                                     comment={comment}
                                 />
                             </RightTop>
-                            <Content>{item.content}</Content>
+                            <ContentWrapper>
+                                <Content>{item.content}</Content>
+                            </ContentWrapper>
                         </CommentRight>
                     </Li>
                 ))}
@@ -116,13 +131,17 @@ const ImgWrapper = styled.div`
     height: 50px;
     margin-right: 5px;
     object-fit: cover;
+    cursor: pointer;
 `;
 
 const UserName = styled.div`
     margin-bottom: 3px;
+    cursor: pointer;
 `;
 
-const Content = styled.div`
+const ContentWrapper = styled.div`
     width: 260px;
     word-break: break-all;
 `;
+
+const Content = styled.span``;

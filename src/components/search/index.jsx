@@ -4,6 +4,8 @@ import UserLIst from './UserList';
 import { api } from '../../lib/apis/axiosConfig';
 import Common from '../main/Common';
 import { styled } from 'styled-components';
+import searchIcon from '../../assets/icons/common/search-main.svg';
+import searchIconWhite from '../../assets/icons/common/search-main-white.svg';
 
 export default function Search() {
     // console.log("Search렌더링");
@@ -47,13 +49,17 @@ export default function Search() {
         setPage(page + 1);
     };
 
+    const pageTitle = '유저 검색';
+    const pageDesc = '유저를 검색할 수 있습니다.';
+
     return (
         <Common
             page={
                 <SearchWrapper>
                     <Input
+                        id="search_input"
                         type="text"
-                        placeholder="유저 검색"
+                        placeholder=" "
                         onChange={handleTyping}
                         value={search}
                     />
@@ -66,24 +72,73 @@ export default function Search() {
                             <AddButton onClick={addShowUser}>더보기</AddButton>
                         ) : null
                     }
+                    <SearchIcon htmlFor="search_input">
+                        <img src={searchIconWhite} alt="검색 버튼" />
+                    </SearchIcon>
                 </SearchWrapper>
             }
+            title={pageTitle}
+            desc={pageDesc}
         ></Common>
     );
 }
 
-const SearchWrapper = styled.div`
+const SearchWrapper = styled.article`
+    position: relative;
     width: 350px;
+    min-height: 50px;
     margin: 50px auto 20px;
+    padding: 130px 0 20px;
+    overflow-y: hidden;
     // background-color: red;
 `;
 
 const Input = styled.input`
-    width: inherit;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    color: black;
-    outline: none;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    margin: 70px auto;
+    border: 3px solid var(--color-main);
+    border-radius: 25px;
+    background-color: white;
+    box-sizing: border-box;
+    color: #333;
+    transform: translateX(-50%);
+
+    &:focus,
+    &:hover,
+    &:not(:placeholder-shown) {
+        width: 300px;
+    }
+
+    &:focus ~ label,
+    &:hover ~ label,
+    &:not(:placeholder-shown) ~ label {
+        transform: translateX(100px);
+    }
+`;
+
+const SearchIcon = styled.label`
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    margin: 70px auto;
+    border-radius: 50%;
+    box-sizing: border-box;
+    background-color: var(--color-main);
+    transform: translateX(-50%);
+    transition: transform 0.3s;
+    & > img {
+        width: 50px;
+        height: 50px;
+        object-fit: none;
+        object-position: 50% 50%;
+    }
 `;
 
 const AddButton = styled.button`
