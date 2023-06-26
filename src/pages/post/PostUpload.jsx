@@ -6,11 +6,13 @@ import imageIcon from '../../assets/icons/common/icon-image.svg';
 import handleImagePreview from './handleImagePreview';
 import { handleMultiImageUpload } from './handleImageUpload';
 import handlePostUpload from './handlePostUpload';
+import { useNavigate } from 'react-router-dom';
 
 export default function PostUpload() {
     const [imageList, setImageList] = useState([]);
     const [imagesSrc, setImagesSrc] = useState([]);
     const [content, setContent] = useState(undefined);
+    const navigate = useNavigate();
 
     function deleteImage(key) {
         setImageList(
@@ -38,8 +40,9 @@ export default function PostUpload() {
 
     async function handleSubmit() {
         const resImages = await handleMultiImageUpload(imagesSrc);
-        handlePostUpload(content, resImages);
-        console.log(resImages);
+        const result = await handlePostUpload(content, resImages);
+        navigate(`/post/detail/${result.post.id}`);
+        return result;
     }
 
     const page = (
