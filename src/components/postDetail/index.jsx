@@ -10,6 +10,9 @@ import Common from '../main/Common';
 import { styled } from 'styled-components';
 import iconComment from '../../assets/icons/post/icon-comment.svg';
 import Slick from '../slick';
+import { setUserInfo } from '../../store/slices/userSlice';
+import getUserProfile from '../../pages/userprofile/getUserProfile';
+import { useDispatch } from 'react-redux';
 
 // const postId = '6478c001b2cb2056632d23f2';
 
@@ -18,19 +21,25 @@ export default function PostDetail() {
     const [data, setData] = useState('');
     const [commentCount, setCommentCount] = useState('');
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const fetchData = async () => {
         try {
             const {
                 data: { post },
             } = await api.get(`/post/${id}`);
-            console.log(post);
+            // console.log(post);
             setData(post);
             setCommentCount(post.commentCount);
         } catch (error) {
             returnErrorMessage(error);
         }
     };
+
+    async function setUser(accountname) {
+        const user = await getUserProfile(accountname);
+        dispatch(setUserInfo(user));
+    }
 
     useEffect(() => {
         fetchData();
@@ -44,16 +53,18 @@ export default function PostDetail() {
                 <Div>
                     <ProfileWrap>
                         <ProfileLeft
-                            onClick={() =>
-                                navigate(`/profile/${data.author.accountname}`)
-                            }
+                            onClick={async () => {
+                                await setUser(data.author.accountname);
+                                navigate(`/profile/${data.author.accountname}`);
+                            }}
                         >
                             <ImgProfile src={data.author.image} />
                         </ProfileLeft>
                         <ProfileRight
-                            onClick={() =>
-                                navigate(`/profile/${data.author.accountname}`)
-                            }
+                            onClick={async () => {
+                                await setUser(data.author.accountname);
+                                navigate(`/profile/${data.author.accountname}`);
+                            }}
                         >
                             <UserName>{data.author.username}</UserName>
                             <UserId>@{data.author.accountname}</UserId>

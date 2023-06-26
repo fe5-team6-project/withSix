@@ -15,9 +15,11 @@ import {
     FileUpload,
     FileInput,
     UploadSubSec,
-} from './postStyle';
-import { PostUploadFooter } from './UploadFooter/uploadfooter';
-import { URL } from '../../lib/apis/constant/path';
+
+} from "./postStyle";
+import {PostUploadFooter} from './UploadFooter/uploadfooter'
+import { URL as url } from "../../lib/apis/constant/path";
+import ImgUploadBtn from '../../assets/icons/post/icon-image.png'
 
 export default function PostUpload() {
     const { id } = useParams();
@@ -42,8 +44,12 @@ export default function PostUpload() {
         const formData = new FormData();
         formData.append('image', file);
 
-        const response = await axios.post(`${URL}/image/uploadfile`, formData);
-        const imgName = `${URL}/` + response.data.filename;
+
+        const response = await axios.post(
+            `${url}/image/uploadfile`,
+            formData
+        );
+        const imgName = `${url}/` + response.data.filename;
 
         return imgName;
     }
@@ -64,7 +70,7 @@ export default function PostUpload() {
             if (TotalImgSize > maxSize) {
                 alert(' 총 이미지의 크기는 10MB입니다.');
             } else {
-                const createImgUrl = window.URL.createObjectURL(files[i]);
+                const createImgUrl = URL.createObjectURL(files[i]);
                 fileUrls.push(createImgUrl);
                 fileImgs.push(files[i]);
             }
@@ -107,13 +113,12 @@ export default function PostUpload() {
         const snsImgList = await Promise.all(imgList);
         console.log(snsImgList);
 
-        data.post.image = snsImgList.join(',');
-        // data.post.image = showImg.join(',');
+        data.post.image = showImg.join(',');
         data.post.content = content;
 
         try {
             const res = await axios
-                .put(`${URL}/post/${id}`, data, {
+                .put(`${url}/post/${id}`, data, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         'Content-type': 'application/json',
@@ -129,6 +134,7 @@ export default function PostUpload() {
     async function ModifyPost() {
         // post는 기존의 게시물 데이터를 모두 가지고 있음
         const imageData = await axios.get(`${URL}/post/${id}`, {
+
             headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-type': 'application/json',
@@ -140,8 +146,10 @@ export default function PostUpload() {
         console.log(dataImage, dataContent);
 
         // 기존 게시물에서 이미지를 받아올 땐 join으로 합쳤던 것을 다시 split로 나눠야함
+
         setShowImg(await dataImage.split(','));
         setContent(await dataContent.content);
+
     }
 
     // 빈배열이니까 새로고침하고 내가 기존에 썼던거 한 번만 렌더링됨. 그걸 불러오면 됨
@@ -186,6 +194,9 @@ export default function PostUpload() {
                 <UploadSubSec>
                     {/* 이미지 등록 라벨 */}
                     <FileUpload htmlFor="input-file">
+
+                        <img src={ImgUploadBtn} alt="" />
+
                         <FileInput
                             id="input-file"
                             name="PostImg"
@@ -197,7 +208,7 @@ export default function PostUpload() {
                     </FileUpload>
 
                     {/* 미리보기 이미지 부분 */}
-                    <PostUploadImg>
+
                         {console.log(showImg)}
                         {showImg.length !== 0
                             ? showImg.map((image, id) => {
@@ -228,6 +239,7 @@ export default function PostUpload() {
                                       </div>
                                   );
                               })}
+
                     </PostUploadImg>
                 </UploadSubSec>
 
@@ -241,9 +253,10 @@ export default function PostUpload() {
     );
 
     return (
-        <>
+
             {/* {console.log(showImg)} */}
             <Common page={page} />
+
         </>
     );
 }
