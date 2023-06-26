@@ -39,6 +39,37 @@ export default function PostUpdate() {
         dispatch(setIsVisible({ isVisible: isVisible }));
     };
 
+    useEffect(() => {
+        // console.log(imageList, imagesSrc);
+    }, [imageList]);
+
+    async function getPostDetail() {
+        const requestPath = `/post/${postId}`;
+        const requestUrl = `${URL}${requestPath}`;
+
+        const token = localStorage.token;
+        const bearerToken = `Bearer ${token}`;
+
+        const response = await fetch(requestUrl, {
+            method: 'GET',
+            headers: {
+                Authorization: bearerToken,
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(),
+        });
+
+        const json = await response.json();
+        return json.post;
+    }
+
+    useEffect(() => {
+        async function setPostInit() {
+            setPost(await getPostDetail());
+        }
+        setPostInit();
+    }, []);
+
     const page = (
         <PostUploadWrap
             onSubmit={async (e) => {
