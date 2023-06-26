@@ -58,6 +58,8 @@ const TogetherWrap = styled.ul`
     display:flex;
     flex-wrap: wrap;
     gap:10px;
+    width:390px;
+    margin:auto;
 `
 
 const MoreButton = styled.button`
