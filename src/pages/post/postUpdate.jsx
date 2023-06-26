@@ -24,6 +24,21 @@ export default function PostUpdate() {
     const [imagesSrc, setImagesSrc] = useState([]);
     const [contents, setContents] = useState(undefined);
 
+    const setModalContent = (props) => {
+        dispatch(
+            setContent({
+                state: props.state,
+                message: props.message,
+            })
+        );
+    };
+    const setModalUrl = (url) => {
+        dispatch(setUrl({ path: url }));
+    };
+    const setModalVisible = (isVisible) => {
+        dispatch(setIsVisible({ isVisible: isVisible }));
+    };
+
     const page = (
         <PostUploadWrap
             onSubmit={async (e) => {
