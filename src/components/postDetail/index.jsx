@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { api } from '../../lib/apis/axiosConfig';
 import { returnErrorMessage } from './utils/errorMessage';
 import { URL } from '../../lib/apis/constants';
@@ -17,12 +17,14 @@ export default function PostDetail() {
     const { id } = useParams();
     const [data, setData] = useState('');
     const [commentCount, setCommentCount] = useState('');
+    const navigate = useNavigate();
 
     const fetchData = async () => {
         try {
             const {
                 data: { post },
             } = await api.get(`/post/${id}`);
+            console.log(post);
             setData(post);
             setCommentCount(post.commentCount);
         } catch (error) {
@@ -41,10 +43,18 @@ export default function PostDetail() {
             page={
                 <Div>
                     <ProfileWrap>
-                        <ProfileLeft>
+                        <ProfileLeft
+                            onClick={() =>
+                                navigate(`/profile/${data.author.accountname}`)
+                            }
+                        >
                             <ImgProfile src={data.author.image} />
                         </ProfileLeft>
-                        <ProfileRight>
+                        <ProfileRight
+                            onClick={() =>
+                                navigate(`/profile/${data.author.accountname}`)
+                            }
+                        >
                             <UserName>{data.author.username}</UserName>
                             <UserId>@{data.author.accountname}</UserId>
                         </ProfileRight>
@@ -57,19 +67,12 @@ export default function PostDetail() {
                             alt="이미지" */}
 
                     {/* 사용자가 등록한 게시글 이미지 표시 */}
-                    <ImageWrap>
-                        {/* {data.image.split(',').map((img) => (
-                            <ImgContent
-                                key={img}
-                                src={img}
-                                width={100}
-                                height={100}
-                                alt="이미지"
-                            />
-                        ))} */}
+                    {/* <ImageWrap>
                         <Slick images={data.image} />
+                    </ImageWrap> */}
+                    <ImageWrap>
+                        {data?.image ? <Slick images={data?.image} /> : null}
                     </ImageWrap>
-
                     <Content>{data.content}</Content>
                     <EtcWrap>
                         <LikeBtn data={data} />
@@ -79,6 +82,7 @@ export default function PostDetail() {
                     <Comments
                         setCommentCount={setCommentCount}
                         commentCount={commentCount}
+                        accountname={data.author.accountname}
                     />
                 </Div>
             }
@@ -110,6 +114,7 @@ const ProfileLeft = styled.section`
     margin-right: 5px;
     border-radius: 50%;
     overflow: hidden;
+    cursor: pointer;
 `;
 
 const ImgProfile = styled.img`
@@ -119,6 +124,7 @@ const ImgProfile = styled.img`
 
 const ProfileRight = styled.section`
     line-height: 12px;
+    cursor: pointer;
 `;
 
 const UserName = styled.strong`
@@ -132,10 +138,19 @@ const UserId = styled.span`
     font-style: italic;
     color: var(--color-gray);
 `;
-
 const ImageWrap = styled(SectionDefault)`
     width: 100%;
-    margin-bottom: 30px;
+    /* margin-bottom: -10px; */
+
+    & img {
+        width: 350px;
+        height: 192px;
+        object-fit: cover;
+    }
+
+    & .slick-dots button::before {
+        transform: translateY(-200%);
+    }
 `;
 
 const ImgContent = styled.img`
