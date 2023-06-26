@@ -32,6 +32,8 @@ export default function PostUpload (){
     // const { myInfo } = useSelector((state) => state.user);
     // console.log(myInfo);
 
+    
+
         const data = {
         post: {
             content: "",
@@ -40,6 +42,7 @@ export default function PostUpload (){
     };
 
     // 1. 이미지 업로드 부분
+    // 이미지를 서버에 전송하고 숫자로 이루어진 filename을 응답 받음 
     async function UploadImg(file) {
         const formData = new FormData();
         formData.append("image", file);
@@ -49,6 +52,7 @@ export default function PostUpload (){
             formData
         );
         const imgName = `${URL}/` + response.data.filename;
+        console.log(imgName)
         return imgName;
     }
 
@@ -70,6 +74,7 @@ export default function PostUpload (){
                 alert(" 총 이미지의 크기는 10MB입니다.");
             } else {
                 const createImgUrl = window.URL.createObjectURL(files[i]);
+                console.log(createImgUrl)
                 fileUrls.push(createImgUrl);
                 fileImgs.push(files[i]);
             }
@@ -81,7 +86,8 @@ export default function PostUpload (){
             fileUrls = fileUrls.slice(0, 3);
             fileImgs = fileImgs.slice(0, 3);
         }
-
+        console.log(fileUrls)
+        console.log(fileImgs)
         setShowImg(fileUrls);
         setPostImg(fileImgs);
     }
@@ -103,17 +109,22 @@ export default function PostUpload (){
 
     // 4. 게시글 업로드 부분
     async function UploadPost() {
+        // UploadImg 함수에서 filename을 응답받은 url을 빈배열에 담아줌
         const imgList = [];
+        console.log(postImg)
+        // console.log(postImg)
         for (let i = 0; i < postImg.length; i++) {
+            // filename을 응답받은 url을 하나씩 imgList에 push
             imgList.push(UploadImg(postImg[i]));
         }
+        console.log(imgList)
 
         const snsImgList = await Promise.all(imgList);
 
         data.post.image = snsImgList.join(",");
-        // console.log(data.post.image);
         data.post.content = content;
 
+        // 서버로 전송하면 업로드 완료
         try {
             const res = await axios
                 .post(`${URL}/post`, data, {
@@ -203,6 +214,7 @@ export default function PostUpload (){
 
     return (
         <>
+        {console.log(showImg)}
         <Common page = {page} />
         </>
     );
