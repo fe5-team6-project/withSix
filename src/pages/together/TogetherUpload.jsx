@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import Common from '../../components/main/Common';
 import { styled } from 'styled-components';
 import initialImage from '../../assets/images/initialImage.png'
@@ -11,8 +11,8 @@ export default function GroupUpload() {
     const navigate = useNavigate();
     const accoutname = useSelector((state) => { return state.user.myInfo.accountname });
     const [togetherInfo, setTogetherInfo] = useState({
-        "itemName": String,
-        "price": Number,
+        "itemName": '',
+        "price": 0,
         "link": String,
         "itemImage": '',
     })
@@ -21,7 +21,7 @@ export default function GroupUpload() {
     const handleChange = (e) => {
         const { name, value } = e.target;
         if (name === "price") {
-            setTogetherInfo({ ...togetherInfo, [name]: parseInt(value) });
+            setTogetherInfo({ ...togetherInfo, [name]: !value ? 0 : parseInt(value) });
         } else {
             setTogetherInfo({ ...togetherInfo, [name]: value });
         }
@@ -46,6 +46,15 @@ export default function GroupUpload() {
         }
     }
 
+    const [saveBtnActive, setSaveBtnActive] = useState(true);
+    useEffect(() => {
+        console.log(togetherInfo)
+        if (togetherInfo.price !== 0 && !!togetherInfo.itemName.length !== 0) {
+            setSaveBtnActive(false);
+        }
+    }, [togetherInfo])
+    console.log(saveBtnActive);
+
     const page = (
         <>
             <Form>
@@ -64,7 +73,7 @@ export default function GroupUpload() {
                     {/* <GroupImage id="PreImage" src={img || togetherReq.itemImage || initialImage}></GroupImage> */}
                     <GroupImage id="PreImage" src={img || initialImage}></GroupImage>
                 </GroupLabel>
-                <RegiButton onClick={async () => { await sendTogether(); navigate(`/together/${accoutname}`); }}>등록</RegiButton>
+                <RegiButton disabled={saveBtnActive} onClick={async () => { await sendTogether(); navigate(`/together/${accoutname}`); }}>등록</RegiButton>
             </Form>
         </>
     );
