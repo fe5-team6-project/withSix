@@ -6,6 +6,7 @@ import {
     FAIL_FORM_ID,
     FAIL_FORM_PASSWORD,
     FAIL_LENGTH_PASSWORD,
+    FAIL_LENGTH_TITLE,
     FAIL_NULL_CONTENT,
     FAIL_NULL_EMAIL,
     FAIL_NULL_ID,
@@ -156,22 +157,30 @@ export const validationName = (name) => {
 
 export const validationTogether = (itemName, price, link) => {
     const lenItemName = itemName?.length;
-    const lenPrice = price?.length;
+    // const lenPrice = price?.length;
+    // 숫자여서 length 안되기때문에 처음부터 문자열로 받고 유효성넣어도됨
     const lenLink = link?.length;
+    const [minLen, maxLen] = [2, 15];
 
-    if (!lenItemName || itemName) {
+    if (!lenItemName || !itemName) {
         result.state = false;
         result.message = FAIL_NULL_TITLE;
         return result;
     }
 
-    if (!lenPrice || price) {
+    if (lenItemName < minLen || maxLen < lenItemName) {
+        result.state = false;
+        result.message = FAIL_LENGTH_TITLE;
+        return result;
+    }
+
+    if (!price) {
         result.state = false;
         result.message = FAIL_NULL_PRICE;
         return result;
     }
 
-    if (!lenLink || link) {
+    if (!lenLink || !link) {
         result.state = false;
         result.message = FAIL_NULL_CONTENT;
         return result;
