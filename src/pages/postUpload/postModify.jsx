@@ -23,13 +23,11 @@ export default function PostUpload (){
     const { id } = useParams();
     const token = localStorage.getItem('token');
     const [content, setContent] = useState(""); // 게시글 입력 내용
-    const [showImg, setShowImg] = useState([]); // 미리보기에 올라오는 이미지
-    const [postImg, setPostImg] = useState([]); // 업로드 페이지에 올라오는 이미지
+    const [showImg, setShowImg] = useState([]); 
+    const [postImg, setPostImg] = useState([]); 
     const [uploadBtn, setUploadBtn] = useState(true);
     const fileInput = useRef(null);
     const navigate = useNavigate();
-    // postUpload에서 불러온 데이터
-    const [ postData, setPostData] = useState([]);
 
     const data = {
         post: {
@@ -48,7 +46,7 @@ export default function PostUpload (){
             formData
         );
         const imgName = `${URL}/` + response.data.filename;
-        console.log(imgName)
+
         return imgName;
     }
 
@@ -87,29 +85,32 @@ export default function PostUpload (){
 
     // 3. 이미지 삭제 부분
     const DeleteImg = (id) => {
+        
+        setShowImg(
+            showImg.filter((_, index) => {
+                return index !== id;
+            })
+        );
 
-        const newShowImg = showImg.filter((_, index) => {
-            return index !== id;
-        });
-
-        setShowImg(newShowImg);
-        const newPostImg = postImg.filter((_, index) => {
-            return index !== id;
-        });
-        setPostImg(newPostImg);
+        setPostImg(
+            postImg.filter((_, index) => {
+                return index !== id;
+            })
+        );
     };
-
+    
     // 4. 게시글 업로드 부분
     async function UploadPost() {
         const imgList = [];
-        console.log(postImg);
+
         for (let i = 0; i < postImg.length; i++) {
             imgList.push(UploadImg(postImg[i]));
         }
 
         const snsImgList = await Promise.all(imgList);
 
-        data.post.image = showImg.join(',');
+        data.post.image = snsImgList.join(',');
+        // data.post.image = showImg.join(',');
         data.post.content = content;
 
         try {
@@ -137,10 +138,8 @@ export default function PostUpload (){
                 "Content-type": "application/json",
             },
         })
-        console.log(post);
-        //데이터 전역변수로 저장
-        setPostData(post);
-        //미리보기 이미지 주소를 배열에 저장
+
+        // 기존 게시물에서 이미지를 받아올 땐 join으로 합쳤던 것을 다시 split로 나눠야함
         setShowImg(post.image.split(','));
         setContent(post.content);
     }
@@ -205,8 +204,8 @@ export default function PostUpload (){
 
                             showImg.length !== 0?
                             showImg.map((image, id) => {
-                                console.log(image)
                                     return (
+                                        // 기존에 이미지가 있다면 뒤에 추가
                                         image &&
                                         <div key={id}>
                                             <Img key={id} src={image} />
@@ -221,6 +220,7 @@ export default function PostUpload (){
                             :
                             showImg.map((image, id) => {
                                 return (
+                                    // 기존에 이미지가 없다면 새로 이미지 추가
                                     <div key={id}>
                                         <Img key={id} src={image} />
                                         <DeleteBtn
@@ -241,7 +241,7 @@ export default function PostUpload (){
 
     return (
         <>
-        {console.log(showImg)}
+        {/* {console.log(showImg)} */}
         <Common page = {page} />
         </>
     );
