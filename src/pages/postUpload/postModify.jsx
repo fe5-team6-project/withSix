@@ -48,6 +48,7 @@ export default function PostUpload (){
             formData
         );
         const imgName = `${URL}/` + response.data.filename;
+        console.log(imgName)
         return imgName;
     }
 
@@ -57,7 +58,6 @@ export default function PostUpload (){
         const files = e.target.files;
         let fileUrls = [...showImg];
         let fileImgs = [...postImg];
-
         // 이미지 사이즈 10MB 제한
         const maxSize = 10 * 1024 * 1024;
         let TotalImgSize = 0;
@@ -78,7 +78,6 @@ export default function PostUpload (){
         if (fileUrls.length > 3) {
             alert(" 이미지는 3장까지 업로드할 수 있습니다.");
             fileUrls = fileUrls.slice(0, 3);
-            // console.log(fileUrls.length);
             fileImgs = fileImgs.slice(0, 3);
         }
 
@@ -88,16 +87,16 @@ export default function PostUpload (){
 
     // 3. 이미지 삭제 부분
     const DeleteImg = (id) => {
-        // console.log(id);
-        // console.log('포스트이미지', postImg);
-        const newShowImg = showImg[0].split(',').filter((_, index) => {
+
+        const newShowImg = showImg.filter((_, index) => {
             return index !== id;
         });
-        setShowImg([newShowImg.join(',')]);
+
+        setShowImg(newShowImg);
         const newPostImg = postImg.filter((_, index) => {
             return index !== id;
         });
-        setPostImg([newPostImg.join(',')]);
+        setPostImg(newPostImg);
     };
 
     // 4. 게시글 업로드 부분
@@ -110,9 +109,9 @@ export default function PostUpload (){
 
         const snsImgList = await Promise.all(imgList);
 
-        data.post.image = snsImgList.join(",");
+        data.post.image = showImg.join(',');
         data.post.content = content;
-        console.log(data);
+
         try {
             const res = await axios
                 .put(`${URL}/post/${id}`, data, {
@@ -142,7 +141,7 @@ export default function PostUpload (){
         //데이터 전역변수로 저장
         setPostData(post);
         //미리보기 이미지 주소를 배열에 저장
-        setShowImg([post.image]);
+        setShowImg(post.image.split(','));
         setContent(post.content);
     }
 
@@ -201,11 +200,12 @@ export default function PostUpload (){
 
                 {/* 미리보기 이미지 부분 */}
                     <PostUploadImg>
-                    {/* {console.log(showImg[0])} */}
-                        
+                        {console.log(showImg)}
                         {
+
                             showImg.length !== 0?
-                            showImg[0].split(',').map((image, id) => {
+                            showImg.map((image, id) => {
+                                console.log(image)
                                     return (
                                         image &&
                                         <div key={id}>
@@ -219,8 +219,18 @@ export default function PostUpload (){
                                     );
                                 })
                             :
-                            null
-                            }
+                            showImg.map((image, id) => {
+                                return (
+                                    <div key={id}>
+                                        <Img key={id} src={image} />
+                                        <DeleteBtn
+                                            onClick={() => {
+                                                return DeleteImg(id);
+                                            }}/>
+                                            </div>
+                                )
+                                            
+                            })}
                     </PostUploadImg>
             </UploadSubSec>
 
@@ -231,6 +241,7 @@ export default function PostUpload (){
 
     return (
         <>
+        {console.log(showImg)}
         <Common page = {page} />
         </>
     );
