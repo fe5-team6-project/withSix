@@ -113,9 +113,9 @@ const Input = styled.input`
         width: 300px;
     }
 
-    &:focus + label,
-    &:hover + label,
-    &:not(:placeholder-shown) + label {
+    &:focus ~ label,
+    &:hover ~ label,
+    &:not(:placeholder-shown) ~ label {
         transform: translateX(100px);
     }
 `;
