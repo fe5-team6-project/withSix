@@ -6,13 +6,29 @@ import imageIcon from '../../assets/icons/common/icon-image.svg';
 import handleImagePreview from './handleImagePreview';
 import { handleMultiImageUpload } from './handleImageUpload';
 import handlePostUpload from './handlePostUpload';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setIsVisible, setUrl } from '../../store/slices/modalSlice';
 
 export default function PostUpload() {
+    const dispatch = useDispatch();
     const [imageList, setImageList] = useState([]);
     const [imagesSrc, setImagesSrc] = useState([]);
     const [content, setContent] = useState(undefined);
-    const navigate = useNavigate();
+
+    const setModalContent = (props) => {
+        dispatch(
+            setContent({
+                state: props.state,
+                message: props.message,
+            })
+        );
+    };
+    const setModalUrl = (url) => {
+        dispatch(setUrl({ path: url }));
+    };
+    const setModalVisible = (isVisible) => {
+        dispatch(setIsVisible({ isVisible: isVisible }));
+    };
 
     function deleteImage(key) {
         setImageList(
@@ -40,9 +56,17 @@ export default function PostUpload() {
 
     async function handleSubmit() {
         const resImages = await handleMultiImageUpload(imagesSrc);
-        const result = await handlePostUpload(content, resImages);
-        navigate(`/post/detail/${result.post.id}`);
-        return result;
+        const [status, postId] = await handlePostUpload(content, resImages);
+        console.log(status, postId);
+
+        if (!status.state) {
+            setModalContent();
+        }
+
+        setModalContent(status);
+        setModalVisible(true);
+        setModalUrl(`/post/detail/${postId}`);
+        return status.state;
     }
 
     const page = (
