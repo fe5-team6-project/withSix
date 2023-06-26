@@ -3,10 +3,15 @@ import { URL } from '../../lib/apis/constant/path';
 export async function handleMultiImageUpload(imagesSrc) {
     const formData = new FormData();
     const uploadPath = `${URL}/image/uploadfiles`;
-    const result = [];
+    const uploadImages = [];
+
+    const result = {
+        state: false,
+        message: String,
+    };
 
     if (!imagesSrc?.length) {
-        return false;
+        return undefined;
     }
 
     for (const item of imagesSrc) {
@@ -17,8 +22,8 @@ export async function handleMultiImageUpload(imagesSrc) {
             body: formData,
         });
         const json = await response.json();
-        result.push(`${URL}/${json[0].filename}`);
+        uploadImages.push(`${URL}/${json[0].filename}`);
     }
 
-    return result.join(',');
+    return uploadImages.join(',');
 }

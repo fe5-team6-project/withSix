@@ -1,3 +1,4 @@
+import { POST_UPLOAD_OK } from '../../lib/apis/constant/message';
 import { URL } from '../../lib/apis/constant/path';
 
 export default async function handlePostUpload(content, image) {
@@ -29,4 +30,8 @@ export default async function handlePostUpload(content, image) {
     });
 
     const json = await response.json();
+    const postId = json.post.id;
+    result.state = true;
+    result.message = POST_UPLOAD_OK;
+    return [result, postId];
 }

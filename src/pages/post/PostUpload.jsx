@@ -6,11 +6,34 @@ import imageIcon from '../../assets/icons/common/icon-image.svg';
 import handleImagePreview from './handleImagePreview';
 import { handleMultiImageUpload } from './handleImageUpload';
 import handlePostUpload from './handlePostUpload';
+import { useDispatch } from 'react-redux';
+import {
+    setContent,
+    setIsVisible,
+    setUrl,
+} from '../../store/slices/modalSlice';
+import { validPostContent } from './validPost';
 
 export default function PostUpload() {
+    const dispatch = useDispatch();
     const [imageList, setImageList] = useState([]);
     const [imagesSrc, setImagesSrc] = useState([]);
-    const [content, setContent] = useState(undefined);
+    const [contents, setContents] = useState(undefined);
+
+    const setModalContent = (props) => {
+        dispatch(
+            setContent({
+                state: props.state,
+                message: props.message,
+            })
+        );
+    };
+    const setModalUrl = (url) => {
+        dispatch(setUrl({ path: url }));
+    };
+    const setModalVisible = (isVisible) => {
+        dispatch(setIsVisible({ isVisible: isVisible }));
+    };
 
     function deleteImage(key) {
         setImageList(
@@ -33,20 +56,33 @@ export default function PostUpload() {
     }
 
     useEffect(() => {
-        console.log(imageList, imagesSrc);
+        // console.log(imageList, imagesSrc);
     }, [imageList]);
 
     async function handleSubmit() {
+        const validContent = validPostContent(contents);
+        if (!validContent.state) {
+            console.log(validContent);
+            setModalContent(validContent);
+            setModalVisible(true);
+            return false;
+        }
+
         const resImages = await handleMultiImageUpload(imagesSrc);
-        handlePostUpload(content, resImages);
-        console.log(resImages);
+        const [status, postId] = await handlePostUpload(contents, resImages);
+        console.log(status, postId);
+
+        setModalContent(status);
+        setModalVisible(true);
+        setModalUrl(`/post/detail/${postId}`);
+        return status.state;
     }
 
     const page = (
         <PostUploadWrap
             onSubmit={async (e) => {
                 e.preventDefault();
-                await handleSubmit();
+                console.log(await handleSubmit());
             }}
         >
             <section>
@@ -56,7 +92,7 @@ export default function PostUpload() {
                     cols="30"
                     rows="10"
                     onChange={(e) => {
-                        setContent(e.target.value);
+                        setContents(e.target.value);
                     }}
                 ></TextArea>
             </section>

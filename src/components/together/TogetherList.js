@@ -24,7 +24,7 @@ const TogetherItem = styled.li`
     justify-content: space-between;
     flex-wrap:wrap;
     flex:1;
-    min-width:180px;
+    min-width:170px;
     height:130px;
     background: #fff;
     align-items: center;
@@ -37,6 +37,21 @@ const TogetherItem = styled.li`
         height:240px;
         & img {
             height:200px;
+        }
+        & p {
+            font-size: var(--fsize-s);
+            color: var(--color-gray);
+            & > span {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width:100px;
+                display:inline-block;
+            }
+        }
+        & strong {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width:230px;
         }
     }
 `
@@ -53,13 +68,20 @@ const TogetherName = styled.strong`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width:130px;
+    max-width:100px;
 `;
 
 const TogetherPrice = styled.p`
     font-size: var(--fsize-s);
     color: var(--color-gray);
-    span {
+    display:inline-block;
+    line-height:10px;
+    & > span {
         color: var(--color-main);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width:40px;
+        white-space: nowrap;
+        display:inline-block;
     }
 `;
