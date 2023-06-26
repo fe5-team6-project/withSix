@@ -15,11 +15,10 @@ import {
     FileUpload,
     FileInput,
     UploadSubSec,
-
-} from "./postStyle";
-import {PostUploadFooter} from './UploadFooter/uploadfooter'
-import { URL as url } from "../../lib/apis/constant/path";
-import ImgUploadBtn from '../../assets/icons/post/icon-image.png'
+} from './postStyle';
+import { PostUploadFooter } from './UploadFooter/uploadfooter';
+import { URL as url } from '../../lib/apis/constant/path';
+import ImgUploadBtn from '../../assets/icons/post/icon-image.png';
 
 export default function PostUpload() {
     const { id } = useParams();
@@ -44,11 +43,7 @@ export default function PostUpload() {
         const formData = new FormData();
         formData.append('image', file);
 
-
-        const response = await axios.post(
-            `${url}/image/uploadfile`,
-            formData
-        );
+        const response = await axios.post(`${url}/image/uploadfile`, formData);
         const imgName = `${url}/` + response.data.filename;
 
         return imgName;
@@ -134,7 +129,6 @@ export default function PostUpload() {
     async function ModifyPost() {
         // post는 기존의 게시물 데이터를 모두 가지고 있음
         const imageData = await axios.get(`${URL}/post/${id}`, {
-
             headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-type': 'application/json',
@@ -149,7 +143,6 @@ export default function PostUpload() {
 
         setShowImg(await dataImage.split(','));
         setContent(await dataContent.content);
-
     }
 
     // 빈배열이니까 새로고침하고 내가 기존에 썼던거 한 번만 렌더링됨. 그걸 불러오면 됨
@@ -194,7 +187,6 @@ export default function PostUpload() {
                 <UploadSubSec>
                     {/* 이미지 등록 라벨 */}
                     <FileUpload htmlFor="input-file">
-
                         <img src={ImgUploadBtn} alt="" />
 
                         <FileInput
@@ -209,26 +201,12 @@ export default function PostUpload() {
 
                     {/* 미리보기 이미지 부분 */}
 
-                        {console.log(showImg)}
-                        {showImg.length !== 0
-                            ? showImg.map((image, id) => {
-                                  return (
-                                      // 기존에 이미지가 있다면 뒤에 추가
-                                      image && (
-                                          <div key={id}>
-                                              <Img key={id} src={image} />
-                                              <DeleteBtn
-                                                  onClick={() => {
-                                                      return DeleteImg(id);
-                                                  }}
-                                              />
-                                          </div>
-                                      )
-                                  );
-                              })
-                            : showImg.map((image, id) => {
-                                  return (
-                                      // 기존에 이미지가 없다면 새로 이미지 추가
+                    {console.log(showImg)}
+                    {showImg.length !== 0
+                        ? showImg.map((image, id) => {
+                              return (
+                                  // 기존에 이미지가 있다면 뒤에 추가
+                                  image && (
                                       <div key={id}>
                                           <Img key={id} src={image} />
                                           <DeleteBtn
@@ -237,10 +215,22 @@ export default function PostUpload() {
                                               }}
                                           />
                                       </div>
-                                  );
-                              })}
-
-                    </PostUploadImg>
+                                  )
+                              );
+                          })
+                        : showImg.map((image, id) => {
+                              return (
+                                  // 기존에 이미지가 없다면 새로 이미지 추가
+                                  <div key={id}>
+                                      <Img key={id} src={image} />
+                                      <DeleteBtn
+                                          onClick={() => {
+                                              return DeleteImg(id);
+                                          }}
+                                      />
+                                  </div>
+                              );
+                          })}
                 </UploadSubSec>
 
                 {/* 업로드 버튼 부분 */}
@@ -253,10 +243,9 @@ export default function PostUpload() {
     );
 
     return (
-
+        <>
             {/* {console.log(showImg)} */}
             <Common page={page} />
-
         </>
     );
 }
