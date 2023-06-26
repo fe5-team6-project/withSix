@@ -10,19 +10,23 @@ export async function handleMultiImageUpload(imagesSrc) {
         message: String,
     };
 
-    if (!imagesSrc?.length) {
-        return undefined;
-    }
+    if (imagesSrc.includes(URL)) {
+        uploadImages.push(imagesSrc);
+    } else {
+        if (!imagesSrc?.length) {
+            return undefined;
+        }
 
-    for (const item of imagesSrc) {
-        formData.append('image', item);
+        for (const item of imagesSrc) {
+            formData.append('image', item);
 
-        const response = await fetch(uploadPath, {
-            method: 'POST',
-            body: formData,
-        });
-        const json = await response.json();
-        uploadImages.push(`${URL}/${json[0].filename}`);
+            const response = await fetch(uploadPath, {
+                method: 'POST',
+                body: formData,
+            });
+            const json = await response.json();
+            uploadImages.push(`${URL}/${json[0].filename}`);
+        }
     }
 
     return uploadImages.join(',');
