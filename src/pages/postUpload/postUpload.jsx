@@ -24,15 +24,13 @@ export default function PostUpload (){
 
     const token = localStorage.getItem('token');
     const [content, setContent] = useState(""); // 게시글 입력 내용
-    const [showImg, setShowImg] = useState([]); // 미리보기에 올라오는 이미지
-    const [postImg, setPostImg] = useState([]); // 업로드 페이지에 올라오는 이미지
+    const [showImg, setShowImg] = useState([]); 
+    const [postImg, setPostImg] = useState([]); 
     const [uploadBtn, setUploadBtn] = useState(true);
     const fileInput = useRef(null);
     const navigate = useNavigate();
     // const { myInfo } = useSelector((state) => state.user);
     // console.log(myInfo);
-
-    
 
         const data = {
         post: {
@@ -60,6 +58,7 @@ export default function PostUpload (){
     function ImgView(e) {
         // 내가 이미지 등록에서 선택한 그 사진!
         const files = e.target.files;
+        console.log(files)
         let fileUrls = [...showImg];
         let fileImgs = [...postImg];
 
@@ -74,7 +73,6 @@ export default function PostUpload (){
                 alert(" 총 이미지의 크기는 10MB입니다.");
             } else {
                 const createImgUrl = window.URL.createObjectURL(files[i]);
-                console.log(createImgUrl)
                 fileUrls.push(createImgUrl);
                 fileImgs.push(files[i]);
             }
@@ -86,14 +84,14 @@ export default function PostUpload (){
             fileUrls = fileUrls.slice(0, 3);
             fileImgs = fileImgs.slice(0, 3);
         }
-        console.log(fileUrls)
-        console.log(fileImgs)
+
         setShowImg(fileUrls);
         setPostImg(fileImgs);
     }
 
     // 3. 이미지 삭제 부분
     const DeleteImg = (id) => {
+
         setShowImg(
             showImg.filter((_, index) => {
                 return index !== id;
@@ -111,13 +109,11 @@ export default function PostUpload (){
     async function UploadPost() {
         // UploadImg 함수에서 filename을 응답받은 url을 빈배열에 담아줌
         const imgList = [];
-        console.log(postImg)
-        // console.log(postImg)
+
         for (let i = 0; i < postImg.length; i++) {
             // filename을 응답받은 url을 하나씩 imgList에 push
             imgList.push(UploadImg(postImg[i]));
         }
-        console.log(imgList)
 
         const snsImgList = await Promise.all(imgList);
 
@@ -134,7 +130,6 @@ export default function PostUpload (){
                     },
                 })
                 .then(navigate('/home'));
-                // console.log(res);
         } catch (error) {
             console.log(error);
         }
@@ -214,7 +209,6 @@ export default function PostUpload (){
 
     return (
         <>
-        {console.log(showImg)}
         <Common page = {page} />
         </>
     );
