@@ -17,7 +17,8 @@ import {
     UploadSubSec,
 } from "./postStyle";
 import {PostUploadFooter} from './UploadFooter/uploadfooter'
-import { URL } from "../../lib/apis/constant/path";
+import { URL as url } from "../../lib/apis/constant/path";
+import ImgUploadBtn from '../../assets/icons/post/icon-image.png'
 
 export default function PostUpload (){
     const { id } = useParams();
@@ -42,10 +43,10 @@ export default function PostUpload (){
         formData.append("image", file);
 
         const response = await axios.post(
-            `${URL}/image/uploadfile`,
+            `${url}/image/uploadfile`,
             formData
         );
-        const imgName = `${URL}/` + response.data.filename;
+        const imgName = `${url}/` + response.data.filename;
 
         return imgName;
     }
@@ -66,7 +67,7 @@ export default function PostUpload (){
             if (TotalImgSize > maxSize) {
                 alert(" 총 이미지의 크기는 10MB입니다.");
             } else {
-                const createImgUrl = window.URL.createObjectURL(files[i]);
+                const createImgUrl = URL.createObjectURL(files[i]);
                 fileUrls.push(createImgUrl);
                 fileImgs.push(files[i]);
             }
@@ -109,13 +110,12 @@ export default function PostUpload (){
 
         const snsImgList = await Promise.all(imgList);
 
-        data.post.image = snsImgList.join(',');
-        // data.post.image = showImg.join(',');
+        data.post.image = showImg.join(',');
         data.post.content = content;
 
         try {
             const res = await axios
-                .put(`${URL}/post/${id}`, data, {
+                .put(`${url}/post/${id}`, data, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         "Content-type": "application/json",
@@ -132,7 +132,7 @@ export default function PostUpload (){
             // post는 기존의 게시물 데이터를 모두 가지고 있음
             post
         }} = await axios
-        .get(`${URL}/post/${id}`, {
+        .get(`${url}/post/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-type": "application/json",
@@ -141,6 +141,7 @@ export default function PostUpload (){
 
         // 기존 게시물에서 이미지를 받아올 땐 join으로 합쳤던 것을 다시 split로 나눠야함
         setShowImg(post.image.split(','));
+        console.log(post)
         setContent(post.content);
     }
 
@@ -186,7 +187,7 @@ export default function PostUpload (){
             <UploadSubSec>
                 {/* 이미지 등록 라벨 */}
                     <FileUpload htmlFor="input-file">
-
+                        <img src={ImgUploadBtn} alt="" />
                         <FileInput
                             id="input-file"
                             name="PostImg"
@@ -199,7 +200,7 @@ export default function PostUpload (){
 
                 {/* 미리보기 이미지 부분 */}
                     <PostUploadImg>
-                        {console.log(showImg)}
+                        <ul>
                         {
 
                             showImg.length !== 0?
@@ -207,30 +208,30 @@ export default function PostUpload (){
                                     return (
                                         // 기존에 이미지가 있다면 뒤에 추가
                                         image &&
-                                        <div key={id}>
+                                        <li key={id}>
                                             <Img key={id} src={image} />
                                             <DeleteBtn
                                                 onClick={() => {
                                                     return DeleteImg(id);
                                                 }}
                                             />
-                                        </div>
+                                        </li>
                                     );
                                 })
                             :
                             showImg.map((image, id) => {
                                 return (
                                     // 기존에 이미지가 없다면 새로 이미지 추가
-                                    <div key={id}>
+                                    <li key={id}>
                                         <Img key={id} src={image} />
                                         <DeleteBtn
                                             onClick={() => {
                                                 return DeleteImg(id);
                                             }}/>
-                                            </div>
+                                            </li>
                                 )
-                                            
                             })}
+                        </ul>
                     </PostUploadImg>
             </UploadSubSec>
 
@@ -243,6 +244,7 @@ export default function PostUpload (){
         <>
         {/* {console.log(showImg)} */}
         <Common page = {page} />
+    
         </>
     );
 };
