@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import Common from '../../components/main/Common';
 import { Link, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
-
 import FollowButton from '../../components/follow/FollowButton';
 import { useSelector } from 'react-redux';
 import {
     emptyProfileImage,
     validationProfileImage,
 } from '../../lib/utils/validation/image/validationProfileImage';
+import divLine from '../../assets/icons/post/div-line.svg';
 
 export default function UserProfile() {
     const accountname = useParams().id;
@@ -69,7 +69,11 @@ export default function UserProfile() {
                     setFollowCount((prev) => (isFollow ? prev - 1 : prev + 1));
                 }}
             >
-                <Link to={`/together/${accountname}`}>투게더 목록</Link>
+                <section>
+                    <Link to={`/home/${accountname}`}>포스트 목록</Link>
+                    <img src={divLine} alt="" />
+                    <Link to={`/together/${accountname}`}>투게더 목록</Link>
+                </section>
                 <FollowButton
                     id="followBtnBig"
                     accountname={profile?.accountname}
@@ -128,12 +132,18 @@ const Div = styled.div`
     height: 70px;
     text-align: center;
 
-    &#btnBox > a {
-        position: absolute;
-        top: -35px;
-        right: 0;
-        font-size: var(--fsize-m);
-        transform: translateX(-50%);
+    &#btnBox > section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 240px;
+        padding: 0 30px 10px;
+        box-sizing: border-box;
+
+        & > a {
+            font-size: var(--fsize-m);
+            color: var(--color-gray);
+        }
     }
 `;
 
