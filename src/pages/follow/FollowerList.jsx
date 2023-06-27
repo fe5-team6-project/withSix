@@ -11,11 +11,14 @@ export default function Follower() {
     const [followerList, setFollowerList] = useState([]);
     const accountName = useParams().accountname;
     const [pages, setPages] = useState(10);
+    const [count, setCount] = useState(0);
+
     const FollowerList = async () => {
         const res = await api.get(`profile/${accountName}/follower/?limit=${pages}&skip=0`);
         console.log(res.data);
         const data = res.data
         setFollowerList([...data]);
+        setCount(data.length);
     }
 
     useEffect(() => {
@@ -32,7 +35,7 @@ export default function Follower() {
                                 <FollowList key={item.id} {...item}></FollowList>
                             ))}
                         </FollowWrap>
-                        <MoreButton onClick={() => setPages((pages) => pages + 5)}>더보기</MoreButton>
+                        {count % 10 !== 0 ? null : (<MoreButton onClick={() => setPages((pages) => pages + 5)}>더보기</MoreButton>)}
                     </>
                 ) : (
                     <EmptyData url={'../together/upload'} />
@@ -55,10 +58,11 @@ const Main = styled.main`
 const FollowWrap = styled.ul`
     display:flex;
     flex-direction: column;
-    gap:20px;
+    gap:10px;
     margin:auto;
     min-width:300px;
     max-width:390px;
+    padding:20px;
 `
 
 const MoreButton = styled.button`
