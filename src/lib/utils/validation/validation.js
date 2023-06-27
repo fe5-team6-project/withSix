@@ -145,7 +145,7 @@ export const validationCheckPassword = (password, password2) => {
 };
 
 export const validationName = (name) => {
-    const length = name.length;
+    const length = name?.length;
 
     if (!length) {
         result.state = false;
