@@ -4,9 +4,9 @@ import {
 } from '../../lib/apis/constant/message';
 import { URL } from '../../lib/apis/constant/path';
 
-export default async function handleLogin() {
-    const email = document.querySelector('#email').value;
-    const password = document.querySelector('#password').value;
+export default async function handleLogin(email, password) {
+    // const email = document.querySelector('#email').value;
+    // const password = document.querySelector('#password').value;
 
     const requestPath = '/user/login';
     const requestUrl = `${URL}${requestPath}`;
