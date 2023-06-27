@@ -63,7 +63,7 @@ export const validationEmail = async (email) => {
         return result;
     }
 
-    if (!(await checkDuplicationEmail())) {
+    if (!(await checkDuplicationEmail(email))) {
         result.state = false;
         result.message = FAIL_ALEADY_EMAIL;
         return result;
@@ -114,7 +114,7 @@ export const validationId = async (id) => {
         return result;
     }
 
-    if (!(await checkDuplicationId())) {
+    if (!(await checkDuplicationId(id))) {
         result.state = false;
         result.message = FAIL_ALEADY_ID;
         return result;
@@ -196,7 +196,7 @@ export const validationTogether = (itemName, price, link) => {
 
     result.state = true;
     return result;
-}
+};
 
 export const validationImageSize = (fileSize) => {
     const maxSize = 10 * 1024 * 1024;
@@ -208,4 +208,4 @@ export const validationImageSize = (fileSize) => {
 
     result.state = true;
     return result;
-}
+};
