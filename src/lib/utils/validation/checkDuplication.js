@@ -1,9 +1,8 @@
 import { URL } from '../../apis/constant/path';
 
-export async function checkDuplicationEmail() {
+export async function checkDuplicationEmail(email) {
     const input = document.querySelector('#email');
-    const email = input.value;
-    console.log(email);
+    // const email = input.value;
 
     const requestPath = '/user/emailvalid';
     const requestUrl = `${URL}${requestPath}`;
@@ -38,9 +37,9 @@ export async function checkDuplicationEmail() {
     return true;
 }
 
-export async function checkDuplicationId() {
+export async function checkDuplicationId(id) {
     const input = document.querySelector('#id');
-    const id = input.value;
+    // const id = input.value;
 
     const requestPath = '/user/accountnamevalid';
     const requestUrl = `${URL}${requestPath}`;

@@ -6,24 +6,27 @@ import { api, urlApi } from '../../lib/apis/axiosConfig';
 import { BASE_URL } from '../../lib/apis/constants';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { validationTogether } from '../../lib/utils/validation/validation';
+import { validationImageSize, validationTogether } from '../../lib/utils/validation/validation';
 import {
     setContent,
     setIsVisible,
-    setUrl,
 } from '../../store/slices/modalSlice';
 import Modal from '../../components/modal/Modal';
 
 export default function GroupUpload() {
     const navigate = useNavigate();
-    const accoutname = useSelector((state) => { return state.user.myInfo.accountname });
+    const dispatch = useDispatch();
+    const accountname = useSelector((state) => { return state.user.myInfo.accountname });
+    const modal = useSelector((state) => state?.modal);
     const [togetherInfo, setTogetherInfo] = useState({
         "itemName": '',
-        "price": Number,
-        "link": String,
+        "price": 0,
+        "link": '',
         "itemImage": '',
     })
     const [img, setImg] = useState('');
+    const { itemName, price, link } = togetherInfo;
+    const modalVisible = modal.display.isVisible;
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -36,14 +39,16 @@ export default function GroupUpload() {
 
     const handleImgChange = (e) => {
         const file = e.target.files[0];
+        const fileSize = file.size;
+        const validImageSize = validationImageSize(fileSize);
+        if (!validImageSize.state) {
+            setModalContent(validImageSize);
+            setModalVisible(true);
+            return false;
+        }
         setTogetherInfo({ ...togetherInfo, itemImage: file });
         setImg(URL.createObjectURL(file));
     }
-
-    const { itemName, price, link } = togetherInfo;
-    const dispatch = useDispatch();
-    const modal = useSelector((state) => state?.modal);
-    const modalVisible = modal.display.isVisible;
 
     const setModalContent = (props) => {
         dispatch(
@@ -53,9 +58,7 @@ export default function GroupUpload() {
             })
         );
     };
-    // const setModalUrl = (url) => {
-    //     dispatch(setUrl({ url: url }));
-    // };
+
     const setModalVisible = (isVisible) => {
         dispatch(setIsVisible({ isVisible: isVisible }));
     };
@@ -63,9 +66,7 @@ export default function GroupUpload() {
     const sendTogether = async () => {
         try {
             // e.preventDefault();
-            console.log(itemName);
             const validTogether = validationTogether(itemName, price, link);
-            console.log(validTogether);
             if (!validTogether.state) {
                 setModalContent(validTogether);
                 setModalVisible(true);
@@ -78,19 +79,13 @@ export default function GroupUpload() {
             const img = `${BASE_URL}/${imgRes.data.filename}`;
             const togetherBody = { product: { ...togetherInfo, itemImage: img } };
             await api.post(`/product`, togetherBody, { timeout: 3000 });
+            navigate(`/together/${accountname}`);
         } catch (error) {
             console.error(error);
         }
     }
 
-    // const [saveBtnActive, setSaveBtnActive] = useState(true);
-    // useEffect(() => {
-    //     console.log(togetherInfo)
-    //     if (togetherInfo.price !== 0 && !!togetherInfo.itemName.length !== 0) {
-    //         setSaveBtnActive(false);
-    //     }
-    // }, [togetherInfo])
-    // console.log(saveBtnActive);
+
 
     const page = (
         <>
@@ -102,17 +97,16 @@ export default function GroupUpload() {
                 <GroupInputWrapper>
                     <GroupInput id="GroupName" placeholder="모임명" name="itemName" onChange={handleChange}></GroupInput>
                     <GroupInput type="number" id="GroupPrice" placeholder="모임비" name="price" step="100" onChange={handleChange}></GroupInput>
-                    {/* <GroupInput id="GroupInfo" placeholder="모임 소개"></GroupInput> */}
                     <GroupInfo id="GroupInfo" placeholder="모임 소개" name="link" onChange={handleChange}></GroupInfo>
-                    <GroupInput id="GroupImage" placeholder="모임 이미지" type="file" name="itemImage" accept="image/*" onChange={handleImgChange}></GroupInput>
+                    <GroupInput id="GroupImage" placeholder="모임 이미지" type="file" name="itemImage" accept=".jpg, .gif, .png, .jpeg, .bmp, .tif, .heic" onChange={handleImgChange}></GroupInput>
                 </GroupInputWrapper>
                 <GroupLabel htmlFor="GroupImage">
                     {/* <GroupImage id="PreImage" src={img || togetherReq.itemImage || initialImage}></GroupImage> */}
                     <GroupImage id="PreImage" src={img || initialImage}></GroupImage>
                 </GroupLabel>
-                {/* <RegiButton disabled={saveBtnActive} onClick={async () => { await sendTogether(); navigate(`/together/${accoutname}`); }}>등록</RegiButton> */}
-                {/* <RegiButton onClick={async () => { await sendTogether(); navigate(`/together/${accoutname}`); }}>등록</RegiButton> */}
-                <RegiButton onClick={async () => { await sendTogether(); }}>등록</RegiButton>
+                <RegiButton onClick={async () => {
+                    await sendTogether();
+                }}>등록</RegiButton>
             </Form>
             {modalVisible && <Modal />}
         </>

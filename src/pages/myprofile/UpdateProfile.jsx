@@ -50,12 +50,13 @@ export default function UpdateProfile() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const id = document.querySelector('#id').value;
-        const name = document.querySelector('#name').value;
 
-        const validAleadyUseId = checkAleadyUseId(user?.accountname, id);
+        const validAleadyUseId = checkAleadyUseId(
+            user?.accountname,
+            accountname
+        );
         if (validAleadyUseId) {
-            const validId = await validationId(id);
+            const validId = await validationId(accountname);
             /**
              * 모달 세팅
              * setModalContent(=> 27 라인)
@@ -70,7 +71,7 @@ export default function UpdateProfile() {
             }
         }
 
-        const validName = validationName(name);
+        const validName = validationName(username);
         if (!validName.state) {
             setModalContent(validName);
             setModalVisible(true);
@@ -98,8 +99,8 @@ export default function UpdateProfile() {
                     <ImageInput
                         type="file"
                         id="image"
-                        onChange={(e) => {
-                            setImage(handleFileUpload(e));
+                        onChange={async (e) => {
+                            setImage(await handleFileUpload(e));
                         }}
                     />
                 </ImageWrap>

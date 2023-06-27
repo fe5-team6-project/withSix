@@ -1,12 +1,7 @@
-import { FAIL_ACCESS, SIGNUP_OK } from '../../lib/apis/constant/message';
+import { SIGNUP_OK } from '../../lib/apis/constant/message';
 import { URL } from '../../lib/apis/constant/path';
 
-export default async function handleSignup(user) {
-    const id = document.querySelector('#id').value;
-    const nickname = document.querySelector('#name').value;
-    const intro = document.querySelector('#intro').value;
-    const image = document.querySelector('#profile_image').src;
-
+export default async function handleSignup(user, image, id, name, intro) {
     const email = user.email;
     const password = user.password;
 
@@ -20,7 +15,7 @@ export default async function handleSignup(user) {
 
     const userData = {
         user: {
-            username: nickname,
+            username: name,
             email: email,
             password: password,
             accountname: id,

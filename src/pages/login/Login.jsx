@@ -71,7 +71,7 @@ export default function Login() {
          *  로그인 유저 정보를 받아와 상태에 저장
          *  home으로 이동할 수 있도록 url을 담아주고 모달 출력
          */
-        const status = await handleLogin();
+        const status = await handleLogin(email, password);
         setModalContent(status);
 
         if (!status.state) {

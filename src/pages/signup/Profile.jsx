@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { styled } from 'styled-components';
 import handleFileUpload from './handleFileUload';
 import handleSignup from './handleSignup';
@@ -9,12 +10,13 @@ import { DEFAULT_IMAGE } from '../../lib/apis/constant/path';
 
 export default function Profile(props) {
     const userData = props.userData;
+    const [image, setImage] = useState(DEFAULT_IMAGE);
+    const [id, setId] = useState(undefined);
+    const [name, setName] = useState(undefined);
+    const [intro, setIntro] = useState('');
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const id = document.querySelector('#id').value;
-        const name = document.querySelector('#name').value;
-
         const validId = await validationId(id);
         if (!validId.state) {
             props.setModalContent(validId);
@@ -29,7 +31,7 @@ export default function Profile(props) {
             return false;
         }
 
-        const status = await handleSignup(userData);
+        const status = await handleSignup(userData, image, id, name, intro);
         if (status.state) {
             props.setModalContent(status);
             props.setModalVisible(true);
@@ -47,7 +49,7 @@ export default function Profile(props) {
             >
                 <ImageWrap>
                     <Img
-                        src={DEFAULT_IMAGE}
+                        src={image}
                         alt={'기본 회원 이미지'}
                         id="profile_image"
                     />
@@ -55,21 +57,36 @@ export default function Profile(props) {
                     <ImageInput
                         type="file"
                         id="image"
-                        onChange={(event) => {
-                            handleFileUpload(event);
+                        onChange={async (e) => {
+                            setImage(await handleFileUpload(e, image));
                         }}
                     />
                 </ImageWrap>
                 <Div className="id_wrap">
-                    <Input type="text" id="id" placeholder=" " />
+                    <Input
+                        type="text"
+                        id="id"
+                        placeholder=" "
+                        onChange={(e) => setId(e.target.value)}
+                    />
                     <Label htmlFor="id">ID</Label>
                 </Div>
                 <Div>
-                    <Input type="text" id="name" placeholder=" " />
+                    <Input
+                        type="text"
+                        id="name"
+                        placeholder=" "
+                        onChange={(e) => setName(e.target.value)}
+                    />
                     <Label htmlFor="name">Nickname</Label>
                 </Div>
                 <Div>
-                    <Input type="text" id="intro" placeholder=" " />
+                    <Input
+                        type="text"
+                        id="intro"
+                        placeholder=" "
+                        onChange={(e) => setIntro(e.target.value)}
+                    />
                     <Label htmlFor="intro">Introduce</Label>
                 </Div>
                 <Button>시작하기</Button>

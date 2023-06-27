@@ -28,13 +28,14 @@ export const CONTENT_UPDATE_OK = '내용 수정 성공!';
 export const CONTENT_DELETE_OK = '삭제 성공!';
 
 export const FAIL_NULL_CONTENT = '내용을 입력해 주세요!';
-export const FAIL_OVER_SIZE = '이미지 업로드 최대 용량은 5MB입니다.';
+export const FAIL_OVER_SIZE = '이미지 업로드 최대 용량은 10MB입니다.';
 export const FAIL_OVER_IMAGE = '사진은 최대 3장까지 등록이 가능합니다.';
 
-export const FAIL_NULL_PRICE = '가격을 입력해주세요!';
+/** 모임 관련*/
+export const FAIL_NULL_PRICE = '가격을 입력해 주세요!';
+export const FAIL_INVALID_PRICE = '가격을 올바르게 입력해 주세요!';
 export const FAIL_NULL_TITLE = '모임명을 입력해 주세요!';
-export const FAIL_LENGTH_TITLE = '모임명은 2~15자 이내로 입력해 주세요!'
-
+export const FAIL_LENGTH_TITLE = '모임명은 2~15자 이내로 입력해 주세요!';
 
 /** 댓글 관련 */
 export const COMMENT_WRITE_OK = '댓글이 등록되었습니다.';
