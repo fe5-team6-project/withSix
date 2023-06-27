@@ -56,7 +56,9 @@ export default function Report() {
         <>
             <Icon onClick={() => setVisible(!visible)} src={iconMoreVertical} />
             {visible && (
-                <ReportTitle onClick={handleReport}>신고하기</ReportTitle>
+                <ToggleWrapper>
+                    <ReportTitle onClick={handleReport}>신고하기</ReportTitle>
+                </ToggleWrapper>
             )}
             {isVisible && <Modal />}
         </>
@@ -67,6 +69,20 @@ const Icon = styled.img`
     position: absolute;
     right: 0;
     cursor: pointer;
+`;
+
+const ToggleWrapper = styled.section`
+    position: absolute;
+    width: 150px;
+    top: 25px;
+    right: 25px;
+    padding: 5px 0;
+    background-color: white;
+    border-radius: var(--radius-m);
+    border-top-right-radius: 0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    z-index: 3;
 `;
 
 const ReportTitle = styled.div`

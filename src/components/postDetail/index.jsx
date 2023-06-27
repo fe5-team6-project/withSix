@@ -105,6 +105,8 @@ export default function PostDetail() {
 const Div = styled.div`
     width: 350px;
     margin: 30px auto;
+    font-family: var(--font-kr);
+    font-size: var(--fsize-l);
 `;
 
 const SectionDefault = styled.section`

@@ -77,27 +77,30 @@ function CommentReq({ setReload, setCommentCount, setComment }) {
 export default CommentReq;
 
 const WriteForm = styled.form`
-    // position: relative;
+    position: fixed;
+    bottom: 70px;
     display: flex;
     width: 350px;
     // background-color: red;
 `;
 const Input = styled.input`
-    width: 275px;
-    margin: 0;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: calc(100% - 80px);
+    height: 50px;
     background-color: white;
+    border-radius: var(--radius-m);
+    border: none;
     color: black;
-    &:focus {
-        outline: none;
-        &::placeholder {
-            color: transparent;
-        }
+    &::placeholder {
+        color: var(--color-disabled);
     }
 `;
 
 const Button = styled.button`
-    width: 75px;
-    height: 25px;
+    position: absolute;
+    width: 70px;
     right: 0;
     bottom: 0;
 `;

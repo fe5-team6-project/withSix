@@ -3,8 +3,8 @@ import { debounce } from 'lodash';
 import UserLIst from './UserList';
 import { api } from '../../lib/apis/axiosConfig';
 import Common from '../main/Common';
-import { styled } from 'styled-components';
-import searchIcon from '../../assets/icons/common/search-main.svg';
+import { keyframes, styled } from 'styled-components';
+import logo from '../../assets/logo/LOGO.svg';
 import searchIconWhite from '../../assets/icons/common/search-main-white.svg';
 
 export default function Search() {
@@ -16,8 +16,13 @@ export default function Search() {
     const [showUser, setShowUser] = useState([]);
     //페이지 상태관리
     const [page, setPage] = useState(0);
+    const [isLoading, setIsLoading] = useState(false);
 
     const sendQuery = async (q) => {
+        if (!isLoading) {
+            setIsLoading(true);
+        }
+        delayLoading();
         if (q.length === 0) return;
         const { data } = await api.get(`/user/searchuser/?keyword=${q}`);
         //검색결과를 userList에 모두 저장
@@ -32,6 +37,8 @@ export default function Search() {
         debounce((q) => sendQuery(q), 400),
         []
     );
+
+    const delayLoading = useCallback(debounce((q) => setIsLoading(false), 500));
 
     const handleTyping = (e) => {
         setSearch(e.target.value);
@@ -56,6 +63,11 @@ export default function Search() {
         <Common
             page={
                 <SearchWrapper>
+                    {isLoading && (
+                        <Loading>
+                            <img src={logo} alt="logo" />
+                        </Loading>
+                    )}
                     <Input
                         id="search_input"
                         type="text"
@@ -86,7 +98,7 @@ export default function Search() {
 const SearchWrapper = styled.article`
     position: relative;
     width: 350px;
-    min-height: 50px;
+    min-height: calc(100vh - 340px);
     margin: 50px auto 20px;
     padding: 130px 0 20px;
     overflow-y: hidden;
@@ -142,6 +154,35 @@ const SearchIcon = styled.label`
 `;
 
 const AddButton = styled.button`
-    margin-top: 20px;
-    margin-left: 55px;
+    all: unset;
+    display: block;
+    width: 100px;
+    height: 20px;
+    margin: 0 auto 20px;
+    border-radius: var(--radius-m);
+    font-size: var(--fsize-m);
+    text-align: center;
+    cursor: pointer;
+`;
+
+const shakeAnimation = keyframes`
+    0%{transform : translate(-50%, -50%) rotate(-20deg);}
+
+    25%{transform : translate(-50%, -50%) rotate(20deg);}
+
+    50%{transform : translate(-50%, -50%) rotate(-20deg);}
+
+    75%{transform : translate(-50%, -50%) rotate(20deg);}
+`;
+
+const Loading = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70px;
+    height: 70px;
+    animation: ${shakeAnimation} 1s ease-in-out infinite;
+    & > img {
+        width: 70px;
+    }
 `;

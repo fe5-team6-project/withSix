@@ -43,7 +43,7 @@ const StyledHeader = styled.header`
     border-bottom-right-radius: var(--radius-l);
     line-height: 70px;
     transform: translateX(-50%);
-    z-index: 1;
+    z-index: 3;
 `;
 
 const Div = styled.div`
