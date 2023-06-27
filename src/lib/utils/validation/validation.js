@@ -14,6 +14,7 @@ import {
     FAIL_NULL_PASSWORD,
     FAIL_NULL_PRICE,
     FAIL_NULL_TITLE,
+    FAIL_OVER_SIZE,
 } from '../../apis/constant/message';
 import {
     REG_EXP_EMAIL,
@@ -183,6 +184,18 @@ export const validationTogether = (itemName, price, link) => {
     if (!lenLink || !link) {
         result.state = false;
         result.message = FAIL_NULL_CONTENT;
+        return result;
+    }
+
+    result.state = true;
+    return result;
+}
+
+export const validationImageSize = (fileSize) => {
+    const maxSize = 10 * 1024 * 1024;
+    if (fileSize > maxSize) {
+        result.state = false;
+        result.message = FAIL_OVER_SIZE;
         return result;
     }
 
