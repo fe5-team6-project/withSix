@@ -77,7 +77,8 @@ function CommentReq({ setReload, setCommentCount, setComment }) {
 export default CommentReq;
 
 const WriteForm = styled.form`
-    position: relative;
+    position: fixed;
+    bottom: 70px;
     display: flex;
     width: 350px;
     // background-color: red;

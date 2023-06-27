@@ -86,7 +86,7 @@ const Img = styled.img`
     cursor: pointer;
 `;
 const DeleteTitle = styled.div`
-    color: red;
+    color: var(--color-red);
     cursor: pointer;
 `;
 const ToggleWrapper = styled.section`

@@ -109,16 +109,23 @@ export default function Comments({
 
 const CommentWrapper = styled.ul`
     // background-color: var(--color-gray);
-    height: 300px;
+    max-height: 300px;
     overflow: auto;
-    padding: 10px;
+    padding: 10px 10px 0;
+    border-top: 2px solid var(--color-disabled);
+    border-bottom: 2px solid var(--color-disabled);
+    box-sizing: border-box;
 `;
 
 const Li = styled.li`
     display: flex;
     // justify-content:
     // height: 60px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: white;
+    border-radius: var(--radius-m);
+    font-size: var(--fsize-m);
 `;
 
 const Img = styled.img`
@@ -137,6 +144,7 @@ const CommentRight = styled.div`
 const RightTop = styled.div`
     display: flex;
     justify-content: space-between;
+    align-items: center;
 `;
 
 const ImgWrapper = styled.div`
@@ -148,8 +156,8 @@ const ImgWrapper = styled.div`
 `;
 
 const UserName = styled.div`
-    margin-bottom: 3px;
     cursor: pointer;
+    font-size: var(--fsize-s);
 `;
 
 const ContentWrapper = styled.div`
