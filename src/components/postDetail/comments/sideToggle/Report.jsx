@@ -58,7 +58,11 @@ export default function ReportMent({ commentId }) {
     return (
         <>
             {visible && (
-                <ReportTitle onClick={() => handleReported()}>신고</ReportTitle>
+                <ToggleWrapper>
+                    <ReportTitle onClick={() => handleReported()}>
+                        신고
+                    </ReportTitle>
+                </ToggleWrapper>
             )}
             <Img onClick={() => setVisible(!visible)} src={iconMoreVertical} />
             {isVisible && <Modal />}
@@ -72,4 +76,17 @@ const Img = styled.img`
 
 const ReportTitle = styled.div`
     cursor: pointer;
+`;
+
+const ToggleWrapper = styled.section`
+    position: absolute;
+    width: 100px;
+    right: 70px;
+    padding: 5px 0;
+    background-color: white;
+    border-radius: var(--radius-m);
+    border-top-right-radius: 0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    z-index: 3;
 `;
