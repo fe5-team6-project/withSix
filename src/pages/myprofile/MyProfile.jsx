@@ -15,16 +15,16 @@ export default function MyProfile() {
         (function resetUser() {
             dispatch(
                 setMyInfo({
-                    _id: String,
-                    username: String,
+                    _id: '',
+                    username: '',
                     isfollow: false,
-                    intro: String,
-                    image: String,
-                    followingCount: Number,
-                    following: Array,
-                    followerCount: Number,
-                    follower: Array,
-                    accountname: String,
+                    intro: '',
+                    image: '',
+                    followingCount: '',
+                    following: [],
+                    followerCount: 0,
+                    follower: [],
+                    accountname: '',
                 })
             );
         })();
