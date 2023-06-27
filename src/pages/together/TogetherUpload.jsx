@@ -16,11 +16,11 @@ import Modal from '../../components/modal/Modal';
 
 export default function GroupUpload() {
     const navigate = useNavigate();
-    const accoutname = useSelector((state) => { return state.user.myInfo.accountname });
+    const accountname = useSelector((state) => { return state.user.myInfo.accountname });
     const [togetherInfo, setTogetherInfo] = useState({
         "itemName": '',
-        "price": Number,
-        "link": String,
+        "price": 0,
+        "link": '',
         "itemImage": '',
     })
     const [img, setImg] = useState('');
@@ -41,6 +41,7 @@ export default function GroupUpload() {
     }
 
     const { itemName, price, link } = togetherInfo;
+
     const dispatch = useDispatch();
     const modal = useSelector((state) => state?.modal);
     const modalVisible = modal.display.isVisible;
@@ -53,9 +54,9 @@ export default function GroupUpload() {
             })
         );
     };
-    // const setModalUrl = (url) => {
-    //     dispatch(setUrl({ url: url }));
-    // };
+    const setModalUrl = (url) => {
+        dispatch(setUrl({ url: url }));
+    };
     const setModalVisible = (isVisible) => {
         dispatch(setIsVisible({ isVisible: isVisible }));
     };
@@ -63,9 +64,8 @@ export default function GroupUpload() {
     const sendTogether = async () => {
         try {
             // e.preventDefault();
-            console.log(itemName);
             const validTogether = validationTogether(itemName, price, link);
-            console.log(validTogether);
+            // console.log(validTogether);
             if (!validTogether.state) {
                 setModalContent(validTogether);
                 setModalVisible(true);
@@ -78,19 +78,13 @@ export default function GroupUpload() {
             const img = `${BASE_URL}/${imgRes.data.filename}`;
             const togetherBody = { product: { ...togetherInfo, itemImage: img } };
             await api.post(`/product`, togetherBody, { timeout: 3000 });
+            navigate(`/together/${accountname}`);
         } catch (error) {
             console.error(error);
         }
     }
 
-    // const [saveBtnActive, setSaveBtnActive] = useState(true);
-    // useEffect(() => {
-    //     console.log(togetherInfo)
-    //     if (togetherInfo.price !== 0 && !!togetherInfo.itemName.length !== 0) {
-    //         setSaveBtnActive(false);
-    //     }
-    // }, [togetherInfo])
-    // console.log(saveBtnActive);
+
 
     const page = (
         <>
@@ -111,8 +105,10 @@ export default function GroupUpload() {
                     <GroupImage id="PreImage" src={img || initialImage}></GroupImage>
                 </GroupLabel>
                 {/* <RegiButton disabled={saveBtnActive} onClick={async () => { await sendTogether(); navigate(`/together/${accoutname}`); }}>등록</RegiButton> */}
-                {/* <RegiButton onClick={async () => { await sendTogether(); navigate(`/together/${accoutname}`); }}>등록</RegiButton> */}
-                <RegiButton onClick={async () => { await sendTogether(); }}>등록</RegiButton>
+                <RegiButton onClick={async () => {
+                    await sendTogether();
+                }}>등록</RegiButton>
+                {/* <RegiButton onClick={async () => { await sendTogether(); }}>등록</RegiButton> */}
             </Form>
             {modalVisible && <Modal />}
         </>
