@@ -9,7 +9,7 @@ import changeHeart from './changeHeart';
 import { useDispatch } from 'react-redux';
 import { setUserInfo } from '../../store/slices/userSlice';
 import getUserProfile from '../../pages/userprofile/getUserProfile';
-import Slick from '../slick';
+import Slick from '../../components/slick';
 import {
     emptyProfileImage,
     validationProfileImage,
