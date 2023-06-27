@@ -11,7 +11,7 @@ import { useParams } from 'react-router-dom';
 
 export default function Home() {
     const [postList, setPostList] = useState([]);
-    const [category, setCategory] = useState('');
+    const [category, setCategory] = useState('feed');
     const [skip, setSkip] = useState(0);
     const [hasNextPage, setHasNextPage] = useState(true);
     const user = useSelector((state) => state.user?.myInfo);
@@ -33,7 +33,6 @@ export default function Home() {
             } else {
                 newPost = await getPost('', id, skip, isMyPost);
             }
-            console.log(newPost);
             setPostList([...newPost]);
 
             newPost.length >= 10 ? setHasNextPage(true) : setHasNextPage(false);
@@ -57,8 +56,6 @@ export default function Home() {
                 newPost = await getPost('', id, skip, isMyPost);
             }
             setPostList([...postList, ...newPost]);
-            console.log(newPost);
-
             newPost.length >= 10 ? setHasNextPage(true) : setHasNextPage(false);
         }
 
@@ -70,12 +67,20 @@ export default function Home() {
         <>
             {isMyPost && (
                 <CategoryMenu>
-                    <CategoryButton
+                    {/* <CategoryButton
                         onClick={() => {
                             setCategory('');
                         }}
                     >
                         전체 글
+                    </CategoryButton>
+                    <DivLine src={divLine} alt="" /> */}
+                    <CategoryButton
+                        onClick={() => {
+                            setCategory('feed');
+                        }}
+                    >
+                        친구 글
                     </CategoryButton>
                     <DivLine src={divLine} alt="" />
                     <CategoryButton
@@ -84,14 +89,6 @@ export default function Home() {
                         }}
                     >
                         내 글
-                    </CategoryButton>
-                    <DivLine src={divLine} alt="" />
-                    <CategoryButton
-                        onClick={() => {
-                            setCategory('feed');
-                        }}
-                    >
-                        친구 글
                     </CategoryButton>
                 </CategoryMenu>
             )}
