@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from '../../assets/logo/LOGO-full-negative.svg';
-import { styled } from 'styled-components';
+import { keyframes, styled } from 'styled-components';
 
 export default function Splash() {
     return (
@@ -10,6 +10,17 @@ export default function Splash() {
         </SplashBack>
     );
 }
+
+const opacityAnimation = keyframes`
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+
+`;
 
 const Logo = styled.img``;
 
@@ -25,4 +36,6 @@ const SplashBack = styled.article`
     background-color: var(--color-main);
     z-index: 999;
     opacity: 1;
+    animation: ${opacityAnimation} 0.3s ease-in-out forwards;
+    animation-delay: 0.3s;
 `;
