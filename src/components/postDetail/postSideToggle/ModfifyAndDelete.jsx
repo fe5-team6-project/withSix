@@ -73,16 +73,27 @@ const Icon = styled.img`
 `;
 
 const ToggleWrapper = styled.section`
-    position: relative;
-    margin-left: 30px;
+    position: absolute;
+    width: 150px;
+    top: 25px;
+    right: 25px;
+    padding: 5px 0;
+    background-color: white;
+    border-radius: var(--radius-m);
+    border-top-right-radius: 0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    z-index: 3;
 `;
 
 const Cursor = styled.div`
     cursor: pointer;
 `;
 
-const ModifyTitle = styled(Cursor)``;
+const ModifyTitle = styled(Cursor)`
+    margin-bottom: 5px;
+`;
 
 const DeleteTitle = styled(Cursor)`
-    color: red;
+    color: var(--color-red);
 `;
