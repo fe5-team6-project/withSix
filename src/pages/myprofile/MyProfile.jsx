@@ -20,7 +20,7 @@ export default function MyProfile() {
                     isfollow: false,
                     intro: '',
                     image: '',
-                    followingCount: 0,
+                    followingCount: '',
                     following: [],
                     followerCount: 0,
                     follower: [],
