@@ -73,6 +73,7 @@ const CoverDiv = styled.div`
     width: 100vw;
     height: 100vh;
     background-color: var(--color-cover);
+    z-index: 999;
 
     & > article {
         position: absolute;

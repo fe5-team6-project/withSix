@@ -103,6 +103,7 @@ const CategoryMenu = styled.article`
     box-sizing: border-box;
     background-color: var(--color-back);
     text-align: right;
+    z-index: 2;
 `;
 
 const CategoryButton = styled.button`
