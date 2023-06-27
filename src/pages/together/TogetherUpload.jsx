@@ -159,6 +159,7 @@ const GroupInput = styled.input`
     font-size: var(--fsize-desc);
     box-sizing: border-box;
     margin-top: 20px;
+    border-radius: 5px;
     &#GroupImage {
         display: none;
     }
