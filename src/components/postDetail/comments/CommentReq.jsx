@@ -9,6 +9,7 @@ import { styled } from 'styled-components';
 import { setContent, setIsVisible } from '../../../store/slices/modalSlice';
 import { COMMENT_WRITE_OK } from '../../../lib/apis/constant/message';
 import { useDispatch, useSelector } from 'react-redux';
+import Modal from '../../modal/Modal';
 
 function CommentReq({ setReload, setCommentCount, setComment }) {
     const [text, setText] = useState('');
@@ -68,7 +69,7 @@ function CommentReq({ setReload, setCommentCount, setComment }) {
                 />
                 <Button onClick={() => sendCommentReq()}>게시</Button>
             </WriteForm>
-            {}
+            {isVisible && <Modal />}
         </>
     );
 }
