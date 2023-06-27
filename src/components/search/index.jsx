@@ -3,7 +3,7 @@ import { debounce } from 'lodash';
 import UserLIst from './UserList';
 import { api } from '../../lib/apis/axiosConfig';
 import Common from '../main/Common';
-import { styled } from 'styled-components';
+import { keyframes, styled } from 'styled-components';
 import logo from '../../assets/logo/LOGO.svg';
 import searchIconWhite from '../../assets/icons/common/search-main-white.svg';
 
@@ -38,7 +38,7 @@ export default function Search() {
         []
     );
 
-    const delayLoading = useCallback(debounce((q) => setIsLoading(false), 400));
+    const delayLoading = useCallback(debounce((q) => setIsLoading(false), 500));
 
     const handleTyping = (e) => {
         setSearch(e.target.value);
@@ -165,11 +165,24 @@ const AddButton = styled.button`
     cursor: pointer;
 `;
 
+const shakeAnimation = keyframes`
+    0%{transform : translate(-50%, -50%) rotate(-20deg);}
+
+    25%{transform : translate(-50%, -50%) rotate(20deg);}
+
+    50%{transform : translate(-50%, -50%) rotate(-20deg);}
+
+    75%{transform : translate(-50%, -50%) rotate(20deg);}
+`;
+
 const Loading = styled.div`
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 50px;
-    height: 50px;
-    transform: translate(-50%, -50%);
+    width: 70px;
+    height: 70px;
+    animation: ${shakeAnimation} 1s ease-in-out infinite;
+    & > img {
+        width: 70px;
+    }
 `;
