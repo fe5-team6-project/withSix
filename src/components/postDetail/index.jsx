@@ -33,6 +33,7 @@ export default function PostDetail() {
             setCommentCount(post.commentCount);
         } catch (error) {
             returnErrorMessage(error);
+            navigate('/home');
         }
     };
 
