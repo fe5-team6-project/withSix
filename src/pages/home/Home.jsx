@@ -19,7 +19,6 @@ export default function Home() {
 
     const [isMyPost, setIsMyPost] = useState(id ? false : true);
     const [isSplash, setIsSplash] = useState(true);
-    console.log(isMyPost);
 
     useEffect(() => {
         async function fetchData() {
