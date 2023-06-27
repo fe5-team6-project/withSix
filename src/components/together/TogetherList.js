@@ -35,6 +35,7 @@ const TogetherItem = styled.li`
     gap: 10px;
     border-radius: 5px;
     padding: 10px;
+    color: var(--color-gray);
     cursor: pointer;
     &:nth-of-type(1) {
         flex-basis: 100%;
@@ -43,7 +44,6 @@ const TogetherItem = styled.li`
             height: 200px;
         }
         & p {
-            font-size: var(--fsize-s);
             color: var(--color-gray);
             & > span {
                 overflow: hidden;
@@ -75,12 +75,16 @@ const TogetherName = styled.strong`
 `;
 
 const TogetherPrice = styled.p`
-    font-size: var(--fsize-s);
     color: var(--color-gray);
     display: inline-block;
     line-height: 13px;
+    font-size: var(--fsize-m);
 
     & > span {
+        font-family: var(--font-eng);
+        font-style: italic;
+        font-size: var(--fsize-m);
+        font-weight: bold;
         display: inline-block;
         color: var(--color-main);
         overflow: hidden;
