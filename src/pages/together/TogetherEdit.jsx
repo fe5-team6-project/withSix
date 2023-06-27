@@ -14,15 +14,16 @@ export default function GroupEdit() {
     const navigate = useNavigate();
 
     const togetherEdit = async () => {
-        const aa = {
+        const togetherData = {
             "product": {
                 ...togetherInfo
             }
         };
-        const res = api.put(`/product/${id}`, aa);
-        console.log(res);
+        const res = api.put(`/product/${id}`, togetherData);
+        const resData = (await res).data.product;
+        dispatch(inputTogether(resData));
+        navigate(-1);
     }
-    console.log(togetherInfo);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -30,8 +31,6 @@ export default function GroupEdit() {
             dispatch(inputTogether({ [name]: value }));
         }
     };
-    console.log(togetherInfo);
-
 
     const page = (
         <>
@@ -50,7 +49,7 @@ export default function GroupEdit() {
                 <GroupLabel htmlFor="GroupImage">
                     <GroupImage id="PreImage" src={togetherInfo.itemImage && !/\/undefined$/.test(togetherInfo.itemImage) ? togetherInfo.itemImage : togetherImg}></GroupImage>
                 </GroupLabel>
-                <RegiButton onClick={async () => { await togetherEdit(); navigate(-1); }}>수 정</RegiButton>
+                <RegiButton onClick={async () => { await togetherEdit(); }}>수정 완료</RegiButton>
             </Form>
         </>
     );
