@@ -7,16 +7,27 @@ import { styled } from 'styled-components';
 import divLine from '../../assets/icons/post/div-line.svg';
 import WriteButton from '../../components/writebutton/WriteButton';
 import EmptyData from '../../components/common/EmptyData';
+import { useParams } from 'react-router-dom';
 
 export default function Home() {
     const [postList, setPostList] = useState([]);
     const [category, setCategory] = useState('');
     const [skip, setSkip] = useState(0);
     const user = useSelector((state) => state.user?.myInfo);
+    const id = useParams().id;
+
+    const [isMyPost, setIsMyPost] = useState(id ? false : true);
+    console.log(isMyPost);
 
     useEffect(() => {
         async function fetchData() {
-            setPostList(await getPost(category, user?.accountname, skip));
+            if (isMyPost) {
+                setPostList(
+                    await getPost(category, user?.accountname, skip, isMyPost)
+                );
+            } else {
+                setPostList(await getPost('', id, skip, isMyPost));
+            }
         }
 
         fetchData();
@@ -24,10 +35,22 @@ export default function Home() {
 
     useEffect(() => {
         async function fetchData() {
-            setPostList([
-                ...postList,
-                ...(await getPost(category, user?.accountname, skip)),
-            ]);
+            if (isMyPost) {
+                setPostList([
+                    ...postList,
+                    ...(await getPost(
+                        category,
+                        user?.accountname,
+                        skip,
+                        isMyPost
+                    )),
+                ]);
+            } else {
+                setPostList([
+                    ...postList,
+                    ...(await getPost('', id, skip, isMyPost)),
+                ]);
+            }
         }
 
         fetchData();
@@ -35,31 +58,33 @@ export default function Home() {
 
     const page = (
         <>
-            <CategoryMenu>
-                <CategoryButton
-                    onClick={() => {
-                        setCategory('');
-                    }}
-                >
-                    전체 글
-                </CategoryButton>
-                <DivLine src={divLine} alt="" />
-                <CategoryButton
-                    onClick={() => {
-                        setCategory('my');
-                    }}
-                >
-                    내 글
-                </CategoryButton>
-                <DivLine src={divLine} alt="" />
-                <CategoryButton
-                    onClick={() => {
-                        setCategory('feed');
-                    }}
-                >
-                    친구 글
-                </CategoryButton>
-            </CategoryMenu>
+            {isMyPost && (
+                <CategoryMenu>
+                    <CategoryButton
+                        onClick={() => {
+                            setCategory('');
+                        }}
+                    >
+                        전체 글
+                    </CategoryButton>
+                    <DivLine src={divLine} alt="" />
+                    <CategoryButton
+                        onClick={() => {
+                            setCategory('my');
+                        }}
+                    >
+                        내 글
+                    </CategoryButton>
+                    <DivLine src={divLine} alt="" />
+                    <CategoryButton
+                        onClick={() => {
+                            setCategory('feed');
+                        }}
+                    >
+                        친구 글
+                    </CategoryButton>
+                </CategoryMenu>
+            )}
 
             <ul>
                 {postList.length ? (

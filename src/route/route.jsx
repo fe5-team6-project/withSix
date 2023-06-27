@@ -23,6 +23,7 @@ export default function MyRouter() {
                 <Routes>
                     <Route path="/" element={<Main />} />
                     <Route path="/home" element={<Home />} />
+                    <Route path="/home/:id" element={<Home />} />
                     <Route path="/together/:id" element={<Together />} />
                     <Route
                         path="/together/upload"
