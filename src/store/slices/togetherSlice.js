@@ -5,7 +5,7 @@ const together = createSlice({
     initialState: {
         req: {
             "itemName": '',
-            "price": '',
+            "price": 0,
             "link": '',
             "itemImage": ''
         },
