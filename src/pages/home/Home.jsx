@@ -18,6 +18,7 @@ export default function Home() {
     const id = useParams().id;
 
     const [isMyPost, setIsMyPost] = useState(id ? false : true);
+    const [isSplash, setIsSplash] = useState(true);
     console.log(isMyPost);
 
     useEffect(() => {
@@ -37,6 +38,7 @@ export default function Home() {
             setPostList([...newPost]);
 
             newPost.length >= 10 ? setHasNextPage(true) : setHasNextPage(false);
+            setIsSplash(false);
         }
 
         fetchData();
@@ -62,6 +64,7 @@ export default function Home() {
         }
 
         fetchData();
+        setIsSplash(false);
     }, [skip]);
 
     const page = (
@@ -125,7 +128,7 @@ export default function Home() {
 
     return (
         <>
-            <Common page={page} />
+            <Common page={page} isSplash={isSplash} />
         </>
     );
 }
