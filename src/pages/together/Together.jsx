@@ -40,7 +40,10 @@ export default function Together() {
                     {accountname === myInfo && <WriteButton url={`/together/upload`} />}
                 </TogetherSection>
             ) : (
-                <EmptyData url={'../together/upload'} />
+                <>
+                    <EmptyData url={'../together/upload'} />
+                    {accountname === myInfo && <WriteButton url={`/together/upload`} />}
+                </>
             )}
         </>
     )
