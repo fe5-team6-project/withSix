@@ -6,10 +6,12 @@ export default function Splash() {
     return (
         <SplashBack>
             <h2 className="a11y-hidden">스플래쉬 화면</h2>
-            <img src={logo} alt="로고" />
+            <Logo src={logo} alt="로고" />
         </SplashBack>
     );
 }
+
+const Logo = styled.img``;
 
 const SplashBack = styled.article`
     position: fixed;
