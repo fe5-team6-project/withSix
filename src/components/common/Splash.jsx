@@ -22,7 +22,20 @@ const opacityAnimation = keyframes`
 
 `;
 
-const Logo = styled.img``;
+const hideAnimation = keyframes`
+    0%{
+        transform : scale(100%);
+    }
+
+    100%{
+        transform: scale(0%);
+    }
+`;
+
+const Logo = styled.img`
+    animation: ${hideAnimation} 0.3s ease-in-out forwards;
+    animation-delay: 0.3s;
+`;
 
 const SplashBack = styled.article`
     position: fixed;
