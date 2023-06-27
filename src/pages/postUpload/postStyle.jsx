@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import deleteBtn from '../../assets/icons/post/icon-delete.png';
-import ImgUploadBtn from '../../assets/icons/post/icon-image.png'
 
 
 export const UploadSec = styled.section`
@@ -11,14 +10,14 @@ flex-direction: column;
 text-align: center;
 top: 0;
 left: 0;
-width: 100%;
+width: 390px;
 height: 100%;
+margin: 0 auto;
 `;
 
 export const UploadSubSec = styled.section`
-display: flex;
-gap: 20px;
-width: 450px;
+position: relative;
+width: 390px;
 margin: 0 auto;
 margin-top: 20px;
 `
@@ -29,61 +28,88 @@ left: 20px;
 `;
 
 export const Input = styled.textarea`
-margin-top: 40px;
 width: 350px;
 height: 300px;
-vertical-align: middle;
-border-color: #77CBD6;
 border-radius: 5px;
 resize: none;
+border: none;
+margin-top: 40px;
+margin-bottom: 10px;
 `;
 
-// 사진 미리보기 부분
-export const PostUploadImg = styled.div`
-display: flex;
+// 사진 미리보기 부분 
+export const PostUploadImg = styled.section`
+width: 100%;
 margin-top: 20px;
-gap: 25px;
+    overflow: hidden;
+    overflow-x: auto;
+    & ul {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        width: fit-content;
+        /* padding: 10px 0; */
+    }
+    & li {
+        position: relative;
+        width: 200px;
+        height: 100px;
+        margin-bottom: 10px;
+        border-radius: var(--radius-s);
+        overflow: hidden;
+    }
 `;
 
 export const FileUpload = styled.label`
-width: 90px;
-height: 90px;
-background-image: url(${ImgUploadBtn});
-background-repeat: no-repeat;
-background-size: 50px 50px;
-background-color: #77CBD6;;
-background-position: 50% 50%;
-cursor: pointer;
-border-radius: 30px;
+position: absolute;
+    width: 50px;
+    height: 50px;
+    right: 20px;
+    bottom: 0px;
+    background-color: var(--color-main);
+    border-radius: var(--radius-m);
+    line-height: 46px;
+    cursor: pointer;
+    &:focus,
+    &:hover {
+        outline: 3px solid var(--color-focus);
+    }
+    & > img {
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+    }
 `;
 
 // 파일 선택 버튼 숨김 처리
 export const FileInput = styled.input`
-position: absolute;
+/* position: absolute;
 width: 1px;
 height: 1px;
 padding: 0;
 margin: -1px;
 overflow: hidden;
 clip:rect(0,0,0,0);
-border: 0;
+border: 0; */
+display: none;
 `;
 
 export const DeleteBtn = styled.button`
-width: 20px;
-height: 20px;
-margin-left: 10px;
 background-image: url(${deleteBtn});
 background-position: center;
 background-repeat: no-repeat;
 background-size: cover;
 border: none;
-`;
+height: 20px;
+margin-left: 15px;
+width: 20px;
+`;  
 
 export const Img = styled.img`
 width: 80px;
 height: 80px;
-background-size: cover;
+object-fit: cover;
 `;
 
 export const TitleSec = styled.div`

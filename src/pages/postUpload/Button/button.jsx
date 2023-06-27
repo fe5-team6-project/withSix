@@ -1,10 +1,12 @@
 import React from 'react';
-import { Button } from '../Button/buttonStyle'
+import { Button,ButtonWrap } from '../Button/buttonStyle'
 
 export const UploadBtn = (props) => {
     return (
-        <Button onClick={props.UploadPost} size={props.size} disabled={props.disabled}>
-        {props.text}
-        </Button>
+        <ButtonWrap>
+            <Button onClick={props.UploadPost} size={props.size} >
+            {props.text}
+            </Button>
+        </ButtonWrap>
     );
 };

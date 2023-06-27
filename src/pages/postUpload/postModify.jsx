@@ -19,6 +19,11 @@ import {
 import { PostUploadFooter } from './UploadFooter/uploadfooter';
 import { URL as url } from '../../lib/apis/constant/path';
 import ImgUploadBtn from '../../assets/icons/post/icon-image.png';
+import { ValidContent, ValidLength } from './valiPostUpload';
+import { useDispatch, useSelector } from 'react-redux';
+import { CONTENT_UPDATE_OK, FAIL_OVER_IMAGE } from "../../lib/apis/constant/message";
+import Modal from "../../components/modal/Modal";
+import { setContent as setContents, setIsVisible, setUrl } from '../../store/slices/modalSlice';
 
 export default function PostUpload() {
     const { id } = useParams();
@@ -29,6 +34,10 @@ export default function PostUpload() {
     const [uploadBtn, setUploadBtn] = useState(true);
     const fileInput = useRef(null);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    // 모달을 나타낼지 말지 결정할 state
+    const { display : { isVisible }} = useSelector(state => state.modal);
 
     const data = {
         post: {
@@ -72,8 +81,14 @@ export default function PostUpload() {
         console.log(fileImgs);
 
         // 이미지는 3장까지 업로드
-        if (fileUrls.length > 3) {
-            alert(' 이미지는 3장까지 업로드할 수 있습니다.');
+        if (ValidLength(fileUrls)) {
+            dispatch(setContents({
+                state : false,
+                message: FAIL_OVER_IMAGE
+            })
+            )
+            dispatch(setIsVisible({isVisible : true}));
+
             fileUrls = fileUrls.slice(0, 3);
             fileImgs = fileImgs.slice(0, 3);
         }
@@ -120,11 +135,26 @@ export default function PostUpload() {
                         'Content-type': 'application/json',
                     },
                 })
-                .then(navigate('/home'));
-        } catch (error) {
-            console.log(error);
+                
+                if (res.status === 200){
+                    dispatch(setContents({
+                        state : true,
+                        message: CONTENT_UPDATE_OK
+                    })
+                    )
+                    dispatch(setIsVisible({isVisible : true}));
+                    dispatch(setUrl({ path : '/home'}))
+                }
+            } catch (error) {
+                const errorMessage = error.response.data.message
+                dispatch(setContents({
+                    state : false,
+                    message: errorMessage
+                })
+                )
+                dispatch(setIsVisible({isVisible : true}));
+            }
         }
-    }
 
     async function ModifyPost() {
         const {
@@ -153,11 +183,7 @@ export default function PostUpload() {
 
     // 게시물 업로드할 때 게시글과 이미지가 없으면 업로드 불가
     useEffect(() => {
-        if (content.length === 0 && postImg.length === 0) {
-            setUploadBtn(false);
-        } else {
-            setUploadBtn(true);
-        }
+        setUploadBtn( ValidContent(content, postImg))
     }, [content, postImg]);
 
     const page = (
@@ -185,6 +211,41 @@ export default function PostUpload() {
                     }}
                 />
 
+                {/* 미리보기 이미지 부분 */}
+                <PostUploadImg>
+                        <ul>
+                            {postImg.length !== 0
+                                ? postImg.map((image, id) => {
+                                        return (
+                                            // 기존에 이미지가 있다면 뒤에 추가
+                                            image && (
+                                                <li key={id}>
+                                                    <Img key={id} src={image} />
+                                                    <DeleteBtn
+                                                        onClick={() => {
+                                                            return DeleteImg(id);
+                                                        }}
+                                                    />
+                                                </li>
+                                            )
+                                        );
+                                    })
+                                    : postImg.map((image, id) => {
+                                        return (
+                                            // 기존에 이미지가 없다면 새로 이미지 추가
+                                            <li key={id}>
+                                                <Img key={id} src={image} />
+                                                <DeleteBtn
+                                                    onClick={() => {
+                                                        return DeleteImg(id);
+                                                    }}
+                                                />
+                                            </li>
+                                        );
+                                    })}
+                        </ul>
+                    </PostUploadImg>
+
                 <UploadSubSec>
                     {/* 이미지 등록 라벨 */}
                     <FileUpload htmlFor="input-file">
@@ -199,48 +260,14 @@ export default function PostUpload() {
                         />
                     </FileUpload>
 
-                    {/* 미리보기 이미지 부분 */}
-                    <PostUploadImg>
-                        <ul>
-                            {postImg.length !== 0
-                                ? postImg.map((image, id) => {
-                                      return (
-                                          // 기존에 이미지가 있다면 뒤에 추가
-                                          image && (
-                                              <li key={id}>
-                                                  <Img key={id} src={image} />
-                                                  <DeleteBtn
-                                                      onClick={() => {
-                                                          return DeleteImg(id);
-                                                      }}
-                                                  />
-                                              </li>
-                                          )
-                                      );
-                                  })
-                                : postImg.map((image, id) => {
-                                      return (
-                                          // 기존에 이미지가 없다면 새로 이미지 추가
-                                          <li key={id}>
-                                              <Img key={id} src={image} />
-                                              <DeleteBtn
-                                                  onClick={() => {
-                                                      return DeleteImg(id);
-                                                  }}
-                                              />
-                                          </li>
-                                      );
-                                  })}
-                        </ul>
-                    </PostUploadImg>
-                </UploadSubSec>
-
-                {/* 업로드 버튼 부분 */}
-                <PostUploadFooter
+                    <PostUploadFooter
                     UploadPost={UploadPost}
-                    disabled={uploadBtn ? null : 'disabled'}
                 />
+                </UploadSubSec>
             </UploadSec>
+            {
+                isVisible && <Modal />
+            }
         </>
     );
 

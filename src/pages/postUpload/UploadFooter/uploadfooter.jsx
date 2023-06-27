@@ -1,9 +1,9 @@
 import { UploadBtn } from '../Button/button'
 
-export const PostUploadFooter = ({ isActive, UploadPost, disabled }) => {
+export const PostUploadFooter = ({ UploadPost }) => {
     return (
     <>
-        <UploadBtn size='middle-sm' isActive={isActive} UploadPost={UploadPost} disabled={disabled} text='저장' />
+        <UploadBtn size='middle' UploadPost={UploadPost} text='저장' />
     </>
     );
 };

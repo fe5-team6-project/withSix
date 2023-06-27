@@ -19,7 +19,12 @@ import {
 } from "./postStyle";
 import {PostUploadFooter} from './UploadFooter/uploadfooter'
 import { URL } from "../../lib/apis/constant/path";
-
+import ImgUploadBtn from '../../assets/icons/post/icon-image.png'
+import { ValidContent, ValidLength } from "./valiPostUpload";
+import { useDispatch, useSelector } from "react-redux";
+import { setContent as setContents, setIsVisible, setUrl } from "../../store/slices/modalSlice";
+import { FAIL_OVER_IMAGE, POST_UPLOAD_OK } from "../../lib/apis/constant/message";
+import Modal from "../../components/modal/Modal";
 export default function PostUpload (){
 
     const token = localStorage.getItem('token');
@@ -29,10 +34,14 @@ export default function PostUpload (){
     const [uploadBtn, setUploadBtn] = useState(true);
     const fileInput = useRef(null);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     // const { myInfo } = useSelector((state) => state.user);
     // console.log(myInfo);
+    
+    //모달을 나타낼지 말지 결정할 state
+    const { display : { isVisible }} = useSelector(state => state.modal);
 
-        const data = {
+    const data = {
         post: {
             content: "",
             image: "",
@@ -79,8 +88,14 @@ export default function PostUpload (){
         }
 
         // 이미지는 3장까지 업로드
-        if (fileUrls.length > 3) {
-            alert(" 이미지는 3장까지 업로드할 수 있습니다.");
+        if (ValidLength(fileUrls)) {
+            dispatch(setContents({
+                state : false,
+                message: FAIL_OVER_IMAGE
+            })
+            )
+            dispatch(setIsVisible({isVisible : true}));
+
             fileUrls = fileUrls.slice(0, 3);
             fileImgs = fileImgs.slice(0, 3);
         }
@@ -129,19 +144,30 @@ export default function PostUpload (){
                         "Content-type": "application/json",
                     },
                 })
-                .then(navigate('/home'));
+
+                if (res.status === 200){
+                    dispatch(setContents({
+                        state : true,
+                        message: POST_UPLOAD_OK
+                    })
+                    )
+                    dispatch(setIsVisible({isVisible : true}));
+                    dispatch(setUrl({ path : '/home'}))
+                }
         } catch (error) {
-            console.log(error);
+            const errorMessage = error.response.data.message
+            dispatch(setContents({
+                state : false,
+                message: errorMessage
+            })
+            )
+            dispatch(setIsVisible({isVisible : true}));
         }
     }
 
     // 게시물 업로드할 때 게시글과 이미지가 없으면 업로드 불가
     useEffect(() => {
-        if (content.length === 0 && postImg.length === 0) {
-            setUploadBtn(false);
-        } else {
-            setUploadBtn(true);
-        }
+        setUploadBtn( ValidContent(content, postImg))
     }, [content, postImg]);
 
     const page = (        
@@ -169,42 +195,49 @@ export default function PostUpload (){
                 }}
             />
 
-            <UploadSubSec>
-                {/* 이미지 등록 라벨 / 인풋 */}
-                    <FileUpload htmlFor="input-file">
-
-                        <FileInput
-                            id="input-file"
-                            name="PostImg"
-                            type="file"
-                            accept=".png, .jpg, .jpeg"
-                            onChange={ImgView}
-                            ref={fileInput}
-                        />
-                    </FileUpload>
-
-                {/* 미리보기 이미지 부분 */}
-                    <PostUploadImg>
-                        
+            
+                            {/* 미리보기 이미지 부분 */}
+                            <PostUploadImg>
+                    <ul>
                         {
                             showImg.map((image, id) => {
                                     return (
-                                        <div key={id}>
+                                        <li key={id}>
                                             <Img key={id} src={image} />
                                             <DeleteBtn
                                                 onClick={() => {
                                                     return DeleteImg(id);
                                                 }}
                                             />
-                                        </div>
+                                        </li>
                                     );
                                 })}
+                            </ul>
                     </PostUploadImg>
+
+            <UploadSubSec>
+                {/* 이미지 등록 라벨 / 인풋 */}
+                    <FileUpload htmlFor="input-file">
+                    <img src={ImgUploadBtn} alt="" />
+                    <FileInput
+                        id="input-file"
+                        name="PostImg"
+                        type="file"
+                        accept=".png, .jpg, .jpeg"
+                        onChange={ImgView}
+                        ref={fileInput}
+                    />
+                    </FileUpload>
+
+                 {/* 업로드 버튼 부분 */}
+            <PostUploadFooter UploadPost={UploadPost} />
+
             </UploadSubSec>
 
-        {/* 업로드 버튼 부분 */}
-            <PostUploadFooter UploadPost={UploadPost} disabled={uploadBtn ? null : 'disabled'} />
         </UploadSec>
+        {
+            isVisible && <Modal />
+        }
     </>)
 
     return (
