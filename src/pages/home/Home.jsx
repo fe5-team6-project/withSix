@@ -13,6 +13,7 @@ export default function Home() {
     const [postList, setPostList] = useState([]);
     const [category, setCategory] = useState('');
     const [skip, setSkip] = useState(0);
+    const [hasNextPage, setHasNextPage] = useState(true);
     const user = useSelector((state) => state.user?.myInfo);
     const id = useParams().id;
 
@@ -21,13 +22,21 @@ export default function Home() {
 
     useEffect(() => {
         async function fetchData() {
+            let newPost = [];
             if (isMyPost) {
-                setPostList(
-                    await getPost(category, user?.accountname, skip, isMyPost)
+                newPost = await getPost(
+                    category,
+                    user?.accountname,
+                    skip,
+                    isMyPost
                 );
             } else {
-                setPostList(await getPost('', id, skip, isMyPost));
+                newPost = await getPost('', id, skip, isMyPost);
             }
+            console.log(newPost);
+            setPostList([...newPost]);
+
+            newPost.length >= 10 ? setHasNextPage(true) : setHasNextPage(false);
         }
 
         fetchData();
@@ -35,22 +44,21 @@ export default function Home() {
 
     useEffect(() => {
         async function fetchData() {
+            let newPost = [];
             if (isMyPost) {
-                setPostList([
-                    ...postList,
-                    ...(await getPost(
-                        category,
-                        user?.accountname,
-                        skip,
-                        isMyPost
-                    )),
-                ]);
+                newPost = await getPost(
+                    category,
+                    user?.accountname,
+                    skip,
+                    isMyPost
+                );
             } else {
-                setPostList([
-                    ...postList,
-                    ...(await getPost('', id, skip, isMyPost)),
-                ]);
+                newPost = await getPost('', id, skip, isMyPost);
             }
+            setPostList([...postList, ...newPost]);
+            console.log(newPost);
+
+            newPost.length >= 10 ? setHasNextPage(true) : setHasNextPage(false);
         }
 
         fetchData();
@@ -94,11 +102,15 @@ export default function Home() {
                         ) : (
                             <>
                                 <Post key={item?._id} item={item} />
-                                <MoreButton
-                                    onClick={() => setSkip((skip) => skip + 10)}
-                                >
-                                    더보기
-                                </MoreButton>
+                                {hasNextPage && (
+                                    <MoreButton
+                                        onClick={() =>
+                                            setSkip((skip) => skip + 10)
+                                        }
+                                    >
+                                        더보기
+                                    </MoreButton>
+                                )}
                             </>
                         );
                     })
