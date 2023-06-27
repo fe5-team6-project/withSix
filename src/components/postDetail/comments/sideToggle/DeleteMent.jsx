@@ -11,6 +11,7 @@ import iconMoreVertical from '../../../../assets/icons/post/icon-more-vertical.s
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from '../../../modal/Modal';
 import { setContent, setIsVisible } from '../../../../store/slices/modalSlice';
+import { COMMENT_DELETE_OK } from '../../../../lib/apis/constant/message';
 
 export default function DeleteMent({
     commentId,
@@ -54,7 +55,13 @@ export default function DeleteMent({
             }
         } catch (error) {
             // console.log(error);
-            returnErrorMessage(error);
+            dispatch(
+                setContent({
+                    state: false,
+                    message: COMMENT_DELETE_OK,
+                })
+            );
+            dispatch(setIsVisible({ isVisible: true }));
         } finally {
             setVisible(!visible);
         }

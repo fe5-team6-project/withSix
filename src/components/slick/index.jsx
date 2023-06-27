@@ -17,11 +17,17 @@ export default function Slick({ images }) {
     return (
         <div>
             <Slider {...settings}>
-                {images.split(',').map((imgSrc, idx) => (
-                    <ImageWrapper key={idx}>
-                        <Img src={imgSrc} />
-                    </ImageWrapper>
-                ))}
+                {images.split(',').map((imgSrc, idx) => {
+                    if (!imgSrc.includes('https://api.mandarin.weniv.co.kr'))
+                        return null;
+                    else {
+                        return (
+                            <ImageWrapper key={idx}>
+                                <Img src={imgSrc} />
+                            </ImageWrapper>
+                        );
+                    }
+                })}
             </Slider>
         </div>
     );
