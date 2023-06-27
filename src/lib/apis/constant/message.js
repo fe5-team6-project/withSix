@@ -32,7 +32,8 @@ export const FAIL_OVER_SIZE = '이미지 업로드 최대 용량은 10MB입니�
 export const FAIL_OVER_IMAGE = '사진은 최대 3장까지 등록이 가능합니다.';
 
 /** 모임 관련*/
-export const FAIL_NULL_PRICE = '가격을 입력해주세요!';
+export const FAIL_NULL_PRICE = '가격을 입력해 주세요!';
+export const FAIL_INVALID_PRICE = '가격을 올바르게 입력해 주세요!';
 export const FAIL_NULL_TITLE = '모임명을 입력해 주세요!';
 export const FAIL_LENGTH_TITLE = '모임명은 2~15자 이내로 입력해 주세요!';
 

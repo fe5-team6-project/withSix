@@ -6,7 +6,7 @@ import { api, urlApi } from '../../lib/apis/axiosConfig';
 import { BASE_URL } from '../../lib/apis/constants';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { validationTogether } from '../../lib/utils/validation/validation';
+import { validationImageSize, validationTogether } from '../../lib/utils/validation/validation';
 import {
     setContent,
     setIsVisible,
@@ -39,6 +39,13 @@ export default function GroupUpload() {
 
     const handleImgChange = (e) => {
         const file = e.target.files[0];
+        const fileSize = file.size;
+        const validImageSize = validationImageSize(fileSize);
+        if (!validImageSize.state) {
+            setModalContent(validImageSize);
+            setModalVisible(true);
+            return false;
+        }
         setTogetherInfo({ ...togetherInfo, itemImage: file });
         setImg(URL.createObjectURL(file));
     }
@@ -60,7 +67,6 @@ export default function GroupUpload() {
         try {
             // e.preventDefault();
             const validTogether = validationTogether(itemName, price, link);
-            // console.log(validTogether);
             if (!validTogether.state) {
                 setModalContent(validTogether);
                 setModalVisible(true);
@@ -92,7 +98,7 @@ export default function GroupUpload() {
                     <GroupInput id="GroupName" placeholder="모임명" name="itemName" onChange={handleChange}></GroupInput>
                     <GroupInput type="number" id="GroupPrice" placeholder="모임비" name="price" step="100" onChange={handleChange}></GroupInput>
                     <GroupInfo id="GroupInfo" placeholder="모임 소개" name="link" onChange={handleChange}></GroupInfo>
-                    <GroupInput id="GroupImage" placeholder="모임 이미지" type="file" name="itemImage" accept="image/*" onChange={handleImgChange}></GroupInput>
+                    <GroupInput id="GroupImage" placeholder="모임 이미지" type="file" name="itemImage" accept=".jpg, .gif, .png, .jpeg, .bmp, .tif, .heic" onChange={handleImgChange}></GroupInput>
                 </GroupInputWrapper>
                 <GroupLabel htmlFor="GroupImage">
                     {/* <GroupImage id="PreImage" src={img || togetherReq.itemImage || initialImage}></GroupImage> */}

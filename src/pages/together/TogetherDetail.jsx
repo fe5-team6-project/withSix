@@ -10,7 +10,6 @@ import { inputTogether } from '../../store/slices/togetherSlice';
 import { handleErrorImg } from '../../lib/utils/validation/image/validationContentImage'
 
 export default function TogetherDetail() {
-    const a = useSelector((state) => { return state.together.req });
     const myAccountname = useSelector((state) => { return state.user.myInfo.accountname });
     const [userAccountname, setUserAccountname] = useState();
     const dispatch = useDispatch();

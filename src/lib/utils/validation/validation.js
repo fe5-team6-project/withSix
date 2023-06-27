@@ -5,6 +5,7 @@ import {
     FAIL_FORM_EMAIL,
     FAIL_FORM_ID,
     FAIL_FORM_PASSWORD,
+    FAIL_INVALID_PRICE,
     FAIL_LENGTH_PASSWORD,
     FAIL_LENGTH_TITLE,
     FAIL_NULL_CONTENT,
@@ -178,6 +179,12 @@ export const validationTogether = (itemName, price, link) => {
     if (!price) {
         result.state = false;
         result.message = FAIL_NULL_PRICE;
+        return result;
+    }
+
+    if (0 >= price) {
+        result.state = false;
+        result.message = FAIL_INVALID_PRICE;
         return result;
     }
 
