@@ -113,7 +113,7 @@ export const validationId = async (id) => {
         return result;
     }
 
-    if (!(await checkDuplicationId())) {
+    if (!(await checkDuplicationId(id))) {
         result.state = false;
         result.message = FAIL_ALEADY_ID;
         return result;

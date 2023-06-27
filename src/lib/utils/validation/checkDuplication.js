@@ -37,9 +37,9 @@ export async function checkDuplicationEmail(email) {
     return true;
 }
 
-export async function checkDuplicationId() {
+export async function checkDuplicationId(id) {
     const input = document.querySelector('#id');
-    const id = input.value;
+    // const id = input.value;
 
     const requestPath = '/user/accountnamevalid';
     const requestUrl = `${URL}${requestPath}`;
