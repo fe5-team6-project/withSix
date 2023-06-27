@@ -26,7 +26,6 @@ export default function PostUpload() {
     const [content, setContent] = useState(''); // 게시글 입력 내용
     const [showImg, setShowImg] = useState([]);
     const [postImg, setPostImg] = useState([]);
-    const [기존이미지, set기존이미지] = useState([]);
     const [uploadBtn, setUploadBtn] = useState(true);
     const fileInput = useRef(null);
     const navigate = useNavigate();
@@ -50,11 +49,11 @@ export default function PostUpload() {
     }
 
     // 2. 이미지 미리보기 부분
-    function ImgView(e) {
+    async function ImgView(e) {
         // 내가 이미지 등록에서 선택한 그 사진!
         const files = e.target.files;
-        let fileUrls = [...showImg];
-        let fileImgs = [...postImg];
+        let fileUrls = [...postImg];
+        let fileImgs = [...showImg];
         // 이미지 사이즈 10MB 제한
         const maxSize = 10 * 1024 * 1024;
         let TotalImgSize = 0;
@@ -66,10 +65,11 @@ export default function PostUpload() {
                 alert(' 총 이미지의 크기는 10MB입니다.');
             } else {
                 const createImgUrl = URL.createObjectURL(files[i]);
+                fileImgs.push(await UploadImg(files[i]));
                 fileUrls.push(createImgUrl);
-                fileImgs.push(files[i]);
             }
         }
+        console.log(fileImgs);
 
         // 이미지는 3장까지 업로드
         if (fileUrls.length > 3) {
@@ -78,7 +78,8 @@ export default function PostUpload() {
             fileImgs = fileImgs.slice(0, 3);
         }
 
-        setShowImg(fileUrls);
+        setShowImg(fileImgs);
+        setPostImg(fileUrls);
     }
 
     // 3. 이미지 삭제 부분
@@ -98,17 +99,17 @@ export default function PostUpload() {
 
     // 4. 게시글 업로드 부분
     async function UploadPost() {
-        const imgList = [...postImg];
-
-        for (let i = 0; i < postImg.length; i++) {
-            imgList.push(await UploadImg(postImg[i]));
-        }
-
+        const imgList = [...showImg];
         console.log(imgList);
-        const snsImgList = await Promise.all(imgList);
-        console.log(snsImgList);
 
-        data.post.image = showImg.join(',');
+        // for (let i = 0; i < postImg.length; i++) {
+        //     console(postImg[i]);
+        //     imgList.push(await UploadImg(postImg[i]));
+        // }
+
+        const snsImgList = await Promise.all(imgList);
+
+        data.post.image = snsImgList.join(',');
         data.post.content = content;
 
         try {
@@ -120,29 +121,29 @@ export default function PostUpload() {
                     },
                 })
                 .then(navigate('/home'));
-            console.log(res);
         } catch (error) {
             console.log(error);
         }
     }
 
     async function ModifyPost() {
-        // post는 기존의 게시물 데이터를 모두 가지고 있음
-        const imageData = await axios.get(`${URL}/post/${id}`, {
+        const {
+            data: {
+                // post는 기존의 게시물 데이터를 모두 가지고 있음
+                post,
+            },
+        } = await axios.get(`${url}/post/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-type': 'application/json',
             },
         });
-
-        const dataImage = await imageData.data.post.image;
-        const dataContent = await imageData.data.post.content;
-        console.log(dataImage, dataContent);
+        console.log(post);
 
         // 기존 게시물에서 이미지를 받아올 땐 join으로 합쳤던 것을 다시 split로 나눠야함
-
-        setShowImg(await dataImage.split(','));
-        setContent(await dataContent.content);
+        setPostImg(post.image.split(','));
+        setShowImg(post.image.split(','));
+        setContent(post.content);
     }
 
     // 빈배열이니까 새로고침하고 내가 기존에 썼던거 한 번만 렌더링됨. 그걸 불러오면 됨
@@ -152,7 +153,7 @@ export default function PostUpload() {
 
     // 게시물 업로드할 때 게시글과 이미지가 없으면 업로드 불가
     useEffect(() => {
-        if (content?.length === 0 && postImg?.length === 0) {
+        if (content.length === 0 && postImg.length === 0) {
             setUploadBtn(false);
         } else {
             setUploadBtn(true);
@@ -188,7 +189,6 @@ export default function PostUpload() {
                     {/* 이미지 등록 라벨 */}
                     <FileUpload htmlFor="input-file">
                         <img src={ImgUploadBtn} alt="" />
-
                         <FileInput
                             id="input-file"
                             name="PostImg"
@@ -200,37 +200,39 @@ export default function PostUpload() {
                     </FileUpload>
 
                     {/* 미리보기 이미지 부분 */}
-
-                    {console.log(showImg)}
-                    {showImg.length !== 0
-                        ? showImg.map((image, id) => {
-                              return (
-                                  // 기존에 이미지가 있다면 뒤에 추가
-                                  image && (
-                                      <div key={id}>
-                                          <Img key={id} src={image} />
-                                          <DeleteBtn
-                                              onClick={() => {
-                                                  return DeleteImg(id);
-                                              }}
-                                          />
-                                      </div>
-                                  )
-                              );
-                          })
-                        : showImg.map((image, id) => {
-                              return (
-                                  // 기존에 이미지가 없다면 새로 이미지 추가
-                                  <div key={id}>
-                                      <Img key={id} src={image} />
-                                      <DeleteBtn
-                                          onClick={() => {
-                                              return DeleteImg(id);
-                                          }}
-                                      />
-                                  </div>
-                              );
-                          })}
+                    <PostUploadImg>
+                        <ul>
+                            {postImg.length !== 0
+                                ? postImg.map((image, id) => {
+                                      return (
+                                          // 기존에 이미지가 있다면 뒤에 추가
+                                          image && (
+                                              <li key={id}>
+                                                  <Img key={id} src={image} />
+                                                  <DeleteBtn
+                                                      onClick={() => {
+                                                          return DeleteImg(id);
+                                                      }}
+                                                  />
+                                              </li>
+                                          )
+                                      );
+                                  })
+                                : postImg.map((image, id) => {
+                                      return (
+                                          // 기존에 이미지가 없다면 새로 이미지 추가
+                                          <li key={id}>
+                                              <Img key={id} src={image} />
+                                              <DeleteBtn
+                                                  onClick={() => {
+                                                      return DeleteImg(id);
+                                                  }}
+                                              />
+                                          </li>
+                                      );
+                                  })}
+                        </ul>
+                    </PostUploadImg>
                 </UploadSubSec>
 
                 {/* 업로드 버튼 부분 */}
