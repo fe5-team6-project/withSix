@@ -69,7 +69,7 @@ export default function Signup() {
     const pageDesc = !passStep
         ? '아이디 비밀번호를 설정합니다.'
         : `
-            프로필을 등록합니다. ${(<br />)}
+            프로필을 등록합니다.
             언제든 수정이 가능합니다.
         `;
 
