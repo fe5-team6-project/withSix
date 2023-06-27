@@ -4,17 +4,17 @@ const together = createSlice({
     name: 'together',
     initialState: {
         req: {
-            "itemName": String,
-            "price": Number,
-            "link": String,
+            "itemName": '',
+            "price": '',
+            "link": '',
             "itemImage": ''
         },
         together: {
-            "id": String,
-            "itemName": String,
-            "price": Number,
-            "link": String,
-            "itemImage": String,
+            "id": '',
+            "itemName": '',
+            "price": 0,
+            "link": '',
+            "itemImage": '',
             "author": {
                 "_id": "작성자 id",
                 "username": "2",
@@ -30,11 +30,11 @@ const together = createSlice({
             }
         },
         detail: {
-            "id": String,
-            "itemName": String,
-            "price": Number,
-            "link": String,
-            "itemImage": String,
+            "id": '',
+            "itemName": '',
+            "price": 0,
+            "link": '',
+            "itemImage": '',
         }
     },
     reducers: {

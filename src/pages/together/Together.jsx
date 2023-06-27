@@ -12,15 +12,16 @@ import { useSelector } from 'react-redux';
 export default function Together() {
     const accountname = useParams().id;
     const myInfo = useSelector((state) => { return state.user.myInfo.accountname });
-    const [pages, setPages] = useState(9);
+    const [pages, setPages] = useState(10);
     const [togetherList, setTogetherList] = useState([]);
+    const [count, setCount] = useState(0);
 
     useEffect(() => {
         async function axiosTogetherList() {
             const res = await api.get(`/product/${accountname}/?limit=${pages}&skip=0`);
             const data = res?.data?.product;
             setTogetherList([...data]);
-            console.log(data)
+            setCount(data.length);
         }
         axiosTogetherList();
     }, [pages]);
@@ -35,7 +36,7 @@ export default function Together() {
                             <TogetherList key={item.id} {...item}></TogetherList>
                         ))}
                     </TogetherWrap>
-                    <MoreButton onClick={() => setPages((pages) => pages + 6)}>더보기</MoreButton>
+                    {count % 10 !== 0 ? null : <MoreButton onClick={() => setPages((pages) => pages + 10)}>더보기</MoreButton>}
                     {accountname === myInfo && <WriteButton url={`/together/upload`} />}
                 </TogetherSection>
             ) : (
