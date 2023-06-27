@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import getUserProfile from '../../pages/userprofile/getUserProfile';
 import { setUserInfo } from '../../store/slices/userSlice';
+import { DEFAULT_IMAGE } from '../../lib/apis/constant/path';
 
 export default function UserLIst({ showUser, searchQuery }) {
     const navigate = useNavigate();
@@ -26,7 +27,7 @@ export default function UserLIst({ showUser, searchQuery }) {
             item.image.includes('/undefined') ||
             item.image.includes('/null')
         ) {
-            imgSrc = 'http://146.56.183.55:5050/Ellipse.png';
+            imgSrc = DEFAULT_IMAGE;
         }
         return (
             <UserWrapper
@@ -43,7 +44,7 @@ export default function UserLIst({ showUser, searchQuery }) {
                         {item.username.includes(searchQuery) ? (
                             <>
                                 {item.username.split(searchQuery)[0]}
-                                <span style={{ color: '#F26E22' }}>
+                                <span style={{ color: 'var(--color-main)' }}>
                                     {searchQuery}
                                 </span>
                                 {item.username.split(searchQuery)[1]}
@@ -57,7 +58,7 @@ export default function UserLIst({ showUser, searchQuery }) {
                         {item.accountname.includes(searchQuery) ? (
                             <>
                                 {item.accountname.split(searchQuery)[0]}
-                                <span style={{ color: '#F26E22' }}>
+                                <span style={{ color: 'var(--color-main)' }}>
                                     {searchQuery}
                                 </span>
                                 {item.accountname.split(searchQuery)[1]}
