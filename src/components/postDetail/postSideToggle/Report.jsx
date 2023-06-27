@@ -35,7 +35,18 @@ export default function Report() {
                 dispatch(setIsVisible({ isVisible: true }));
             } else returnServerErrorMessage();
         } catch (error) {
-            returnErrorMessage(error);
+            const {
+                response: {
+                    data: { message },
+                },
+            } = error;
+            dispatch(
+                setContent({
+                    state: false,
+                    message: message,
+                })
+            );
+            dispatch(setIsVisible({ isVisible: true }));
         } finally {
             setVisible(false);
         }

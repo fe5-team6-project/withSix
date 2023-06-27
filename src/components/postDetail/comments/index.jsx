@@ -57,7 +57,6 @@ export default function Comments({
     return (
         <>
             <CommentWrapper>
-                {console.log(comment)}
                 {comment.map((item, idx) => (
                     <Li key={idx}>
                         <ImgWrapper

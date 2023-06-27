@@ -8,12 +8,19 @@ import {
 import iconMoreVertical from '../../../assets/icons/post/icon-more-vertical.svg';
 import { styled } from 'styled-components';
 import Modal from '../../modal/Modal';
-import { setContent, setUrl } from '../../../store/slices/modalSlice';
-import { useDispatch } from 'react-redux';
+import {
+    setContent,
+    setIsVisible,
+    setUrl,
+} from '../../../store/slices/modalSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { CONTENT_DELETE_OK } from '../../../lib/apis/constant/message';
 
 export default function ModifyAndDelete() {
     const [visible, setVisible] = useState(false);
-    const [isModal, setIsModal] = useState(false);
+    const {
+        display: { isVisible },
+    } = useSelector((state) => state?.modal);
     const { id } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -27,11 +34,11 @@ export default function ModifyAndDelete() {
                 dispatch(
                     setContent({
                         state: true,
-                        message: '삭제를 완료하였습니다',
+                        message: CONTENT_DELETE_OK,
                     })
                 );
+                dispatch(setIsVisible({ isVisible: true }));
                 dispatch(setUrl({ path: '/home' }));
-                setIsModal(!isModal);
             } else returnServerErrorMessage();
         } catch (error) {
             returnErrorMessage(error);
@@ -54,7 +61,7 @@ export default function ModifyAndDelete() {
                     <DeleteTitle onClick={handlePostRemove}>삭제</DeleteTitle>
                 </ToggleWrapper>
             )}
-            {isModal && <Modal />}
+            {isVisible && <Modal />}
         </>
     );
 }

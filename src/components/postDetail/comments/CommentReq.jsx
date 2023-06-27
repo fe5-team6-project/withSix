@@ -6,9 +6,16 @@ import {
     returnServerErrorMessage,
 } from '../utils/errorMessage';
 import { styled } from 'styled-components';
+import { setContent, setIsVisible } from '../../../store/slices/modalSlice';
+import { COMMENT_WRITE_OK } from '../../../lib/apis/constant/message';
+import { useDispatch, useSelector } from 'react-redux';
 
 function CommentReq({ setReload, setCommentCount, setComment }) {
     const [text, setText] = useState('');
+    const {
+        display: { isVisible },
+    } = useSelector((state) => state?.modal);
+    const dispatch = useDispatch();
     const { id } = useParams();
     const sendCommentReq = async () => {
         try {
@@ -18,6 +25,13 @@ function CommentReq({ setReload, setCommentCount, setComment }) {
                 },
             });
             if (a.status === 200) {
+                dispatch(
+                    setContent({
+                        state: true,
+                        message: COMMENT_WRITE_OK,
+                    })
+                );
+                dispatch(setIsVisible({ isVisible: true }));
                 // setReload((prev) => !prev);
                 setCommentCount((prev) => prev + 1);
                 // console.log(a.data);
@@ -26,22 +40,36 @@ function CommentReq({ setReload, setCommentCount, setComment }) {
                 returnServerErrorMessage();
             }
         } catch (error) {
-            returnErrorMessage(error);
+            const {
+                response: {
+                    data: { message },
+                },
+            } = error;
+            dispatch(
+                setContent({
+                    state: false,
+                    message: message,
+                })
+            );
+            dispatch(setIsVisible({ isVisible: true }));
         } finally {
             setText('');
         }
     };
 
     return (
-        <WriteForm onSubmit={(e) => e.preventDefault()}>
-            <Input
-                type="text"
-                value={text}
-                placeholder="댓글 입력"
-                onChange={(e) => setText(e.target.value)}
-            />
-            <Button onClick={() => sendCommentReq()}>게시</Button>
-        </WriteForm>
+        <>
+            <WriteForm onSubmit={(e) => e.preventDefault()}>
+                <Input
+                    type="text"
+                    value={text}
+                    placeholder="댓글 입력"
+                    onChange={(e) => setText(e.target.value)}
+                />
+                <Button onClick={() => sendCommentReq()}>게시</Button>
+            </WriteForm>
+            {}
+        </>
     );
 }
 

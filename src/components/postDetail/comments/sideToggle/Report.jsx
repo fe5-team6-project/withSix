@@ -39,7 +39,18 @@ export default function ReportMent({ commentId }) {
                 returnServerErrorMessage();
             }
         } catch (error) {
-            returnErrorMessage(error);
+            const {
+                response: {
+                    data: { message },
+                },
+            } = error;
+            dispatch(
+                setContent({
+                    state: false,
+                    message: message,
+                })
+            );
+            dispatch(setIsVisible({ isVisible: true }));
         } finally {
             setVisible(!visible);
         }
