@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Common from '../../components/main/Common';
-import Post from '../../components/post/Post';
+import Post from '../post/Post';
 import getPost from './getPost';
 import { styled } from 'styled-components';
 import divLine from '../../assets/icons/post/div-line.svg';
