@@ -18,7 +18,6 @@ export default function Modal() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [location, setLocation] = useState(true);
-    console.log(url);
 
     /**
      * resetModal
