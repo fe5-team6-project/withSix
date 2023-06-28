@@ -36,7 +36,7 @@ function CommentReq({ setReload, setCommentCount, setComment }) {
                 // setReload((prev) => !prev);
                 setCommentCount((prev) => prev + 1);
                 // console.log(a.data);
-                setComment((prev) => [...prev, a.data.comment]);
+                setComment((prev) => [a.data.comment, ...prev]);
             } else {
                 returnServerErrorMessage();
             }
