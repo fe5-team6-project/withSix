@@ -17,7 +17,7 @@ export default function Common(props) {
     const autoMove = props.autoMoveIgnore ? true : false;
     const [isSplash, setIsSplash] = useState(props.isSplash);
 
-    const userInfo = useSelector((state) => state.user.myInfo);
+    const userInfo = useSelector((state) => state.user?.myInfo);
     const [user, setUser] = useState(userInfo);
 
     useEffect(() => {
