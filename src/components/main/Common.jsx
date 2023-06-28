@@ -104,6 +104,6 @@ const Span = styled.span`
     width: 100%;
     height: 20px;
     text-align: center;
-    font-size: var(--fsize-m);
+    font-size: var(--fsize-s);
     color: var(--color-gray);
 `;
