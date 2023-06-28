@@ -1,5 +1,5 @@
 import React from 'react';
-import { styled } from 'styled-components';
+import { keyframes, styled } from 'styled-components';
 import successIcon from '../../assets/icons/modal/icon-success.svg';
 import failureIcon from '../../assets/icons/modal/icon-failure.svg';
 import { useNavigate } from 'react-router-dom';
@@ -66,6 +66,16 @@ export default function Modal() {
     );
 }
 
+const moveUpAnimation = keyframes`
+    0%{
+        transform: translate(-50%, 100%);
+    }
+
+    100%{
+        transform: translate(-50%, 0);
+    }
+`;
+
 const CoverDiv = styled.div`
     position: fixed;
     top: 0;
@@ -91,7 +101,7 @@ const CoverDiv = styled.div`
         border-top-left-radius: var(--radius-l);
         border-top-right-radius: var(--radius-l);
         text-align: center;
-        transform: translateX(-50%);
+        animation: ${moveUpAnimation} 0.5s ease-in-out forwards;
     }
 `;
 
