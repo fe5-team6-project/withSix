@@ -259,41 +259,154 @@ font
 
 ## 9. 역할 분담
 
-| 이름   | 역할                       | 기타                          |
-| ------ | -------------------------- | ----------------------------- |
-| 권규리 | \*게시물 페이지            |                               |
-|        | 게시물 업로드 페이지       |                               |
-|        | 게시물 수정 페이지         |                               |
-| 김현태 | \*게시물 페이지            |                               |
-|        | 게시물 상세 페이지         |                               |
-|        | \*유저 검색 페이지         |                               |
-|        | \*기타                     |                               |
-|        | 무한 스크롤 구현           |                               |
-|        | 이미지 슬라이드            |                               |
-| 오흥식 | \*로그인 페이지            | \*디자인                      |
-|        | 로그인 메인 페이지         | 피그마 UI 디자인              |
-|        | 이메일 로그인 페이지       | 공통 레이아웃 컴포넌트 제작   |
-|        | 이메일 회원가입            | 스타일 초기값 변수 설정       |
-|        | \*메인 피드 페이지         |                               |
-|        | \*프로필 페이지            |                               |
-|        | 사용자 프로필 페이지       |                               |
-|        | 사용자 프로필 수정 페이지  |                               |
-|        | 다른 사용자 프로필 페이지  |                               |
-|        | \* Splash 기능             |                               |
-|        | \*모달 상태 관리 기능      |                               |
-|        | \*유효성 검사              |                               |
-|        | \*더보기                   |                               |
-|        | \*채팅페이지 마크업        |                               |
-| 정혜민 | \*모임 페이지              | Splash 애니메이션             |
-|        | 모임 리스트 페이지         | 404페이지 및 검색 배경 디자인 |
-|        | 모임 등록 페이지           | \* 세팅                       |
-|        | 모임 수정 페이지           | GitHub-Flow 협업 방식 공유    |
-|        | 모임 상세 페이지           | GitHub 컨벤션                 |
-|        | \*팔로우                   | 프로젝트 기초 셋팅            |
-|        | 팔로우 기능                | Readme                        |
-|        | 팔로잉 목록 페이지         |                               |
-|        | 팔로워 목록 페이지         |                               |
-| 공통   | 라우터 및 페이지 경로 관리 |                               |
+<table>
+  <thead>
+    <tr>
+      <th>이름</th>
+      <th>역할</th>
+      <th>기타</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="3"><strong>권규리</strong></td>
+      <td><strong>게시물 페이지</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>게시물 업로드 페이지</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>게시물 수정 페이지</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td rowspan="6"><strong>김현태</strong></td>
+      <td><strong>게시물 페이지</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>게시물 상세 페이지</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>유저 검색 페이지</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>기타</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>무한 스크롤 구현</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>이미지 슬라이드</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td rowspan="14"><strong>오흥식</strong></td>
+      <td><strong>로그인 페이지</strong></td>
+      <td><strong>[디자인]</strong></td>
+    </tr>
+    <tr>
+      <td>로그인 메인 페이지</td>
+      <td>피그마 UI 디자인</td>
+    </tr>
+    <tr>
+      <td>이메일 로그인 페이지</td>
+      <td>공통 레이아웃 컴포넌트 제작</td>
+    </tr>
+    <tr>
+      <td>이메일 회원가입</td>
+      <td>스타일 초기값 변수 설정</td>
+    </tr>
+    <tr>
+      <td><strong>메인 피드 페이지</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>프로필 페이지</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>사용자 프로필 페이지</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>사용자 프로필 수정 페이지</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>다른 사용자 프로필 페이지</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>Splash 기능</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>모달 상태 관리 기능</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>유효성 검사</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>더보기 구현</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>채팅페이지 마크업</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td rowspan="9"><strong>정혜민</strong></td>
+      <td><strong>모임 페이지</strong></td>
+      <td>Splash 애니메이션</td>
+    </tr>
+    <tr>
+      <td>모임 리스트 페이지</td>
+      <td>404페이지 및 검색 배경 디자인</td>
+    </tr>
+    <tr>
+      <td>모임 등록 페이지</td>
+      <td><strong>[세팅]</strong></td>
+    </tr>
+    <tr>
+      <td>모임 수정 페이지</td>
+      <td>GitHub-Flow 협업 방식 공유</td>
+    </tr>
+    <tr>
+      <td>모임 상세 페이지</td>
+      <td>GitHub 컨벤션</td>
+    </tr>
+    <tr>
+      <td><strong>팔로우</strong></td>
+      <td>프로젝트 기초 셋팅</td>
+    </tr>
+    <tr>
+      <td>팔로우 기능</td>
+      <td>Readme</td>
+    </tr>
+    <tr>
+      <td>팔로잉 목록 페이지</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>팔로워 목록 페이지</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>공통</strong></td>
+      <td>라우터 및 페이지 경로 관리</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
 
 <p align="right"><a href="#top">TOP 🔼</a></p>
 <br/>
