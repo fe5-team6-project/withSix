@@ -74,6 +74,7 @@ const StyledFooter = styled.footer`
     border-top: 2px solid var(--color-disabled);
     box-sizing: border-box;
     transform: translate(-50%);
+    z-index: 3;
 `;
 
 const Ul = styled.ul`
