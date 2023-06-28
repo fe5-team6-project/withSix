@@ -42,7 +42,6 @@ export default function GroupEdit() {
                 <GroupInputWrapper>
                     <GroupInput id="GroupName" placeholder="모임명" value={togetherInfo.itemName} name="itemName" onChange={handleChange}></GroupInput>
                     <GroupInput id="GroupPrice" placeholder="모임비" value={togetherInfo.price} name="price" onChange={handleChange}></GroupInput>
-                    {/* <GroupInput id="GroupInfo" placeholder="모임 소개"></GroupInput> */}
                     <GroupInfo id="GroupInfo" placeholder="모임 소개" value={togetherInfo.link} name="link" onChange={handleChange}></GroupInfo>
                     <GroupInput id="GroupImage" name="itemImage" ></GroupInput>
                 </GroupInputWrapper>
@@ -84,13 +83,9 @@ const P = styled.p`
 `;
 
 const GroupInputWrapper = styled.div`
-    /* box-shadow: 0 0 3px 0 black; */
 `;
 
 const GroupInput = styled.input`
-    /* margin:auto;
-    display:block;
-    width:350px; 조정예정*/
     width: 100%;
     height: 40px;
     background-color: white;

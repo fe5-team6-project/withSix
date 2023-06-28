@@ -70,7 +70,6 @@ export default function GroupUpload() {
 
     const sendTogether = async () => {
         try {
-            // e.preventDefault();
             const validTogether = validationTogether(itemName, price, link);
             if (!validTogether.state) {
                 setModalContent(validTogether);
@@ -130,7 +129,6 @@ export default function GroupUpload() {
                     ></GroupInput>
                 </GroupInputWrapper>
                 <GroupLabel htmlFor="GroupImage">
-                    {/* <GroupImage id="PreImage" src={img || togetherReq.itemImage || initialImage}></GroupImage> */}
                     <GroupImage
                         id="PreImage"
                         src={img || initialImage}
@@ -179,13 +177,9 @@ const P = styled.p`
 `;
 
 const GroupInputWrapper = styled.div`
-    /* box-shadow: 0 0 3px 0 black; */
 `;
 
 const GroupInput = styled.input`
-    /* margin:auto;
-    display:block;
-    width:350px; 조정예정*/
     width: 100%;
     height: 40px;
     background-color: white;
@@ -206,7 +200,7 @@ const GroupInput = styled.input`
 `;
 
 const GroupInfo = styled.textarea`
-    width: 100%; //조정예정
+    width: 100%;
     height: 100px;
     margin-top: 20px;
     padding: 15px 10px;

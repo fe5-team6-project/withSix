@@ -18,10 +18,10 @@ export default function TogetherDetail() {
 
     const [togetherDetail, setTogetherDetail] = useState('');
     const [num, setNum] = useState(0);
-    const idd = useParams().id; //밑에서 상태관리 id 값 보내기 위해 id에서 idd로 임시 변경
+    const togetherId = useParams().id;
 
     const togetherDetails = async () => {
-        const res = await api.get(`/product/detail/${idd}`);
+        const res = await api.get(`/product/detail/${togetherId}`);
         const detailData = res.data?.product;
         setTogetherDetail(detailData);
         const { itemImage, itemName, link, price } = detailData;
@@ -130,13 +130,11 @@ const GroupDetailInfo = styled.p`
 `;
 
 const GroupWrapper = styled.div`
-    /* box-shadow: 0 0 3px 0 black; */
 `;
 
 const GroupImg = styled.img`
     width: 100%;
     height: 200px;
-    /* background-color: #ddd; */
     object-fit: cover;
     border: none;
     border-radius: var(--radius-s);
