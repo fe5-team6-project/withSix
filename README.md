@@ -20,19 +20,19 @@
 
 ### 1. 취미를 공유하고 함께 즐기는 모임의 편리한 운영
 
-    한국현대인들은 바쁜 일상과 스트레스로 인해 취미 생활에 충분한 시간을 할애하기 어렵습니다. Hobby Together는 이러한 취미 생활 부족 문제를 해결하기 위해 만들어졌습니다. 우리는 사람들이 쉽고 편리하게 취미 생활을 찾고, 관심 있는 분야에서 다른 사람들과 함께 활동할 수 있는 기회를 제공합니다. Hobby Together를 통해 새로운 취미를 발견하고, 다양한 사람들과 함께 즐길 수 있는 기회를 만들어보세요.
+-   한국현대인들은 바쁜 일상과 스트레스로 인해 취미 생활에 충분한 시간을 할애하기 어렵습니다. Hobby Together는 이러한 취미 생활 부족 문제를 해결하기 위해 만들어졌습니다. 우리는 사람들이 쉽고 편리하게 취미 생활을 찾고, 관심 있는 분야에서 다른 사람들과 함께 활동할 수 있는 기회를 제공합니다. Hobby Together를 통해 새로운 취미를 발견하고, 다양한 사람들과 함께 즐길 수 있는 기회를 만들어보세요.
 
 ### 2. 다양한 취미 분야의 교류와 지식 공유
 
-    모임의 특징을 알 수 있는 사진, 글, 참가 비용을 통해 모임을 생성하여 사람들과 모일 수 있습니다. 모임 후기와 자신의 일상을 공유할 수 있는 게시물을 업로드 하여 댓글과 좋아요를 통해 사람들과 원활한 소통을 하며 다양한 취미 분야의 교류가 가능합니다. 또한 사람들과 팔로우 하여 서로의 모임 글, 모임 후기 등을 볼 수 있습니다.
+-   모임의 특징을 알 수 있는 사진, 글, 참가 비용을 통해 모임을 생성하여 사람들과 모일 수 있습니다. 모임 후기와 자신의 일상을 공유할 수 있는 게시물을 업로드 하여 댓글과 좋아요를 통해 사람들과 원활한 소통을 하며 다양한 취미 분야의 교류가 가능합니다. 또한 사람들과 팔로우 하여 서로의 모임 글, 모임 후기 등을 볼 수 있습니다.
 
 ### 3. 매년 증가하고 우울증 예방과 건강한 취미 생활
 
-    코비드19로 인해 우리는 많은 제약과 어려움을 겪었습니다. 사회적 거리두기와 모임 제한 등으로 인해 혼자 있는 시간이 늘어났고, 함께 취미 생활을 즐기는 시간도 줄어들었습니다. 이러한 상황에서 Hobby Together는 사람들이 함께의 가치를 즐기며 다양한 취미 활동으로 심리적 안정과 행복감을 찾을 수 있도록 도와줍니다.
+-   코비드19로 인해 우리는 많은 제약과 어려움을 겪었습니다. 사회적 거리두기와 모임 제한 등으로 인해 혼자 있는 시간이 늘어났고, 함께 취미 생활을 즐기는 시간도 줄어들었습니다. 이러한 상황에서 Hobby Together는 사람들이 함께의 가치를 즐기며 다양한 취미 활동으로 심리적 안정과 행복감을 찾을 수 있도록 도와줍니다.
 
 ### 4. 사회적 연결과 친밀감 형성
 
-    취미 생활을 함께 하는 것은 여러 가지 이점을 가지고 있습니다. 우선, 취미를 공유하고 함께 활동하는 과정에서 새로운 인연을 만들 수 있습니다. 비슷한 취향을 가진 사람들과의 교류를 통해 친목을 도모하고 소통할 수 있습니다. 또한, 함께하는 취미 생활은 스트레스 해소와 행복감 증진에도 도움을 줍니다. 즐거운 경험을 체험해보세요!
+-   취미 생활을 함께 하는 것은 여러 가지 이점을 가지고 있습니다. 우선, 취미를 공유하고 함께 활동하는 과정에서 새로운 인연을 만들 수 있습니다. 비슷한 취향을 가진 사람들과의 교류를 통해 친목을 도모하고 소통할 수 있습니다. 또한, 함께하는 취미 생활은 스트레스 해소와 행복감 증진에도 도움을 줍니다. 즐거운 경험을 체험해보세요!
 
 <br/>
 <br/>
@@ -414,37 +414,47 @@ font
 
 ## 10. 기능 시현
 
-| Splash | 회원가입1                                                                                              | 회원가입2 |
-| ------ | ------------------------------------------------------------------------------------------------------ | --------- |
-| Splash | <src img="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/01_signup1.gif"> | 회원가입2 |
+<style>
+.my-image {
+  width: 500px;
+}
+</style>
 
-| 로그인 | 로그아웃  | 홈피드    |
-| ------ | --------- | --------- |
-| Splash | 회원가입1 | 회원가입2 |
+| Splash                                                                                                      | 회원가입1                                                                                              | 회원가입2                                                                                              |
+| ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| <img width="" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/splash.gif"> | <img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/01_signup1.gif"> | <img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/02_signup2.gif"> |
 
-| 내 프로필 | 상대 프로필 | 검색      |
-| --------- | ----------- | --------- |
-| Splash    | 회원가입1   | 회원가입2 |
+| 로그인                                                                                               | 로그아웃                                                                                              | 홈피드                                                                                           |
+| ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| <img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/03_login.gif"> | <img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/04_logout.gif"> | <img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/home.gif"> |
 
-| 카테고리 | 게시글 등록 | 게시글 상세 |
-| -------- | ----------- | ----------- |
-| Splash   | 회원가입1   | 회원가입2   |
+| 내 프로필                                                                                                | 상대 프로필                                                                                                 | 검색                                                                                               |
+| -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| <img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/06_myprofile.gif"> | <img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/07_otherprofile.gif"> | <img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/search.gif"> |
 
-| 게시글수정 | 게시글 삭제 | 게시글 댓글 |
-| ---------- | ----------- | ----------- |
-| Splash     | 회원가입1   | 회원가입2   |
+| 카테고리                                                                                            | 게시글 등록                                                                                        | 게시글 상세                                                                                             |
+| --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| <img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/05_post.gif"> | <img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/upload.gif"> | <img  src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/postDetail.gif"> |
 
-| 게시글신고 | 팔로잉    | 팔로잉 목록 |
-| ---------- | --------- | ----------- |
-| Splash     | 회원가입1 | 회원가입2   |
+| 게시글수정                                                                                             | 게시글 댓글                                                                                         | 게시글,댓글 삭제                                                                                   |
+| ------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| <img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/postupdate.gif"> | <img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/comment.gif"> | <img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/delete.gif"> |
 
-| 모임 목록 | 모임 등록 | 모임 상세 |
-| --------- | --------- | --------- |
-| Splash    | 회원가입1 | 회원가입2 |
+| 게시글신고                                                                                         | 팔로잉                                                                                             | 팔로잉 목록                                                                                            |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| <img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/report.gif"> | <img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/follow.gif"> | <img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/followList.gif"> |
 
-| 모임 수정 | 채팅      | 포스트 없음 |
-| --------- | --------- | ----------- |
-| Splash    | 회원가입1 | 회원가입2   |
+| 모임 목록                                                                                                | 모임 등록                                                                                                  | 모임 상세                                                                                                  |
+| -------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| <img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/togetherList.gif"> | <img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/togetherUpload.gif"> | <img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/togetherDetail.gif"> |
+
+| 모임 수정                                                                                                | 모임 삭제                                                                                               | 포스트 없음                                                                                           |
+| -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| <img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/togetherEdit.gif"> | <img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/togetherDel.gif"> | <img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/09_nopost.gif"> |
+
+| 무한 스크롤                                                                                                | 채팅                                                                                                | 로딩                                                                                                |
+| ---------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| <img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/infinityscroll.gif"> | <img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/08_chat.gif"> | <img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/loading.gif"> |
 
 <p align="right"><a href="#top">TOP 🔼</a></p>
 <br/>
