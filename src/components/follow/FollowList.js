@@ -4,19 +4,21 @@ import FollowButton from '../../components/follow/FollowButton';
 import { styled } from 'styled-components';
 import getUserProfile from '../../pages/userprofile/getUserProfile';
 import { setUserInfo } from '../../store/slices/userSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { emptyProfileImage, validationProfileImage } from '../../lib/utils/validation/image/validationProfileImage';
 
 
 export default function FollowList({ accountname, username, image, isfollow }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const myAccountname = useSelector((state) => { return state.user.myInfo.accountname });
 
     async function setUser() {
         const user = await getUserProfile(accountname);
         dispatch(setUserInfo(user));
     }
     const [isFollow, setIsFollow] = useState(isfollow);//똑딱
+
 
     return (
         <>
@@ -29,9 +31,12 @@ export default function FollowList({ accountname, username, image, isfollow }) {
                         <ProfileContent>@ {accountname}</ProfileContent>
                     </TextWrap>
                 </ProfileWrap>
-                <div onClick={() => { setIsFollow(!isFollow) }}>
-                    <FollowButton id="FollowBtn" accountname={accountname} isfollow={isFollow}></FollowButton>
-                </div>
+                {myAccountname === accountname ? null : (
+                    <div onClick={() => { setIsFollow(!isFollow) }}>
+                        <FollowButton id="FollowBtn" accountname={accountname} isfollow={isFollow}></FollowButton>
+                    </div>
+
+                )}
             </FollowItem>
         </>
     )

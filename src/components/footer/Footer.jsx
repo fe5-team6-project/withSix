@@ -42,7 +42,7 @@ export default function Footer() {
                     </li>
 
                     <li>
-                        <Link to={'/home'}>
+                        <Link to={'/chat'}>
                             <img src={chat} alt="채팅 아이콘" />
                             <span>채팅</span>
                         </Link>
