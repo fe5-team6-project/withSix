@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { handleErrorImg } from '../../lib/utils/validation/image/validationContentImage';
 
-export default function TogetherList({ id, itemName, price, link, itemImage }) {
+export default function TogetherList({ id, itemName, price, itemImage }) {
     const navigate = useNavigate();
 
     return (
@@ -71,7 +71,7 @@ const TogetherName = styled.strong`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 85px;
+    max-width: 80px;
 `;
 
 const TogetherPrice = styled.p`
