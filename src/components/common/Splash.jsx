@@ -39,7 +39,7 @@ const Logo = styled.img`
 `;
 
 const Image = styled.img`
-    width: 80%;
+    width: 200px;
 `;
 
 const SplashBack = styled.article`
