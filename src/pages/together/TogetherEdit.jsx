@@ -5,7 +5,7 @@ import { api } from '../../lib/apis/axiosConfig';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { inputTogether } from '../../store/slices/togetherSlice';
-import togetherImg from '../../assets/images/togetherImg.png'
+import { DEFAULT_IMAGE_BOARD } from '../../lib/apis/constant/path';
 
 export default function GroupEdit() {
     const togetherInfo = useSelector((state) => { return state.together.req });
@@ -46,7 +46,7 @@ export default function GroupEdit() {
                     <GroupInput id="GroupImage" name="itemImage" ></GroupInput>
                 </GroupInputWrapper>
                 <GroupLabel htmlFor="GroupImage">
-                    <GroupImage id="PreImage" src={togetherInfo.itemImage && !/\/undefined$/.test(togetherInfo.itemImage) ? togetherInfo.itemImage : togetherImg}></GroupImage>
+                    <GroupImage id="PreImage" src={togetherInfo.itemImage && !/\/undefined$/.test(togetherInfo.itemImage) ? togetherInfo.itemImage : DEFAULT_IMAGE_BOARD}></GroupImage>
                 </GroupLabel>
                 <RegiButton onClick={async () => { await togetherEdit(); }}>수정 완료</RegiButton>
             </Form>
