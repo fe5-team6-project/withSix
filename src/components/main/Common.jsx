@@ -50,13 +50,15 @@ export default function Common(props) {
         <>
             <Header />
             <StyledMain>
-                {props.title ? (
-                    <TitleWrap>
-                        <H2>{props.title}</H2>
-                        <Span>{props.desc}</Span>
-                    </TitleWrap>
-                ) : null}
-                {props.page}
+                <FixedLayout>
+                    {props.title ? (
+                        <TitleWrap>
+                            <H2>{props.title}</H2>
+                            <Span>{props.desc}</Span>
+                        </TitleWrap>
+                    ) : null}
+                    {props.page}
+                </FixedLayout>
             </StyledMain>
             <Footer />
             {/* 모달 표시 위치 */}
@@ -67,7 +69,7 @@ export default function Common(props) {
 }
 
 const StyledMain = styled.main`
-    position: relative;
+    /* position: relative; */
     width: 100%;
     max-width: 900px;
     max-height: calc(100vh - 120px);
@@ -76,6 +78,12 @@ const StyledMain = styled.main`
     box-sizing: border-box;
     overflow-x: hidden;
     overflow-y: auto;
+`;
+
+const FixedLayout = styled.div`
+    position: relative;
+    width: 390px;
+    margin: 0 auto;
 `;
 
 const TitleWrap = styled.section`
