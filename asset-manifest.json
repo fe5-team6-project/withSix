@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/hobby_together/static/css/main.75ab804b.css",
-    "main.js": "/hobby_together/static/js/main.112a6bfa.js",
+    "main.js": "/hobby_together/static/js/main.ee3b0c6e.js",
     "static/media/splash-login.gif": "/hobby_together/static/media/splash-login.90be72590a46891ce4ba.gif",
     "static/media/404페이지.png": "/hobby_together/static/media/404페이지.17c3cf3048f474aece01.png",
     "static/media/search-image.png": "/hobby_together/static/media/search-image.fc95f0cd585289410a70.png",
@@ -28,10 +28,10 @@
     "static/media/icon-success.svg": "/hobby_together/static/media/icon-success.3b831841ab7c5b88fd3b5da72ef726ae.svg",
     "static/media/div-line.svg": "/hobby_together/static/media/div-line.0d7cd5f30a251f23fe4abd1428869a08.svg",
     "main.75ab804b.css.map": "/hobby_together/static/css/main.75ab804b.css.map",
-    "main.112a6bfa.js.map": "/hobby_together/static/js/main.112a6bfa.js.map"
+    "main.ee3b0c6e.js.map": "/hobby_together/static/js/main.ee3b0c6e.js.map"
   },
   "entrypoints": [
     "static/css/main.75ab804b.css",
-    "static/js/main.112a6bfa.js"
+    "static/js/main.ee3b0c6e.js"
   ]
 }
