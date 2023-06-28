@@ -9,6 +9,7 @@ import checkToken from '../../pages/login/checkToken';
 import getMyInfo from '../../pages/login/getMyInfo';
 import Modal from '../modal/Modal';
 import Splash from '../common/Splash';
+import NotFound from '../common/NotFound';
 
 export default function Common(props) {
     const navigator = useNavigate();
@@ -16,6 +17,7 @@ export default function Common(props) {
     // 비로그인시 자동이동을 무시해야할 페이지에 사용
     const autoMove = props.autoMoveIgnore ? true : false;
     const [isSplash, setIsSplash] = useState(props.isSplash);
+    const [isNotFound, setIsNotFound] = useState(true);
 
     const userInfo = useSelector((state) => state.user?.myInfo);
     const [user, setUser] = useState(userInfo);
@@ -64,6 +66,7 @@ export default function Common(props) {
             {/* 모달 표시 위치 */}
             {modalVisible && <Modal />}
             {isSplash && <Splash />}
+            {isNotFound && <NotFound />}
         </>
     );
 }
