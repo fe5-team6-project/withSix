@@ -2,9 +2,9 @@ import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import getUserProfile from '../../pages/userprofile/getUserProfile';
 import { setUserInfo } from '../../store/slices/userSlice';
 import { DEFAULT_IMAGE } from '../../lib/apis/constant/path';
+import getUserProfile from '../../pages/profile/userprofile/getUserProfile';
 
 export default function UserLIst({ showUser, searchQuery }) {
     const navigate = useNavigate();

@@ -1,4 +1,4 @@
-import { URL } from '../../lib/apis/constant/path';
+import { URL } from '../../../lib/apis/constant/path';
 
 export default async function getUserProfile(accountname) {
     const requestPath = `/profile/${accountname}`;

@@ -11,8 +11,8 @@ import { styled } from 'styled-components';
 import iconComment from '../../assets/icons/post/icon-comment.svg';
 import Slick from '../slick';
 import { setUserInfo } from '../../store/slices/userSlice';
-import getUserProfile from '../../pages/userprofile/getUserProfile';
 import { useDispatch } from 'react-redux';
+import getUserProfile from '../../pages/profile/userprofile/getUserProfile';
 
 // const postId = '6478c001b2cb2056632d23f2';
 
