@@ -4,18 +4,18 @@ import Home from '../pages/home/Home';
 import TogetherUpload from '../pages/together/TogetherUpload';
 import TogetherEdit from '../pages/together/TogetherEdit';
 import Signup from '../pages/signup/Signup';
-import MyProfile from '../pages/myprofile/MyProfile';
 import FollowingList from '../pages/follow/FollowingList';
 import FollowerList from '../pages/follow/FollowerList';
 import PostDetail from '../components/postDetail';
 import Search from '../components/search';
-import UserProfile from '../pages/userprofile/UserProfile';
-import UpdateProfile from '../pages/myprofile/UpdateProfile';
 import PostUpload from '../pages/postUpload/postUpload';
 import Together from '../pages/together/Together';
 import TogetherDetail from '../pages/together/TogetherDetail';
 import PostModify from '../pages/postUpload/postModify';
 import Chat from '../pages/chat/Chat';
+import UserProfile from '../pages/profile/userprofile/UserProfile';
+import MyProfile from '../pages/profile/myprofile/MyProfile';
+import UpdateProfile from '../pages/profile/myprofile/UpdateProfile';
 
 export default function MyRouter() {
     return (
