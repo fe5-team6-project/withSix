@@ -8,12 +8,12 @@ import iconComment from '../../assets/icons/post/icon-comment.svg';
 import changeHeart from './changeHeart';
 import { useDispatch } from 'react-redux';
 import { setUserInfo } from '../../store/slices/userSlice';
-import getUserProfile from '../../pages/userprofile/getUserProfile';
 import Slick from '../../components/slick';
 import {
     emptyProfileImage,
     validationProfileImage,
 } from '../../lib/utils/validation/image/validationProfileImage';
+import getUserProfile from '../profile/userprofile/getUserProfile';
 
 export default function Post(props) {
     const navigate = useNavigate();

@@ -14,21 +14,21 @@ export default function EmailPassword(props) {
         const password2 = document.querySelector('#check_password').value;
 
         const validEmail = await validationEmail(email);
-        if (!validEmail.state) {
+        if (!validEmail?.state) {
             props.setModalContent(validEmail);
             props.setModalVisible(true);
             return false;
         }
 
         const validPassword = validationPassword(password);
-        if (!validPassword.state) {
+        if (!validPassword?.state) {
             props.setModalContent(validPassword);
             props.setModalVisible(true);
             return false;
         }
 
         const validCheckPassword = validationCheckPassword(password, password2);
-        if (!validCheckPassword.state) {
+        if (!validCheckPassword?.state) {
             props.setModalContent(validCheckPassword);
             props.setModalVisible(true);
             return false;

@@ -1,44 +1,55 @@
-import React, { useState } from 'react';
-import Common from '../../components/main/Common';
-import { Link, useParams } from 'react-router-dom';
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Common from '../../../components/main/Common';
+import logout from '../../../assets/icons/common/icon-logout.svg';
 import { styled } from 'styled-components';
-import FollowButton from '../../components/follow/FollowButton';
-import { useSelector } from 'react-redux';
-import {
-    emptyProfileImage,
-    validationProfileImage,
-} from '../../lib/utils/validation/image/validationProfileImage';
-import divLine from '../../assets/icons/post/div-line.svg';
+import { useSelector, useDispatch } from 'react-redux';
+import { setMyInfo } from '../../../store/slices/userSlice';
 
-export default function UserProfile() {
-    const accountname = useParams().id;
-    const profile = useSelector((state) => state.user.userInfo);
-    const [isFollow, setIsFollow] = useState(profile?.isfollow);
-    const [followCount, setFollowCount] = useState(profile?.followerCount);
+export default function MyProfile() {
+    const user = useSelector((state) => state.user?.myInfo);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    function logoutHandle() {
+        (function resetUser() {
+            dispatch(
+                setMyInfo({
+                    _id: '',
+                    username: '',
+                    isfollow: false,
+                    intro: '',
+                    image: '',
+                    followingCount: '',
+                    following: [],
+                    followerCount: 0,
+                    follower: [],
+                    accountname: '',
+                })
+            );
+        })();
+        localStorage.clear();
+    }
 
     const page = (
         <LayoutDiv>
             <ImageWrap>
                 <h2 className="a11y-hidden">프로필 이미지</h2>
-                <Img
-                    src={validationProfileImage(profile?.image)}
-                    onError={(e) => emptyProfileImage(e)}
-                    alt="유저 프로필 이미지"
-                />
+                <Img src={user?.image} alt="" />
             </ImageWrap>
 
             <Section>
                 <h2 className="a11y-hidden">팔로우</h2>
                 <FollowDiv className="followers">
                     <Label>Followers</Label>
-                    <FollowLink to={`/profile/${accountname}/follower`}>
-                        {followCount}
+                    <FollowLink to={`/profile/${user?.accountname}/follower`}>
+                        {user?.followerCount}
                     </FollowLink>
                 </FollowDiv>
                 <FollowDiv className="followings">
                     <Label>Followings</Label>
-                    <FollowLink to={`/profile/${accountname}/following`}>
-                        {profile?.followingCount}
+                    <FollowLink to={`/profile/${user?.accountname}/following`}>
+                        {user?.followingCount}
                     </FollowLink>
                 </FollowDiv>
             </Section>
@@ -47,44 +58,39 @@ export default function UserProfile() {
                 <h2 className="a11y-hidden">프로필</h2>
                 <Div className="id">
                     <Label>ID</Label>
-                    <Strong>{profile?.accountname}</Strong>
+                    <Strong>{user?.accountname}</Strong>
                 </Div>
                 <Div>
                     <Label>Nickname</Label>
-                    <Strong>{profile?.username}</Strong>
+                    <Strong>{user?.username}</Strong>
                 </Div>
                 <Div>
                     <Label>Introduce</Label>
-                    <Strong>{profile?.intro}</Strong>
+                    <Strong>{user?.intro}</Strong>
                 </Div>
             </Section>
 
             <Section>
                 <span></span>
             </Section>
-            <Div
-                id="btnBox"
-                onClick={() => {
-                    setIsFollow(!isFollow);
-                    setFollowCount((prev) => (isFollow ? prev - 1 : prev + 1));
-                }}
-            >
-                <section>
-                    <Link to={`/home/${accountname}`}>포스트 목록</Link>
-                    <img src={divLine} alt="" />
-                    <Link to={`/together/${accountname}`}>투게더 목록</Link>
-                </section>
-                <FollowButton
-                    id="followBtnBig"
-                    accountname={profile?.accountname}
-                    isfollow={isFollow}
-                ></FollowButton>
+            <Div>
+                <Button
+                    onClick={() => {
+                        navigate('./update');
+                    }}
+                >
+                    프로필 수정
+                </Button>
+                <LogoutLink onClick={() => logoutHandle()} to={'/'}>
+                    <img src={logout} alt="로그아웃 아이콘" />
+                    Logout
+                </LogoutLink>
             </Div>
         </LayoutDiv>
     );
 
     const pageTitle = '프로필';
-    const pageDesc = `${profile?.username}님의 프로필을 확인합니다.`;
+    const pageDesc = `${user?.username}님의 프로필을 확인합니다.`;
 
     return (
         <>
@@ -131,20 +137,6 @@ const Div = styled.div`
     position: relative;
     height: 70px;
     text-align: center;
-
-    &#btnBox > section {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 240px;
-        padding: 0 30px 10px;
-        box-sizing: border-box;
-
-        & > a {
-            font-size: var(--fsize-m);
-            color: var(--color-gray);
-        }
-    }
 `;
 
 const FollowDiv = styled(Div)`
@@ -185,6 +177,18 @@ const Strong = styled.strong`
     }
     ${Div}.id > &::before {
         content: '@';
+    }
+`;
+
+const LogoutLink = styled(Link)`
+    position: absolute;
+    right: 5px;
+    bottom: 0;
+    font-size: var(--fsize-s);
+    color: var(--color-gray);
+
+    & > img {
+        margin-right: 5px;
     }
 `;
 

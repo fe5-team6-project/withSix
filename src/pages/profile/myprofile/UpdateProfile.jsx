@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Common from '../../components/main/Common';
+import Common from '../../../components/main/Common';
 import { styled } from 'styled-components';
-import handleFileUpload from '../signup/handleFileUload';
+import handleFileUpload from '../../signup/handleFileUload';
 
 import { useDispatch, useSelector } from 'react-redux';
 import handleProfileUpdate from './handleProfileUpdate';
@@ -10,11 +10,11 @@ import {
     setContent,
     setIsVisible,
     setUrl,
-} from '../../store/slices/modalSlice';
+} from '../../../store/slices/modalSlice';
 import {
     validationId,
     validationName,
-} from '../../lib/utils/validation/validation';
+} from '../../../lib/utils/validation/validation';
 
 export default function UpdateProfile() {
     const user = useSelector((state) => state.user?.myInfo);

@@ -1,5 +1,5 @@
-import { PROFILE_UPDATE_OK } from '../../lib/apis/constant/message';
-import { URL } from '../../lib/apis/constant/path';
+import { PROFILE_UPDATE_OK } from '../../../lib/apis/constant/message';
+import { URL } from '../../../lib/apis/constant/path';
 
 export default async function handleProfileUpdate() {
     const id = document.querySelector('#id').value;

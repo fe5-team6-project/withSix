@@ -9,7 +9,7 @@ import {
 import { DEFAULT_IMAGE } from '../../lib/apis/constant/path';
 
 export default function Profile(props) {
-    const userData = props.userData;
+    const userData = props?.userData;
     const [image, setImage] = useState(DEFAULT_IMAGE);
     const [id, setId] = useState(undefined);
     const [name, setName] = useState(undefined);
@@ -18,14 +18,14 @@ export default function Profile(props) {
     async function handleSubmit(e) {
         e.preventDefault();
         const validId = await validationId(id);
-        if (!validId.state) {
+        if (!validId?.state) {
             props.setModalContent(validId);
             props.setModalVisible(true);
             return false;
         }
 
         const validName = validationName(name);
-        if (!validName.state) {
+        if (!validName?.state) {
             props.setModalContent(validName);
             props.setModalVisible(true);
             return false;

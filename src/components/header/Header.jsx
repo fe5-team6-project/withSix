@@ -19,9 +19,7 @@ export default function Header() {
                 </H1>
 
                 <Article>
-                    {user?.username !== String && (
-                        <Strong>{user?.username}</Strong>
-                    )}
+                    {user?.username !== '' && <Strong>{user?.username}</Strong>}
                 </Article>
             </Div>
             <BackLinkDiv>
