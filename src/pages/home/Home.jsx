@@ -38,7 +38,7 @@ export default function Home() {
             newPost.length >= 10 ? setHasNextPage(true) : setHasNextPage(false);
             setIsSplash(false);
         }
-
+        setSkip(0);
         fetchData();
     }, [category]);
 
@@ -60,7 +60,6 @@ export default function Home() {
         }
 
         fetchData();
-        setIsSplash(false);
     }, [skip]);
 
     const page = (
@@ -93,7 +92,7 @@ export default function Home() {
                 </CategoryMenu>
             )}
 
-            <ul>
+            <PostList>
                 {postList.length ? (
                     postList.map((item, idx) => {
                         return postList.length - 1 !== idx ? (
@@ -116,7 +115,7 @@ export default function Home() {
                 ) : (
                     <EmptyData url={'../post/upload'} />
                 )}
-            </ul>
+            </PostList>
 
             <WriteButton url={'../post/upload'} />
         </>
@@ -140,6 +139,11 @@ const CategoryMenu = styled.article`
     background-color: var(--color-back);
     text-align: right;
     z-index: 2;
+`;
+
+const PostList = styled.ul`
+    height: calc(100vh - 170px);
+    overflow-y: auto;
 `;
 
 const CategoryButton = styled.button`
