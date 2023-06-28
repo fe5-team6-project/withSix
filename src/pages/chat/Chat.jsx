@@ -3,6 +3,7 @@ import Common from '../../components/main/Common';
 import { styled } from 'styled-components';
 import { useSelector } from 'react-redux';
 import { DEFAULT_IMAGE } from '../../lib/apis/constant/path';
+import chatBack from '../../assets/images/common/splash-login.gif';
 
 export default function Chat() {
     const user = useSelector((state) => state.user?.myInfo);
@@ -92,11 +93,17 @@ export default function Chat() {
 const ChatWrap = styled.section`
     width: 100%;
     padding-top: 120px;
+    background: url(${chatBack}) no-repeat;
+    background-size: 100%;
+    background-position: 50% 120%;
 `;
 
 const ChatList = styled.ul`
-    width: 320px;
+    width: 350px;
+    max-height: 580px;
     margin: 0px auto;
+    padding: 0 20px;
+    overflow-y: auto;
 `;
 
 const ChatItem = styled.li`
@@ -110,6 +117,7 @@ const ChatItem = styled.li`
         display: flex;
         flex-direction: ${(props) => (props.state ? 'row-reverse' : 'row')};
     }
+    overflow-y: auto;
 `;
 
 const Profile = styled.section`
