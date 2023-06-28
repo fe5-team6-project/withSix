@@ -40,8 +40,8 @@ const Logo = styled.img`
 `;
 
 const Image = styled.img`
-    width: 100%;
-    margin-bottom: 25px;
+    width: 400px;
+    margin-bottom: 36px;
     /* animation: ${hideAnimation} 1s ease-in-out forwards; */
     /* animation-delay: 0.5s; */
 `;
