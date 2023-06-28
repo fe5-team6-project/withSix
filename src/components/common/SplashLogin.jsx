@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from '../../assets/logo/LOGO-full-negative.svg';
+import image from '../../assets/images/common/splash-login.gif';
 import { keyframes, styled } from 'styled-components';
 
 export default function SplashLogin() {
@@ -7,6 +8,7 @@ export default function SplashLogin() {
         <SplashBack>
             <h2 className="a11y-hidden">스플래쉬 로그인 화면</h2>
             <Logo src={logo} alt="로고" />
+            <Image src={image} alt="캐릭터" />
         </SplashBack>
     );
 }
@@ -33,8 +35,15 @@ const hideAnimation = keyframes`
 `;
 
 const Logo = styled.img`
-    animation: ${hideAnimation} 0.3s ease-in-out forwards;
-    animation-delay: 0.3s;
+    /* animation: ${hideAnimation} 1s ease-in-out forwards; */
+    /* animation-delay: 0.5s; */
+`;
+
+const Image = styled.img`
+    width: 100%;
+    margin-bottom: 25px;
+    /* animation: ${hideAnimation} 1s ease-in-out forwards; */
+    /* animation-delay: 0.5s; */
 `;
 
 const SplashBack = styled.article`
@@ -42,6 +51,7 @@ const SplashBack = styled.article`
     top: 0;
     left: 0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100vw;
@@ -49,6 +59,6 @@ const SplashBack = styled.article`
     background-color: var(--color-main);
     z-index: 999;
     opacity: 1;
-    animation: ${opacityAnimation} 0.3s ease-in-out forwards;
-    animation-delay: 0.3s;
+    animation: ${opacityAnimation} 1s ease-in-out forwards;
+    animation-delay: 0.5s;
 `;

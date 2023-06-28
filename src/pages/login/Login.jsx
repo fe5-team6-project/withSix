@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
@@ -13,6 +13,7 @@ import {
 import Modal from '../../components/modal/Modal';
 import { setMyInfo } from '../../store/slices/userSlice';
 import { validationLogin } from '../../lib/utils/validation/validation';
+import SplashLogin from '../../components/common/SplashLogin';
 
 /**
  * 로그인 요청시
@@ -29,6 +30,7 @@ export default function Login() {
     const modalVisible = modal.display.isVisible;
     const [email, setEmail] = useState(undefined);
     const [password, setPassword] = useState(undefined);
+    const [isShowSplash, setIsShowSplash] = useState(true);
 
     const setModalContent = (props) => {
         dispatch(
@@ -44,6 +46,12 @@ export default function Login() {
     const setModalVisible = (isVisible) => {
         dispatch(setIsVisible({ isVisible: isVisible }));
     };
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsShowSplash(false);
+        }, 1500);
+    }, []);
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -130,6 +138,7 @@ export default function Login() {
                 </Div>
             </Form>
             {modalVisible && <Modal />}
+            {isShowSplash && <SplashLogin />}
         </>
     );
 }
