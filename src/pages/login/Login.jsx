@@ -99,6 +99,7 @@ export default function Login() {
             <Form
                 onSubmit={(e) => {
                     handleSubmit(e);
+                    window.location.reload();
                 }}
             >
                 <Div>
