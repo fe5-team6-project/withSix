@@ -4,10 +4,11 @@
 
 **[체험계정]**
 
--   ID : hobbytogether@gmail.com
--   PW : 123123a
+💙 계정 ID : `hobbytogether@gmail.com`
 
+🔓 계정 PW : `123123a`
 <br/>
+
 <br/>
 
 ## 1. HobbyTogether 서비스 소개
@@ -35,7 +36,6 @@
 -   취미 생활을 함께 하는 것은 여러 가지 이점을 가지고 있습니다. 우선, 취미를 공유하고 함께 활동하는 과정에서 새로운 인연을 만들 수 있습니다. 비슷한 취향을 가진 사람들과의 교류를 통해 친목을 도모하고 소통할 수 있습니다. 또한, 함께하는 취미 생활은 스트레스 해소와 행복감 증진에도 도움을 줍니다. 즐거운 경험을 체험해보세요!
 
 <br/>
-<br/>
 
 ## 2. 팀 소개
 
@@ -45,7 +45,6 @@
 | <img src='./src/assets/images/common/search-image.png' height=220 width=180> | <img src='./src/assets/images/common/search-image.png' height=220 width=180> | <img src='./src/assets/images/common/search-image.png' height=220 width=180> | <img src='./src/assets/images/common/search-image.png' height=220 width=180> |
 |                    🔗[Gyuuul](https://github.com/Gyuuul)                     |                 🔗[hyuntae94](https://github.com/hyuntae94)                  |                  🔗[UngHeung](https://github.com/UngHeung)                   |                 🔗[haileyham](https://github.com/haileyham)                  |
 
-<br/>
 <br/>
 
 ## 3. 프로젝트 개발 기간
@@ -62,27 +61,25 @@ gantt
 ```
 
 <br/>
-<br/>
 
 ## 4. 프로젝트 목표
 
-1. 리액트 실전 능력 향상
+**1. 리액트 실전 능력 향상**
 
 -   프로젝트를 통해 리액트를 실전에서 사용하고 익숙해지는 것을 목표
 -   컴포넌트 기반 아키텍처와 상태 관리를 효과적으로 활용하여 복잡한 웹 어플리케이션을 개발하고, 실제 문제에 대한 해결 능력을 향상
 -   학습한 React와 다양한 라이브러리를 활용하여 싱글 페이지 웹 어플리케이션을 개발
 
-2. 협업과 코드 통합
+**2. 협업과 코드 통합**
 
 -   GitHub Flow 방식을 채택하여 효과적인 코드 통합과 버전 관리를 수행
 -   Pull Request 및 코드 리뷰를 통해 코드의 품질을 높이고, 충돌을 방지하며 안정적인 개발을 진행
 
-3. 프로젝트 환경
+**3. 프로젝트 환경**
 
 -   프로젝트에서는 페어 프로그래밍과 같은 협업 도구를 사용하여 팀원들과의 협업 경험
 -   팀원들과의 협업을 통해 안정적이고 효율적인 개발을 이끌어내는 것을 목표
 
-<br/>
 <br/>
 
 ## 5. 협업 방식
@@ -92,26 +89,21 @@ gantt
 -   단순하고 직관적인 워크플로우 : 팀원들간의 협업을 원활하게 진행할 수 있도록 쉽고 직관적인 GitHub-Flow 방식을 채택하였습니다. 잦은 충돌이 발생할 것을 방지하고자 작업을 작은 단위로 나누고 메인 브랜치에 지속적으로 머지하는 방식으로 진행하였습니다.
 -   효과적인 협업과 코드 리뷰 : 팀원들 간의 효과적인 협업과 코드 리뷰를 장려하기 위해 사용하였습니다. 각 작업은 별도의 브랜치에서 수행되고, 다른 팀원들의 리뷰와 함께 승인을 받은 후에 메인 브랜치로 머지됩니다. 이를 통해 코드의 품질을 높이고 버그를 사전에 발견하여 소프트웨어의 안정성과 신뢰성을 향상시켰습니다.
 
-    <br>
-
 ### 5-2. PR 팀원 컨펌
 
 -   Pull Request(PR)는 코드 변경 사항을 리뷰 및 피드백을 받기 위해 메인 브랜치에 병합하기 전 제출하였습니다. PR은 최소 2명 이상의 팀원의 승인을 받고, 메인으로 병합하는 과정으로 진행하였습니다. 이를 통해 코드의 품질을 높이고 버그를 줄이며 충돌을 예방하였고, 팀원들 간의 효과적인 의사소통과 협업을 도모하였습니다.
-
-    <br>
 
 ### 5-3. 프로젝트 진행 상황 관리 : [GitHub-Issues](https://github.com/fe5-team6-project/withSix/issues)
 
 -   원활한 협업을 위하여 팀원들의 프로젝트 진행 상황을 모니터링하고, 의견을 공유하며 오류 발생 시 함께 문제를 해결하였습니다. 버그, 기능 요청, 작업 등과 같은 이슈를 추적하고 관리하였고, 이를 통해 팀원 간의 프로젝트의 진행 상황을 쉽게 파악할 수 있었습니다.
 
 <br/>
-<br/>
 
 <p align="right"><a href="#top">TOP 🔼</a></p>
 
 ## 6. [컨벤션&프리티어](https://github.com/fe5-team6-project/withSix/issues/4)
 
-프로젝트 진행 중 팀원 간의 원활한 소통과 협업을 위하여 커밋, 코드 컨벤션을 만들었습니다.
+-   프로젝트 진행 중 팀원 간의 원활한 소통과 협업을 위하여 커밋, 코드 컨벤션을 만들었습니다.
 
 ### 6-1. 커밋 컨벤션
 
@@ -167,7 +159,6 @@ font
 ```
 
 <br/>
-<br/>
 
 <p align="right"><a href="#top">TOP 🔼</a></p>
 
@@ -183,8 +174,6 @@ font
 | 협업 및 프로젝트 관리 | <img src="https://camo.githubusercontent.com/d20c06f1854face8c434a4fa2ffa62a2c6d52368120cc7dafd77166da5732caf/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4e6f74696f6e2d3030303030303f7374796c653d666f722d7468652d6261646765266c6f676f3d6e6f74696f6e266c6f676f436f6c6f723d7768697465"> <img src="https://camo.githubusercontent.com/3f990cfefb64f13d28397fe586c3aa38a81fde585de479205d63c79363ebe07a/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f446973636f72642d3732383944413f7374796c653d666f722d7468652d6261646765266c6f676f3d646973636f7264266c6f676f436f6c6f723d7768697465">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | 디자인                | <img src="https://camo.githubusercontent.com/4a1038affbb2653ec140936555b3714ddc322526be8567b489e8423a795dea18/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4669676d612d4632344531453f7374796c653d666f722d7468652d6261646765266c6f676f3d6669676d61266c6f676f436f6c6f723d7768697465">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
-<br/>
-
 ### 7-2. [node modules](https://github.com/fe5-team6-project/withSix/issues/3)
 
 | 모듈명                      | 용도                             |
@@ -197,7 +186,6 @@ font
 | react-intersection-observer | 무한 스크롤 구현을 위해 사용     |
 
 <p align="right"><a href="#top">TOP 🔼</a></p>
-<br/>
 <br/>
 
 ## 8. 폴더구조
@@ -255,7 +243,6 @@ font
 
 <p align="right"><a href="#top">TOP 🔼</a></p>
 <br/>
-<br/>
 
 ## 9. 역할 분담
 
@@ -274,11 +261,11 @@ font
       <td></td>
     </tr>
     <tr>
-      <td>게시물 업로드 페이지</td>
+      <td>- 게시물 업로드 페이지</td>
       <td></td>
     </tr>
     <tr>
-      <td>게시물 수정 페이지</td>
+      <td>- 게시물 수정 페이지</td>
       <td></td>
     </tr>
     <tr>
@@ -287,7 +274,7 @@ font
       <td></td>
     </tr>
     <tr>
-      <td>게시물 상세 페이지</td>
+      <td>- 게시물 상세 페이지</td>
       <td></td>
     </tr>
     <tr>
@@ -312,15 +299,15 @@ font
       <td><strong>[디자인]</strong></td>
     </tr>
     <tr>
-      <td>로그인 메인 페이지</td>
+      <td>- 로그인 메인 페이지</td>
       <td>피그마 UI 디자인</td>
     </tr>
     <tr>
-      <td>이메일 로그인 페이지</td>
+      <td>- 이메일 로그인 페이지</td>
       <td>공통 레이아웃 컴포넌트 제작</td>
     </tr>
     <tr>
-      <td>이메일 회원가입</td>
+      <td>- 이메일 회원가입</td>
       <td>스타일 초기값 변수 설정</td>
     </tr>
     <tr>
@@ -332,15 +319,15 @@ font
       <td></td>
     </tr>
     <tr>
-      <td>사용자 프로필 페이지</td>
+      <td>- 사용자 프로필 페이지</td>
       <td></td>
     </tr>
     <tr>
-      <td>사용자 프로필 수정 페이지</td>
+      <td>- 사용자 프로필 수정 페이지</td>
       <td></td>
     </tr>
     <tr>
-      <td>다른 사용자 프로필 페이지</td>
+      <td>- 다른 사용자 프로필 페이지</td>
       <td></td>
     </tr>
     <tr>
@@ -369,19 +356,19 @@ font
       <td>Splash 애니메이션</td>
     </tr>
     <tr>
-      <td>모임 리스트 페이지</td>
+      <td>- 모임 리스트 페이지</td>
       <td>404페이지 및 검색 배경 디자인</td>
     </tr>
     <tr>
-      <td>모임 등록 페이지</td>
+      <td>- 모임 등록 페이지</td>
       <td><strong>[세팅]</strong></td>
     </tr>
     <tr>
-      <td>모임 수정 페이지</td>
+      <td>- 모임 수정 페이지</td>
       <td>GitHub-Flow 협업 방식 공유</td>
     </tr>
     <tr>
-      <td>모임 상세 페이지</td>
+      <td>- 모임 상세 페이지</td>
       <td>GitHub 컨벤션</td>
     </tr>
     <tr>
@@ -389,15 +376,15 @@ font
       <td>프로젝트 기초 셋팅</td>
     </tr>
     <tr>
-      <td>팔로우 기능</td>
+      <td>- 팔로우 기능</td>
       <td>Readme</td>
     </tr>
     <tr>
-      <td>팔로잉 목록 페이지</td>
+      <td>- 팔로잉 목록 페이지</td>
       <td></td>
     </tr>
     <tr>
-      <td>팔로워 목록 페이지</td>
+      <td>- 팔로워 목록 페이지</td>
       <td></td>
     </tr>
     <tr>
@@ -410,48 +397,46 @@ font
 
 <p align="right"><a href="#top">TOP 🔼</a></p>
 <br/>
-<br/>
 
 ## 10. 기능 시현
 
 | Splash                                                                                                           | 회원가입1                                                                                                            | 회원가입2                                                                                                            |
 | ---------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| <img width="220px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/splash.gif"> | <img width="220px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/01_signup1.gif"> | <img width="220px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/02_signup2.gif"> |
+| <img width="250px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/splash.gif"> | <img width="250px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/01_signup1.gif"> | <img width="250px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/02_signup2.gif"> |
 
 | 로그인                                                                                                           | 로그아웃                                                                                                            | 홈피드                                                                                                         |
 | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| <img width="200" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/03_login.gif"> | <img width="200px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/04_logout.gif"> | <img width="200px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/home.gif"> |
+| <img width="250" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/03_login.gif"> | <img width="250px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/04_logout.gif"> | <img width="250px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/home.gif"> |
 
 | 내 프로필                                                                                                              | 상대 프로필                                                                                                               | 검색                                                                                                             |
 | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| <img width="200px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/06_myprofile.gif"> | <img width="200px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/07_otherprofile.gif"> | <img width="200px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/search.gif"> |
+| <img width="250px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/06_myprofile.gif"> | <img width="250px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/07_otherprofile.gif"> | <img width="250px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/search.gif"> |
 
-| 카테고리                                                                                                          | 게시글 등록                                                                                                      | 게시글 상세                                                                                                           |
+| 맞춤형 피드                                                                                                       | 게시글 등록                                                                                                      | 게시글 상세                                                                                                           |
 | ----------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| <img width="200px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/05_post.gif"> | <img width="200px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/upload.gif"> | <img  width="200px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/postDetail.gif"> |
+| <img width="250px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/05_post.gif"> | <img width="250px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/upload.gif"> | <img  width="250px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/postDetail.gif"> |
 
 | 게시글수정                                                                                                           | 게시글 댓글                                                                                                       | 게시글,댓글 삭제                                                                                                 |
 | -------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| <img width="200px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/postupdate.gif"> | <img width="200px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/comment.gif"> | <img width="200px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/delete.gif"> |
+| <img width="250px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/postupdate.gif"> | <img width="250px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/comment.gif"> | <img width="250px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/delete.gif"> |
 
 | 게시글신고                                                                                                       | 팔로잉                                                                                                           | 팔로잉 목록                                                                                                          |
 | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| <img width="200px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/report.gif"> | <img width="200px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/follow.gif"> | <img width="200px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/followList.gif"> |
+| <img width="250px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/report.gif"> | <img width="250px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/follow.gif"> | <img width="250px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/followList.gif"> |
 
 | 모임 목록                                                                                                              | 모임 등록                                                                                                                | 모임 상세                                                                                                                |
 | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| <img width="200px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/togetherList.gif"> | <img width="200px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/togetherUpload.gif"> | <img width="200px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/togetherDetail.gif"> |
+| <img width="250px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/togetherList.gif"> | <img width="250px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/togetherUpload.gif"> | <img width="250px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/togetherDetail.gif"> |
 
 | 모임 수정                                                                                                              | 모임 삭제                                                                                                             | 포스트 없음                                                                                                         |
 | ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| <img width="200px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/togetherEdit.gif"> | <img width="200px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/togetherDel.gif"> | <img width="200px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/09_nopost.gif"> |
+| <img width="250px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/togetherEdit.gif"> | <img width="250px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/togetherDel.gif"> | <img width="250px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/09_nopost.gif"> |
 
 | 무한 스크롤                                                                                                              | 채팅                                                                                                              | 로딩                                                                                                              |
 | ------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| <img width="200px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/infinityscroll.gif"> | <img width="200px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/08_chat.gif"> | <img width="200px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/loading.gif"> |
+| <img width="250px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/infinityscroll.gif"> | <img width="250px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/08_chat.gif"> | <img width="250px" src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/loading.gif"> |
 
 <p align="right"><a href="#top">TOP 🔼</a></p>
-<br/>
 <br/>
 
 ## 11. 트러블 슈팅
@@ -483,7 +468,6 @@ font
 하이퍼텍스트 전송 프로토콜 (HTTP) 504 Gateway Timeout 서버 에러 응답 코드는 서버가 게이트웨이 혹은 프록시의 역할을 하는 동안 시간 안에 업스트림 서버(upstream server)로부터 요청을 마치기 위해 필요한 응답를 받지 못했음을 나타냄. 등록 버튼 1번째 눌렀을 경우 : 504 오류, 등록 버튼 2번째 눌렀을 경우 : 정상으로 서버 응답 받음. 비동기 처리에 대한 이해도 부족으로 발생하였습니다. 504 오류를 해결하기 위해 API 호출을 2번 수행하는 방식으로 함수를 수정하였습니다. 이를 통해 네트워크 지연으로 인한 504 오류를 예방하고 데이터를 정상적으로 가져올 수 있게 되었습니다.
 
 <br/>
-<br/>
 
 ## 12. 예정 리팩토링 내용
 
@@ -498,5 +482,4 @@ font
 | 스타일        | 전체적인 디자인 통일성 부여                       |
 
 <p align="right"><a href="#top">TOP 🔼</a></p>
-<br/>
 <br/>
