@@ -39,11 +39,11 @@ export default function Together() {
                         {!togetherList
                             ? []
                             : togetherList.map((item) => (
-                                  <TogetherList
-                                      key={item.id}
-                                      {...item}
-                                  ></TogetherList>
-                              ))}
+                                <TogetherList
+                                    key={item.id}
+                                    {...item}
+                                ></TogetherList>
+                            ))}
                     </TogetherWrap>
                     {count % 10 !== 0 ? null : (
                         <MoreButton
@@ -74,7 +74,6 @@ export default function Together() {
 }
 
 const TogetherSection = styled.section`
-    /* margin: 45px 0px 10px 0px; */
     margin-top: 45px;
 `;
 
@@ -83,7 +82,6 @@ const TogetherWrap = styled.ul`
     flex-wrap: wrap;
     align-content: flex-start;
     gap: 10px;
-    /* margin: auto; */
     width: 390px;
     height: calc(100vh - 170px);
     padding: 10px;

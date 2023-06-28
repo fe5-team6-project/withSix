@@ -1,4 +1,4 @@
-import togetherImg from '../../../../assets/images/togetherImg.png';
+import { DEFAULT_IMAGE_BOARD } from '../../../apis/constant/path';
 
 export function validationContentImage(image) {
     let src = image;
@@ -31,5 +31,5 @@ export function emptyContentImage(e) {
 }
 
 export function handleErrorImg(e) {
-    e.target.src = togetherImg;
+    e.target.src = DEFAULT_IMAGE_BOARD;
 }
