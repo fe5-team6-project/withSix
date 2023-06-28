@@ -71,7 +71,7 @@ const TogetherName = styled.strong`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 90px;
+    max-width: 85px;
 `;
 
 const TogetherPrice = styled.p`
