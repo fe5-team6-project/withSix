@@ -105,7 +105,7 @@ export default function Search() {
 const SearchWrapper = styled.article`
     position: relative;
     width: 350px;
-    height: calc(100vh - 340px);
+    height: calc(100vh - 350px);
     margin: 0px auto 20px;
     padding: 190px 0 20px;
     overflow-y: hidden;
