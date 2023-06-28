@@ -15,6 +15,7 @@ import PostUpload from '../pages/postUpload/postUpload';
 import Together from '../pages/together/Together';
 import TogetherDetail from '../pages/together/TogetherDetail';
 import PostModify from '../pages/postUpload/postModify';
+import Chat from '../pages/chat/Chat';
 
 export default function MyRouter() {
     return (
@@ -56,6 +57,7 @@ export default function MyRouter() {
                     <Route path="/post/detail/:id" element={<PostDetail />} />
                     <Route path="/search" element={<Search />} />
                     <Route path="/profile/:id" element={<UserProfile />} />
+                    <Route path="/chat" element={<Chat />} />
                 </Routes>
             </BrowserRouter>
         </>
