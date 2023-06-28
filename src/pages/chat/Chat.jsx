@@ -6,10 +6,11 @@ import { DEFAULT_IMAGE } from '../../lib/apis/constant/path';
 
 export default function Chat() {
     const user = useSelector((state) => state.user?.myInfo);
+    console.log(user);
     const [chatList, setChatList] = useState([
         {
             image: DEFAULT_IMAGE,
-            accountname: '하비투게더',
+            username: '하비투게더',
             message: '안녕하세요 반갑습니다!',
             _id: '012345',
         },
@@ -17,7 +18,7 @@ export default function Chat() {
 
     const [chat, setChat] = useState({
         image: user?.image,
-        accountname: user?.accountname,
+        username: user?.username,
         message: '',
         _id: user?._id,
     });
@@ -25,7 +26,7 @@ export default function Chat() {
     const resetChat = () => {
         setChat({
             image: user?.image,
-            accountname: user?.accountname,
+            username: user?.username,
             message: '',
             _id: user?._id,
         });
@@ -35,7 +36,7 @@ export default function Chat() {
         const message = e.target.value;
         setChat({
             image: user?.image,
-            accountname: user?.accountname,
+            username: user?.username,
             message: message,
             _id: user?._id,
         });
@@ -54,7 +55,7 @@ export default function Chat() {
                         >
                             <Profile>
                                 <img src={chat?.image} alt="프로필" />
-                                <strong>{chat?.accountname}</strong>
+                                <strong>{chat?.username}</strong>
                             </Profile>
                             <Message>{chat?.message}</Message>
                         </ChatItem>
@@ -143,11 +144,13 @@ const Message = styled.p`
 
 const Form = styled.form`
     position: fixed;
-    left: 0;
+    left: 50%;
     bottom: 60px;
     width: 100%;
+    max-width: 390px;
     padding: 0 20px;
     box-sizing: border-box;
+    transform: translateX(-50%);
 `;
 
 const InputMessage = styled.input`
