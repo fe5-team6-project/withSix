@@ -75,7 +75,10 @@ export default function UserLIst({ showUser, searchQuery }) {
 
 const UserWrapper = styled.div`
     display: flex;
-    margin: 10px 0;
+    margin: 10px 10px;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: var(--radius-m);
     cursor: pointer;
     // background-color: blue;
 `;

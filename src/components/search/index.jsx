@@ -6,6 +6,7 @@ import Common from '../main/Common';
 import { keyframes, styled } from 'styled-components';
 import logo from '../../assets/logo/LOGO.svg';
 import searchIconWhite from '../../assets/icons/common/search-main-white.svg';
+import searchBack from '../../assets/images/common/search-image.png';
 
 export default function Search() {
     // console.log("Search렌더링");
@@ -109,6 +110,9 @@ const SearchWrapper = styled.article`
     margin: 0px auto 20px;
     padding: 190px 0 20px;
     overflow-y: hidden;
+    background: url(${searchBack}) no-repeat;
+    background-size: 130%;
+    background-position: 50% 120%;
     // background-color: red;
 `;
 
