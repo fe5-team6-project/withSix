@@ -1,41 +1,46 @@
 import { React, useEffect, useState } from 'react';
 import Common from '../../components/main/Common';
 import { styled } from 'styled-components';
-import initialImage from '../../assets/images/initialImage.png'
+import initialImage from '../../assets/images/initialImage.png';
 import { api, urlApi } from '../../lib/apis/axiosConfig';
 import { BASE_URL } from '../../lib/apis/constants';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { validationImageSize, validationTogether } from '../../lib/utils/validation/validation';
 import {
-    setContent,
-    setIsVisible,
-} from '../../store/slices/modalSlice';
+    validationImageSize,
+    validationTogether,
+} from '../../lib/utils/validation/validation';
+import { setContent, setIsVisible } from '../../store/slices/modalSlice';
 import Modal from '../../components/modal/Modal';
 
 export default function GroupUpload() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const accountname = useSelector((state) => { return state.user.myInfo.accountname });
+    const accountname = useSelector((state) => {
+        return state.user.myInfo.accountname;
+    });
     const modal = useSelector((state) => state?.modal);
     const [togetherInfo, setTogetherInfo] = useState({
-        "itemName": '',
-        "price": 0,
-        "link": '',
-        "itemImage": '',
-    })
+        itemName: '',
+        price: 0,
+        link: '',
+        itemImage: '',
+    });
     const [img, setImg] = useState('');
     const { itemName, price, link } = togetherInfo;
     const modalVisible = modal.display.isVisible;
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        if (name === "price") {
-            setTogetherInfo({ ...togetherInfo, [name]: !value ? 0 : parseInt(value) });
+        if (name === 'price') {
+            setTogetherInfo({
+                ...togetherInfo,
+                [name]: !value ? 0 : parseInt(value),
+            });
         } else {
             setTogetherInfo({ ...togetherInfo, [name]: value });
         }
-    }
+    };
 
     const handleImgChange = (e) => {
         const file = e.target.files[0];
@@ -48,7 +53,7 @@ export default function GroupUpload() {
         }
         setTogetherInfo({ ...togetherInfo, itemImage: file });
         setImg(URL.createObjectURL(file));
-    }
+    };
 
     const setModalContent = (props) => {
         dispatch(
@@ -77,15 +82,15 @@ export default function GroupUpload() {
             formData.append('image', togetherInfo.itemImage);
             const imgRes = await urlApi.post(`/image/uploadfile`, formData);
             const img = `${BASE_URL}/${imgRes.data.filename}`;
-            const togetherBody = { product: { ...togetherInfo, itemImage: img } };
+            const togetherBody = {
+                product: { ...togetherInfo, itemImage: img },
+            };
             await api.post(`/product`, togetherBody, { timeout: 3000 });
             navigate(`/together/${accountname}`);
         } catch (error) {
             console.error(error);
         }
-    }
-
-
+    };
 
     const page = (
         <>
@@ -95,18 +100,49 @@ export default function GroupUpload() {
                     <P>글과 사진을 남기고 공유할 수 있습니다.</P>
                 </GroupHeader>
                 <GroupInputWrapper>
-                    <GroupInput id="GroupName" placeholder="모임명" name="itemName" onChange={handleChange}></GroupInput>
-                    <GroupInput type="number" id="GroupPrice" placeholder="모임비" name="price" step="100" onChange={handleChange}></GroupInput>
-                    <GroupInfo id="GroupInfo" placeholder="모임 소개" name="link" onChange={handleChange}></GroupInfo>
-                    <GroupInput id="GroupImage" placeholder="모임 이미지" type="file" name="itemImage" accept=".jpg, .gif, .png, .jpeg, .bmp, .tif, .heic" onChange={handleImgChange}></GroupInput>
+                    <GroupInput
+                        id="GroupName"
+                        placeholder="모임명"
+                        name="itemName"
+                        onChange={handleChange}
+                    ></GroupInput>
+                    <GroupInput
+                        type="number"
+                        id="GroupPrice"
+                        placeholder="모임비"
+                        name="price"
+                        step="100"
+                        onChange={handleChange}
+                    ></GroupInput>
+                    <GroupInfo
+                        id="GroupInfo"
+                        placeholder="모임 소개"
+                        name="link"
+                        onChange={handleChange}
+                    ></GroupInfo>
+                    <GroupInput
+                        id="GroupImage"
+                        placeholder="모임 이미지"
+                        type="file"
+                        name="itemImage"
+                        accept=".jpg, .gif, .png, .jpeg, .bmp, .tif, .heic"
+                        onChange={handleImgChange}
+                    ></GroupInput>
                 </GroupInputWrapper>
                 <GroupLabel htmlFor="GroupImage">
                     {/* <GroupImage id="PreImage" src={img || togetherReq.itemImage || initialImage}></GroupImage> */}
-                    <GroupImage id="PreImage" src={img || initialImage}></GroupImage>
+                    <GroupImage
+                        id="PreImage"
+                        src={img || initialImage}
+                    ></GroupImage>
                 </GroupLabel>
-                <RegiButton onClick={async () => {
-                    await sendTogether();
-                }}>등록</RegiButton>
+                <RegiButton
+                    onClick={async () => {
+                        await sendTogether();
+                    }}
+                >
+                    등록
+                </RegiButton>
             </Form>
             {modalVisible && <Modal />}
         </>
@@ -122,9 +158,9 @@ export default function GroupUpload() {
 const Form = styled.section`
     padding: 20px;
     text-align: center;
-    margin:auto;
-    min-width:280px;
-    max-width:390px;
+    margin: auto;
+    min-width: 280px;
+    max-width: 390px;
     box-sizing: border-box;
 `;
 
@@ -191,6 +227,7 @@ const GroupImage = styled.img`
     object-fit: cover;
     border: none;
     border-radius: var(--radius-s);
+    cursor: pointer;
 `;
 
 const RegiButton = styled.button`

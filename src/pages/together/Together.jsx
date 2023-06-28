@@ -81,6 +81,7 @@ const TogetherSection = styled.section`
 const TogetherWrap = styled.ul`
     display: flex;
     flex-wrap: wrap;
+    align-content: flex-start;
     gap: 10px;
     /* margin: auto; */
     width: 390px;
