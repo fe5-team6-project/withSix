@@ -11,9 +11,11 @@
 
 <br/>
 
-## 1. HobbyTogether 서비스 소개
+## 1. 🎨 HobbyTogether 서비스 소개
 
-<img src="../withSix/src/assets/images/common/splash-login.gif" style="width:500px;" alt="하비투게더 이미지">
+<img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/hobb.jpg" style="max-width:700px" alt="하비투게더 이미지">
+
+<br>
 
 **Hobby Together**는 사람들이 함께 모여 취미 생활을 즐길 수 있는 플랫폼입니다. 이곳에서는 취미가 있는 사람과 취미를 즐기고 싶은 사람 모두 다양한 모임을 통하여 새로운 경험을 접할 수 있으며, 서로의 취미를 공유하고 소통할 수 있습니다.
 
