@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FollowButton from '../../components/follow/FollowButton';
 import { styled } from 'styled-components';
-import getUserProfile from '../../pages/userprofile/getUserProfile';
 import { setUserInfo } from '../../store/slices/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     emptyProfileImage,
     validationProfileImage,
 } from '../../lib/utils/validation/image/validationProfileImage';
+import getUserProfile from '../../pages/profile/userprofile/getUserProfile';
 
 export default function FollowList({ accountname, username, image, isfollow }) {
     const navigate = useNavigate();
