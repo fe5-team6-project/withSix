@@ -6,9 +6,9 @@ import { api } from '../../../lib/apis/axiosConfig';
 import CommentSideToggle from './sideToggle';
 import { styled } from 'styled-components';
 import { useInView } from 'react-intersection-observer';
-import getUserProfile from '../../../pages/userprofile/getUserProfile';
 import { setUserInfo } from '../../../store/slices/userSlice';
 import { useDispatch } from 'react-redux';
+import getUserProfile from '../../../pages/profile/userprofile/getUserProfile';
 
 export default function Comments({
     setCommentCount,
