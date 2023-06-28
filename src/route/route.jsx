@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import Main from '../pages/main/Main';
 import Home from '../pages/home/Home';
 import TogetherUpload from '../pages/together/TogetherUpload';
@@ -20,7 +20,7 @@ import UpdateProfile from '../pages/profile/myprofile/UpdateProfile';
 export default function MyRouter() {
     return (
         <>
-            <BrowserRouter>
+            <Router>
                 <Routes>
                     <Route path="/" element={<Main />} />
                     <Route path="/home" element={<Home />} />
@@ -59,7 +59,7 @@ export default function MyRouter() {
                     <Route path="/profile/:id" element={<UserProfile />} />
                     <Route path="/chat" element={<Chat />} />
                 </Routes>
-            </BrowserRouter>
+            </Router>
         </>
     );
 }
