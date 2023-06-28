@@ -42,13 +42,13 @@ export default function MyProfile() {
                 <h2 className="a11y-hidden">팔로우</h2>
                 <FollowDiv className="followers">
                     <Label>Followers</Label>
-                    <FollowLink to={`/profile/${user.accountname}/follower`}>
+                    <FollowLink to={`/profile/${user?.accountname}/follower`}>
                         {user?.followerCount}
                     </FollowLink>
                 </FollowDiv>
                 <FollowDiv className="followings">
                     <Label>Followings</Label>
-                    <FollowLink to={`/profile/${user.accountname}/following`}>
+                    <FollowLink to={`/profile/${user?.accountname}/following`}>
                         {user?.followingCount}
                     </FollowLink>
                 </FollowDiv>

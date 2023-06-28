@@ -75,15 +75,22 @@ export default function Search() {
                         onChange={handleTyping}
                         value={search}
                     />
-                    {search && showUser && (
-                        <UserLIst showUser={showUser} searchQuery={search} />
-                    )}
-                    {
-                        //현재 보여주고 있는 데이터길이가 전체 데이터 길이보다 짧을때 더보기 생성
-                        search && showUser.length < userList.length ? (
-                            <AddButton onClick={addShowUser}>더보기</AddButton>
-                        ) : null
-                    }
+                    <List>
+                        {search && showUser && (
+                            <UserLIst
+                                showUser={showUser}
+                                searchQuery={search}
+                            />
+                        )}
+                        {
+                            //현재 보여주고 있는 데이터길이가 전체 데이터 길이보다 짧을때 더보기 생성
+                            search && showUser.length < userList.length ? (
+                                <AddButton onClick={addShowUser}>
+                                    더보기
+                                </AddButton>
+                            ) : null
+                        }
+                    </List>
                     <SearchIcon htmlFor="search_input">
                         <img src={searchIconWhite} alt="검색 버튼" />
                     </SearchIcon>
@@ -98,9 +105,9 @@ export default function Search() {
 const SearchWrapper = styled.article`
     position: relative;
     width: 350px;
-    min-height: calc(100vh - 340px);
-    margin: 50px auto 20px;
-    padding: 130px 0 20px;
+    height: calc(100vh - 350px);
+    margin: 0px auto 20px;
+    padding: 190px 0 20px;
     overflow-y: hidden;
     // background-color: red;
 `;
@@ -111,7 +118,7 @@ const Input = styled.input`
     left: 50%;
     width: 50px;
     height: 50px;
-    margin: 70px auto;
+    margin: 130px auto;
     border: 3px solid var(--color-main);
     border-radius: 25px;
     background-color: white;
@@ -139,7 +146,7 @@ const SearchIcon = styled.label`
     left: 50%;
     width: 50px;
     height: 50px;
-    margin: 70px auto;
+    margin: 130px auto;
     border-radius: 50%;
     box-sizing: border-box;
     background-color: var(--color-main);
@@ -185,4 +192,12 @@ const Loading = styled.div`
     & > img {
         width: 70px;
     }
+`;
+
+const List = styled.div`
+    height: 530px;
+    margin-top: 10px;
+    border-top: 1px solid var(--color-disabled);
+    border-bottom: 1px solid var(--color-disabled);
+    overflow-y: auto;
 `;

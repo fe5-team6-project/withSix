@@ -74,17 +74,21 @@ export default function Together() {
 }
 
 const TogetherSection = styled.section`
-    margin: 54px 0px 10px 0px;
+    /* margin: 45px 0px 10px 0px; */
+    margin-top: 45px;
 `;
 
 const TogetherWrap = styled.ul`
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin: auto;
+    /* margin: auto; */
     width: 390px;
+    height: calc(100vh - 170px);
     padding: 10px;
     box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: auto;
 `;
 
 const MoreButton = styled.button`

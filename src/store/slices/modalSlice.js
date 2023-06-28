@@ -4,9 +4,9 @@ const modal = createSlice({
     name: 'modal',
     initialState: {
         content: {
-            state: Boolean,
-            message: String,
-            url: String,
+            state: false,
+            message: '',
+            url: '',
         },
 
         display: {
@@ -14,7 +14,7 @@ const modal = createSlice({
         },
 
         url: {
-            path: String,
+            path: '',
         },
     },
     reducers: {

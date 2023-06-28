@@ -26,9 +26,9 @@ export default function Modal() {
      *  url이 입력되었을 경우 해당 url로 이동
      */
     function resetModal() {
-        dispatch(setContent({ state: Boolean, message: String }));
+        dispatch(setContent({ state: false, message: '' }));
         dispatch(setIsVisible({ isVisible: false }));
-        dispatch(setUrl({ url: String }));
+        dispatch(setUrl({ url: '' }));
     }
 
     function movePage() {
@@ -55,7 +55,7 @@ export default function Modal() {
                         autoFocus={true}
                         onClick={() => {
                             resetModal();
-                            url !== String && movePage(url);
+                            url !== '' && movePage(url);
                         }}
                     >
                         close

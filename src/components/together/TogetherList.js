@@ -28,7 +28,7 @@ const TogetherItem = styled.li`
     justify-content: space-between;
     flex-wrap: wrap;
     flex: 1;
-    min-width: 160px;
+    min-width: 155px;
     height: 130px;
     background: #fff;
     align-items: center;
@@ -67,7 +67,7 @@ const TogetherImage = styled.img`
     object-fit: cover;
 `;
 const TogetherName = styled.strong`
-    font-size: var(--fsize-m);
+    font-size: var(--fsize-s);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -78,7 +78,7 @@ const TogetherPrice = styled.p`
     color: var(--color-gray);
     display: inline-block;
     line-height: 13px;
-    font-size: var(--fsize-m);
+    font-size: var(--fsize-s);
 
     & > span {
         font-family: var(--font-eng);
@@ -89,7 +89,7 @@ const TogetherPrice = styled.p`
         color: var(--color-main);
         overflow: hidden;
         text-overflow: ellipsis;
-        max-width: 45px;
+        max-width: 50px;
         white-space: nowrap;
         line-height: 13px;
         vertical-align: bottom;

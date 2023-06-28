@@ -110,10 +110,11 @@ export default function Comments({
 const CommentWrapper = styled.ul`
     // background-color: var(--color-gray);
     max-height: 300px;
+    min-height: 250px;
     overflow: auto;
     padding: 10px 10px 0;
-    border-top: 2px solid var(--color-disabled);
-    border-bottom: 2px solid var(--color-disabled);
+    border-top: 1px solid var(--color-disabled);
+    border-bottom: 1px solid var(--color-disabled);
     box-sizing: border-box;
 `;
 
