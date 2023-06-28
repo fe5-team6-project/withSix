@@ -1,5 +1,5 @@
-import React from 'react';
-import { styled } from 'styled-components';
+import React, { useState } from 'react';
+import { keyframes, styled } from 'styled-components';
 import successIcon from '../../assets/icons/modal/icon-success.svg';
 import failureIcon from '../../assets/icons/modal/icon-failure.svg';
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +17,7 @@ export default function Modal() {
     const url = modal.url.path;
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [location, setLocation] = useState(true);
     console.log(url);
 
     /**
@@ -36,7 +37,7 @@ export default function Modal() {
     }
 
     return (
-        <CoverDiv>
+        <CoverDiv state={location}>
             <article>
                 <ImageWrap>
                     {state ? (
@@ -54,8 +55,11 @@ export default function Modal() {
                     <CloseButton
                         autoFocus={true}
                         onClick={() => {
+                            // setLocation(false);
+                            // setTimeout(() => {
                             resetModal();
                             url !== '' && movePage(url);
+                            // }, 500);
                         }}
                     >
                         close
@@ -65,6 +69,30 @@ export default function Modal() {
         </CoverDiv>
     );
 }
+
+const moveUpAnimation = keyframes`
+    0%{
+        opacity: 0;
+        transform: translate(-50%, 100%);
+    }
+
+    100%{
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+`;
+
+const moveDownAnimation = keyframes`
+    0%{
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+    
+    100%{
+        opacity: 0;
+        transform: translate(-50%, 100%);
+    }
+`;
 
 const CoverDiv = styled.div`
     position: fixed;
@@ -91,7 +119,11 @@ const CoverDiv = styled.div`
         border-top-left-radius: var(--radius-l);
         border-top-right-radius: var(--radius-l);
         text-align: center;
-        transform: translateX(-50%);
+        transform: translate(-50%, 0);
+        /* animation: ${(props) =>
+            props.state ? moveUpAnimation : moveDownAnimation}
+            0.5s ease-in-out none; */
+        animation: ${moveUpAnimation} 0.5s ease-in-out none;
     }
 `;
 

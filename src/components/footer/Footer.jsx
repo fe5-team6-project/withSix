@@ -12,13 +12,13 @@ export default function Footer() {
     const user = useSelector((state) => state.user?.myInfo);
     let profileImage = DEFAULT_IMAGE;
 
-    if (user?._id !== String) {
+    if (user?._id !== '') {
         profileImage = user?.image;
     } // isToken으로 변경
 
     return (
         <StyledFooter>
-            {user?.username !== String && (
+            {user?.username !== '' && (
                 <Ul>
                     <li>
                         <Link to={'/home'}>
@@ -48,13 +48,15 @@ export default function Footer() {
                         </Link>
                     </li>
 
-                    <li>
-                        <Link to={'/myprofile'}>
-                            <ImageWrap>
-                                <img src={profileImage} alt="" />
-                            </ImageWrap>
-                        </Link>
-                    </li>
+                    {
+                        <li>
+                            <Link to={'/myprofile'}>
+                                <ImageWrap>
+                                    <img src={profileImage} alt="" />
+                                </ImageWrap>
+                            </Link>
+                        </li>
+                    }
                 </Ul>
             )}
         </StyledFooter>
