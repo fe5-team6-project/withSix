@@ -1,46 +1,50 @@
 import styled from 'styled-components';
 import deleteBtn from '../../assets/icons/post/icon-delete.png';
 
-
 export const UploadSec = styled.section`
-display : flex;
-justify-content: center;
-align-items: center;
-flex-direction: column;
-text-align: center;
-top: 0;
-left: 0;
-width: 390px;
-height: 100%;
-margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    top: 0;
+    left: 0;
+    width: 390px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
 `;
 
 export const UploadSubSec = styled.section`
-position: relative;
-width: 390px;
-margin: 0 auto;
-margin-top: 20px;
-`
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
+    box-sizing: border-box;
+`;
 
 export const Lable = styled.label`
-position: fixed;
-left: 20px;
+    position: fixed;
+    right: 0;
 `;
 
 export const Input = styled.textarea`
-width: 350px;
-height: 300px;
-border-radius: 5px;
-resize: none;
-border: none;
-margin-top: 40px;
-margin-bottom: 10px;
+    width: 100%;
+    height: 300px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    resize: none;
+    border: none;
+    font-family: var(--font-kr);
+    font-size: var(--fsize-l);
 `;
 
-// 사진 미리보기 부분 
+// 사진 미리보기 부분
 export const PostUploadImg = styled.section`
-width: 100%;
-margin-top: 20px;
+    width: 100%;
     overflow: hidden;
     overflow-x: auto;
     & ul {
@@ -48,8 +52,9 @@ margin-top: 20px;
         justify-content: center;
         align-items: center;
         gap: 10px;
+        display: flex;
         width: fit-content;
-        /* padding: 10px 0; */
+        box-sizing: border-box;
     }
     & li {
         position: relative;
@@ -57,18 +62,19 @@ margin-top: 20px;
         height: 100px;
         margin-bottom: 10px;
         border-radius: var(--radius-s);
+        box-sizing: border-box;
         overflow: hidden;
     }
 `;
 
 export const FileUpload = styled.label`
-position: absolute;
+    position: absolute;
     width: 50px;
     height: 50px;
-    right: 20px;
+    right: 0;
     bottom: 0px;
     background-color: var(--color-main);
-    border-radius: var(--radius-m);
+    border-radius: var(--radius-s);
     line-height: 46px;
     cursor: pointer;
     &:focus,
@@ -84,7 +90,7 @@ position: absolute;
 
 // 파일 선택 버튼 숨김 처리
 export const FileInput = styled.input`
-/* position: absolute;
+    /* position: absolute;
 width: 1px;
 height: 1px;
 padding: 0;
@@ -92,30 +98,34 @@ margin: -1px;
 overflow: hidden;
 clip:rect(0,0,0,0);
 border: 0; */
-display: none;
+    display: none;
 `;
 
 export const DeleteBtn = styled.button`
-background-image: url(${deleteBtn});
-background-position: center;
-background-repeat: no-repeat;
-background-size: cover;
-border: none;
-height: 20px;
-margin-left: 15px;
-width: 20px;
-`;  
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    background-image: url(${deleteBtn});
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: none;
+    height: 20px;
+    margin-left: 15px;
+    width: 20px;
+`;
 
 export const Img = styled.img`
-width: 80px;
-height: 80px;
-object-fit: cover;
+    width: 200px;
+    height: 100px;
+
+    object-fit: cover;
 `;
 
 export const TitleSec = styled.div`
-position: relative;
-line-height: 20px;
-`
+    position: relative;
+    line-height: 20px;
+`;
 
 // export const BackBtn = styled.button`
 // width: 50px;
@@ -131,14 +141,14 @@ line-height: 20px;
 // `;
 
 export const Tit = styled.p`
-margin-top: 50px;
-font-size: 18px;
-font-weight: 700;
-color: #333333;
-`
+    margin-top: 50px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #333333;
+`;
 
 export const SubTit = styled.p`
-font-size: 12px;
-font-weight: 400;
-color: #757575;
-`
+    font-size: 12px;
+    font-weight: 400;
+    color: #757575;
+`;
