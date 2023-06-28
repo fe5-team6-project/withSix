@@ -31,7 +31,6 @@ const TogetherItem = styled.li`
     min-width: 155px;
     height: 130px;
     background: #fff;
-    align-content: flex-start;
     align-items: center;
     gap: 10px;
     border-radius: 5px;
