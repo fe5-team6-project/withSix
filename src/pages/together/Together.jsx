@@ -39,11 +39,11 @@ export default function Together() {
                         {!togetherList
                             ? []
                             : togetherList.map((item) => (
-                                <TogetherList
-                                    key={item.id}
-                                    {...item}
-                                ></TogetherList>
-                            ))}
+                                  <TogetherList
+                                      key={item.id}
+                                      {...item}
+                                  ></TogetherList>
+                              ))}
                     </TogetherWrap>
                     {count % 10 !== 0 ? null : (
                         <MoreButton
@@ -83,7 +83,7 @@ const TogetherWrap = styled.ul`
     align-content: flex-start;
     gap: 10px;
     width: 390px;
-    height: calc(100vh - 170px);
+    height: calc(100vh - 230px);
     padding: 10px;
     box-sizing: border-box;
     overflow-x: hidden;
