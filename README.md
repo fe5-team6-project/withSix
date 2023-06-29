@@ -260,7 +260,7 @@ font
     <tr>
       <td rowspan="3"><strong>권규리</strong></td>
       <td><strong>게시물 페이지</strong></td>
-      <td></td>
+      <td>주제선정</td>
     </tr>
     <tr>
       <td>- 게시물 업로드 페이지</td>
