@@ -13,7 +13,7 @@
 
 ## 1. 🎨 HobbyTogether 서비스 소개
 
-<img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/hobb.jpg" style="max-width:700px" alt="하비투게더 이미지">
+<img src="https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/hobb.jpg" style="max-width:700px" alt="hobbytogether 이미지">
 
 <br>
 
@@ -41,11 +41,11 @@
 
 ## 2. 팀 소개
 
-|                                  **권규리**                                  |                                  **김현태**                                  |                                  **오흥식**                                  |                                  **정혜민**                                  |
-| :--------------------------------------------------------------------------: | :--------------------------------------------------------------------------: | :--------------------------------------------------------------------------: | :--------------------------------------------------------------------------: |
-|                                     팀원                                     |                                     팀원                                     |                                   팀장 \*                                    |                                     팀원                                     |
-| <img src='./src/assets/images/common/search-image.png' height=220 width=180> | <img src='./src/assets/images/common/search-image.png' height=220 width=180> | <img src='./src/assets/images/common/search-image.png' height=220 width=180> | <img src='./src/assets/images/common/search-image.png' height=220 width=180> |
-|                    🔗[Gyuuul](https://github.com/Gyuuul)                     |                 🔗[hyuntae94](https://github.com/hyuntae94)                  |                  🔗[UngHeung](https://github.com/UngHeung)                   |                 🔗[haileyham](https://github.com/haileyham)                  |
+|                                                            **권규리**                                                             |                                                            **김현태**                                                             |                                                            **오흥식**                                                             |                                                            **정혜민**                                                             |
+| :-------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------: |
+|                                                               팀원                                                                |                                                               팀원                                                                |                                                              팀장 \*                                                              |                                                               팀원                                                                |
+| <img src='https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/profile/profile2.JPG' height=180 width=180> | <img src='https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/profile/profile3.JPG' height=180 width=180> | <img src='https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/profile/profile4.JPG' height=180 width=180> | <img src='https://raw.githubusercontent.com/fe5-team6-project/hobby_together/main/gif/profile/profile1.jpg' height=180 width=180> |
+|                                               🔗[Gyuuul](https://github.com/Gyuuul)                                               |                                            🔗[hyuntae94](https://github.com/hyuntae94)                                            |                                             🔗[UngHeung](https://github.com/UngHeung)                                             |                                            🔗[haileyham](https://github.com/haileyham)                                            |
 
 <br/>
 
