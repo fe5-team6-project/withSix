@@ -89,11 +89,9 @@ export default function Login() {
         }
         const user = await getMyInfo();
         dispatch(setMyInfo(user));
-        // setModalUrl('/home');
+        setModalUrl('/home');
         setModalVisible(true);
-        console.log(status.state);
-        status.state && (await window.location.reload());
-        // return status.state;
+        return status.state;
     }
 
     return (
