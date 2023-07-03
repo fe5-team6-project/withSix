@@ -100,8 +100,8 @@ export default function Login() {
         <>
             <Form
                 onSubmit={async (e) => {
-                    // const state = await handleSubmit(e).state;
-                    handleSubmit(e);
+                    const state = await handleSubmit(e);
+                    console.log(state);
                 }}
             >
                 <Div>
