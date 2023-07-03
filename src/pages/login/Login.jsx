@@ -89,19 +89,17 @@ export default function Login() {
         }
         const user = await getMyInfo();
         dispatch(setMyInfo(user));
-        // setModalUrl('/home');
+        setModalUrl('/home');
         setModalVisible(true);
-        console.log(status.state);
-        status.state && (await window.location.reload());
-        // return status.state;
+        return status.state;
     }
 
     return (
         <>
             <Form
                 onSubmit={async (e) => {
-                    // const state = await handleSubmit(e).state;
-                    handleSubmit(e);
+                    const state = await handleSubmit(e);
+                    console.log(state);
                 }}
             >
                 <Div>

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {
     FAIL_VALID_EMAIL_PASSWORD,
     LOGIN_OK,
@@ -5,9 +6,6 @@ import {
 import { URL } from '../../lib/apis/constant/path';
 
 export default async function handleLogin(email, password) {
-    // const email = document.querySelector('#email').value;
-    // const password = document.querySelector('#password').value;
-
     const requestPath = '/user/login';
     const requestUrl = `${URL}${requestPath}`;
 
@@ -20,19 +18,32 @@ export default async function handleLogin(email, password) {
 
     const result = {
         state: false,
-        message: String,
+        message: '',
     };
 
-    const response = await fetch(requestUrl, {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify(userData),
+    // const response = await fetch(requestUrl, {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-type': 'application/json',
+    //     },
+    //     body: JSON.stringify(userData),
+    // });
+
+    const response = await axios({
+        method: 'post',
+        url: requestUrl,
+        data: userData,
+        headers: { 'Content-Type': 'application/json' },
     });
 
-    const json = await response.json();
-    if (!json.user) {
+    axios.interceptors.request.use((config) => {
+        const token = localStorage.token;
+        config.headers.Authorization = `Bearer ${token}`;
+        return config;
+    });
+
+    const data = await response.data;
+    if (!data.user) {
         result.state = false;
         result.message = FAIL_VALID_EMAIL_PASSWORD;
         return result;
@@ -41,7 +52,7 @@ export default async function handleLogin(email, password) {
         result.message = LOGIN_OK;
     }
 
-    const token = json.user.token;
+    const token = data.user.token;
     localStorage.setItem('token', token);
 
     return result;
