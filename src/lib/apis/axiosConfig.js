@@ -35,19 +35,7 @@ api.interceptors.request.use((config) => {
     return config;
 });
 
-urlApi.interceptors.request.use((config) => {
-    const token = localStorage.token;
-    config.headers.Authorization = `Bearer ${token}`;
-    return config;
-});
-
 tokenApi.interceptors.request.use((config) => {
-    const token = localStorage.token;
-    config.headers.Authorization = `Bearer ${token}`;
-    return config;
-});
-
-contentApi.interceptors.request.use((config) => {
     const token = localStorage.token;
     config.headers.Authorization = `Bearer ${token}`;
     return config;
