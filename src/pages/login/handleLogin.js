@@ -1,9 +1,9 @@
-import axios from 'axios';
 import {
     FAIL_VALID_EMAIL_PASSWORD,
     LOGIN_OK,
 } from '../../lib/apis/constant/message';
 import { URL } from '../../lib/apis/constant/path';
+import { contentApi } from '../../lib/apis/axiosConfig';
 
 export default async function handleLogin(email, password) {
     const requestPath = '/user/login';
@@ -21,26 +21,7 @@ export default async function handleLogin(email, password) {
         message: '',
     };
 
-    // const response = await fetch(requestUrl, {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-type': 'application/json',
-    //     },
-    //     body: JSON.stringify(userData),
-    // });
-
-    const response = await axios({
-        method: 'post',
-        url: requestUrl,
-        data: userData,
-        headers: { 'Content-Type': 'application/json' },
-    });
-
-    axios.interceptors.request.use((config) => {
-        const token = localStorage.token;
-        config.headers.Authorization = `Bearer ${token}`;
-        return config;
-    });
+    const response = await contentApi.post(requestUrl, userData);
 
     const data = await response.data;
     if (!data.user) {
