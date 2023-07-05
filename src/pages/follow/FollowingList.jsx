@@ -12,18 +12,26 @@ export default function Following() {
     const accountName = useParams().accountname;
     const [pages, setPages] = useState(10);
     const [count, setCount] = useState(0);
+    const [count2, setCount2] = useState(0);
 
     const FollowingList = async () => {
         const res = await api.get(`profile/${accountName}/following/?limit=${pages}&skip=0`);
         console.log(res.data);
         const data = res.data
         setFollowList([...data]);
+        console.log(data.length)
         setCount(data.length);
     }
 
     useEffect(() => {
         FollowingList();
     }, [pages])
+
+    const handle = () => {
+        setPages((pages) => pages + 10);
+        setCount2(count + 1);
+        console.log(count2)
+    }
 
     const page = (
         <>
@@ -35,7 +43,8 @@ export default function Following() {
                                 <FollowList key={item.id} {...item}></FollowList>
                             ))}
                         </FollowWrap>
-                        {count % 10 !== 0 ? null : (<MoreButton onClick={() => setPages((pages) => pages + 5)}>더보기</MoreButton>)}
+                        {/* {count % 10 !== 0 ? null : (<MoreButton onClick={() => setPages((pages) => pages + 10)}>더보기</MoreButton>)} */}
+                        {count % 10 !== 0 || count + 1 === count2 ? null : (<MoreButton onClick={handle}>더보기</MoreButton>)}
                     </>
                 ) : (
                     <EmptyData url={'../together/upload'} />
