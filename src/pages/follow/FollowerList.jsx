@@ -12,6 +12,7 @@ export default function Follower() {
     const accountName = useParams().accountname;
     const [pages, setPages] = useState(10);
     const [count, setCount] = useState(0);
+    const [count2, setCount2] = useState(0);
 
     const FollowerList = async () => {
         const res = await api.get(`profile/${accountName}/follower/?limit=${pages}&skip=0`);
@@ -25,6 +26,12 @@ export default function Follower() {
         FollowerList();
     }, [pages])
 
+    const handleLoad = () => {
+        setPages((pages) => pages + 10);
+        setCount2(count + 1);
+        console.log(count2)
+    }
+
     const page = (
         <>
             <Main>
@@ -35,7 +42,7 @@ export default function Follower() {
                                 <FollowList key={item.id} {...item}></FollowList>
                             ))}
                         </FollowWrap>
-                        {count % 10 !== 0 ? null : (<MoreButton onClick={() => setPages((pages) => pages + 5)}>더보기</MoreButton>)}
+                        {count % 10 !== 0 || count + 1 === count2 ? null : (<MoreButton onClick={handleLoad}>더보기</MoreButton>)}
                     </>
                 ) : (
                     <EmptyData url={'../together/upload'} />

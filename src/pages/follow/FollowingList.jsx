@@ -27,7 +27,7 @@ export default function Following() {
         FollowingList();
     }, [pages])
 
-    const handle = () => {
+    const handleLoad = () => {
         setPages((pages) => pages + 10);
         setCount2(count + 1);
         console.log(count2)
@@ -44,7 +44,7 @@ export default function Following() {
                             ))}
                         </FollowWrap>
                         {/* {count % 10 !== 0 ? null : (<MoreButton onClick={() => setPages((pages) => pages + 10)}>더보기</MoreButton>)} */}
-                        {count % 10 !== 0 || count + 1 === count2 ? null : (<MoreButton onClick={handle}>더보기</MoreButton>)}
+                        {count % 10 !== 0 || count + 1 === count2 ? null : (<MoreButton onClick={handleLoad}>더보기</MoreButton>)}
                     </>
                 ) : (
                     <EmptyData url={'../together/upload'} />
