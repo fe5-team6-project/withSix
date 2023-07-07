@@ -1,8 +1,14 @@
+import { FAIL_ACCESS } from '../../lib/apis/constant/message';
 import { URL } from '../../lib/apis/constant/path';
 
 export default async function getPost(category, accountname, skip, isMyPost) {
     const type = category;
     let requestPath = '/post';
+
+    const result = {
+        state: false,
+        message: FAIL_ACCESS,
+    };
 
     if (isMyPost) {
         if (type === '') {
@@ -21,17 +27,21 @@ export default async function getPost(category, accountname, skip, isMyPost) {
     const token = localStorage.token;
     const bearerToken = `Bearer ${token}`;
 
-    const response = await fetch(requestUrl, {
-        method: 'GET',
-        headers: {
-            Authorization: bearerToken,
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify(),
-    });
+    try {
+        const response = await fetch(requestUrl, {
+            method: 'GET',
+            headers: {
+                Authorization: bearerToken,
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(),
+        });
 
-    const json = await response.json();
-    const postList = json.posts || json.post || [];
+        const json = await response.json();
+        const postList = json.posts || json.post || [];
 
-    return postList;
+        return postList;
+    } catch (e) {
+        return result;
+    }
 }
