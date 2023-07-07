@@ -1,4 +1,5 @@
 import {
+    FAIL_ACCESS,
     FAIL_VALID_EMAIL_PASSWORD,
     LOGIN_OK,
 } from '../../lib/apis/constant/message';
@@ -21,20 +22,27 @@ export default async function handleLogin(email, password) {
         message: '',
     };
 
-    const response = await contentApi.post(requestUrl, userData);
+    try {
+        const response = await contentApi.post(requestUrl, userData);
 
-    const data = await response.data;
-    if (!data.user) {
-        result.state = false;
-        result.message = FAIL_VALID_EMAIL_PASSWORD;
+        const data = await response.data;
+        if (!data.user) {
+            result.state = false;
+            result.message = FAIL_VALID_EMAIL_PASSWORD;
+            return result;
+        } else {
+            result.state = true;
+            result.message = LOGIN_OK;
+        }
+
+        const token = data.user.token;
+        localStorage.setItem('token', token);
+
         return result;
-    } else {
-        result.state = true;
-        result.message = LOGIN_OK;
+    } catch (e) {
+        result.state = false;
+        result.message = FAIL_ACCESS;
+
+        return result;
     }
-
-    const token = data.user.token;
-    localStorage.setItem('token', token);
-
-    return result;
 }
