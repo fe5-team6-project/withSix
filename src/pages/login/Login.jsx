@@ -31,7 +31,6 @@ export default function Login() {
     const [email, setEmail] = useState(undefined);
     const [password, setPassword] = useState(undefined);
     const [isShowSplash, setIsShowSplash] = useState(true);
-
     const setModalContent = (props) => {
         dispatch(
             setContent({
@@ -83,11 +82,18 @@ export default function Login() {
         setModalContent(status);
 
         if (!status.state) {
-            dispatch(setIsVisible({ isVisible: true }));
             setModalVisible(true);
             return false;
         }
+
         const user = await getMyInfo();
+
+        if (typeof user === Array) {
+            setModalContent(user[1]);
+            setModalVisible(true);
+            return user[0];
+        }
+
         dispatch(setMyInfo(user));
         setModalUrl('/home');
         setModalVisible(true);
