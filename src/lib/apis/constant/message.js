@@ -18,8 +18,8 @@ export const FAIL_NULL_ID = '아이디를 입력해주세요!';
 export const FAIL_NULL_NAME = '닉네임을 입력해주세요!';
 export const FAIL_LENGTH_PASSWORD = '비밀번호는 6자 이상 16자 이하여야 합니다.';
 export const FAIL_CHECK_PASSWORD = '비밀번호를 확인해주세요.';
-
 export const FAIL_VALID_EMAIL_PASSWORD = '이메일 또는 비밀번호가 다릅니다.';
+export const FAIL_LOAD_PROFILE = '프로필 정보를 불러오지 못했습니다.';
 
 /** 게시물 관련 */
 export const POST_UPLOAD_OK = '포스트 업로드 성공!';

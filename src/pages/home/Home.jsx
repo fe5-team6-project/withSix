@@ -33,9 +33,11 @@ export default function Home() {
             } else {
                 newPost = await getPost('', id, skip, isMyPost);
             }
+
             setPostList([...newPost]);
 
             newPost.length >= 10 ? setHasNextPage(true) : setHasNextPage(false);
+
             setIsSplash(false);
         }
         setSkip(0);
@@ -55,6 +57,7 @@ export default function Home() {
             } else {
                 newPost = await getPost('', id, skip, isMyPost);
             }
+
             setPostList([...postList, ...newPost]);
             newPost.length >= 10 ? setHasNextPage(true) : setHasNextPage(false);
         }

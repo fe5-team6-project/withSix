@@ -1,3 +1,4 @@
+import { FAIL_ACCESS } from '../../lib/apis/constant/message';
 import { DEFAULT_IMAGE, URL } from '../../lib/apis/constant/path';
 
 export default async function handleFileUpload(e, image) {
@@ -13,13 +14,18 @@ export default async function handleFileUpload(e, image) {
 
     formData.append('image', profileImage);
 
-    const response = await fetch(uploadPath, {
-        method: 'POST',
-        body: formData,
-    });
+    try {
+        const response = await fetch(uploadPath, {
+            method: 'POST',
+            body: formData,
+        });
 
-    const json = await response.json();
-    const profileImageSrc = `${URL}/${json.filename}`;
+        const json = await response.json();
+        const profileImageSrc = `${URL}/${json.filename}`;
 
-    return profileImageSrc;
+        return profileImageSrc;
+    } catch (e) {
+        console.error(e);
+        alert(FAIL_ACCESS);
+    }
 }
