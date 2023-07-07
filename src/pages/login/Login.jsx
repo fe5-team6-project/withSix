@@ -88,8 +88,7 @@ export default function Login() {
 
         const user = await getMyInfo();
 
-        if (!user[0]) {
-            console.log(user[0]);
+        if (user[0] === false) {
             setModalContent(user[1]);
             setModalVisible(true);
             return false;
