@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Common from '../../components/main/Common';
 import Post from '../post/Post';
 import getPost from './getPost';
@@ -8,11 +8,6 @@ import divLine from '../../assets/icons/post/div-line.svg';
 import WriteButton from '../../components/writebutton/WriteButton';
 import EmptyData from '../../components/common/EmptyData';
 import { useParams } from 'react-router-dom';
-import {
-    setContent,
-    setIsVisible,
-    setUrl,
-} from '../../store/slices/modalSlice';
 
 export default function Home() {
     const [postList, setPostList] = useState([]);
@@ -21,22 +16,9 @@ export default function Home() {
     const [hasNextPage, setHasNextPage] = useState(true);
     const user = useSelector((state) => state.user?.myInfo);
     const id = useParams().id;
-    const dispatch = useDispatch();
 
     const [isMyPost, setIsMyPost] = useState(id ? false : true);
     const [isSplash, setIsSplash] = useState(true);
-
-    const setModalContent = (props) => {
-        dispatch(
-            setContent({
-                state: props.state,
-                message: props.message,
-            })
-        );
-    };
-    const setModalVisible = (isVisible) => {
-        dispatch(setIsVisible({ isVisible: isVisible }));
-    };
 
     useEffect(() => {
         async function fetchData() {
@@ -52,17 +34,9 @@ export default function Home() {
                 newPost = await getPost('', id, skip, isMyPost);
             }
 
-            if (typeof newPost === 'object') {
-                setModalContent(newPost);
-                setModalVisible(true);
-                return false;
-            } else {
-                setPostList([...newPost]);
+            setPostList([...newPost]);
 
-                newPost.length >= 10
-                    ? setHasNextPage(true)
-                    : setHasNextPage(false);
-            }
+            newPost.length >= 10 ? setHasNextPage(true) : setHasNextPage(false);
 
             setIsSplash(false);
         }
@@ -84,16 +58,8 @@ export default function Home() {
                 newPost = await getPost('', id, skip, isMyPost);
             }
 
-            if (typeof newPost === 'object') {
-                setModalContent(newPost);
-                setModalVisible(true);
-                return false;
-            } else {
-                setPostList([...postList, ...newPost]);
-                newPost.length >= 10
-                    ? setHasNextPage(true)
-                    : setHasNextPage(false);
-            }
+            setPostList([...postList, ...newPost]);
+            newPost.length >= 10 ? setHasNextPage(true) : setHasNextPage(false);
         }
 
         fetchData();

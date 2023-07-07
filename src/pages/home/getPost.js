@@ -5,11 +5,6 @@ export default async function getPost(category, accountname, skip, isMyPost) {
     const type = category;
     let requestPath = '/post';
 
-    const result = {
-        state: false,
-        message: FAIL_ACCESS,
-    };
-
     if (isMyPost) {
         if (type === '') {
             requestPath = `/post/?limit=10&skip=${skip}`;
@@ -42,6 +37,7 @@ export default async function getPost(category, accountname, skip, isMyPost) {
 
         return postList;
     } catch (e) {
-        return result;
+        console.error(e);
+        alert(FAIL_ACCESS);
     }
 }
