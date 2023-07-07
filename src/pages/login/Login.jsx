@@ -88,10 +88,11 @@ export default function Login() {
 
         const user = await getMyInfo();
 
-        if (typeof user === Array) {
+        if (!user[0]) {
+            console.log(user[0]);
             setModalContent(user[1]);
             setModalVisible(true);
-            return user[0];
+            return false;
         }
 
         dispatch(setMyInfo(user));
@@ -105,7 +106,6 @@ export default function Login() {
             <Form
                 onSubmit={async (e) => {
                     const state = await handleSubmit(e);
-                    console.log(state);
                 }}
             >
                 <Div>
