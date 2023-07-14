@@ -53,9 +53,8 @@ export default function Home() {
 
     const page = (
         <>
-            {isMyPost && (
-                <CategoryMenu>
-                    {/* <CategoryButton
+            <CategoryMenu>
+                {/* <CategoryButton
                         onClick={() => {
                             setCategory('');
                         }}
@@ -63,23 +62,22 @@ export default function Home() {
                         전체 글
                     </CategoryButton>
                     <DivLine src={divLine} alt="" /> */}
-                    <CategoryButton
-                        onClick={() => {
-                            setCategory('feed');
-                        }}
-                    >
-                        친구 글
-                    </CategoryButton>
-                    <DivLine src={divLine} alt="" />
-                    <CategoryButton
-                        onClick={() => {
-                            setCategory('my');
-                        }}
-                    >
-                        내 글
-                    </CategoryButton>
-                </CategoryMenu>
-            )}
+                <CategoryButton
+                    onClick={() => {
+                        setCategory('feed');
+                    }}
+                >
+                    친구 글
+                </CategoryButton>
+                <DivLine src={divLine} alt="" />
+                <CategoryButton
+                    onClick={() => {
+                        setCategory('my');
+                    }}
+                >
+                    내 글
+                </CategoryButton>
+            </CategoryMenu>
 
             <PostList>
                 {postList.length ? (
@@ -88,7 +86,7 @@ export default function Home() {
                             <Post key={item?._id || item?.id} item={item} />
                         ) : (
                             <>
-                                <Post key={item?._id} item={item} />
+                                <Post key={item?._id || item?.id} item={item} />
                                 {hasNextPage && (
                                     <MoreButton
                                         onClick={() =>
