@@ -20,56 +20,41 @@ export default function Home() {
     const [isMyPost, setIsMyPost] = useState(id ? false : true);
     const [isSplash, setIsSplash] = useState(true);
 
-    useEffect(() => {
-        async function fetchData() {
-            let newPost = [];
-            if (isMyPost) {
-                newPost = await getPost(
-                    category,
-                    user?.accountname,
-                    skip,
-                    isMyPost
-                );
-            } else {
-                newPost = await getPost('', id, skip, isMyPost);
-            }
-
-            setPostList([...newPost]);
-
-            newPost.length >= 10 ? setHasNextPage(true) : setHasNextPage(false);
-
-            setIsSplash(false);
+    async function fetchData(type) {
+        let newPost = [];
+        if (isMyPost) {
+            newPost = await getPost(
+                category,
+                user?.accountname,
+                skip,
+                isMyPost
+            );
+        } else {
+            newPost = await getPost('', id, skip, isMyPost);
         }
-        setSkip(0);
-        fetchData();
+
+        if (type === 'category') {
+            setSkip(0);
+            setPostList([...newPost]);
+        } else if (type === 'skip') {
+            setPostList([...postList, ...newPost]);
+        }
+
+        newPost.length >= 10 ? setHasNextPage(true) : setHasNextPage(false);
+    }
+
+    useEffect(() => {
+        fetchData('category');
     }, [category]);
 
     useEffect(() => {
-        async function fetchData() {
-            let newPost = [];
-            if (isMyPost) {
-                newPost = await getPost(
-                    category,
-                    user?.accountname,
-                    skip,
-                    isMyPost
-                );
-            } else {
-                newPost = await getPost('', id, skip, isMyPost);
-            }
-
-            setPostList([...postList, ...newPost]);
-            newPost.length >= 10 ? setHasNextPage(true) : setHasNextPage(false);
-        }
-
-        fetchData();
+        fetchData('skip');
     }, [skip]);
 
     const page = (
         <>
-            {isMyPost && (
-                <CategoryMenu>
-                    {/* <CategoryButton
+            <CategoryMenu>
+                {/* <CategoryButton
                         onClick={() => {
                             setCategory('');
                         }}
@@ -77,23 +62,22 @@ export default function Home() {
                         전체 글
                     </CategoryButton>
                     <DivLine src={divLine} alt="" /> */}
-                    <CategoryButton
-                        onClick={() => {
-                            setCategory('feed');
-                        }}
-                    >
-                        친구 글
-                    </CategoryButton>
-                    <DivLine src={divLine} alt="" />
-                    <CategoryButton
-                        onClick={() => {
-                            setCategory('my');
-                        }}
-                    >
-                        내 글
-                    </CategoryButton>
-                </CategoryMenu>
-            )}
+                <CategoryButton
+                    onClick={() => {
+                        setCategory('feed');
+                    }}
+                >
+                    친구 글
+                </CategoryButton>
+                <DivLine src={divLine} alt="" />
+                <CategoryButton
+                    onClick={() => {
+                        setCategory('my');
+                    }}
+                >
+                    내 글
+                </CategoryButton>
+            </CategoryMenu>
 
             <PostList>
                 {postList.length ? (
@@ -102,7 +86,7 @@ export default function Home() {
                             <Post key={item?._id || item?.id} item={item} />
                         ) : (
                             <>
-                                <Post key={item?._id} item={item} />
+                                <Post key={item?._id || item?.id} item={item} />
                                 {hasNextPage && (
                                     <MoreButton
                                         onClick={() =>
