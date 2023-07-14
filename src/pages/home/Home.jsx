@@ -8,20 +8,36 @@ import divLine from '../../assets/icons/post/div-line.svg';
 import WriteButton from '../../components/writebutton/WriteButton';
 import EmptyData from '../../components/common/EmptyData';
 import { useParams } from 'react-router-dom';
+import { useInView } from 'react-intersection-observer';
+
+let skip = 0;
 
 export default function Home() {
     const [postList, setPostList] = useState([]);
     const [category, setCategory] = useState('feed');
-    const [skip, setSkip] = useState(0);
+    // const [skip, setSkip] = useState(0);
     const [hasNextPage, setHasNextPage] = useState(true);
     const user = useSelector((state) => state.user?.myInfo);
     const id = useParams().id;
 
     const [isMyPost, setIsMyPost] = useState(id ? false : true);
     const [isSplash, setIsSplash] = useState(true);
+    const [isLoad, setIsLoad] = useState(true);
+    const { ref, inView } = useInView();
+
+    const handleSkip = (type) => {
+        if (type === 'category') {
+            skip = 0;
+        } else if (type === 'skip') {
+            skip += 10;
+        }
+    };
 
     async function fetchData(type) {
         let newPost = [];
+
+        handleSkip(type);
+
         if (isMyPost) {
             newPost = await getPost(
                 category,
@@ -34,7 +50,6 @@ export default function Home() {
         }
 
         if (type === 'category') {
-            setSkip(0);
             setPostList([...newPost]);
         } else if (type === 'skip') {
             setPostList([...postList, ...newPost]);
@@ -48,8 +63,8 @@ export default function Home() {
     }, [category]);
 
     useEffect(() => {
-        fetchData('skip');
-    }, [skip]);
+        inView && fetchData('skip');
+    }, [inView]);
 
     const page = (
         <>
@@ -83,18 +98,21 @@ export default function Home() {
                 {postList.length ? (
                     postList.map((item, idx) => {
                         return postList.length - 1 !== idx ? (
-                            <Post key={item?._id || item?.id} item={item} />
+                            <Post key={idx} item={item} />
                         ) : (
                             <>
-                                <Post key={item?._id || item?.id} item={item} />
+                                <Post key={idx} item={item} />
                                 {hasNextPage && (
-                                    <MoreButton
-                                        onClick={() =>
-                                            setSkip((skip) => skip + 10)
-                                        }
-                                    >
-                                        더보기
-                                    </MoreButton>
+                                    <>
+                                        <RefDiv ref={ref}></RefDiv>
+                                        {/* <MoreButton
+                                            onClick={() =>
+                                                setSkip((skip) => skip + 10)
+                                            }
+                                        >
+                                            더보기
+                                        </MoreButton> */}
+                                    </>
                                 )}
                             </>
                         );
@@ -161,4 +179,10 @@ const MoreButton = styled.button`
     font-size: var(--fsize-m);
     text-align: center;
     cursor: pointer;
+`;
+
+const RefDiv = styled.div`
+    width: 100%;
+    height: 10px;
+    margin-bottom: 20px;
 `;
