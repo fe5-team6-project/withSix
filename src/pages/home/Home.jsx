@@ -22,13 +22,14 @@ export default function Home() {
 
     const [isMyPost, setIsMyPost] = useState(id ? false : true);
     const [isSplash, setIsSplash] = useState(true);
-    const [isLoad, setIsLoad] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const { ref, inView } = useInView();
 
     const handleSkip = (type) => {
         if (type === 'category') {
             skip = 0;
         } else if (type === 'skip') {
+            setIsLoading(true);
             skip += 10;
         }
     };
@@ -53,6 +54,7 @@ export default function Home() {
             setPostList([...newPost]);
         } else if (type === 'skip') {
             setPostList([...postList, ...newPost]);
+            setIsLoading(false);
         }
 
         newPost.length >= 10 ? setHasNextPage(true) : setHasNextPage(false);
@@ -97,13 +99,17 @@ export default function Home() {
             <PostList>
                 {postList.length ? (
                     postList.map((item, idx) => {
+                        const key = Math.random();
                         return postList.length - 1 !== idx ? (
-                            <Post key={idx} item={item} />
+                            <Post key={key} item={item} />
                         ) : (
                             <>
-                                <Post key={idx} item={item} />
+                                <Post key={key} item={item} />
                                 {hasNextPage && (
                                     <>
+                                        {isLoading && (
+                                            <Loading>Loading...</Loading>
+                                        )}
                                         <RefDiv ref={ref}></RefDiv>
                                         {/* <MoreButton
                                             onClick={() =>
@@ -169,20 +175,19 @@ const DivLine = styled.img`
     vertical-align: middle;
 `;
 
-const MoreButton = styled.button`
-    all: unset;
-    display: block;
-    width: 100px;
-    height: 20px;
-    margin: 0 auto 20px;
-    border-radius: var(--radius-m);
-    font-size: var(--fsize-m);
-    text-align: center;
-    cursor: pointer;
-`;
-
 const RefDiv = styled.div`
     width: 100%;
     height: 10px;
     margin-bottom: 20px;
+`;
+
+const Loading = styled.span`
+    display: block;
+    width: 200px;
+    margin: 0 auto;
+    font-family: var(--font-eng);
+    font-size: var(--fsize-s);
+    font-style: italic;
+    text-align: center;
+    color: var(--color-black);
 `;
