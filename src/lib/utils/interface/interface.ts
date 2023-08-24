@@ -1,19 +1,22 @@
-interface authorProps9 {
-    _id: string;
-    username: string;
-    accountname: string;
-    intro: string;
+export interface SignPropsBase {
+    user: {
+        username: string;
+        email: string;
+        password?: string;
+        accountname?: string;
+        intro?: string;
+        image?: string;
+    };
     image: string;
-    following: string[];
-    follower: string[];
-    followerCount: number;
-    followingCount: number;
+    id: string;
+    name: string;
+    intro: string;
 }
 
-interface authorProps10 {
+export interface UserInfoPropsBase {
     _id: string;
     username: string;
-    isfollow: boolean;
+    isfollow?: boolean;
     intro: string;
     image: string;
     followingCount: number;
@@ -25,8 +28,8 @@ interface authorProps10 {
 
 export interface UserInfoProps {
     user: {
-        myInfo: authorProps10;
-        userInfo: authorProps10;
+        myInfo: UserInfoPropsBase;
+        userInfo: UserInfoPropsBase;
     };
 }
 
@@ -47,6 +50,12 @@ export interface ModalPropsBase {
     };
 }
 
+export interface ModalFunctionProps {
+    setModalContent: Function;
+    setModalVisible: Function;
+    setModalUrl: Function;
+}
+
 export interface TogetherPropsBase {
     together: {
         together: {
@@ -55,7 +64,7 @@ export interface TogetherPropsBase {
             price: number;
             link: string;
             itemImage: string;
-            author: authorProps9;
+            author: UserInfoPropsBase;
         };
         req: {
             itemName: string;
@@ -82,7 +91,15 @@ export interface DataProps {
 }
 
 export interface FollowerProps {
-    follower: authorProps10;
+    follower: UserInfoPropsBase;
+}
+
+export interface PostProps {
+    category: string;
+    accountname: string;
+    skip: number;
+    isMyPost: boolean;
+    item?: PostItemProps['item'];
 }
 
 export interface PostItemProps {
@@ -97,23 +114,21 @@ export interface PostItemProps {
         heartCount: number;
         comments?: string;
         commentCount: number;
-        author: authorProps10;
+        author: UserInfoPropsBase;
     };
-}
 
-export interface PostProps {
-    category: string;
-    accountname: string;
-    skip: number;
-    isMyPost: boolean;
-    item?: PostItemProps['item'];
+    updateItem: {
+        id: string;
+        content: string;
+        image: string;
+    };
 }
 
 export interface CommentPropsBase {
     id: string;
     content: string;
     createdAt: Date;
-    author: authorProps10;
+    author: UserInfoPropsBase;
 }
 
 export interface CommentProps {
